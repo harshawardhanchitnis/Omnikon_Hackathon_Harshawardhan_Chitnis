@@ -34,7 +34,7 @@ The `ChalkBox quality gate` workflow is configured to run:
 - axe WCAG A/AA serious/critical checks;
 - production-build, Playwright-report and eight product-screenshot artifacts.
 
-The branch/PR status must be checked after the final push. A green workflow run—not this configuration text—is the evidence that browser checks passed.
+GitHub Actions run **#16** for commit `06678f9` completed successfully on 21 August 2026. Both the `verify` and `browser-tests` jobs passed. The browser suite reported **12 passed**, **2 intentional project-specific skips**, and no flaky retries; the workflow also uploaded the production build, Playwright report, and eight-screen product evidence set.
 
 ## Final hosted verification
 

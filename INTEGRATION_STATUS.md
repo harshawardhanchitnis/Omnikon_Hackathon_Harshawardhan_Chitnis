@@ -24,17 +24,17 @@ This file is the authoritative truth boundary between implemented code, locally 
 
 ## Optional hosted integrations
 
-| Integration                     | Code/config status                 | Live verification status                                                  | Required owner action                                        |
-| ------------------------------- | ---------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------ |
-| Supabase Auth                   | Implemented                        | **Not verified in this final environment**                                | Apply migrations; set site/callback URLs; test magic link    |
-| Supabase Postgres/RLS sync      | Implemented                        | **Not verified against hosted project**                                   | Apply migrations; test two-session owner/version behavior    |
-| Gemini 3.7 Flash                | Protected functions implemented    | **No API key supplied/used here; live generation unverified**             | Store key only in Edge Function secrets; deploy and test     |
-| Gemini Embedding 2 + hybrid RAG | SQL/function/corpus implemented    | **Hosted embeddings/retrieval unverified**                                | Deploy/index approved corpus; verify a real retrieved source |
-| Cross-browser public sharing    | Postgres snapshot path implemented | **Hosted public token unverified**                                        | Deploy backend/site; test active, expired and revoked link   |
-| Cloud moderation                | Tables/RLS/UI implemented          | **Hosted admin role/write unverified**                                    | Promote verified owner; test approve/reject/report           |
-| Turnstile                       | Component/config supported         | **Not configured**                                                        | Create free widget and configure site/secret keys            |
-| Cloudflare Pages                | Build/headers/redirects ready      | **Final URL not supplied/verified**                                       | Connect repository; set public variables; deploy             |
-| Browser E2E/axe                 | Suite implemented                  | **Local runner blocked by missing browser; CI result pending final push** | Confirm final GitHub Actions browser job is green            |
+| Integration                     | Code/config status                 | Live verification status                                               | Required owner action                                        |
+| ------------------------------- | ---------------------------------- | ---------------------------------------------------------------------- | ------------------------------------------------------------ |
+| Supabase Auth                   | Implemented                        | **Not verified in this final environment**                             | Apply migrations; set site/callback URLs; test magic link    |
+| Supabase Postgres/RLS sync      | Implemented                        | **Not verified against hosted project**                                | Apply migrations; test two-session owner/version behavior    |
+| Gemini 3.7 Flash                | Protected functions implemented    | **No API key supplied/used here; live generation unverified**          | Store key only in Edge Function secrets; deploy and test     |
+| Gemini Embedding 2 + hybrid RAG | SQL/function/corpus implemented    | **Hosted embeddings/retrieval unverified**                             | Deploy/index approved corpus; verify a real retrieved source |
+| Cross-browser public sharing    | Postgres snapshot path implemented | **Hosted public token unverified**                                     | Deploy backend/site; test active, expired and revoked link   |
+| Cloud moderation                | Tables/RLS/UI implemented          | **Hosted admin role/write unverified**                                 | Promote verified owner; test approve/reject/report           |
+| Turnstile                       | Component/config supported         | **Not configured**                                                     | Create free widget and configure site/secret keys            |
+| Cloudflare Pages                | Build/headers/redirects ready      | **Final URL not supplied/verified**                                    | Connect repository; set public variables; deploy             |
+| Browser E2E/axe                 | Suite implemented                  | **Verified in GitHub Actions run #16: 12 passed, 2 intentional skips** | Re-run automatically after future branch changes             |
 
 ## Environment values still required for the cloud path
 

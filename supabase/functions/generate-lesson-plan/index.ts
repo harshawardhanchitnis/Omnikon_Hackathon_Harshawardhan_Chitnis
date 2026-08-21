@@ -46,6 +46,8 @@ Deno.serve(async (request) => {
         "OWNER_MISMATCH"
       );
     const input = parsed.data.input;
+    const subjectLabel = input.subject === "Custom" ? input.customSubject : input.subject;
+    const boardLabel = input.board === "Custom" ? input.customBoard : input.board;
     const isAnonymous = Boolean(user.is_anonymous);
     const primaryQuotaKey = isAnonymous ? "AI_DAILY_LIMIT_DEMO" : "AI_DAILY_LIMIT_TEACHER";
     const legacyQuotaKey = isAnonymous
@@ -88,17 +90,32 @@ Deno.serve(async (request) => {
     const warnings: string[] = [];
     try {
       const embedding = await embedText(
-        `${input.board} Grade ${input.grade} ${input.subject}: ${input.topic}`
+        `${boardLabel} Grade ${input.grade}${input.additionalGrade ? ` and ${input.additionalGrade}` : ""} ${subjectLabel}: ${input.topic}`
       );
-      const { data, error } = await service.rpc("match_curriculum_chunks", {
+      const hybrid = await service.rpc("match_curriculum_chunks_hybrid", {
         query_embedding: embedding,
+        query_text: input.topic,
         match_count: 6,
         filter_grade: input.grade,
         filter_subject: input.subject,
         filter_board: input.board
       });
-      if (error) throw error;
-      retrieval = (data ?? []) as RetrievalRow[];
+      if (!hybrid.error) {
+        retrieval = (hybrid.data ?? []) as RetrievalRow[];
+      } else {
+        const vector = await service.rpc("match_curriculum_chunks", {
+          query_embedding: embedding,
+          match_count: 6,
+          filter_grade: input.grade,
+          filter_subject: input.subject,
+          filter_board: input.board
+        });
+        if (vector.error) throw vector.error;
+        retrieval = (vector.data ?? []) as RetrievalRow[];
+        warnings.push(
+          "Hybrid retrieval is awaiting the latest database migration; vector retrieval was used."
+        );
+      }
     } catch (error) {
       console.warn("Retrieval unavailable", error);
       warnings.push(
@@ -171,7 +188,10 @@ Deno.serve(async (request) => {
       title: generated.title,
       subject: input.subject,
       grade: input.grade,
+      ...(input.additionalGrade ? { additionalGrade: input.additionalGrade } : {}),
+      ...(input.customSubject ? { customSubject: input.customSubject } : {}),
       board: input.board,
+      ...(input.customBoard ? { customBoard: input.customBoard } : {}),
       language: input.language,
       topic: input.topic,
       durationMinutes: input.durationMinutes,
@@ -198,7 +218,8 @@ Deno.serve(async (request) => {
       aiDisclosure: `Generated with ${first.model} using ${retrieval.length} approved retrieval excerpts. Teacher review and current-syllabus verification are required.`,
       createdAt: now,
       updatedAt: now,
-      isPublic: false
+      isPublic: false,
+      version: 1
     };
     const latencyMs = Date.now() - startedAt;
     await service

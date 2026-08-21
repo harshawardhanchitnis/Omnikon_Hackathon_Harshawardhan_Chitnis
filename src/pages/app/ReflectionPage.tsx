@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { Textarea } from "@/components/ui/Field";
 import { uid } from "@/lib/utils";
+import { useDomain } from "@/state/domain-context";
 import { useAppStore } from "@/store/app-store";
 
 const formSchema = reflectionSchema.extend({
@@ -24,10 +25,9 @@ export function ReflectionPage() {
   const { planId } = useParams();
   const [params] = useSearchParams();
   const navigate = useNavigate();
-  const plan = useAppStore((state) => state.plans.find((item) => item.id === planId));
+  const { plans, addReflection, addCheckIn } = useDomain();
+  const plan = plans.find((item) => item.id === planId);
   const profile = useAppStore((state) => state.profile);
-  const addReflection = useAppStore((state) => state.addReflection);
-  const addCheckIn = useAppStore((state) => state.addCheckIn);
   const {
     register,
     control,
@@ -79,7 +79,9 @@ export function ReflectionPage() {
       studentOutcome: values.studentOutcome,
       rating: values.rating as 1 | 2 | 3 | 4 | 5,
       nextStep: values.nextStep,
-      createdAt: now
+      createdAt: now,
+      version: 1,
+      updatedAt: now
     };
     await addReflection(reflection);
     toast.success("Reflection saved", {

@@ -25,6 +25,9 @@ enable_anonymous_sign_ins = true
 [functions.generate-lesson-plan]
 verify_jwt = true
 
+[functions.ai-action]
+verify_jwt = true
+
 [functions.index-curriculum]
 verify_jwt = true
 

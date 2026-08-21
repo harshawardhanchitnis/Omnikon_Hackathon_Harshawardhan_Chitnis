@@ -22,13 +22,13 @@ import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { calculateAnalytics } from "@/lib/analytics";
 import { downloadJson } from "@/lib/utils";
+import { useDomain } from "@/state/domain-context";
 import { useAppStore } from "@/store/app-store";
 
 export function AnalyticsPage() {
   const profile = useAppStore((state) => state.profile);
-  const plans = useAppStore((state) => state.plans);
-  const reflections = useAppStore((state) => state.reflections);
-  const checkIns = useAppStore((state) => state.checkIns);
+  const { plans, reflections, checkIns, quickChecks, worksheets, assessmentQuestions } =
+    useDomain();
   const analytics = calculateAnalytics(profile?.id ?? "", plans, reflections);
   const stats = [
     {
@@ -76,7 +76,9 @@ export function AnalyticsPage() {
                 generatedAt: new Date().toISOString(),
                 analytics,
                 checkIns,
-                reflections
+                reflections,
+                quickChecks,
+                worksheets
               })
             }
           >
@@ -154,7 +156,7 @@ export function AnalyticsPage() {
           </div>
         </Card>
       </section>
-      <section className="mt-5 grid gap-5 lg:grid-cols-2">
+      <section className="mt-5 grid gap-5 lg:grid-cols-3">
         <Card className="p-5 sm:p-6">
           <div className="flex items-center gap-3">
             <span className="bg-moss-100 text-moss-700 grid size-10 place-items-center rounded-xl">
@@ -185,7 +187,61 @@ export function AnalyticsPage() {
           )}
         </Card>
         <Card className="p-5 sm:p-6">
-          <h2 className="font-black">How these numbers are calculated</h2>
+          <div className="flex items-center justify-between">
+            <div>
+              <h2 className="font-black">Latest class pulse</h2>
+              <p className="text-muted text-xs">Anonymous aggregate only</p>
+            </div>
+            <Target className="text-moss-700 size-5" />
+          </div>
+          {quickChecks[0] ? (
+            <div className="mt-5">
+              <p className="line-clamp-2 text-sm leading-6 font-bold">{quickChecks[0].prompt}</p>
+              <div className="mt-4 space-y-3">
+                {Object.entries(quickChecks[0].counts).map(([label, count]) => {
+                  const total = Math.max(
+                    1,
+                    Object.values(quickChecks[0]!.counts).reduce((sum, value) => sum + value, 0)
+                  );
+                  return (
+                    <div key={label}>
+                      <div className="flex justify-between text-xs font-bold">
+                        <span>{label}</span>
+                        <span>{count}</span>
+                      </div>
+                      <div className="mt-1 h-2 rounded-full bg-slate-100">
+                        <div
+                          className="bg-moss-500 h-full rounded-full"
+                          style={{ width: `${(count / total) * 100}%` }}
+                        />
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+              <p className="text-muted mt-4 text-[11px] leading-5">
+                No names or individual response histories are stored.
+              </p>
+            </div>
+          ) : (
+            <p className="text-muted mt-5 text-sm">
+              Capture a Quick Check in Teach Mode to see aggregate evidence.
+            </p>
+          )}
+        </Card>
+        <Card className="p-5 sm:p-6">
+          <h2 className="font-black">Assessment workflow</h2>
+          <div className="mt-4 grid grid-cols-2 gap-3">
+            <div className="surface-subtle rounded-xl p-3">
+              <p className="text-moss-700 text-2xl font-black">{assessmentQuestions.length}</p>
+              <p className="text-muted text-[10px] font-black uppercase">bank items</p>
+            </div>
+            <div className="surface-subtle rounded-xl p-3">
+              <p className="text-moss-700 text-2xl font-black">{worksheets.length}</p>
+              <p className="text-muted text-[10px] font-black uppercase">worksheets</p>
+            </div>
+          </div>
+          <h3 className="mt-5 text-sm font-black">How insights are calculated</h3>
           <ul className="text-muted mt-4 space-y-3 text-xs leading-5">
             <li>
               <strong className="text-ink-700">Time saved:</strong> a transparent estimate against a

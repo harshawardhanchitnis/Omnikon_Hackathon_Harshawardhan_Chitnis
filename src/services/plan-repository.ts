@@ -1,5 +1,4 @@
 import type { LessonPlan } from "@chalkbox/contracts";
-import { offlineDb } from "@/lib/offline-db";
 import { supabase } from "@/lib/supabase";
 
 function toDatabaseRow(plan: LessonPlan) {
@@ -15,6 +14,7 @@ function toDatabaseRow(plan: LessonPlan) {
     is_public: plan.isPublic,
     public_slug: plan.publicSlug ?? null,
     generation_mode: plan.generationMode,
+    record_version: plan.version,
     plan_data: plan,
     created_at: plan.createdAt,
     updated_at: plan.updatedAt,
@@ -22,8 +22,19 @@ function toDatabaseRow(plan: LessonPlan) {
   };
 }
 
-export async function savePlanRemote(plan: LessonPlan) {
+export async function savePlanRemote(plan: LessonPlan, expectedVersion?: number) {
   if (!supabase) return;
+  if (expectedVersion !== undefined && expectedVersion > 0) {
+    const { data, error } = await supabase
+      .from("lesson_plans")
+      .update(toDatabaseRow(plan))
+      .eq("id", plan.id)
+      .eq("record_version", expectedVersion)
+      .select("id");
+    if (error) throw new Error(error.message);
+    if (!data?.length) throw new Error("SYNC_VERSION_CONFLICT");
+    return;
+  }
   const { error } = await supabase.from("lesson_plans").upsert(toDatabaseRow(plan));
   if (error) throw new Error(error.message);
 }
@@ -44,10 +55,13 @@ export async function loadPlansRemote(): Promise<LessonPlan[]> {
   return (data ?? []).map((row) => row.plan_data as LessonPlan);
 }
 
-export async function queuePlanSync(planId: string, operation: "upsert" | "delete") {
-  await offlineDb.meta.put({
-    key: `sync:plan:${planId}`,
-    value: operation,
-    updatedAt: new Date().toISOString()
-  });
+export async function loadPlanRemoteById(id: string): Promise<LessonPlan | null> {
+  if (!supabase) return null;
+  const { data, error } = await supabase
+    .from("lesson_plans")
+    .select("plan_data")
+    .eq("id", id)
+    .maybeSingle();
+  if (error) throw new Error(error.message);
+  return data?.plan_data ? (data.plan_data as LessonPlan) : null;
 }

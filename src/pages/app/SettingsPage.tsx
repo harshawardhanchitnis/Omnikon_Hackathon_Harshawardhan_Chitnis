@@ -1,4 +1,16 @@
-import { Download, Moon, RotateCcw, Save, ShieldCheck, Sun, WifiOff } from "lucide-react";
+import { gradeLevels, subjects } from "@chalkbox/contracts";
+import {
+  AlertTriangle,
+  Cloud,
+  Copy,
+  Download,
+  Moon,
+  RotateCcw,
+  Save,
+  ShieldCheck,
+  Sun,
+  WifiOff
+} from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { PageHeader } from "@/components/layout/PageHeader";
@@ -6,17 +18,24 @@ import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { Input, Select } from "@/components/ui/Field";
 import { downloadJson } from "@/lib/utils";
+import { useDomain } from "@/state/domain-context";
 import { useAppStore } from "@/store/app-store";
 
 export function SettingsPage() {
   const profile = useAppStore((state) => state.profile);
   const settings = useAppStore((state) => state.settings);
   const setSettings = useAppStore((state) => state.setSettings);
-  const resetDemo = useAppStore((state) => state.resetDemo);
-  const plans = useAppStore((state) => state.plans);
-  const sessions = useAppStore((state) => state.sessions);
-  const checkIns = useAppStore((state) => state.checkIns);
-  const reflections = useAppStore((state) => state.reflections);
+  const {
+    plans,
+    sessions,
+    checkIns,
+    reflections,
+    classroomProfiles,
+    conflicts,
+    pendingMutationCount,
+    resolveConflict,
+    resetDemo
+  } = useDomain();
   const mode = useAppStore((state) => state.mode);
   const [resetOpen, setResetOpen] = useState(false);
   useEffect(() => {
@@ -66,7 +85,7 @@ export function SettingsPage() {
           </Card>
           <Card className="p-5 sm:p-6">
             <h2 className="text-lg font-black">Planning defaults</h2>
-            <div className="mt-5 grid gap-4 sm:grid-cols-3">
+            <div className="mt-5 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
               <Select
                 label="Default grade"
                 value={settings.defaultGrade}
@@ -74,9 +93,9 @@ export function SettingsPage() {
                   setSettings({ defaultGrade: event.target.value as typeof settings.defaultGrade })
                 }
               >
-                {Array.from({ length: 12 }, (_, index) => (
-                  <option key={index + 1} value={String(index + 1)}>
-                    Grade {index + 1}
+                {gradeLevels.map((grade) => (
+                  <option key={grade} value={grade}>
+                    Grade {grade}
                   </option>
                 ))}
               </Select>
@@ -89,24 +108,36 @@ export function SettingsPage() {
                   })
                 }
               >
-                <option>Science</option>
-                <option>Mathematics</option>
-                <option>English</option>
-                <option>Hindi</option>
-                <option>Social Science</option>
-                <option>Environmental Studies</option>
-                <option>Computer Science</option>
+                {subjects.map((subject) => (
+                  <option key={subject}>{subject}</option>
+                ))}
               </Select>
               <Input
                 label="Default duration"
                 type="number"
                 min={20}
-                max={120}
+                max={90}
                 value={settings.defaultDurationMinutes}
                 onChange={(event) =>
                   setSettings({ defaultDurationMinutes: Number(event.target.value) })
                 }
               />
+              <Select
+                label="Default classroom"
+                value={settings.defaultClassroomProfileId ?? ""}
+                onChange={(event) =>
+                  setSettings({ defaultClassroomProfileId: event.target.value || undefined })
+                }
+              >
+                <option value="">No profile</option>
+                {classroomProfiles
+                  .filter((item) => !item.archived)
+                  .map((item) => (
+                    <option key={item.id} value={item.id}>
+                      {item.name}
+                    </option>
+                  ))}
+              </Select>
             </div>
           </Card>
           <Card className="p-5 sm:p-6">
@@ -148,6 +179,84 @@ export function SettingsPage() {
                 onChange={(value) => setSettings({ highContrast: value })}
               />
             </div>
+          </Card>
+          <Card className="p-5 sm:p-6">
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <h2 className="text-lg font-black">Offline sync safety</h2>
+                <p className="text-muted mt-1 text-xs leading-5">
+                  Changes replay in order after reconnecting. A version mismatch pauses instead of
+                  silently overwriting either copy.
+                </p>
+              </div>
+              <span className="bg-moss-100 text-moss-800 rounded-full px-3 py-1 text-xs font-black">
+                {pendingMutationCount} queued
+              </span>
+            </div>
+            {conflicts.length ? (
+              <div className="mt-5 space-y-3">
+                {conflicts.map((conflict) => (
+                  <div
+                    key={conflict.id}
+                    className="rounded-2xl border border-amber-200 bg-amber-50 p-4"
+                  >
+                    <div className="flex gap-3">
+                      <AlertTriangle className="mt-0.5 size-5 shrink-0 text-amber-700" />
+                      <div>
+                        <p className="text-sm font-black text-amber-950">
+                          Choose which {conflict.entityType.replaceAll("-", " ")} to keep
+                        </p>
+                        <p className="mt-1 text-xs leading-5 text-amber-900">
+                          Local v{conflict.localVersion} and cloud v{conflict.cloudVersion} changed
+                          independently. Detected{" "}
+                          {new Date(conflict.detectedAt).toLocaleString("en-IN", {
+                            dateStyle: "medium",
+                            timeStyle: "short"
+                          })}
+                          .
+                        </p>
+                      </div>
+                    </div>
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      <Button
+                        size="sm"
+                        variant="secondary"
+                        onClick={async () => {
+                          await resolveConflict(conflict.id, "keep-local");
+                          toast.success("Local copy queued for sync");
+                        }}
+                      >
+                        <WifiOff className="size-3.5" /> Keep local
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="secondary"
+                        onClick={async () => {
+                          await resolveConflict(conflict.id, "keep-cloud");
+                          toast.success("Cloud copy restored locally");
+                        }}
+                      >
+                        <Cloud className="size-3.5" /> Keep cloud
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="secondary"
+                        onClick={async () => {
+                          await resolveConflict(conflict.id, "duplicate-both");
+                          toast.success("Both copies preserved");
+                        }}
+                      >
+                        <Copy className="size-3.5" /> Duplicate both
+                      </Button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="bg-moss-50 text-moss-800 mt-5 flex items-center gap-3 rounded-xl p-4 text-sm font-bold">
+                <ShieldCheck className="size-5" /> No unresolved sync conflicts.
+              </div>
+            )}
           </Card>
           <Card className="p-5 sm:p-6">
             <h2 className="text-lg font-black">Privacy & notifications</h2>

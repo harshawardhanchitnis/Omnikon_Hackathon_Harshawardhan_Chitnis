@@ -1,16 +1,24 @@
 import type {
   AppSettings,
+  AssessmentQuestion,
   Appointment,
   CheckIn,
+  ClassroomProfile,
+  CommunityPublication,
   CommunityPlanSummary,
   Expert,
   GuidancePlan,
   Invitation,
   LessonPlan,
   Notification,
+  PlanVersion,
+  QuickCheckResult,
   Reflection,
+  ShareSnapshot,
+  SyncConflict,
   TeachingSession,
-  UserProfile
+  UserProfile,
+  Worksheet
 } from "@chalkbox/contracts";
 
 export const DEMO_TEACHER_ID = "teacher_meera_demo";
@@ -38,8 +46,8 @@ export const demoPlans: LessonPlan[] = [
     title: "The Water Cycle Around Us",
     subject: "Science",
     grade: "6",
-    board: "CBSE",
-    language: "Bilingual",
+    board: "CBSE/NCERT",
+    language: "Bilingual English–Hindi",
     topic: "Water cycle and changes of state",
     durationMinutes: 45,
     classSize: 38,
@@ -188,7 +196,8 @@ export const demoPlans: LessonPlan[] = [
       "Prepared demonstration plan using the same validated structure as AI-generated plans. Verify against your current syllabus before teaching.",
     createdAt: "2026-08-20T07:30:00.000Z",
     updatedAt: "2026-08-21T05:40:00.000Z",
-    isPublic: false
+    isPublic: false,
+    version: 3
   },
   {
     id: "plan_fractions_market",
@@ -196,7 +205,7 @@ export const demoPlans: LessonPlan[] = [
     title: "Fractions in the Local Market",
     subject: "Mathematics",
     grade: "5",
-    board: "CBSE",
+    board: "CBSE/NCERT",
     language: "English",
     topic: "Comparing like and unlike fractions",
     durationMinutes: 40,
@@ -297,7 +306,8 @@ export const demoPlans: LessonPlan[] = [
     updatedAt: "2026-08-18T10:10:00.000Z",
     taughtAt: "2026-08-18T06:30:00.000Z",
     isPublic: true,
-    publicSlug: "fractions-local-market-demo"
+    publicSlug: "fractions-local-market-demo",
+    version: 4
   },
   {
     id: "plan_story_perspective",
@@ -305,7 +315,7 @@ export const demoPlans: LessonPlan[] = [
     title: "A Story from Another View",
     subject: "English",
     grade: "7",
-    board: "CBSE",
+    board: "CBSE/NCERT",
     language: "English",
     topic: "Point of view in narrative writing",
     durationMinutes: 45,
@@ -407,7 +417,8 @@ export const demoPlans: LessonPlan[] = [
     aiDisclosure: "Teacher-authored draft with ChalkBox structure support.",
     createdAt: "2026-08-21T03:30:00.000Z",
     updatedAt: "2026-08-21T03:45:00.000Z",
-    isPublic: false
+    isPublic: false,
+    version: 1
   }
 ];
 
@@ -422,7 +433,9 @@ export const demoSessions: TeachingSession[] = [
     elapsedSeconds: 2520,
     paused: false,
     attendanceCount: 34,
-    quickNotes: ["Bottle-cap model worked well", "Revisit unlike denominators with six learners"]
+    quickNotes: ["Bottle-cap model worked well", "Revisit unlike denominators with six learners"],
+    version: 3,
+    updatedAt: "2026-08-18T07:12:00.000Z"
   }
 ];
 
@@ -451,9 +464,347 @@ export const demoReflections: Reflection[] = [
     studentOutcome: "mostly",
     rating: 4,
     nextStep: "Start tomorrow with two unlike-fraction comparisons using the same caps.",
-    createdAt: "2026-08-18T07:20:00.000Z"
+    createdAt: "2026-08-18T07:20:00.000Z",
+    version: 1,
+    updatedAt: "2026-08-18T07:20:00.000Z"
   }
 ];
+
+export const demoClassroomProfiles: ClassroomProfile[] = [
+  {
+    id: "classroom_6a",
+    ownerId: DEMO_TEACHER_ID,
+    name: "Class 6A",
+    grade: "6",
+    learnerCount: 38,
+    board: "CBSE/NCERT",
+    language: "Bilingual English–Hindi",
+    internetAvailability: "intermittent",
+    projectorAvailable: false,
+    chalkboardAvailable: true,
+    commonMaterials: ["Blackboard", "Chalk", "Scrap paper", "Local objects"],
+    mixedAbility: true,
+    readingSupportNeeds: ["Word bank", "Peer reading"],
+    accessibilityConsiderations: ["Large board text", "Spoken and visual directions"],
+    typicalDurationMinutes: 45,
+    archived: false,
+    createdAt: "2026-08-01T08:00:00.000Z",
+    updatedAt: "2026-08-20T08:00:00.000Z"
+  },
+  {
+    id: "classroom_6_7_combined",
+    ownerId: DEMO_TEACHER_ID,
+    name: "Classes 6 + 7 Combined",
+    grade: "6",
+    additionalGrade: "7",
+    learnerCount: 44,
+    board: "State Board",
+    language: "Bilingual English–Hindi",
+    internetAvailability: "none",
+    projectorAvailable: false,
+    chalkboardAvailable: true,
+    commonMaterials: ["Blackboard", "Chalk", "Notebooks", "Bottle caps"],
+    mixedAbility: true,
+    readingSupportNeeds: ["Two reading levels", "Pair explanation"],
+    accessibilityConsiderations: ["Front-row seating", "Movement breaks"],
+    typicalDurationMinutes: 50,
+    archived: false,
+    createdAt: "2026-08-03T08:00:00.000Z",
+    updatedAt: "2026-08-19T08:00:00.000Z"
+  }
+];
+
+const questionSource = demoPlans[0]!.sources[0]!;
+
+export const demoAssessmentQuestions: AssessmentQuestion[] = [
+  {
+    id: "question_water_condensation",
+    board: "CBSE/NCERT",
+    grade: "6",
+    subject: "Science",
+    bookOrUnit: "Matter and weather",
+    chapter: "Water",
+    topic: "Condensation",
+    prompt: "Why do water droplets form on the outside of a cold steel cup?",
+    type: "short-answer",
+    purpose: "formative",
+    difficulty: "core",
+    language: "English",
+    marks: 2,
+    answer: "Water vapour in the surrounding air cools and condenses on the cup.",
+    explanation: "The water does not leak through the cup; it comes from vapour in the air.",
+    misconceptionTarget: "Droplets leaked through the cup",
+    provenance: "chalkbox-authored",
+    reviewState: "curator-approved",
+    source: questionSource,
+    attribution: "Original ChalkBox item aligned to the cited curriculum taxonomy.",
+    createdAt: "2026-08-12T08:00:00.000Z",
+    updatedAt: "2026-08-20T08:00:00.000Z"
+  },
+  {
+    id: "question_water_sequence",
+    board: "CBSE/NCERT",
+    grade: "6",
+    subject: "Science",
+    bookOrUnit: "Matter and weather",
+    chapter: "Water",
+    topic: "Water cycle",
+    prompt: "Which sequence correctly shows water moving from a lake to rain?",
+    type: "mcq",
+    purpose: "exit-ticket",
+    difficulty: "foundation",
+    language: "English",
+    marks: 1,
+    options: [
+      "Evaporation → condensation → precipitation",
+      "Condensation → precipitation → evaporation",
+      "Precipitation → collection → condensation",
+      "Collection → precipitation → evaporation"
+    ],
+    answer: "Evaporation → condensation → precipitation",
+    explanation: "Sunlight drives evaporation; cooling vapour condenses before precipitation.",
+    provenance: "chalkbox-authored",
+    reviewState: "curator-approved",
+    source: questionSource,
+    attribution: "Original ChalkBox item aligned to the cited curriculum taxonomy.",
+    createdAt: "2026-08-12T08:05:00.000Z",
+    updatedAt: "2026-08-20T08:05:00.000Z"
+  },
+  {
+    id: "question_water_application",
+    board: "CBSE/NCERT",
+    grade: "6",
+    subject: "Science",
+    bookOrUnit: "Matter and weather",
+    chapter: "Water",
+    topic: "Water conservation",
+    prompt:
+      "A village receives heavy monsoon rain but has water shortages in May. Suggest two actions using your understanding of the water cycle.",
+    type: "long-answer",
+    purpose: "application",
+    difficulty: "challenge",
+    language: "Bilingual English–Hindi",
+    marks: 4,
+    answer:
+      "Answers may include rainwater harvesting, covered storage, groundwater recharge, and reducing avoidable loss, each linked to collection or evaporation.",
+    provenance: "teacher-authored",
+    reviewState: "teacher-reviewed",
+    source: questionSource,
+    attribution: "Teacher-authored demonstration item; curriculum source used only for alignment.",
+    createdAt: "2026-08-18T07:30:00.000Z",
+    updatedAt: "2026-08-18T07:30:00.000Z"
+  },
+  {
+    id: "question_fraction_compare",
+    board: "CBSE/NCERT",
+    grade: "5",
+    subject: "Mathematics",
+    bookOrUnit: "Numbers",
+    chapter: "Fractions",
+    topic: "Comparing fractions",
+    prompt: "Which is greater: 3/4 or 2/3? Show one model or calculation.",
+    type: "short-answer",
+    purpose: "formative",
+    difficulty: "core",
+    language: "English",
+    marks: 2,
+    answer: "3/4 is greater; 3/4 = 9/12 and 2/3 = 8/12.",
+    provenance: "teacher-authored",
+    reviewState: "teacher-reviewed",
+    source: demoPlans[1]!.sources[0]!,
+    attribution: "Teacher-authored item aligned to public grade taxonomy.",
+    createdAt: "2026-08-17T08:00:00.000Z",
+    updatedAt: "2026-08-18T08:00:00.000Z"
+  },
+  {
+    id: "question_pov_clue",
+    board: "CBSE/NCERT",
+    grade: "7",
+    subject: "English",
+    bookOrUnit: "Narrative writing",
+    chapter: "Point of view",
+    topic: "Narrator clues",
+    prompt:
+      "True or false: the pronoun ‘I’ always signals a first-person narrator. Explain your choice.",
+    type: "true-false",
+    purpose: "diagnostic",
+    difficulty: "core",
+    language: "English",
+    marks: 2,
+    answer:
+      "True when ‘I’ is used by the narrator to tell their own experience; a quoted speaker does not by itself set the narration viewpoint.",
+    provenance: "chalkbox-authored",
+    reviewState: "curator-approved",
+    source: demoPlans[2]!.sources[0]!,
+    attribution: "Original ChalkBox item aligned to public language outcomes.",
+    createdAt: "2026-08-20T08:00:00.000Z",
+    updatedAt: "2026-08-20T08:00:00.000Z"
+  }
+];
+
+export const demoWorksheets: Worksheet[] = [
+  {
+    id: "worksheet_water_cycle",
+    ownerId: DEMO_TEACHER_ID,
+    title: "Water Cycle — 10 Minute Check",
+    instructions: "Answer every question. Use arrows and labels where a diagram helps.",
+    grade: "6",
+    subject: "Science",
+    chapter: "Water",
+    language: "Bilingual English–Hindi",
+    includeAnswers: false,
+    items: demoAssessmentQuestions.slice(0, 3).map((question, index) => ({
+      id: `worksheet_item_${index + 1}`,
+      questionId: question.id,
+      questionSnapshot: structuredClone(question),
+      order: index,
+      marks: question.marks
+    })),
+    status: "ready",
+    createdAt: "2026-08-20T09:00:00.000Z",
+    updatedAt: "2026-08-20T09:15:00.000Z"
+  }
+];
+
+export const demoPlanVersions: PlanVersion[] = demoPlans.map((plan) => ({
+  id: `version_${plan.id}_${plan.version}`,
+  planId: plan.id,
+  ownerId: plan.ownerId,
+  versionNumber: plan.version,
+  reason: plan.generationMode === "manual" ? "manual-checkpoint" : "generated",
+  label: plan.generationMode === "manual" ? "Working draft" : "Classroom-ready baseline",
+  snapshot: structuredClone(plan),
+  createdAt: plan.updatedAt
+}));
+
+export const demoShares: ShareSnapshot[] = [
+  {
+    id: "share_fractions_demo",
+    token: "fractions-local-market-demo",
+    planId: "plan_fractions_market",
+    planVersionId: "version_plan_fractions_market_4",
+    ownerId: DEMO_TEACHER_ID,
+    snapshot: structuredClone(demoPlans[1]!),
+    createdAt: "2026-08-18T10:11:00.000Z"
+  }
+];
+
+export const demoPublications: CommunityPublication[] = [
+  {
+    id: "publication_fractions",
+    ownerId: DEMO_TEACHER_ID,
+    planId: "plan_fractions_market",
+    planVersionId: "version_plan_fractions_market_4",
+    snapshot: structuredClone(demoPlans[1]!),
+    authorName: "Meera Patil",
+    authorSchool: "Zilla Parishad Primary School, Khed",
+    status: "approved",
+    submittedAt: "2026-08-18T10:12:00.000Z",
+    reviewedAt: "2026-08-19T08:30:00.000Z",
+    reviewedBy: "admin_demo",
+    saves: 28,
+    adaptations: 7,
+    reports: 0,
+    createdAt: "2026-08-18T10:12:00.000Z",
+    updatedAt: "2026-08-19T08:30:00.000Z"
+  },
+  {
+    id: "publication_water_lab",
+    ownerId: "teacher_ananya_demo",
+    planId: "community_plan_water_lab",
+    planVersionId: "community_version_water_lab_2",
+    snapshot: {
+      ...structuredClone(demoPlans[0]!),
+      id: "community_plan_water_lab",
+      ownerId: "teacher_ananya_demo",
+      title: "Monsoon Water Cycle Lab",
+      teacherNotes: "",
+      generationMode: "manual",
+      aiDisclosure: "Teacher-authored community lesson. Adapted copies retain attribution.",
+      isPublic: true,
+      version: 2
+    },
+    authorName: "Ananya Rao",
+    authorSchool: "Government High School, Mysuru",
+    status: "approved",
+    submittedAt: "2026-08-16T08:30:00.000Z",
+    reviewedAt: "2026-08-17T08:30:00.000Z",
+    reviewedBy: "admin_demo",
+    saves: 184,
+    adaptations: 41,
+    reports: 0,
+    createdAt: "2026-08-16T08:30:00.000Z",
+    updatedAt: "2026-08-17T08:30:00.000Z"
+  },
+  {
+    id: "publication_story_voice",
+    ownerId: "teacher_sana_demo",
+    planId: "community_plan_story_voice",
+    planVersionId: "community_version_story_voice_3",
+    snapshot: {
+      ...structuredClone(demoPlans[2]!),
+      id: "community_plan_story_voice",
+      ownerId: "teacher_sana_demo",
+      title: "Switch the Story Camera",
+      teacherNotes: "",
+      status: "ready",
+      qualityScore: 94,
+      generationMode: "manual",
+      aiDisclosure: "Teacher-authored community lesson. Adapted copies retain attribution.",
+      isPublic: true,
+      version: 3
+    },
+    authorName: "Sana Sheikh",
+    authorSchool: "Municipal School, Nagpur",
+    status: "approved",
+    submittedAt: "2026-08-14T10:00:00.000Z",
+    reviewedAt: "2026-08-15T09:00:00.000Z",
+    reviewedBy: "admin_demo",
+    saves: 97,
+    adaptations: 18,
+    reports: 0,
+    createdAt: "2026-08-14T10:00:00.000Z",
+    updatedAt: "2026-08-15T09:00:00.000Z"
+  },
+  {
+    id: "publication_story_pending",
+    ownerId: DEMO_TEACHER_ID,
+    planId: "plan_story_perspective",
+    planVersionId: "version_plan_story_perspective_1",
+    snapshot: {
+      ...structuredClone(demoPlans[2]!),
+      teacherNotes: "",
+      isPublic: true
+    },
+    authorName: "Meera Patil",
+    authorSchool: "Zilla Parishad Primary School, Khed",
+    status: "submitted",
+    submittedAt: "2026-08-21T06:10:00.000Z",
+    saves: 0,
+    adaptations: 0,
+    reports: 0,
+    createdAt: "2026-08-21T06:10:00.000Z",
+    updatedAt: "2026-08-21T06:10:00.000Z"
+  }
+];
+
+export const demoQuickChecks: QuickCheckResult[] = [
+  {
+    id: "quickcheck_fractions_1",
+    planId: "plan_fractions_market",
+    sessionId: "session_fractions_1",
+    ownerId: DEMO_TEACHER_ID,
+    activityId: "act_frac_4",
+    prompt: "Which is greater: 3/4 or 2/3?",
+    mode: "abcd",
+    counts: { A: 8, B: 20, C: 4, D: 2 },
+    correctKey: "B",
+    note: "Re-model unlike denominators with six learners.",
+    createdAt: "2026-08-18T07:08:00.000Z"
+  }
+];
+
+export const demoSyncConflicts: SyncConflict[] = [];
 
 export const communityPlans: CommunityPlanSummary[] = [
   {
@@ -625,5 +976,6 @@ export const defaultSettings: AppSettings = {
   defaultDurationMinutes: 45,
   saveOffline: true,
   emailNotifications: true,
-  analyticsConsent: false
+  analyticsConsent: false,
+  defaultClassroomProfileId: "classroom_6a"
 };

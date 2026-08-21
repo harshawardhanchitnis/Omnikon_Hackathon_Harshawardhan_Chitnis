@@ -9,6 +9,7 @@ import { LoadingState } from "@/components/ui/LoadingState";
 import { useAppStore } from "@/store/app-store";
 import { supabase } from "@/lib/supabase";
 import { loadProfileRemote } from "@/services/activity-repository";
+import { DomainProvider } from "@/state/domain-context";
 
 const LandingPage = lazy(() =>
   import("@/pages/public/LandingPage").then((m) => ({ default: m.LandingPage }))
@@ -55,6 +56,9 @@ const PlanPreviewPage = lazy(() =>
 const TeachModePage = lazy(() =>
   import("@/pages/app/TeachModePage").then((m) => ({ default: m.TeachModePage }))
 );
+const PresentModePage = lazy(() =>
+  import("@/pages/app/PresentModePage").then((m) => ({ default: m.PresentModePage }))
+);
 const ReflectionPage = lazy(() =>
   import("@/pages/app/ReflectionPage").then((m) => ({ default: m.ReflectionPage }))
 );
@@ -72,6 +76,18 @@ const AnalyticsPage = lazy(() =>
 );
 const SettingsPage = lazy(() =>
   import("@/pages/app/SettingsPage").then((m) => ({ default: m.SettingsPage }))
+);
+const AssessmentBankPage = lazy(() =>
+  import("@/pages/app/AssessmentBankPage").then((m) => ({ default: m.AssessmentBankPage }))
+);
+const WorksheetBuilderPage = lazy(() =>
+  import("@/pages/app/WorksheetBuilderPage").then((m) => ({ default: m.WorksheetBuilderPage }))
+);
+const ClassroomProfilesPage = lazy(() =>
+  import("@/pages/app/ClassroomProfilesPage").then((m) => ({ default: m.ClassroomProfilesPage }))
+);
+const CurriculumExplorerPage = lazy(() =>
+  import("@/pages/app/CurriculumExplorerPage").then((m) => ({ default: m.CurriculumExplorerPage }))
 );
 const AdminOverviewPage = lazy(() =>
   import("@/pages/admin/AdminOverviewPage").then((m) => ({ default: m.AdminOverviewPage }))
@@ -93,11 +109,7 @@ const queryClient = new QueryClient({
 function AppLifecycle() {
   const mode = useAppStore((state) => state.mode);
   const settings = useAppStore((state) => state.settings);
-  const hydrateOffline = useAppStore((state) => state.hydrateOffline);
   const setAuthenticatedProfile = useAppStore((state) => state.setAuthenticatedProfile);
-  useEffect(() => {
-    if (mode !== "guest") void hydrateOffline();
-  }, [hydrateOffline, mode]);
   useEffect(() => {
     const theme =
       settings.theme === "system"
@@ -132,45 +144,52 @@ export function App() {
   return (
     <ErrorBoundary>
       <QueryClientProvider client={queryClient}>
-        <AppLifecycle />
-        <BrowserRouter>
-          <Suspense fallback={<LoadingState />}>
-            <Routes>
-              <Route path="/" element={<LandingPage />} />
-              <Route path="/about" element={<AboutPage />} />
-              <Route path="/privacy" element={<PrivacyPage />} />
-              <Route path="/auth" element={<AuthPage />} />
-              <Route path="/auth/callback" element={<AuthCallbackPage />} />
-              <Route path="/demo" element={<DemoBootstrapPage />} />
-              <Route path="/share/:slug" element={<SharedPlanPage />} />
-              <Route path="/offline" element={<OfflinePage />} />
-              <Route element={<ProtectedRoute />}>
-                <Route path="/onboarding" element={<OnboardingPage />} />
-                <Route path="/plans/:planId/teach" element={<TeachModePage />} />
-                <Route path="/plans/:planId/reflect" element={<ReflectionPage />} />
-                <Route element={<AppShell />}>
-                  <Route path="/dashboard" element={<DashboardPage />} />
-                  <Route path="/plans/new" element={<NewPlanPage />} />
-                  <Route path="/plans/:planId/edit" element={<PlanEditorPage />} />
-                  <Route path="/plans/:planId/preview" element={<PlanPreviewPage />} />
-                  <Route path="/library" element={<LibraryPage />} />
-                  <Route path="/community" element={<CommunityPage />} />
-                  <Route path="/community/:communityId" element={<CommunityDetailPage />} />
-                  <Route path="/analytics" element={<AnalyticsPage />} />
-                  <Route path="/settings" element={<SettingsPage />} />
-                  <Route element={<AdminRoute />}>
-                    <Route path="/admin" element={<AdminOverviewPage />} />
-                    <Route path="/admin/users" element={<AdminUsersPage />} />
-                    <Route path="/admin/content" element={<AdminContentPage />} />
-                    <Route path="/admin/operations" element={<AdminOperationsPage />} />
+        <DomainProvider>
+          <AppLifecycle />
+          <BrowserRouter>
+            <Suspense fallback={<LoadingState />}>
+              <Routes>
+                <Route path="/" element={<LandingPage />} />
+                <Route path="/about" element={<AboutPage />} />
+                <Route path="/privacy" element={<PrivacyPage />} />
+                <Route path="/auth" element={<AuthPage />} />
+                <Route path="/auth/callback" element={<AuthCallbackPage />} />
+                <Route path="/demo" element={<DemoBootstrapPage />} />
+                <Route path="/share/:slug" element={<SharedPlanPage />} />
+                <Route path="/offline" element={<OfflinePage />} />
+                <Route element={<ProtectedRoute />}>
+                  <Route path="/onboarding" element={<OnboardingPage />} />
+                  <Route path="/plans/:planId/teach" element={<TeachModePage />} />
+                  <Route path="/plans/:planId/present" element={<PresentModePage />} />
+                  <Route path="/plans/:planId/reflect" element={<ReflectionPage />} />
+                  <Route element={<AppShell />}>
+                    <Route path="/dashboard" element={<DashboardPage />} />
+                    <Route path="/plans/new" element={<NewPlanPage />} />
+                    <Route path="/plans/:planId/edit" element={<PlanEditorPage />} />
+                    <Route path="/plans/:planId/preview" element={<PlanPreviewPage />} />
+                    <Route path="/library" element={<LibraryPage />} />
+                    <Route path="/assessments" element={<AssessmentBankPage />} />
+                    <Route path="/worksheets/:worksheetId" element={<WorksheetBuilderPage />} />
+                    <Route path="/classrooms" element={<ClassroomProfilesPage />} />
+                    <Route path="/curriculum" element={<CurriculumExplorerPage />} />
+                    <Route path="/community" element={<CommunityPage />} />
+                    <Route path="/community/:communityId" element={<CommunityDetailPage />} />
+                    <Route path="/analytics" element={<AnalyticsPage />} />
+                    <Route path="/settings" element={<SettingsPage />} />
+                    <Route element={<AdminRoute />}>
+                      <Route path="/admin" element={<AdminOverviewPage />} />
+                      <Route path="/admin/users" element={<AdminUsersPage />} />
+                      <Route path="/admin/content" element={<AdminContentPage />} />
+                      <Route path="/admin/operations" element={<AdminOperationsPage />} />
+                    </Route>
                   </Route>
                 </Route>
-              </Route>
-              <Route path="*" element={<NotFoundPage />} />
-            </Routes>
-          </Suspense>
-        </BrowserRouter>
-        <Toaster richColors position="top-right" closeButton />
+                <Route path="*" element={<NotFoundPage />} />
+              </Routes>
+            </Suspense>
+          </BrowserRouter>
+          <Toaster richColors position="top-right" closeButton />
+        </DomainProvider>
       </QueryClientProvider>
     </ErrorBoundary>
   );

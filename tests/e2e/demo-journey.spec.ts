@@ -43,8 +43,34 @@ test("mobile demo exposes the primary navigation", async ({ page }, testInfo) =>
   await page.goto("/demo");
   await expect(page.getByRole("heading", { name: /good morning, meera/i })).toBeVisible();
   await expect(page.getByRole("navigation", { name: "Mobile navigation" })).toBeVisible();
-  await page.getByRole("link", { name: "Insights" }).last().click();
-  await expect(
-    page.getByRole("heading", { name: /what your planning is changing/i })
-  ).toBeVisible();
+  await page.getByRole("link", { name: "Assessments" }).last().click();
+  await expect(page.getByRole("heading", { name: /assessment bank/i })).toBeVisible();
+});
+
+test("judge can build a worksheet from provenance-labelled questions", async ({ page }) => {
+  await page.goto("/demo");
+  await expect(page.getByRole("heading", { name: /good morning, meera/i })).toBeVisible();
+  await page.goto("/assessments");
+  await expect(page.getByRole("heading", { name: /assessment bank/i })).toBeVisible();
+  await page
+    .getByRole("button", { name: /^worksheet$/i })
+    .first()
+    .click();
+  await page.getByRole("button", { name: /worksheet tray · 1/i }).click();
+  await expect(page.getByRole("heading", { name: /worksheet builder/i })).toBeVisible();
+  await expect(page.getByText(/no sign-in, named record/i)).toBeVisible();
+});
+
+test("judge can inspect and adapt a moderated community snapshot", async ({ page }) => {
+  await page.goto("/demo");
+  await expect(page.getByRole("heading", { name: /good morning, meera/i })).toBeVisible();
+  await page.goto("/community");
+  await expect(page.getByRole("heading", { name: /community lessons/i })).toBeVisible();
+  await page
+    .getByRole("link", { name: /inspect/i })
+    .first()
+    .click();
+  await expect(page.getByText(/immutable and safe/i)).toBeVisible();
+  await page.getByRole("button", { name: /adapt for my class/i }).click();
+  await expect(page.getByText(/community-clone|saved on this device/i).first()).toBeVisible();
 });

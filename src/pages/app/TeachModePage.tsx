@@ -1,5 +1,6 @@
 import {
   ArrowLeft,
+  BarChart3,
   Check,
   ChevronLeft,
   ChevronRight,
@@ -8,6 +9,9 @@ import {
   NotebookPen,
   Pause,
   Play,
+  Presentation,
+  Square,
+  Volume2,
   X
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
@@ -15,7 +19,11 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { Logo } from "@/components/brand/Logo";
+import { QuickCheckModal } from "@/components/teach/QuickCheckModal";
+import { useSpeechSynthesis } from "@/hooks/use-speech-synthesis";
 import { cn } from "@/lib/utils";
+import { uid } from "@/lib/utils";
+import { useDomain } from "@/state/domain-context";
 import { useAppStore } from "@/store/app-store";
 
 function timerLabel(total: number) {
@@ -29,15 +37,16 @@ function timerLabel(total: number) {
 export function TeachModePage() {
   const { planId } = useParams();
   const navigate = useNavigate();
-  const plan = useAppStore((state) => state.plans.find((item) => item.id === planId));
-  const sessions = useAppStore((state) => state.sessions);
-  const startSession = useAppStore((state) => state.startSession);
-  const updateSession = useAppStore((state) => state.updateSession);
+  const profile = useAppStore((state) => state.profile);
+  const { plans, sessions, quickChecks, startSession, updateSession, addQuickCheck } = useDomain();
+  const plan = plans.find((item) => item.id === planId);
   const [sessionId, setSessionId] = useState<string | null>(null);
   const session = sessions.find((item) => item.id === sessionId);
   const [elapsed, setElapsed] = useState(0);
   const [paused, setPaused] = useState(false);
   const [note, setNote] = useState("");
+  const [quickCheckOpen, setQuickCheckOpen] = useState(false);
+  const speech = useSpeechSynthesis();
   const elapsedRef = useRef(0);
   useEffect(() => {
     if (!planId) return;
@@ -110,6 +119,17 @@ export function TeachModePage() {
     });
     navigate(`/plans/${plan.id}/reflect?session=${sessionId}`);
   };
+  const readActivity = () => {
+    const text = [
+      activity.title,
+      "Teacher actions.",
+      ...activity.teacherSteps,
+      "Learner actions.",
+      ...activity.studentSteps
+    ].join(". ");
+    speech.speak(text, plan.language);
+  };
+  const lessonQuickChecks = quickChecks.filter((item) => item.sessionId === sessionId);
   return (
     <div className="text-ink-950 min-h-screen bg-[#eef2ec]">
       <header className="sticky top-0 z-20 border-b border-black/8 bg-white/95 backdrop-blur">
@@ -135,6 +155,25 @@ export function TeachModePage() {
           >
             <Maximize2 className="size-5" />
           </button>
+          <Link
+            to={`/plans/${plan.id}/present`}
+            className="hidden h-10 items-center gap-2 rounded-xl border border-black/8 px-3 text-xs font-black hover:bg-slate-100 md:flex"
+          >
+            <Presentation className="size-4" /> Project
+          </Link>
+          {speech.supported && (
+            <button
+              onClick={speech.speaking ? speech.stop : readActivity}
+              className="hidden h-10 items-center gap-2 rounded-xl border border-black/8 px-3 text-xs font-black hover:bg-slate-100 sm:flex"
+            >
+              {speech.speaking ? (
+                <Square className="size-3.5 fill-current" />
+              ) : (
+                <Volume2 className="size-4" />
+              )}
+              {speech.speaking ? "Stop" : "Listen"}
+            </button>
+          )}
           <div className="bg-ink-950 flex h-11 items-center gap-2 rounded-xl px-3 text-white">
             <Clock3 className="text-sun-500 size-4" />
             <span className="font-mono text-sm font-black tabular-nums">{timerLabel(elapsed)}</span>
@@ -239,6 +278,28 @@ export function TeachModePage() {
           </div>
         </section>
         <aside className="space-y-4">
+          <Card className="border-moss-700/15 overflow-hidden">
+            <div className="bg-moss-900 p-4 text-white">
+              <div className="flex items-center gap-2">
+                <BarChart3 className="text-sun-500 size-4" />
+                <h2 className="text-sm font-black">Anonymous Quick Check</h2>
+              </div>
+              <p className="mt-1 text-[11px] leading-5 text-white/65">
+                Count response cards or understanding bands. No learner profiles.
+              </p>
+            </div>
+            <div className="p-4">
+              <Button variant="sun" className="w-full" onClick={() => setQuickCheckOpen(true)}>
+                Capture class pulse
+              </Button>
+              {lessonQuickChecks.length > 0 && (
+                <p className="text-moss-700 mt-3 text-center text-[11px] font-bold">
+                  {lessonQuickChecks.length} check{lessonQuickChecks.length === 1 ? "" : "s"} saved
+                  this session
+                </p>
+              )}
+            </div>
+          </Card>
           <Card className="p-4">
             <div className="flex items-center gap-2">
               <NotebookPen className="text-moss-700 size-4" />
@@ -309,6 +370,27 @@ export function TeachModePage() {
           </Link>
         </aside>
       </main>
+      {quickCheckOpen && (
+        <QuickCheckModal
+          classSize={plan.classSize}
+          defaultPrompt={
+            plan.assessments[0]?.prompt ?? `Show how confident you are after “${activity.title}”.`
+          }
+          onClose={() => setQuickCheckOpen(false)}
+          onSave={async (input) => {
+            if (!sessionId) return;
+            await addQuickCheck({
+              id: uid("quickcheck"),
+              planId: plan.id,
+              sessionId,
+              ownerId: profile?.id ?? plan.ownerId,
+              activityId: activity.id,
+              ...input,
+              createdAt: new Date().toISOString()
+            });
+          }}
+        />
+      )}
     </div>
   );
 }

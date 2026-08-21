@@ -2,12 +2,14 @@ import {
   BarChart3,
   Bell,
   BookOpen,
+  ClipboardList,
   ChevronDown,
   Command,
   Home,
   Library,
   Menu,
   Plus,
+  School,
   Settings,
   ShieldCheck,
   Sparkles,
@@ -23,14 +25,26 @@ import { OfflineBanner } from "./OfflineBanner";
 import { useAppStore } from "@/store/app-store";
 import { cn } from "@/lib/utils";
 import { supabase } from "@/lib/supabase";
+import { useDomain } from "@/state/domain-context";
 
 const teacherNav = [
   { to: "/dashboard", label: "Home", icon: Home },
   { to: "/plans/new", label: "Create plan", icon: Sparkles },
   { to: "/library", label: "My library", icon: Library },
+  { to: "/assessments", label: "Assessment bank", icon: ClipboardList },
+  { to: "/curriculum", label: "Curriculum", icon: BookOpen },
+  { to: "/classrooms", label: "Classrooms", icon: School },
   { to: "/community", label: "Community", icon: Users },
   { to: "/analytics", label: "Insights", icon: BarChart3 },
   { to: "/settings", label: "Settings", icon: Settings }
+];
+
+const mobileTeacherNav = [
+  { to: "/dashboard", label: "Home", icon: Home },
+  { to: "/plans/new", label: "Create plan", icon: Sparkles },
+  { to: "/library", label: "My library", icon: Library },
+  { to: "/assessments", label: "Assessments", icon: ClipboardList },
+  { to: "/community", label: "Community", icon: Users }
 ];
 
 const adminNav = [
@@ -45,10 +59,9 @@ export function AppShell() {
   const navigate = useNavigate();
   const mode = useAppStore((state) => state.mode);
   const profile = useAppStore((state) => state.profile);
-  const notifications = useAppStore((state) => state.notifications);
+  const { notifications, markNotificationRead } = useDomain();
   const sidebarOpen = useAppStore((state) => state.sidebarOpen);
   const setSidebarOpen = useAppStore((state) => state.setSidebarOpen);
-  const markNotificationRead = useAppStore((state) => state.markNotificationRead);
   const signOut = useAppStore((state) => state.signOut);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
@@ -293,7 +306,7 @@ export function AppShell() {
           className="safe-bottom fixed inset-x-0 bottom-0 z-30 grid grid-cols-5 border-t border-black/8 bg-white/95 px-2 pt-2 backdrop-blur lg:hidden"
           aria-label="Mobile navigation"
         >
-          {teacherNav.slice(0, 5).map(({ to, label, icon: Icon }) => (
+          {mobileTeacherNav.map(({ to, label, icon: Icon }) => (
             <NavLink
               key={to}
               to={to}

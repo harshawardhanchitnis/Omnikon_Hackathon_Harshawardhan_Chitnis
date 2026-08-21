@@ -1,116 +1,146 @@
 # ChalkBox system architecture
 
-## Architectural principles
+## Principles
 
-1. **Local first, cloud capable.** The app writes classroom-critical records to IndexedDB before optional cloud synchronisation.
-2. **One domain contract.** Browser fixtures, editor state, PDF export, Edge Function output, and tests share TypeScript/Zod shapes.
-3. **Server-side intelligence.** Gemini credentials, retrieval, quotas, prompt construction, schema repair, and operational logging live in Supabase Edge Functions.
-4. **Fail visibly.** Production AI errors never turn into disguised prepared content.
-5. **Teacher ownership.** RLS scopes private records to `auth.uid()`; public access is a deliberate per-plan flag and slug.
-6. **No student data model.** Analytics derive from teacher-level plans and group-level reflection signals.
+1. **Local first, cloud capable.** Classroom-critical records are committed to IndexedDB before optional remote sync.
+2. **Domain state is not UI state.** `DomainProvider` hydrates Dexie-backed entities; Zustand stores only identity shell, preferences, mode, sidebar and transient UI controls.
+3. **One contract boundary.** Fixtures, forms, repositories, PDFs, Edge Functions and tests share TypeScript/Zod shapes from `@chalkbox/contracts`.
+4. **Immutable external views.** Share links and approved community publications contain snapshots of a specific version.
+5. **Server-side intelligence.** Gemini keys, quotas, retrieval, prompt assembly, repair and logging stay in Edge Functions.
+6. **Visible failure and provenance.** Prepared/rule-based paths are labelled; no failed AI call silently masquerades as AI output.
+7. **No student data model.** Assessment and analytics operate on questions, lesson evidence and anonymous aggregate counts.
 
 ## Runtime topology
 
 ```mermaid
 flowchart TD
   subgraph Device["Teacher device"]
-    ROUTER["React Router pages"]
-    UI["Reusable UI and domain components"]
-    STATE["Zustand state"]
-    LOCAL["Dexie / IndexedDB"]
-    PDF["PDF and print renderer"]
-    ROUTER --> UI
-    UI --> STATE
-    STATE <--> LOCAL
-    UI --> PDF
+    ROUTER["React Router"] --> UI["Pages and reusable components"]
+    UI --> DOMAIN["DomainProvider"]
+    UI --> PREFS["Zustand UI/preferences"]
+    DOMAIN <--> DEXIE["Dexie / IndexedDB"]
+    DOMAIN --> SYNC["Mutation queue + conflict resolver"]
+    UI --> EXPORT["Print / React PDF / speech APIs"]
   end
 
-  subgraph Supabase["Supabase free project"]
-    AUTH["Auth"]
-    EDGE["Edge Functions"]
+  subgraph Cloud["Optional free cloud path"]
+    AUTH["Supabase Auth"]
+    EDGE["Supabase Edge Functions"]
     DB["Postgres + RLS"]
-    VECTOR["pgvector chunks"]
+    RAG["pgvector + keyword RPC"]
     EDGE --> DB
-    EDGE --> VECTOR
+    EDGE --> RAG
   end
 
-  GEMINI["Gemini 3.7 Flash / Embedding 2"]
-  PAGES["Cloudflare Pages CDN"]
-
-  PAGES --> ROUTER
-  STATE <--> DB
+  CDN["Cloudflare Pages"] --> ROUTER
   ROUTER <--> AUTH
+  SYNC <--> DB
   UI --> EDGE
-  EDGE <--> GEMINI
+  EDGE <--> GEMINI["Gemini API"]
 ```
 
 ## Application layers
 
-| Layer             | Responsibilities                                                   | Key locations                           |
-| ----------------- | ------------------------------------------------------------------ | --------------------------------------- |
-| Presentation      | Pages, layout, components, responsive states, accessibility        | `src/pages`, `src/components`           |
-| Application       | Route guards, Zustand actions, derived analytics, lesson quality   | `src/App.tsx`, `src/store`, `src/lib`   |
-| Domain            | Lesson, session, reflection, profile, support, analytics contracts | `packages/contracts/src`                |
-| Persistence       | IndexedDB, Postgres mapping, sync queue markers                    | `src/lib/offline-db.ts`, `src/services` |
-| Intelligence      | Auth, quota, embedding, RAG, generation, repair, scoring           | `supabase/functions`                    |
-| Database/security | Tables, indexes, pgvector RPC, RLS, grants, triggers               | `supabase/migrations`                   |
-| Delivery          | Vite PWA, Cloudflare routing/headers, CI                           | `vite.config.ts`, `public`, `.github`   |
+| Layer                | Responsibility                                                            | Location                                |
+| -------------------- | ------------------------------------------------------------------------- | --------------------------------------- |
+| Delivery             | PWA build, service worker, headers, SPA fallback, CI                      | `vite.config.ts`, `public`, `.github`   |
+| Routing/shell        | Lazy routes, guards, layouts, mobile/desktop navigation                   | `src/App.tsx`, `src/components/layout`  |
+| Presentation         | Pages, accessible controls, domain components, empty/loading/error states | `src/pages`, `src/components`           |
+| UI state             | Mode, profile shell, preferences, navigation state                        | `src/store/app-store.ts`                |
+| Domain orchestration | Hydration, actions, derived collections, local/remote coordination        | `src/state/domain-context.tsx`          |
+| Persistence/sync     | Dexie tables, repositories, queue replay, conflicts                       | `src/lib/offline-db.ts`, `src/services` |
+| Contracts            | Entities, enums, schemas and bounded generation inputs                    | `packages/contracts/src`                |
+| Intelligence         | Auth, quotas, structured AI, RAG, repair, quality                         | `supabase/functions`                    |
+| Database/security    | Tables, versions, indexes, RPCs, RLS, grants and triggers                 | `supabase/migrations`                   |
 
-## State and persistence flow
+## State and write flow
 
 ```mermaid
 sequenceDiagram
   participant T as Teacher
   participant U as UI
-  participant S as Zustand
+  participant D as DomainProvider
   participant I as IndexedDB
+  participant Q as Sync queue
   participant P as Postgres
 
-  T->>U: Edit plan or teaching note
-  U->>S: Domain action
-  S->>I: Save immediately
-  I-->>S: Local write complete
-  S-->>U: Saved-on-device state
+  T->>U: Save/edit/create
+  U->>D: Typed domain action
+  D->>I: Transactional local write
+  I-->>D: Durable local record
+  D-->>U: Updated hydrated state
   alt Registered and online
-    S->>P: RLS-scoped upsert
-    P-->>S: Synced
-  else Offline or cloud failure
-    S->>I: Mark sync operation pending
+    D->>P: Conditional upsert(version)
+    P-->>D: Success or conflict
+  else Offline/error
+    D->>Q: Enqueue ordered mutation
   end
+  Q->>P: Replay when online
+  P-->>Q: Apply or create conflict
 ```
 
-Local fixtures are copied before use; demo mutations never modify the canonical fixture constants. `resetDemo()` clears the ChalkBox IndexedDB tables and restores the canonical set.
+Updates carry a record version. A remote mismatch becomes a conflict record with local and cloud snapshots. The teacher explicitly keeps local, keeps cloud, or duplicates both. Queue order is stable and failures remain visible.
 
-## AI request flow
+## Entity relationships
+
+```mermaid
+erDiagram
+  USER ||--o{ CLASSROOM : owns
+  USER ||--o{ PLAN : owns
+  PLAN ||--o{ PLAN_VERSION : checkpoints
+  PLAN_VERSION ||--o{ SHARE_SNAPSHOT : publishes
+  PLAN ||--o{ SESSION : teaches
+  SESSION ||--o{ QUICK_CHECK : aggregates
+  SESSION ||--o| REFLECTION : concludes
+  PLAN ||--o{ WORKSHEET : supports
+  WORKSHEET ||--o{ WORKSHEET_ITEM : contains
+  QUESTION ||--o{ WORKSHEET_ITEM : snapshots
+  PLAN_VERSION ||--o{ PUBLICATION : submits
+  PUBLICATION ||--o{ PUBLICATION_REPORT : receives
+```
+
+## Demo fixture handling
+
+Canonical fixtures live in `src/data/demo-fixtures.ts`. On first demo entry they are structured-cloned into Dexie so runtime edits never mutate constants. `seedDemoDomainData(true)` clears only ChalkBox tables and restores the exact seeded records. Demo mode never writes those records to Supabase and every prepared/seeded AI-like artifact carries an explicit label.
+
+## AI and retrieval flow
 
 ```mermaid
 flowchart TD
-  INPUT["Validated lesson brief"] --> AUTH["Authenticated or anonymous session"]
-  AUTH --> QUOTA["Daily quota check"]
-  QUOTA --> EMBED["768-d query embedding"]
-  EMBED --> RETRIEVE["Approved pgvector matches"]
-  RETRIEVE --> PROMPT["Bounded prompt + source context"]
-  PROMPT --> GENERATE["Gemini JSON response"]
-  GENERATE --> VALIDATE["Zod schema validation"]
-  VALIDATE -->|Invalid once| REPAIR["One repair request"]
+  INPUT["Bounded validated request"] --> AUTH["JWT and owner check"]
+  AUTH --> QUOTA["Daily quota"]
+  QUOTA --> RETRIEVE["Hybrid vector + keyword retrieval"]
+  RETRIEVE --> PROMPT["Instructions separated from untrusted data"]
+  PROMPT --> GENERATE["Gemini structured JSON"]
+  GENERATE --> VALIDATE["Zod validation"]
+  VALIDATE -->|"One invalid response"| REPAIR["One repair request"]
   REPAIR --> VALIDATE
-  VALIDATE --> QUALITY["Deterministic checks"]
-  QUALITY --> RESULT["Plan + disclosure + sources"]
+  VALIDATE --> QUALITY["Deterministic checks + trusted provenance"]
+  QUALITY --> RESULT["Typed response or visible error"]
 ```
 
-The Edge Function logs request ID, user ID, model, status, latency, retrieval count, and quality score. It does not log the full prompt or plan.
+The generic `ai-action` function supports Quick Brief parsing, section adjustment, assessment generation and translation/adaptation. Lesson generation has a dedicated route. Assessment results return as unreviewed variants and require acceptance before entering the bank.
 
-## Production-like versus simulated behaviour
+## Sharing, publication and report flow
 
-| Capability    | Production-like path             | Prepared demo path                       |
-| ------------- | -------------------------------- | ---------------------------------------- |
-| Identity      | Supabase email auth              | Fictional local teacher                  |
-| AI            | Edge Function → Gemini           | Curated water-cycle plan, labelled       |
-| Persistence   | IndexedDB + RLS Postgres         | IndexedDB/localStorage only              |
-| Sharing       | Public slug loaded from Postgres | Same-browser fixture/share demonstration |
-| Analytics     | Derived from teacher records     | Derived from seeded records              |
-| Mentors/admin | Schema and role gates ready      | Seeded UI interactions and metrics       |
+- **Share:** checkpoint plan → create immutable snapshot/token → optionally set expiry → public reader validates expiry/revocation → render read-only snapshot.
+- **Community:** teacher submits a specific plan-version snapshot → admin approves/rejects with reason → only approved immutable snapshot appears in discovery → adaptation creates a private child plan with attribution.
+- **PDF:** client renders the same typed snapshot through React PDF → mixed-script text selects bundled Latin/Devanagari fonts → source/disclosure retained → download stays on device.
+- **Worksheet:** worksheet items store question snapshots, so later question edits do not alter an already composed resource or answer key.
+
+## Production-like versus prepared behavior
+
+| Capability           | Production-like path                 | Prepared demo path                            |
+| -------------------- | ------------------------------------ | --------------------------------------------- |
+| Identity             | Supabase passwordless user           | Fictional local teacher                       |
+| Domain persistence   | IndexedDB + owner-scoped Postgres    | IndexedDB only                                |
+| AI generation        | Authenticated Edge Function → Gemini | Explicit labelled prepared/rule-based content |
+| Curriculum retrieval | Approved hybrid RPC                  | Original static curriculum metadata           |
+| Sharing              | Postgres snapshot/token              | Same-browser immutable snapshot demonstration |
+| Community            | Server moderation and approved rows  | Seeded immutable approved/pending snapshots   |
+| Analytics            | Derived from owned records           | Derived from fixture records                  |
+| Admin                | Role checked by RLS/function         | Clearly labelled demo-admin mode              |
 
 ## Deployment
 
-Cloudflare Pages serves the immutable Vite assets and applies `_headers` and `_redirects`. Supabase independently hosts Auth, Postgres, pgvector, and Edge Functions. Gemini is reachable only from the Edge Function runtime. The browser holds only the Supabase URL, publishable key, optional Turnstile site key, and public app URL.
+Cloudflare Pages serves immutable Vite assets and the generated service worker. `_redirects` maps SPA paths to `index.html`; `_headers` applies browser security controls. Supabase independently hosts Auth, Postgres, pgvector and Edge Functions. The browser contains only public Supabase/Turnstile/application values. Gemini is reachable only from the Edge Function runtime.

@@ -2,112 +2,147 @@
 
 ## Product objective
 
-ChalkBox helps a teacher in an under-resourced Indian school create an effective, curriculum-aligned lesson plan quickly and then carry that plan through the classroom. It reduces blank-page and formatting work while keeping the teacher responsible for accuracy, safety, curriculum fit, and adaptation.
+ChalkBox helps a teacher in an under-resourced Indian school move from a short classroom brief to an effective, inspectable lesson and then carry that plan through assessment, teaching, reflection, and reuse. It reduces blank-page and formatting work while leaving curriculum accuracy, safeguarding, and final pedagogical judgment with the teacher.
 
-## Primary user journey
+## Main journey
 
-1. Enter the prepared demo or sign in by email.
-2. See recent plans, the next ready lesson, saved planning time, and support activity.
-3. Describe grade, subject, topic, board, language, duration, class size, materials, constraints, and learning level.
-4. Generate through the protected Gemini function or deliberately load the prepared water-cycle example.
-5. Review objectives, sequence, timing, materials, differentiation, offline options, assessments, sources, and AI disclosure.
-6. Edit any field; ChalkBox autosaves to the device and syncs registered accounts when available.
-7. Preview, print, export PDF, or create a read-only share link.
-8. Open Teach Mode, follow timed steps, pause the timer, navigate the lesson, and save non-identifying notes.
-9. Record group-level understanding, engagement, pace, evidence, outcome, and the next teaching action.
-10. View private trends, duplicate a plan, adapt community content, or reuse the lesson.
+1. Enter the deterministic prepared demo or sign in by email.
+2. Reuse a privacy-safe classroom profile or type/dictate a Quick Brief.
+3. Review extracted grade, optional second grade, board, subject, topic, duration, language, class size, materials, constraints, assumptions, and confidence.
+4. Generate through the protected Gemini route or explicitly choose a labelled prepared example.
+5. Review objectives, timing, activities, differentiation, offline alternatives, assessment alignment, sources, disclosure, and quality checks.
+6. Edit any section; save checkpoints, restore history, or regenerate one section without losing the prior version.
+7. Add provenance-labelled assessment items and compose a printable worksheet and answer key.
+8. Preview, print, export PDF, present learner-facing material, or create an expiring immutable share snapshot.
+9. Run Teach Mode, record anonymous aggregate Quick Checks, and save non-identifying notes.
+10. Reflect on whole-class evidence and next action; inspect private trends or adapt an approved community snapshot.
 
-## User roles
+## Roles
 
-| Role               | Capabilities                                                                          |
-| ------------------ | ------------------------------------------------------------------------------------- |
-| Public visitor     | Landing, trust pages, read-only shared plan, prepared demo entry                      |
-| Demo teacher       | Complete seeded workflow stored only in the browser; live AI optional if configured   |
-| Registered teacher | Own profile, plans, sessions, check-ins, reflections, exports, sharing and cloud sync |
-| Demo admin         | Seeded health, account, content-provenance and AI-operations views                    |
-| Admin              | Role-gated source indexing, operational visibility and support administration         |
+| Role               | Capabilities                                                               |
+| ------------------ | -------------------------------------------------------------------------- |
+| Public visitor     | Landing, about, privacy, auth, offline help, read-only active share        |
+| Demo teacher       | Fully seeded local workflow; no account or API dependency                  |
+| Registered teacher | Own records, cloud sync, live AI, immutable sharing, community submission  |
+| Demo admin         | Seeded moderation, provenance, health, user and AI-operation views         |
+| Admin              | Server-gated moderation, source/indexing oversight, operational visibility |
 
-## Screens and routes
+## Routes and outcomes
 
-| Route                     | Screen                 | Main outcome                                             |
-| ------------------------- | ---------------------- | -------------------------------------------------------- |
-| `/`                       | Landing                | Understand value and enter demo or account flow          |
-| `/about`                  | About                  | Understand problem, product principles, and team         |
-| `/privacy`                | Trust centre           | Understand data and AI boundaries                        |
-| `/auth`                   | Passwordless auth      | Request a secure magic link                              |
-| `/auth/callback`          | Auth callback          | Restore session and profile                              |
-| `/demo`                   | Demo bootstrap         | Load the fictional seeded workspace                      |
-| `/onboarding`             | Teacher setup          | Save classroom defaults without student data             |
-| `/dashboard`              | Teacher home           | Start next action and see planning snapshot              |
-| `/plans/new`              | Plan brief             | Generate or load a prepared example                      |
-| `/plans/:planId/edit`     | Plan editor            | Edit and quality-check every plan section                |
-| `/plans/:planId/preview`  | Classroom document     | Review, share, print, export PDF, or teach               |
-| `/plans/:planId/teach`    | Teach Mode             | Run the live lesson sequence and timer                   |
-| `/plans/:planId/reflect`  | Reflection             | Save outcome evidence and next action                    |
-| `/library`                | Personal library       | Search, filter, duplicate, reopen, and remove drafts     |
-| `/community`              | Community and support  | Explore plans, mentors, appointments, and guidance       |
-| `/community/:communityId` | Community detail       | Inspect attribution and create a private adaptation      |
-| `/analytics`              | Teacher insights       | View private, derived planning and outcome trends        |
-| `/settings`               | Settings               | Defaults, accessibility, offline, export, and demo reset |
-| `/share/:slug`            | Public shared plan     | Read a teacher-published plan without edit access        |
-| `/admin`                  | Admin overview         | View seeded/production operational summary               |
-| `/admin/users`            | Teacher administration | View privacy-safe account status                         |
-| `/admin/content`          | Curriculum provenance  | Inspect approved sources and indexing status             |
-| `/admin/operations`       | AI operations          | Inspect quotas, validation and error telemetry           |
-| `/offline`                | Offline help           | Explain available offline actions                        |
-| `*`                       | Not found              | Recover to a safe route                                  |
+| Route                      | Screen                     | Outcome                                                  |
+| -------------------------- | -------------------------- | -------------------------------------------------------- |
+| `/`                        | Landing                    | Understand the product and launch demo/auth              |
+| `/about`                   | About                      | Problem, principles, team, originality                   |
+| `/privacy`                 | Trust centre               | Data and responsible-AI boundaries                       |
+| `/auth`                    | Passwordless auth          | Request a magic link or enter demo                       |
+| `/auth/callback`           | Auth callback              | Restore session/profile                                  |
+| `/demo`                    | Demo bootstrap             | Seed/reset the fictional local workspace                 |
+| `/share/:slug`             | Shared snapshot            | Read an active immutable plan snapshot                   |
+| `/offline`                 | Offline help               | Explain cached and queued capabilities                   |
+| `/onboarding`              | Teacher setup              | Save privacy-safe teaching defaults                      |
+| `/dashboard`               | Teacher home               | Resume the most useful next action                       |
+| `/plans/new`               | Quick Brief and full brief | Review classroom input and create a plan                 |
+| `/plans/:planId/edit`      | Plan editor                | Autosave, quality-check, version and adapt               |
+| `/plans/:planId/preview`   | Classroom document         | Share, print, PDF, teach or present                      |
+| `/plans/:planId/teach`     | Teach Mode                 | Run the live lesson and aggregate check                  |
+| `/plans/:planId/present`   | Present Mode               | Project only learner-facing content                      |
+| `/plans/:planId/reflect`   | Reflection                 | Save whole-class outcome and next action                 |
+| `/library`                 | Personal library           | Search, filter, duplicate and reopen plans               |
+| `/assessments`             | Assessment bank            | Filter provenance-labelled questions and build resources |
+| `/worksheets/:worksheetId` | Worksheet builder          | Edit/reorder/mark and export learner/key PDFs            |
+| `/classrooms`              | Classroom profiles         | Create, duplicate, edit and archive reusable context     |
+| `/curriculum`              | Curriculum explorer        | Browse source-aware grade/subject/unit mappings          |
+| `/community`               | Community lessons          | Discover approved snapshots and track submissions        |
+| `/community/:communityId`  | Community detail           | Inspect immutable provenance, adapt privately, report    |
+| `/analytics`               | Teacher insights           | View aggregate planning, teaching and Quick Check trends |
+| `/settings`                | Settings                   | Preferences, defaults, conflicts, export and reset       |
+| `/admin`                   | Admin overview             | Operational summary                                      |
+| `/admin/users`             | Teacher administration     | Privacy-safe account state                               |
+| `/admin/content`           | Content moderation         | Approve/reject submissions and inspect source audit      |
+| `/admin/operations`        | AI operations              | Quota, validation, retrieval and failure telemetry       |
+| `*`                        | Not found                  | Recover to an appropriate safe route                     |
+
+## Major interactions
+
+- Voice recognition uses the browser Web Speech API when present and visibly degrades to typing.
+- Quick Brief parsing uses the protected AI action when configured and a labelled rule-based parser otherwise; teachers always review before generation.
+- Plan changes write locally first. Cloud writes are conditional on record version and failures enter an ordered queue.
+- Conflicts offer **Keep local**, **Keep cloud**, or **Duplicate both**; the system never silently overwrites.
+- A share stores a plan-version snapshot. Later edits do not mutate the shared content. Expiry and revocation are checked at read time.
+- Community approval publishes an immutable submitted snapshot, never a live pointer to the author's editable private plan.
+- AI-derived questions remain unreviewed until the teacher explicitly accepts them.
+- Quick Checks store only prompt, response counts, class size and optional teacher note—no learner identity.
 
 ## Persisted data
 
-- Teacher profile and classroom defaults.
-- Lesson-plan content, status, quality score, source metadata, sharing state, and ancestry.
-- Teaching-session timer, current step, attendance count, and non-identifying notes.
-- Group-level check-ins and private reflections.
-- Settings and local demo generation count.
-- Registered-account copies in Postgres; offline copies in IndexedDB.
-- Operational generation events without full prompts or lesson content.
+- Profile shell, preferences and default classroom selection.
+- Lesson plans, ancestry, versions, quality metadata and sources.
+- Immutable share snapshots with expiry/revocation.
+- Classroom profiles without student-level data.
+- Assessment questions, review state, worksheet snapshots and order.
+- Teaching sessions, aggregate check-ins, Quick Checks, reflections and next actions.
+- Community submissions/publications, immutable snapshots and reports.
+- Notifications, offline mutation queue, record versions and sync conflicts.
+- Privacy-safe generation events in Postgres; never full prompts or generated plan bodies.
 
-## Demo fixture contract
+## Analytics and reporting
 
-The app starts from a clean public landing page. `/demo` creates a local fictional workspace for **Meera Patil**, a Grade 5–7 teacher at a fictional Zilla Parishad school in Pune district. It contains:
+Teacher analytics are derived locally from owned plans, sessions, reflections and Quick Checks:
 
-- three lesson plans: water cycle, fractions, and narrative point of view;
-- one completed teaching session, check-in, and reflection;
-- three attributed community-plan summaries;
-- two mentor profiles, one confirmed appointment, and one guidance plan;
-- notifications and a populated analytics view;
-- a reset action that restores the exact original fixture set.
+- plans created, lessons taught, estimated planning time saved and quality average;
+- subject mix and four-week create/teach rhythm;
+- teacher-reported outcome signal and latest evidence/next action;
+- anonymous aggregate Quick Check response distribution and response coverage.
+
+Definitions remain visible. No individual learner profile, ranking or prediction exists. Exports include lesson/worksheet PDFs, browser print, and a JSON backup of the user's local workspace.
+
+## Prepared demo fixture contract
+
+`/demo` restores a fictional workspace for **Meera Patil**, a Grade 5–7 teacher at a fictional Zilla Parishad school in Pune district. It includes:
+
+- three lessons: water cycle, fractions, and narrative point of view;
+- two reusable classroom profiles;
+- source-labelled curriculum mappings and five assessment questions;
+- one worksheet with answer key;
+- plan version history and one immutable share snapshot;
+- completed session, class-level check-in, reflection and Quick Check;
+- approved fractions, water-cycle and narrative community snapshots;
+- one pending teacher submission for the moderation demo;
+- notifications, analytics and one example sync conflict.
 
 Prepared content is always labelled and never represented as a live Gemini response.
 
 ## In scope
 
-- Responsive PWA for desktop and mobile.
+- Responsive installable PWA for desktop and mobile.
 - Passwordless Supabase authentication and anonymous AI session support.
-- Complete teacher lesson lifecycle.
-- Offline-first drafts and teaching continuity.
-- Secure Gemini structured generation and curriculum retrieval.
-- PDF, print, JSON backup, and public read-only share.
-- Community adaptation with attribution.
-- Teacher-only analytics and seeded mentor support.
-- Role-gated, seeded admin operations.
-- RLS migrations, Edge Functions, CI, tests, setup docs, and submission report.
+- Complete planning, assessment, delivery, reflection and reuse loop.
+- Classroom profiles, Quick Brief, voice assist and curriculum explorer.
+- Local-first IndexedDB persistence, PWA caching, ordered sync and conflict UI.
+- Protected Gemini structured actions and hybrid vector/keyword retrieval.
+- Version history, immutable expiring shares, PDF/print/JSON export.
+- Learner-only Present Mode and anonymous aggregate Quick Checks.
+- Provenance-labelled question bank and worksheet/key generation.
+- Immutable moderated community publications and admin workflows.
+- RLS migrations, Edge Functions, CI, tests, documentation, report and ZIP.
 
 ## Explicitly out of scope
 
-- Student accounts, student profiling, biometric data, or named student records.
-- Automatic grading of individual students.
-- Video conferencing, payments, or a paid marketplace.
-- Reproduction of substantial NCERT or commercial textbook content.
-- A district-scale enterprise tenancy/billing system.
-- Native iOS/Android binaries; the installable PWA is the supported mobile package.
-- Silent AI fallbacks or claims that prepared demo content was generated live.
+- Student accounts, student names, individual marks, profiling, biometrics or diagnoses.
+- Automatic high-stakes grading or decisions about individual learners.
+- Parent portals, attendance systems, school ERP, payments or marketplaces.
+- Video conferencing, mentor booking, chat, or social-media feeds.
+- Wholesale textbook ingestion or reproduction of substantial protected prose.
+- District billing/multi-tenant enterprise administration.
+- Native Android/iOS binaries; the PWA is the mobile package.
+- Collaborative simultaneous editing, push notifications or background sync guarantees.
+- Claims that rule-based/prepared content is live AI or that unconfigured services are deployed.
 
-## BUILD CONTRACT
+# BUILD CONTRACT
 
-- **Build:** ChalkBox, an offline-ready AI lesson-planning and teaching workspace for Omni_EdTech_7.
-- **Stack:** React 19, TypeScript, Vite, Tailwind CSS, React Router, Zustand, React Hook Form, Zod, Dexie, Supabase, Gemini, pgvector, Recharts, React PDF, Vitest, Playwright, Cloudflare Pages.
-- **Rules:** shared contracts; secrets only in Edge Functions; RLS owner boundaries; no student PII; explicit demo labels; visible AI errors; attributed retrieval; local-first writes; responsive and accessible UI.
-- **Modules:** public/trust, auth/onboarding, dashboard, generation, editor, preview/export/share, Teach Mode, reflection, library, community/support, analytics, settings/offline, admin, data/AI infrastructure.
-- **Build order:** foundation → shared UI → contracts/data → core journey → secondary flows → analytics/admin → secure AI/RAG → tests/docs → deployment/package.
-- **Definition of done:** production build succeeds; fixtures validate; typecheck/lint/unit tests pass; E2E suites cover the critical journey; demo works with no setup; cloud path is deployable without exposing secrets; documentation and report are included.
+- **Build:** ChalkBox, an offline-ready, teacher-controlled planning, assessment and classroom-delivery workspace for Omni_EdTech_7.
+- **Locked stack:** React 19, TypeScript, Vite, Tailwind CSS, React Router, React Hook Form, Zod, DomainProvider, Zustand for UI only, Dexie, Supabase, Gemini 3.7 Flash, Gemini Embedding 2/pgvector, Recharts, React PDF, Vitest, Playwright, Cloudflare Pages.
+- **Architectural rules:** shared contracts; domain records in IndexedDB; local-first writes; version-aware sync; secrets only in Edge Functions; RLS ownership; immutable sharing/publications; no student PII; visible provenance and AI state; accessible responsive UI.
+- **Major modules:** public/trust, identity/onboarding, classroom context, Quick Brief/generation, editor/history, assessment/worksheet, preview/share/export, Teach/Present, reflection/analytics, curriculum/community, settings/sync, admin, AI/RAG/data infrastructure.
+- **Build order:** contracts/data → offline persistence/sync → core plan journey → assessment/classroom tools → delivery/reflection → sharing/community → AI/RAG → analytics/admin → tests/docs → deployment/package.
+- **Definition of done:** deterministic demo works with no setup; production build and smoke pass; fixtures, formatting, types, lint and tests pass; browser suites cover critical journeys in CI; AI secrets stay server-side; persistence, error states, responsive design, exports, docs, report and final ZIP are present; hosted integration status is truthful.

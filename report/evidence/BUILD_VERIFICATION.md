@@ -1,31 +1,43 @@
 # Build verification
 
-This record distinguishes checks executed in the local build environment from checks that are intentionally delegated to GitHub Actions or the final hosted deployment.
+This record separates checks executed in the local build environment from checks delegated to GitHub Actions or the final hosted deployment.
 
-## Executed locally
+## Executed locally on 21 August 2026
 
-- Fixture validation: passed; 3 canonical lesson-plan fixtures validated
-- Formatting: passed; all supported files match the Prettier policy
-- TypeScript project references: passed with no errors
-- ESLint: passed with zero warnings
-- Vitest unit/component suite: passed; 4 files and 8 tests
-- Vite production build: passed; 3,377 modules transformed
-- PWA generation: passed; manifest, service worker, and 71 precache entries emitted
-- Production smoke test: passed; `/`, `/demo`, `/manifest.webmanifest`, and `/sw.js` returned HTTP 200
-- Technical report: generated as a 12-page A4 PDF and visually inspected from rendered PNG pages
+- Fixture validation: passed; 3 canonical lesson-plan fixtures.
+- Formatting: passed; all supported source/documentation files match Prettier.
+- TypeScript project references: passed with no errors.
+- ESLint: passed with zero warnings.
+- Vitest: passed; 12 files and 25 unit/component tests.
+- Vite production build: passed; 3,394 modules transformed.
+- PWA generation: passed; 87 precache entries, manifest and service worker emitted.
+- Production smoke: passed; `/`, `/demo`, `/manifest.webmanifest` and `/sw.js` returned HTTP 200.
 
-Command executed: `pnpm verify`
+Command executed:
 
-## Executed in GitHub Actions
+```bash
+pnpm fixtures:validate && pnpm format:check && pnpm typecheck && pnpm lint && pnpm test && pnpm build && pnpm smoke
+```
 
-- Frozen-lockfile install
-- The complete local quality gate above
-- Playwright Chromium lifecycle tests
-- Automated WCAG checks with axe
-- Production-build, browser-report, and canonical product-screenshot artifact upload
+## Browser-suite environment note
+
+The local Playwright invocation was attempted, but the runtime did not contain Chromium. The allowed environment could not download the browser archive (the CDN response was empty/truncated), so no browser assertion actually ran locally. This is an infrastructure precondition failure, not recorded as an application pass or failure.
+
+## GitHub Actions verification
+
+The `ChalkBox quality gate` workflow is configured to run:
+
+- frozen-lockfile install;
+- fixtures, types, lint, unit/component tests and production build;
+- pinned Chromium installation;
+- desktop/mobile critical journeys;
+- axe WCAG A/AA serious/critical checks;
+- production-build, Playwright-report and eight product-screenshot artifacts.
+
+The branch/PR status must be checked after the final push. A green workflow run—not this configuration text—is the evidence that browser checks passed.
 
 ## Final hosted verification
 
-After Supabase and Cloudflare Pages are configured, follow `docs/DEPLOYMENT.md` and record the deployment URL, health-function result, authentication callback, live AI generation, public share route, PWA install, offline reload, and Lighthouse evidence in this folder.
+After Supabase and Cloudflare Pages are configured, record the exact deployment URL, function health, live Gemini generation, indexed RAG result, auth callback, cross-browser share, PWA/offline reload and downloadable PDFs in `INTEGRATION_STATUS.md`.
 
 No unexecuted browser or hosted check is represented as passing.

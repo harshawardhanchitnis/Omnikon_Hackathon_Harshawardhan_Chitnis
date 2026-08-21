@@ -1,158 +1,182 @@
 # Deployment guide
 
-The prepared demo can be deployed before any backend step. The cloud AI/account path needs the Supabase schema, functions, and public browser variables.
+The prepared demo deploys as a static PWA without any backend. Accounts, cross-device sync, live Gemini actions, real share links and production moderation require the optional Supabase path.
 
-## 1. Local production check
+## 1. Local development and production build
 
 ```bash
 corepack enable
 pnpm install --frozen-lockfile
 pnpm verify
+pnpm dev
+```
+
+For production preview:
+
+```bash
 pnpm build
 pnpm preview
 ```
 
-The production output is `dist/`. Deep links work locally through Vite preview and on Cloudflare through `public/_redirects`.
+The output is `dist/`. Do not commit `node_modules`, `dist`, environment files, Playwright reports or browser binaries.
 
-## 2. Supabase database
+## 2. Create/link the free Supabase project
 
-Install the free Supabase CLI and authenticate with your own account; never paste its access token into code or chat.
+1. Create a free Supabase project in your account.
+2. Copy its project reference from Project Settings.
+3. Authenticate locally yourself; never paste the CLI access token into source or chat.
+4. Link and apply migrations:
 
 ```bash
 pnpm dlx supabase@latest login
-pnpm dlx supabase@latest link --project-ref ihkxzqnggieardopttgw
+pnpm dlx supabase@latest link --project-ref YOUR_PROJECT_REF
 pnpm dlx supabase@latest db push
 ```
 
-This applies:
+The checked-in migrations create profiles, plans/versions/shares, classrooms, assessment/worksheet tables, sessions/reflections/Quick Checks, publications/reports, generation events, sync versions, pgvector/hybrid retrieval, RLS, grants and triggers.
 
-- profile, lesson, session, reflection, support, source, generation, and audit tables;
-- pgvector with 768-dimensional HNSW indexing;
-- the curriculum-match RPC;
-- new-user profile trigger;
-- RLS policies and column-level grants;
-- original ChalkBox seed content without textbook copying.
+If using the project reference already recorded in `supabase/config.toml`, confirm that you own/control that exact project before running a write command.
 
-## 3. Edge Function secrets
+## 3. Create the Gemini key safely
 
-Set these in Supabase Dashboard → Edge Functions → Secrets, or with the CLI. Keep the Gemini key private.
+1. Open Google AI Studio in your own browser.
+2. Create a Gemini Developer API key in a project with no paid billing requirement.
+3. Never paste the key into chat, GitHub, `.env.local`, Cloudflare or any `VITE_*` variable.
+4. In Supabase Dashboard → Edge Functions → Secrets, add:
 
 ```text
-GEMINI_API_KEY=<private value>
+GEMINI_API_KEY=<private key>
 GEMINI_MODEL=gemini-3.7-flash
 GEMINI_EMBEDDING_MODEL=gemini-embedding-2
 GEMINI_EMBEDDING_DIMENSIONS=768
 AI_DAILY_LIMIT_TEACHER=25
 AI_DAILY_LIMIT_DEMO=5
-APP_ORIGIN=https://your-chalkbox-domain.pages.dev
+AI_DAILY_ACTION_LIMIT_TEACHER=40
+AI_DAILY_ACTION_LIMIT_DEMO=10
+APP_ORIGIN=https://your-final-origin.example
 ```
 
-The function also understands the earlier aliases `TEACHER_DAILY_GENERATION_LIMIT` and `DEMO_DAILY_GENERATION_LIMIT`, but the `AI_DAILY_LIMIT_*` names above are canonical and match the hosted configuration.
+Supabase automatically injects its URL, anonymous key and service-role key into Edge Functions. Do not copy the service-role key into the frontend.
 
-Supabase automatically provides `SUPABASE_URL`, `SUPABASE_ANON_KEY`, and `SUPABASE_SERVICE_ROLE_KEY` to its functions.
-
-## 4. Deploy functions
+## 4. Deploy Edge Functions
 
 ```bash
 pnpm dlx supabase@latest functions deploy generate-lesson-plan
+pnpm dlx supabase@latest functions deploy ai-action
 pnpm dlx supabase@latest functions deploy index-curriculum
 pnpm dlx supabase@latest functions deploy health --no-verify-jwt
 ```
 
-Smoke-test only the non-secret health endpoint:
+Open only the non-secret health URL to confirm configuration flags:
 
 ```text
-https://ihkxzqnggieardopttgw.supabase.co/functions/v1/health
+https://YOUR_PROJECT_REF.supabase.co/functions/v1/health
 ```
 
-It reports whether required configuration exists, never the values.
+Then sign in through ChalkBox and test one real lesson generation, one Quick Brief parse and one assessment action. A health response does not prove generation by itself.
 
-## 5. Create the first admin
+## 5. Index approved original curriculum content
 
-1. Sign into ChalkBox once using your real email so `auth.users` and `profiles` exist.
-2. In Supabase Table Editor, open `profiles`.
-3. Locate only your verified user ID/email and change `role` from `teacher` to `admin`.
-4. Sign out and in again; `/admin` is then available.
+1. Review `data/curriculum/chalkbox-original.json` and confirm the source/licence/attribution fields.
+2. Run `pnpm curriculum:index` to validate the local manifest.
+3. Promote your verified user to admin in the Supabase `profiles` table.
+4. Call the authenticated admin-only `index-curriculum` function for each source/chunk batch.
+5. Query source rows to confirm approval and embeddings before claiming live RAG.
 
-Never promote an unverified ID or a demo/anonymous profile.
+Do not ingest substantial NCERT/commercial textbook prose. Source taxonomy and original/licensed explanations are sufficient.
 
-## 6. Index approved curriculum chunks
+## 6. Configure the frontend
 
-The seed migration inserts original chunks without embeddings. Use the admin-only `index-curriculum` function to upsert each approved source and its chunks. Every request must include:
+Create `.env.local` for local cloud testing:
 
-- title and publisher;
-- direct source URL;
-- exact licence;
-- required attribution;
-- board/grade/subject metadata where applicable;
-- bounded chunks containing only original or appropriately licensed text.
+```dotenv
+VITE_SUPABASE_URL=https://YOUR_PROJECT_REF.supabase.co
+VITE_SUPABASE_PUBLISHABLE_KEY=sb_publishable_...
+VITE_APP_URL=http://localhost:5173
+VITE_APP_ENV=development
+VITE_DEMO_ENABLED=true
+VITE_TURNSTILE_SITE_KEY=
+```
 
-Do not ingest substantial NCERT textbook prose. A retrieval failure does not fabricate citations; generation returns a syllabus-verification warning.
+These values are public by design. Rebuild after changing any `VITE_*` variable.
 
-## 7. Cloudflare Turnstile (recommended before anonymous AI)
+## 7. Optional Turnstile abuse protection
 
-1. Create a free Turnstile widget for the final Pages hostname and any custom domain.
-2. Add the public site key to Cloudflare Pages as `VITE_TURNSTILE_SITE_KEY`.
-3. Add the private Turnstile secret in Supabase Auth → CAPTCHA protection.
-4. Enable CAPTCHA for sign-in/anonymous auth only after the deployed site key is confirmed.
+1. Create a free Cloudflare Turnstile widget for the final domain and localhost if needed.
+2. Put the site key in the frontend deployment as `VITE_TURNSTILE_SITE_KEY`.
+3. Put the secret in Supabase Auth CAPTCHA settings, never in frontend variables.
+4. Enable protection only after both production domain and callback are verified.
 
-The widget component is already integrated into passwordless auth and anonymous AI-session creation. The prepared demo never depends on Turnstile.
+The prepared demo remains independent of Turnstile.
 
-## 8. Cloudflare Pages
+## 8. Deploy the PWA on Cloudflare Pages
 
-Create a Pages project connected to the GitHub repository and choose:
+Connect the GitHub repository and configure:
 
-| Setting           | Value                     |
-| ----------------- | ------------------------- |
-| Production branch | `main` after merge        |
-| Build command     | `pnpm build`              |
-| Build output      | `dist`                    |
-| Node version      | `22`                      |
-| Package manager   | pnpm via `packageManager` |
+| Setting           | Value                    |
+| ----------------- | ------------------------ |
+| Production branch | `main` after final merge |
+| Build command     | `pnpm build`             |
+| Build output      | `dist`                   |
+| Node              | `22`                     |
+| Package manager   | Declared pnpm version    |
 
-Add these **public build variables**:
+Set frontend variables in Pages:
 
 ```text
-VITE_SUPABASE_URL=https://ihkxzqnggieardopttgw.supabase.co
-VITE_SUPABASE_PUBLISHABLE_KEY=<your Supabase publishable key>
-VITE_APP_URL=https://your-chalkbox-domain.pages.dev
-VITE_TURNSTILE_SITE_KEY=<optional public site key>
+VITE_SUPABASE_URL=https://YOUR_PROJECT_REF.supabase.co
+VITE_SUPABASE_PUBLISHABLE_KEY=<publishable key>
+VITE_APP_URL=https://your-final-origin.pages.dev
+VITE_APP_ENV=production
+VITE_DEMO_ENABLED=true
+VITE_TURNSTILE_SITE_KEY=<optional public key>
 ```
 
-Do not add the Gemini key to Cloudflare Pages. It is not required by the frontend.
+Never add `GEMINI_API_KEY` or `SUPABASE_SERVICE_ROLE_KEY` to Pages.
 
-`public/_headers` supplies security headers. `public/_redirects` maps every SPA route to `index.html`. `wrangler.toml` declares `dist` for direct Wrangler deployments.
+`public/_headers` supplies security headers; `public/_redirects` sends SPA deep links to `index.html`; `wrangler.toml` points to `dist` for direct Wrangler deployment. All fonts/icons are self-hosted.
 
-## 9. Supabase Auth URLs
+## 9. Configure authentication redirects
 
-After Cloudflare gives the final hostname:
+In Supabase → Authentication → URL Configuration:
 
-1. Supabase → Authentication → URL Configuration.
-2. Set **Site URL** to the final HTTPS origin.
-3. Add `https://final-origin/auth/callback` to allowed redirect URLs.
-4. Retain `http://localhost:5173/auth/callback` for local development if desired.
+1. Set Site URL to the final HTTPS origin.
+2. Add `https://FINAL_ORIGIN/auth/callback` to allowed redirects.
+3. Retain `http://localhost:5173/auth/callback` for development if desired.
+4. Enable anonymous sign-ins only if anonymous live AI is part of the demo.
 
-## 10. Post-deployment verification
+## 10. Create the first admin
 
-Verify in a new incognito window:
+1. Sign into ChalkBox once with your verified email.
+2. Locate that exact user in `profiles`.
+3. Change only its role from `teacher` to `admin` using the trusted dashboard/SQL editor.
+4. Sign out and in; confirm `/admin` is available.
 
-- landing and prepared demo;
-- direct deep link to `/privacy` and `/demo`;
-- offline reload after visiting the dashboard;
-- email magic link and callback;
-- one anonymous and one registered Gemini request;
-- edit/reload cloud plan;
-- PDF download and print;
-- public share in a second browser;
-- Teach Mode/reflection/analytics;
-- teacher blocked from `/admin` and admin allowed;
-- reset demo;
-- no secret value in Sources, Network responses, or the built JavaScript.
+Never promote a guessed ID or expose an admin mutation in client code.
+
+## 11. Hosted verification checklist
+
+Use a private window and record results in `INTEGRATION_STATUS.md`:
+
+- root, privacy and direct SPA deep links;
+- prepared demo and reset;
+- offline reload after visiting dashboard/plan;
+- magic-link callback;
+- live Quick Brief and full lesson generation with model disclosure;
+- indexed retrieval with a real source;
+- edit/reload on a second device or session;
+- immutable share opened in another browser, then expiry/revocation;
+- lesson and Hindi/bilingual PDF download;
+- worksheet and answer-key PDF;
+- Teach Mode, Quick Check, reflection and analytics;
+- teacher denied `/admin`, admin allowed;
+- no secret in built JS, source maps or Network responses;
+- CI and accessibility/browser tests green.
 
 ## Free-tier guardrails
 
-- Keep AI quotas at 5 anonymous / 25 teacher generations per UTC day.
-- Turn on Supabase project usage alerts.
-- Turn on Cloudflare analytics only if desired; no paid feature is required.
-- Do not enable a paid Gemini billing account for this submission.
-- If a free quota is exhausted, saved plans and the prepared demo continue to work.
+- No paid service is required for the prepared demo or core local workflow.
+- Keep application AI quotas below provider free limits and enable usage alerts.
+- Do not enable paid Gemini billing for this submission unless the owner consciously changes the ₹0 constraint.
+- Cloudflare Pages and Supabase free tiers can sleep/rate-limit; document this honestly.
+- If cloud quota is exhausted, saved plans, manual planning, prepared examples, local assessment tools, Teach Mode and PDFs remain usable.

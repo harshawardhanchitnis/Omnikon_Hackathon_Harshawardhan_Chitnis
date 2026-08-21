@@ -63,8 +63,11 @@ export function createPreparedDemoPlan(input?: Partial<PlanGenerationInput>): Pl
     title: input?.topic ? `${input.topic}: Classroom-ready lesson` : template.title,
     topic: input?.topic ?? template.topic,
     grade: input?.grade ?? template.grade,
+    additionalGrade: input?.additionalGrade,
     subject: input?.subject ?? template.subject,
+    customSubject: input?.customSubject,
     board: input?.board ?? template.board,
+    customBoard: input?.customBoard,
     language: input?.language ?? template.language,
     durationMinutes: input?.durationMinutes ?? template.durationMinutes,
     classSize: input?.classSize ?? template.classSize,
@@ -86,7 +89,8 @@ export function createPreparedDemoPlan(input?: Partial<PlanGenerationInput>): Pl
     publicSlug: `${slugify(input?.topic ?? template.topic)}-${id.slice(-4)}`,
     isPublic: false,
     createdAt: now,
-    updatedAt: now
+    updatedAt: now,
+    version: 1
   };
   const objectiveIds = plan.objectives.map((item) => item.id);
   plan.assessments = plan.assessments.map((item, index) => ({

@@ -8,13 +8,11 @@ import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { PageHeader } from "@/components/layout/PageHeader";
-import { useAppStore } from "@/store/app-store";
+import { useDomain } from "@/state/domain-context";
 
 export function LibraryPage() {
   const navigate = useNavigate();
-  const plans = useAppStore((state) => state.plans);
-  const clonePlan = useAppStore((state) => state.clonePlan);
-  const deletePlan = useAppStore((state) => state.deletePlan);
+  const { plans, clonePlan, deletePlan } = useDomain();
   const [query, setQuery] = useState("");
   const [status, setStatus] = useState<PlanStatus | "all">("all");
   const [subject, setSubject] = useState<Subject | "all">("all");

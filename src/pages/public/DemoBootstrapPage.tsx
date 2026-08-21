@@ -2,6 +2,7 @@ import { CheckCircle2, LoaderCircle, ShieldCheck } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Logo } from "@/components/brand/Logo";
+import { seedDemoDomainData } from "@/state/domain-context";
 import { useAppStore } from "@/store/app-store";
 
 export function DemoBootstrapPage() {
@@ -12,6 +13,7 @@ export function DemoBootstrapPage() {
     let active = true;
     const start = async () => {
       await enterDemo();
+      await seedDemoDomainData();
       if (!active) return;
       setReady(true);
       window.setTimeout(() => navigate("/dashboard", { replace: true }), 650);
@@ -36,8 +38,8 @@ export function DemoBootstrapPage() {
           {ready ? "Your classroom is ready" : "Preparing the demo classroom"}
         </h1>
         <p className="text-muted mt-3 text-sm leading-6">
-          Loading Meera Patil’s lesson library, teaching history, mentor support and outcome
-          insights.
+          Loading Meera Patil’s lesson library, classroom profiles, assessment bank, teaching
+          history and aggregate outcome insights.
         </p>
         <p className="mt-5 inline-flex items-center gap-2 rounded-full bg-blue-50 px-3 py-1.5 text-xs font-bold text-blue-800">
           <ShieldCheck className="size-3.5" />

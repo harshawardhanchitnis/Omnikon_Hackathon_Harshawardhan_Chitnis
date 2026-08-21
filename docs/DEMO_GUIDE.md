@@ -1,92 +1,90 @@
-# Five-minute ChalkBox demo
+# Five-minute ChalkBox final demo
 
 ## Clean start
 
-1. Open the deployed root URL in a private browser window.
-2. Confirm the network is available for initial PWA loading.
-3. Click **Explore the prepared demo**.
-4. If the workspace was used earlier, Settings → **Reset demo** restores the fixture set.
+1. Open the deployed root URL in a private desktop window.
+2. Confirm the landing page and choose **Explore the prepared demo**.
+3. If the browser has prior demo data, use Settings → **Reset demo**.
+4. Keep live Gemini as an optional proof after the deterministic journey, not as a dependency.
 
-## Suggested narration and clicks
+All people, school details and records in demo mode are fictional fixtures.
 
-### 0:00–0:40 — Problem and promise
+## 0:00–0:35 — Problem and promise
 
 On the landing page:
 
-> Teachers in under-resourced schools lose scarce preparation time creating structured lessons without enough materials. ChalkBox starts with the classroom they actually have and supports the full cycle—not just a generated paragraph.
+> Teachers in under-resourced schools lose scarce preparation time turning syllabus goals into practical lessons for the classroom they actually have. ChalkBox gives them an editable starting point and follows it through assessment, teaching and improvement—not just a generated paragraph.
 
-Point out “No card”, “Offline-ready”, and “Teacher stays in control”.
+Point out **No card**, **Offline-ready**, **Teacher stays in control**, and the product's complete loop.
 
-### 0:40–1:20 — Seeded teacher home
+## 0:35–1:15 — Classroom-aware creation
 
-Open the prepared demo. Show:
+Enter the demo and open **Create lesson plan**.
 
-- Meera’s next Grade 6 Science lesson;
-- quality score and timed sequence;
-- private outcome signal and planning-time estimate;
-- recent plans in different states;
-- mentor review.
+- Show Meera's reusable classroom context and privacy-safe constraints.
+- Type or dictate: “Grade 6 Science, water cycle, 45 minutes, bilingual, 38 learners, no projector, mixed reading levels.”
+- Click **Review brief** and show extracted fields, assumptions, confidence and extraction-method disclosure.
+- Mention that grades 1–10, optional mixed-grade planning, custom subject/board, 20–90 minutes and classes up to 100 are contract-enforced.
+- Select **Use prepared water-cycle example** for the guaranteed path. It is visibly labelled and not represented as live Gemini.
 
-State explicitly that Meera and all records are fictional demo fixtures.
+## 1:15–2:05 — Inspect, improve and version
 
-### 1:20–2:25 — Create and inspect
+In the editor:
 
-Open **Create lesson plan**. Briefly point out:
+- Show measurable objectives, timed teacher/learner moves, materials, inclusive support, offline alternatives and mapped assessment evidence.
+- Point out quality checks and source/AI disclosure.
+- Save a named checkpoint, adjust one section with AI/prepared action, and show that ChalkBox creates a **before regeneration** version.
+- Open version history, demonstrate restore/duplicate semantics, then preview.
 
-- board, grade, subject, language, duration, class size, and learning level;
-- resources actually available;
-- classroom constraints;
-- free quota and protected Gemini route.
+Explain that every edit is durable on the device first and registered accounts can sync with explicit conflict resolution.
 
-Choose **Use prepared water-cycle example** for a deterministic presentation. Explain that it is clearly labelled and not claimed as live AI. If the deployed Gemini function has already been verified, a separate live generation can be shown after the core journey.
+## 2:05–2:50 — Assessment and printable resources
 
-In the editor, change one objective or activity. Show autosave, sequence timing, offline alternatives, differentiation, assessment alignment, quality checks, and sources/disclosure.
+Open **Assessment bank**:
 
-### 2:25–3:20 — Preview and export
+- Filter by grade/subject/purpose.
+- Compare curriculum/source, ChalkBox-authored, teacher-authored and AI-derived provenance labels.
+- Show that an AI variant is unreviewed until accepted.
+- Add a question to the worksheet tray and open the builder.
+- Reorder/edit marks, then point out **Learner PDF** and **Answer key PDF**. No student sign-in or named record is needed.
 
-Open **Preview**. Show the classroom document, then mention:
+## 2:50–3:40 — Teach and present
 
-- read-only share links;
-- browser print;
-- client-side PDF;
-- source and AI disclosure retained in exports.
+Return to the water-cycle preview and open **Teach Mode**:
 
-### 3:20–4:05 — Teach Mode
+- Show the large current step, timer, read-aloud, teacher/learner moves, materials and offline alternative.
+- Open learner **Present Mode** and note that private teacher notes are excluded.
+- Record a Quick Check with anonymous aggregate response counts, then move through steps.
+- Finish and save a class-level reflection and next action.
 
-Start **Teach Mode**. Show:
+## 3:40–4:25 — Trust: sharing, community and analytics
 
-- large step-by-step instructions;
-- timer and pause;
-- learner actions;
-- inclusive support and offline alternative;
-- quick note that forbids student names;
-- lesson map and progress.
+- In preview, create an expiring share and explain that it freezes a specific version; later edits cannot mutate it and the owner can revoke it.
+- Open **Community**, inspect an approved immutable snapshot, its attribution/moderation state, and adapt it into a private copy.
+- Open **Insights** and show transparent plan, teaching, time-saved, outcome and Quick Check calculations. Emphasize no student profiles.
 
-Move through the steps and choose **Finish & reflect**.
+## 4:25–5:00 — Technical close
 
-### 4:05–4:40 — Reflection and evidence
+Close with the evidence:
 
-Enter short class-level observations, outcome, and next action. Save and show Insights.
+- complete offline-first teacher lifecycle;
+- IndexedDB domain persistence plus version-aware Supabase sync;
+- protected Gemini 3.7 Flash actions and hybrid pgvector/keyword retrieval;
+- strict schemas, one repair, provenance and deterministic quality checks;
+- classroom profiles, voice assist, bilingual PDF fonts and responsive PWA;
+- immutable share/community snapshots and explicit moderation;
+- no student PII, no paid dependency, no competitor code/assets copied;
+- automated types, lint, unit, browser, accessibility, build and smoke checks.
 
-Explain that analytics are derived from teacher plans/reflections, not student profiles, and that calculation definitions are visible.
+## Optional live-AI proof
 
-### 4:40–5:00 — Differentiators
-
-Open Community or the profile menu’s admin demo and close with:
-
-- local-first PWA;
-- teacher-owned editable plans;
-- protected Gemini/RAG architecture;
-- attributable original/licensed retrieval;
-- zero student PII;
-- prepared demo survives API or internet failure;
-- free-tier quotas and no paid dependency.
+Show live AI only when `INTEGRATION_STATUS.md` records a verified deployed function and quota. Use a new short brief, retain the request/model disclosure and show a real source. If the provider errors, state the status and continue with saved/manual/prepared tools—never relabel prepared content as live output.
 
 ## Safe fallback order
 
-1. Prepared demo (primary judging path).
-2. Existing saved plan in Library.
-3. PDF in the report folder.
-4. Live Gemini generation only after health/auth/quota are already verified.
+1. Prepared demo and saved local plans.
+2. Assessment bank/worksheet and Teach/Present Mode.
+3. Checked-in screenshots and technical report.
+4. Live Gemini only after auth, health and quota are already verified.
 
-Never troubleshoot provider dashboards during the timed demo.
+Never troubleshoot provider dashboards during the timed presentation.

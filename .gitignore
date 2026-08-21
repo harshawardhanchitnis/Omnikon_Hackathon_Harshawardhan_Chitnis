@@ -5,12 +5,15 @@ playwright-report/
 test-results/
 tmp/
 .browser-tmp/
+.playwright-browsers/
 .tmp-fonts/
 .env
 .env.*
 !.env.example
 .DS_Store
 *.log
+__pycache__/
+*.pyc
 .ci-*.zip
 .supabase/
 supabase/.temp/

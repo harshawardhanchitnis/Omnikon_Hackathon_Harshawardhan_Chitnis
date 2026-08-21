@@ -4,12 +4,16 @@ import {
   ArrowLeft,
   ArrowUp,
   Check,
+  Copy,
   Eye,
   FileText,
+  History,
   Plus,
+  RotateCcw,
   Save,
   Sparkles,
-  Trash2
+  Trash2,
+  X
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -23,20 +27,34 @@ import { EmptyState } from "@/components/ui/EmptyState";
 import { Input, Select, Textarea } from "@/components/ui/Field";
 import { evaluatePlan } from "@/lib/lesson-quality";
 import { cn, uid } from "@/lib/utils";
-import { useAppStore } from "@/store/app-store";
+import { regeneratePlanSection, type RegenerableSection } from "@/services/ai-actions";
+import { useDomain } from "@/state/domain-context";
 
-type EditorTab = "overview" | "sequence" | "assessment";
+type EditorTab = "overview" | "sequence" | "assessment" | "versions";
 
 export function PlanEditorPage() {
   const { planId } = useParams();
   const navigate = useNavigate();
-  const storedPlan = useAppStore((state) => state.plans.find((plan) => plan.id === planId));
-  const updatePlan = useAppStore((state) => state.updatePlan);
+  const {
+    plans,
+    planVersions,
+    updatePlan,
+    createPlanVersion,
+    restorePlanVersion,
+    duplicatePlanVersion
+  } = useDomain();
+  const storedPlan = plans.find((plan) => plan.id === planId);
   const [draft, setDraft] = useState<LessonPlan | null>(() =>
     storedPlan ? structuredClone(storedPlan) : null
   );
   const [tab, setTab] = useState<EditorTab>("overview");
   const [saveState, setSaveState] = useState<"saved" | "saving">("saved");
+  const [aiOpen, setAiOpen] = useState(false);
+  const [aiSection, setAiSection] = useState<RegenerableSection>("activities");
+  const [aiInstruction, setAiInstruction] = useState(
+    "Make this more practical for a mixed-ability, low-resource classroom."
+  );
+  const [aiWorking, setAiWorking] = useState(false);
   const firstRender = useRef(true);
 
   useEffect(() => {
@@ -128,11 +146,63 @@ export function PlanEditorPage() {
     if (status === "ready") toast.success("Plan marked ready to teach");
     else toast.error("Resolve the quality checks before marking this plan ready.");
   };
+  const versions = planVersions
+    .filter((version) => version.planId === draft.id)
+    .sort((a, b) => b.versionNumber - a.versionNumber);
+  const checkpoint = async () => {
+    await saveNow();
+    const version = await createPlanVersion(draft.id, "manual-checkpoint", "Teacher checkpoint");
+    toast.success(`Version ${version.versionNumber} saved`, {
+      description: "You can restore or duplicate this immutable checkpoint later."
+    });
+  };
+  const runAiAdjustment = async () => {
+    if (!aiInstruction.trim()) return;
+    setAiWorking(true);
+    try {
+      await saveNow();
+      await createPlanVersion(draft.id, "before-regeneration", `Before ${aiSection} adjustment`);
+      const generated = await regeneratePlanSection(draft, aiSection, aiInstruction.trim());
+      let patch: Partial<LessonPlan>;
+      if (aiSection === "objectives") {
+        patch = { objectives: generated.result as LessonPlan["objectives"] };
+      } else if (aiSection === "activities") {
+        patch = { activities: generated.result as LessonPlan["activities"] };
+      } else if (aiSection === "assessments") {
+        patch = { assessments: generated.result as LessonPlan["assessments"] };
+      } else if (aiSection === "homework") {
+        patch = { homework: String(generated.result) };
+      } else {
+        patch = { teacherNotes: String(generated.result) };
+      }
+      updateDraft(patch);
+      await updatePlan(draft.id, patch);
+      setAiOpen(false);
+      toast.success(
+        generated.provider === "gemini"
+          ? `${aiSection.replaceAll("-", " ")} regenerated with ${generated.model}`
+          : "Prepared demo adjustment applied",
+        {
+          description:
+            generated.provider === "gemini"
+              ? "Review the changed section before marking the plan ready."
+              : "This was not a live AI response. The original state is preserved in version history."
+        }
+      );
+    } catch (caught) {
+      toast.error("The section could not be adjusted", {
+        description: caught instanceof Error ? caught.message : "Please retry."
+      });
+    } finally {
+      setAiWorking(false);
+    }
+  };
 
   const tabs: Array<{ id: EditorTab; label: string; count?: number }> = [
     { id: "overview", label: "Plan basics", count: draft.objectives.length },
     { id: "sequence", label: "Lesson sequence", count: draft.activities.length },
-    { id: "assessment", label: "Assessment", count: draft.assessments.length }
+    { id: "assessment", label: "Assessment", count: draft.assessments.length },
+    { id: "versions", label: "Version history", count: versions.length }
   ];
   return (
     <div>
@@ -165,6 +235,14 @@ export function PlanEditorPage() {
           <Button variant="secondary" size="sm" onClick={saveNow}>
             <Save className="size-4" />
             Save
+          </Button>
+          <Button variant="secondary" size="sm" onClick={checkpoint}>
+            <History className="size-4" />
+            Checkpoint
+          </Button>
+          <Button variant="secondary" size="sm" onClick={() => setAiOpen(true)}>
+            <Sparkles className="size-4" />
+            AI assist
           </Button>
           <Button
             variant="secondary"
@@ -614,12 +692,159 @@ export function PlanEditorPage() {
               </Card>
             </div>
           )}
+
+          {tab === "versions" && (
+            <div className="space-y-4">
+              <Card className="overflow-hidden">
+                <div className="bg-moss-900 p-5 text-white sm:p-6">
+                  <div className="flex items-center gap-3">
+                    <span className="grid size-11 place-items-center rounded-2xl bg-white/10">
+                      <History className="text-sun-500 size-5" />
+                    </span>
+                    <div>
+                      <h2 className="text-xl font-black">Immutable plan checkpoints</h2>
+                      <p className="mt-1 text-xs leading-5 text-white/65">
+                        Autosave protects the current draft. Checkpoints preserve meaningful states
+                        for restore, sharing and publishing.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div className="divide-y divide-black/5">
+                  {versions.map((version, index) => (
+                    <div key={version.id} className="p-5 sm:flex sm:items-center sm:gap-5">
+                      <span className="bg-moss-100 text-moss-800 grid size-11 shrink-0 place-items-center rounded-2xl text-sm font-black">
+                        v{version.versionNumber}
+                      </span>
+                      <div className="mt-3 min-w-0 flex-1 sm:mt-0">
+                        <div className="flex flex-wrap items-center gap-2">
+                          <p className="font-black">
+                            {version.label ?? version.reason.replaceAll("-", " ")}
+                          </p>
+                          {index === 0 && <Badge tone="green">Latest checkpoint</Badge>}
+                        </div>
+                        <p className="text-muted mt-1 text-xs">
+                          {new Date(version.createdAt).toLocaleString("en-IN", {
+                            dateStyle: "medium",
+                            timeStyle: "short"
+                          })}{" "}
+                          · {version.snapshot.activities.length} activities · quality{" "}
+                          {version.snapshot.qualityScore}/100
+                        </p>
+                      </div>
+                      <div className="mt-4 flex gap-2 sm:mt-0">
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={async () => {
+                            const duplicate = await duplicatePlanVersion(version.id);
+                            toast.success("Version duplicated as a private draft");
+                            navigate(`/plans/${duplicate.id}/edit`);
+                          }}
+                        >
+                          <Copy className="size-4" /> Duplicate
+                        </Button>
+                        <Button
+                          variant="secondary"
+                          size="sm"
+                          onClick={async () => {
+                            await restorePlanVersion(version.id);
+                            setDraft({
+                              ...structuredClone(version.snapshot),
+                              id: draft.id,
+                              ownerId: draft.ownerId,
+                              createdAt: draft.createdAt,
+                              isPublic: false,
+                              publicSlug: undefined,
+                              updatedAt: new Date().toISOString()
+                            });
+                            toast.success(`Restored version ${version.versionNumber}`, {
+                              description: "The previous current state was checkpointed first."
+                            });
+                          }}
+                        >
+                          <RotateCcw className="size-4" /> Restore
+                        </Button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </Card>
+              <Button variant="secondary" className="w-full" onClick={checkpoint}>
+                <History className="size-4" /> Save a manual checkpoint now
+              </Button>
+            </div>
+          )}
         </div>
         <aside className="space-y-5 xl:sticky xl:top-24 xl:self-start">
           <QualityPanel plan={{ ...draft, qualityScore: evaluatePlan(draft).score }} />
           <SourceDisclosure plan={draft} />
         </aside>
       </div>
+      {aiOpen && (
+        <div
+          className="bg-ink-950/50 fixed inset-0 z-50 grid place-items-center overflow-y-auto p-4"
+          role="dialog"
+          aria-modal="true"
+          aria-label="AI section assistant"
+        >
+          <Card className="my-4 w-full max-w-xl overflow-hidden">
+            <div className="bg-moss-900 flex items-start justify-between gap-4 p-6 text-white">
+              <div>
+                <p className="text-xs font-black tracking-wider text-emerald-200 uppercase">
+                  Version-safe AI assist
+                </p>
+                <h2 className="mt-1 text-2xl font-black">Adjust one section</h2>
+                <p className="mt-2 text-xs leading-5 text-white/65">
+                  ChalkBox checkpoints the current plan first. Nothing is silently replaced.
+                </p>
+              </div>
+              <button
+                onClick={() => setAiOpen(false)}
+                className="grid size-9 place-items-center rounded-xl hover:bg-white/10"
+                aria-label="Close AI assistant"
+              >
+                <X />
+              </button>
+            </div>
+            <div className="space-y-4 p-6">
+              <Select
+                label="Section to adjust"
+                value={aiSection}
+                onChange={(event) => setAiSection(event.target.value as RegenerableSection)}
+              >
+                <option value="objectives">Learning objectives</option>
+                <option value="activities">Lesson activities</option>
+                <option value="assessments">Assessment checks</option>
+                <option value="homework">Homework / extension</option>
+                <option value="teacherNotes">Teacher notes</option>
+              </Select>
+              <Textarea
+                label="What should change?"
+                value={aiInstruction}
+                onChange={(event) => setAiInstruction(event.target.value)}
+                hint="Include the classroom reason, not learner names."
+              />
+              <div className="rounded-xl border border-violet-200 bg-violet-50 p-3 text-xs leading-5 text-violet-950">
+                <strong>Truthful fallback:</strong> configured deployments call the protected Gemini
+                action. An unconfigured demo applies a clearly labelled prepared adjustment.
+              </div>
+              <div className="flex justify-end gap-2">
+                <Button variant="ghost" onClick={() => setAiOpen(false)}>
+                  Cancel
+                </Button>
+                <Button
+                  loading={aiWorking}
+                  disabled={!aiInstruction.trim()}
+                  onClick={runAiAdjustment}
+                >
+                  <Sparkles className="size-4" /> Checkpoint & adjust
+                </Button>
+              </div>
+            </div>
+          </Card>
+        </div>
+      )}
     </div>
   );
 }

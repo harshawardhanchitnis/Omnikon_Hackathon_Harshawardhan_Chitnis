@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const gradeLevels = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"] as const;
+export const gradeLevels = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"] as const;
 export const subjects = [
   "English",
   "Hindi",
@@ -8,8 +8,10 @@ export const subjects = [
   "Science",
   "Social Science",
   "Environmental Studies",
-  "Computer Science"
+  "Custom"
 ] as const;
+export const boards = ["CBSE/NCERT", "State Board", "Custom"] as const;
+export const lessonLanguages = ["English", "Hindi", "Bilingual English–Hindi"] as const;
 export const planStatuses = ["draft", "ready", "taught", "archived"] as const;
 export const userRoles = ["teacher", "admin"] as const;
 export const appModes = ["guest", "demo-teacher", "teacher", "demo-admin", "admin"] as const;
@@ -19,6 +21,8 @@ export type Subject = (typeof subjects)[number];
 export type PlanStatus = (typeof planStatuses)[number];
 export type UserRole = (typeof userRoles)[number];
 export type AppMode = (typeof appModes)[number];
+export type Board = (typeof boards)[number];
+export type LessonLanguage = (typeof lessonLanguages)[number];
 
 export interface UserProfile {
   id: string;
@@ -80,8 +84,11 @@ export interface LessonPlan {
   title: string;
   subject: Subject;
   grade: GradeLevel;
-  board: "CBSE" | "State Board" | "Other";
-  language: "English" | "Hindi" | "Marathi" | "Bilingual";
+  additionalGrade?: GradeLevel;
+  customSubject?: string;
+  board: Board;
+  customBoard?: string;
+  language: LessonLanguage;
   topic: string;
   durationMinutes: number;
   classSize: number;
@@ -104,19 +111,238 @@ export interface LessonPlan {
   parentPlanId?: string;
   isPublic: boolean;
   publicSlug?: string;
+  version: number;
 }
 
 export interface PlanGenerationInput {
   grade: GradeLevel;
+  additionalGrade?: GradeLevel;
   subject: Subject;
+  customSubject?: string;
   topic: string;
   durationMinutes: number;
   language: LessonPlan["language"];
   board: LessonPlan["board"];
+  customBoard?: string;
   classSize: number;
   availableMaterials: string[];
   constraints: string[];
   learningLevel: "support-needed" | "mixed" | "on-level" | "advanced";
+}
+
+export interface QuickBriefExtraction extends PlanGenerationInput {
+  brief: string;
+  confidence: "high" | "medium" | "low";
+  assumptions: string[];
+  extractionMethod: "gemini" | "rule-based";
+}
+
+export type PlanVersionReason =
+  "generated" | "manual-checkpoint" | "before-regeneration" | "restored" | "published" | "shared";
+
+export interface PlanVersion {
+  id: string;
+  planId: string;
+  ownerId: string;
+  versionNumber: number;
+  reason: PlanVersionReason;
+  label?: string;
+  snapshot: LessonPlan;
+  createdAt: string;
+}
+
+export interface ShareSnapshot {
+  id: string;
+  token: string;
+  planId: string;
+  planVersionId: string;
+  ownerId: string;
+  snapshot: LessonPlan;
+  createdAt: string;
+  expiresAt?: string;
+  revokedAt?: string;
+}
+
+export interface ClassroomProfile {
+  id: string;
+  ownerId: string;
+  name: string;
+  grade: GradeLevel;
+  additionalGrade?: GradeLevel;
+  learnerCount: number;
+  board: Board;
+  customBoard?: string;
+  language: LessonLanguage;
+  internetAvailability: "reliable" | "intermittent" | "none";
+  projectorAvailable: boolean;
+  chalkboardAvailable: boolean;
+  commonMaterials: string[];
+  mixedAbility: boolean;
+  readingSupportNeeds: string[];
+  accessibilityConsiderations: string[];
+  typicalDurationMinutes: number;
+  archived: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export const assessmentQuestionTypes = [
+  "mcq",
+  "true-false",
+  "short-answer",
+  "long-answer",
+  "fill-blank"
+] as const;
+export const assessmentPurposes = [
+  "diagnostic",
+  "formative",
+  "exit-ticket",
+  "application",
+  "hots"
+] as const;
+export const questionProvenance = [
+  "curriculum-source",
+  "licensed-oer",
+  "chalkbox-authored",
+  "teacher-authored",
+  "ai-derived"
+] as const;
+export const reviewStates = ["unreviewed", "teacher-reviewed", "curator-approved"] as const;
+
+export type AssessmentQuestionType = (typeof assessmentQuestionTypes)[number];
+export type AssessmentPurpose = (typeof assessmentPurposes)[number];
+export type QuestionProvenance = (typeof questionProvenance)[number];
+export type ReviewState = (typeof reviewStates)[number];
+
+export interface AssessmentQuestion {
+  id: string;
+  ownerId?: string;
+  board: Board;
+  grade: GradeLevel;
+  subject: Subject;
+  customSubject?: string;
+  bookOrUnit: string;
+  chapter: string;
+  topic: string;
+  prompt: string;
+  type: AssessmentQuestionType;
+  purpose: AssessmentPurpose;
+  difficulty: "foundation" | "core" | "challenge";
+  language: LessonLanguage;
+  marks: number;
+  options?: string[];
+  answer: string;
+  explanation?: string;
+  misconceptionTarget?: string;
+  provenance: QuestionProvenance;
+  reviewState: ReviewState;
+  source?: CurriculumSource;
+  attribution?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface WorksheetItem {
+  id: string;
+  questionId: string;
+  questionSnapshot: AssessmentQuestion;
+  order: number;
+  marks: number;
+}
+
+export interface Worksheet {
+  id: string;
+  ownerId: string;
+  title: string;
+  instructions: string;
+  grade: GradeLevel;
+  subject: Subject;
+  customSubject?: string;
+  chapter: string;
+  language: LessonLanguage;
+  includeAnswers: boolean;
+  items: WorksheetItem[];
+  status: "draft" | "ready";
+  createdAt: string;
+  updatedAt: string;
+}
+
+export type PublicationStatus =
+  "draft" | "submitted" | "approved" | "rejected" | "withdrawn" | "unpublished";
+
+export interface CommunityPublication {
+  id: string;
+  ownerId: string;
+  planId: string;
+  planVersionId: string;
+  snapshot: LessonPlan;
+  authorName: string;
+  authorSchool: string;
+  status: PublicationStatus;
+  submittedAt?: string;
+  reviewedAt?: string;
+  reviewedBy?: string;
+  rejectionReason?: string;
+  saves: number;
+  adaptations: number;
+  reports: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface PublicationReport {
+  id: string;
+  publicationId: string;
+  reporterId: string;
+  reason: "inaccurate" | "unsafe" | "copyright" | "spam" | "other";
+  note: string;
+  status: "open" | "resolved" | "dismissed";
+  createdAt: string;
+}
+
+export interface QuickCheckResult {
+  id: string;
+  planId: string;
+  sessionId: string;
+  ownerId: string;
+  activityId?: string;
+  prompt: string;
+  mode: "abcd" | "understanding";
+  counts: Record<string, number>;
+  correctKey?: string;
+  note?: string;
+  createdAt: string;
+}
+
+export type OfflineEntityType = "lesson-plan" | "reflection" | "teaching-session";
+export type OfflineMutationType = "create" | "update" | "delete";
+export type OfflineMutationStatus = "pending" | "syncing" | "conflict" | "failed" | "synced";
+
+export interface OfflineMutation {
+  id: string;
+  entityId: string;
+  entityType: OfflineEntityType;
+  mutationType: OfflineMutationType;
+  payload: unknown;
+  baseVersion: number;
+  timestamp: string;
+  retryCount: number;
+  status: OfflineMutationStatus;
+  errorCode?: string;
+}
+
+export interface SyncConflict {
+  id: string;
+  mutationId: string;
+  entityId: string;
+  entityType: OfflineEntityType;
+  localPayload: unknown;
+  cloudPayload: unknown;
+  localVersion: number;
+  cloudVersion: number;
+  detectedAt: string;
+  resolvedAt?: string;
+  resolution?: "keep-local" | "keep-cloud" | "duplicate-both";
 }
 
 export interface PlanGenerationResult {
@@ -140,6 +366,8 @@ export interface TeachingSession {
   paused: boolean;
   attendanceCount?: number;
   quickNotes: string[];
+  version: number;
+  updatedAt: string;
 }
 
 export interface CheckIn {
@@ -164,6 +392,8 @@ export interface Reflection {
   rating: 1 | 2 | 3 | 4 | 5;
   nextStep: string;
   createdAt: string;
+  version: number;
+  updatedAt: string;
 }
 
 export interface CommunityPlanSummary {
@@ -241,7 +471,15 @@ export interface Permission {
 export interface Notification {
   id: string;
   userId: string;
-  type: "plan-ready" | "offline-synced" | "community" | "appointment" | "system";
+  type:
+    | "plan-ready"
+    | "offline-synced"
+    | "sync-conflict"
+    | "community"
+    | "publication"
+    | "worksheet"
+    | "appointment"
+    | "system";
   title: string;
   body: string;
   read: boolean;
@@ -272,6 +510,7 @@ export interface AppSettings {
   saveOffline: boolean;
   emailNotifications: boolean;
   analyticsConsent: boolean;
+  defaultClassroomProfileId?: string;
 }
 
 export interface PlatformStats {
@@ -283,18 +522,45 @@ export interface PlatformStats {
   flaggedPlans: number;
 }
 
-export const planGenerationInputSchema = z.object({
-  grade: z.enum(gradeLevels),
-  subject: z.enum(subjects),
-  topic: z.string().trim().min(3, "Enter a specific topic").max(120),
-  durationMinutes: z.number().int().min(20).max(120),
-  language: z.enum(["English", "Hindi", "Marathi", "Bilingual"]),
-  board: z.enum(["CBSE", "State Board", "Other"]),
-  classSize: z.number().int().min(1).max(120),
-  availableMaterials: z.array(z.string()).max(12),
-  constraints: z.array(z.string()).max(12),
-  learningLevel: z.enum(["support-needed", "mixed", "on-level", "advanced"])
-});
+export const planGenerationInputSchema = z
+  .object({
+    grade: z.enum(gradeLevels),
+    additionalGrade: z.enum(gradeLevels).optional(),
+    subject: z.enum(subjects),
+    customSubject: z.string().trim().min(2).max(80).optional(),
+    topic: z.string().trim().min(3, "Enter a specific topic").max(120),
+    durationMinutes: z.number().int().min(20).max(90),
+    language: z.enum(lessonLanguages),
+    board: z.enum(boards),
+    customBoard: z.string().trim().min(2).max(100).optional(),
+    classSize: z.number().int().min(1).max(100),
+    availableMaterials: z.array(z.string()).max(12),
+    constraints: z.array(z.string()).max(12),
+    learningLevel: z.enum(["support-needed", "mixed", "on-level", "advanced"])
+  })
+  .superRefine((value, context) => {
+    if (value.additionalGrade === value.grade) {
+      context.addIssue({
+        code: "custom",
+        path: ["additionalGrade"],
+        message: "Choose a different second grade"
+      });
+    }
+    if (value.subject === "Custom" && !value.customSubject) {
+      context.addIssue({
+        code: "custom",
+        path: ["customSubject"],
+        message: "Enter the custom subject"
+      });
+    }
+    if (value.board === "Custom" && !value.customBoard) {
+      context.addIssue({
+        code: "custom",
+        path: ["customBoard"],
+        message: "Enter the curriculum or board"
+      });
+    }
+  });
 
 export const reflectionSchema = z.object({
   wentWell: z.string().trim().min(10).max(1000),
@@ -310,8 +576,11 @@ export const lessonPlanSchema: z.ZodType<LessonPlan> = z.object({
   title: z.string().min(3),
   subject: z.enum(subjects),
   grade: z.enum(gradeLevels),
-  board: z.enum(["CBSE", "State Board", "Other"]),
-  language: z.enum(["English", "Hindi", "Marathi", "Bilingual"]),
+  additionalGrade: z.enum(gradeLevels).optional(),
+  customSubject: z.string().optional(),
+  board: z.enum(boards),
+  customBoard: z.string().optional(),
+  language: z.enum(lessonLanguages),
   topic: z.string().min(3),
   durationMinutes: z.number().int().positive(),
   classSize: z.number().int().positive(),
@@ -371,7 +640,73 @@ export const lessonPlanSchema: z.ZodType<LessonPlan> = z.object({
   taughtAt: z.string().optional(),
   parentPlanId: z.string().optional(),
   isPublic: z.boolean(),
-  publicSlug: z.string().optional()
+  publicSlug: z.string().optional(),
+  version: z.number().int().positive()
 });
 
-export const CONTRACT_VERSION = "1.0.0";
+export const assessmentQuestionSchema: z.ZodType<AssessmentQuestion> = z.object({
+  id: z.string().min(1),
+  ownerId: z.string().optional(),
+  board: z.enum(boards),
+  grade: z.enum(gradeLevels),
+  subject: z.enum(subjects),
+  customSubject: z.string().optional(),
+  bookOrUnit: z.string(),
+  chapter: z.string(),
+  topic: z.string(),
+  prompt: z.string().min(3),
+  type: z.enum(assessmentQuestionTypes),
+  purpose: z.enum(assessmentPurposes),
+  difficulty: z.enum(["foundation", "core", "challenge"]),
+  language: z.enum(lessonLanguages),
+  marks: z.number().int().min(1).max(20),
+  options: z.array(z.string()).min(2).max(6).optional(),
+  answer: z.string().min(1),
+  explanation: z.string().optional(),
+  misconceptionTarget: z.string().optional(),
+  provenance: z.enum(questionProvenance),
+  reviewState: z.enum(reviewStates),
+  source: z
+    .object({
+      id: z.string(),
+      title: z.string(),
+      publisher: z.string(),
+      url: z.string(),
+      license: z.string(),
+      attribution: z.string(),
+      grade: z.enum(gradeLevels),
+      subject: z.enum(subjects),
+      chapter: z.string().optional()
+    })
+    .optional(),
+  attribution: z.string().optional(),
+  createdAt: z.string(),
+  updatedAt: z.string()
+});
+
+export const worksheetSchema: z.ZodType<Worksheet> = z.object({
+  id: z.string(),
+  ownerId: z.string(),
+  title: z.string().min(3).max(160),
+  instructions: z.string().max(1000),
+  grade: z.enum(gradeLevels),
+  subject: z.enum(subjects),
+  customSubject: z.string().optional(),
+  chapter: z.string(),
+  language: z.enum(lessonLanguages),
+  includeAnswers: z.boolean(),
+  items: z.array(
+    z.object({
+      id: z.string(),
+      questionId: z.string(),
+      questionSnapshot: assessmentQuestionSchema,
+      order: z.number().int().nonnegative(),
+      marks: z.number().int().min(1).max(20)
+    })
+  ),
+  status: z.enum(["draft", "ready"]),
+  createdAt: z.string(),
+  updatedAt: z.string()
+});
+
+export const CONTRACT_VERSION = "2.0.0";

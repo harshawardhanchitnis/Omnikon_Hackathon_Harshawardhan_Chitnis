@@ -1,7 +1,7 @@
 import {
   ArrowRight,
   BookOpenCheck,
-  CalendarClock,
+  ClipboardList,
   Clock3,
   Flame,
   Plus,
@@ -15,21 +15,16 @@ import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { calculateAnalytics } from "@/lib/analytics";
-import { formatDateTime } from "@/lib/utils";
+import { useDomain } from "@/state/domain-context";
 import { useAppStore } from "@/store/app-store";
-import { demoAppointments, demoExperts } from "@/data/demo-fixtures";
 
 export function DashboardPage() {
   const navigate = useNavigate();
   const profile = useAppStore((state) => state.profile);
-  const plans = useAppStore((state) => state.plans);
-  const reflections = useAppStore((state) => state.reflections);
-  const clonePlan = useAppStore((state) => state.clonePlan);
+  const { plans, reflections, clonePlan } = useDomain();
   const analytics = calculateAnalytics(profile?.id ?? "", plans, reflections);
   const recentPlans = [...plans].sort((a, b) => b.updatedAt.localeCompare(a.updatedAt)).slice(0, 3);
   const upcoming = plans.find((plan) => plan.status === "ready") ?? recentPlans[0];
-  const appointment = demoAppointments[0];
-  const expert = demoExperts.find((item) => item.id === appointment?.expertId);
   const firstName = profile?.fullName.split(" ")[0] ?? "Teacher";
   const onClone = async (plan: (typeof plans)[number]) => {
     const clone = await clonePlan(plan);
@@ -126,30 +121,31 @@ export function DashboardPage() {
               Open insights <ArrowRight className="size-3" />
             </Link>
           </Card>
-          {appointment && expert && (
-            <Card className="p-5">
-              <div className="flex items-start gap-3">
-                <span className="grid size-10 place-items-center rounded-xl bg-amber-100 text-amber-800">
-                  <CalendarClock className="size-5" />
-                </span>
-                <div>
-                  <p className="text-xs font-black tracking-wider text-amber-800 uppercase">
-                    Mentor review
-                  </p>
-                  <h3 className="mt-1 font-black">{expert.name}</h3>
-                </div>
-              </div>
-              <p className="text-muted mt-3 text-xs leading-5">
-                {formatDateTime(appointment.startsAt)} · {appointment.durationMinutes} min
+          <Card className="overflow-hidden">
+            <div className="bg-sun-100 p-5">
+              <span className="grid size-10 place-items-center rounded-xl bg-white text-amber-800">
+                <ClipboardList className="size-5" />
+              </span>
+              <h3 className="mt-4 font-black">Build the evidence next</h3>
+              <p className="text-muted mt-1 text-xs leading-5">
+                Pull reviewed questions into a worksheet or directly into a lesson.
               </p>
+            </div>
+            <div className="grid grid-cols-2 divide-x divide-black/5 border-t border-black/5">
               <Link
-                to="/community"
-                className="text-moss-700 mt-4 inline-flex items-center gap-1 text-xs font-black"
+                to="/assessments"
+                className="hover:bg-moss-50 text-moss-700 p-3 text-center text-xs font-black"
               >
-                View support hub <ArrowRight className="size-3" />
+                Assessment bank
               </Link>
-            </Card>
-          )}
+              <Link
+                to="/classrooms"
+                className="hover:bg-moss-50 text-moss-700 p-3 text-center text-xs font-black"
+              >
+                Class profiles
+              </Link>
+            </div>
+          </Card>
         </div>
       </section>
 

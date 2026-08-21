@@ -1,0 +1,58 @@
+{
+  "sources": [
+    {
+      "source": {
+        "id": "11111111-1111-4111-8111-111111111111",
+        "title": "ChalkBox original low-resource Science patterns",
+        "publisher": "Team HarshLabs",
+        "sourceUrl": "https://github.com/harshawardhanchitnis/Omnikon_Hackathon_Harshawardhan_Chitnis",
+        "licence": "Original project content",
+        "attribution": "Original ChalkBox teaching patterns by Team HarshLabs; may be adapted with attribution.",
+        "grade": "6",
+        "subject": "Science",
+        "board": "CBSE/NCERT"
+      },
+      "chunks": [
+        {
+          "content": "For a low-resource science lesson, begin with a locally observable puzzle, elicit several learner explanations, then use a safe teacher-led demonstration before naming the scientific idea.",
+          "metadata": { "kind": "pedagogy-pattern", "tags": ["inquiry", "low-resource", "science"] }
+        },
+        {
+          "content": "Every classroom activity should specify a no-device alternative, common materials, a safety note where relevant, and one support pathway for learners who need more language or conceptual scaffolding.",
+          "metadata": {
+            "kind": "inclusion-pattern",
+            "tags": ["offline", "differentiation", "safety"]
+          }
+        },
+        {
+          "content": "When teaching a cycle or process, ask learners to sequence stages, explain one transition using evidence, and apply the process to a familiar local observation.",
+          "metadata": { "kind": "learning-pattern", "tags": ["sequence", "apply", "local-context"] }
+        }
+      ]
+    },
+    {
+      "source": {
+        "id": "22222222-2222-4222-8222-222222222222",
+        "title": "ChalkBox original formative-assessment patterns",
+        "publisher": "Team HarshLabs",
+        "sourceUrl": "https://github.com/harshawardhanchitnis/Omnikon_Hackathon_Harshawardhan_Chitnis",
+        "licence": "Original project content",
+        "attribution": "Original ChalkBox formative-assessment patterns by Team HarshLabs; may be adapted with attribution.",
+        "board": "CBSE/NCERT"
+      },
+      "chunks": [
+        {
+          "content": "A formative check should name the observable evidence expected, connect to at least one learning objective, and be quick enough for the teacher to sort responses into secure, developing, and revisit groups.",
+          "metadata": {
+            "kind": "assessment-pattern",
+            "tags": ["formative", "evidence", "objective-alignment"]
+          }
+        },
+        {
+          "content": "Offer multiple response modes such as speaking, drawing, modelling, pointing, or short writing when the response mode is not itself the learning target.",
+          "metadata": { "kind": "inclusion-pattern", "tags": ["multiple-means", "assessment"] }
+        }
+      ]
+    }
+  ]
+}

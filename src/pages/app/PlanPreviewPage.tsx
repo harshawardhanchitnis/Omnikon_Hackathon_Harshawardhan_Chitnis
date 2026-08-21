@@ -1,5 +1,18 @@
 import { PDFDownloadLink } from "@react-pdf/renderer";
-import { ArrowLeft, CheckCircle2, Download, Edit3, Play, Printer, Share2 } from "lucide-react";
+import {
+  ArrowLeft,
+  CheckCircle2,
+  Copy,
+  Download,
+  Edit3,
+  Link2,
+  Play,
+  Printer,
+  Share2,
+  ShieldCheck,
+  X
+} from "lucide-react";
+import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { toast } from "sonner";
 import { LessonPlanDocument } from "@/components/plans/LessonPlanDocument";
@@ -10,12 +23,16 @@ import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { formatDate } from "@/lib/utils";
-import { useAppStore } from "@/store/app-store";
+import { useDomain } from "@/state/domain-context";
 
 export function PlanPreviewPage() {
   const { planId } = useParams();
-  const plan = useAppStore((state) => state.plans.find((item) => item.id === planId));
-  const updatePlan = useAppStore((state) => state.updatePlan);
+  const { plans, shares, createShare, revokeShare } = useDomain();
+  const [shareOpen, setShareOpen] = useState(false);
+  const [expiry, setExpiry] = useState<"never" | "7" | "30">("30");
+  const [createdUrl, setCreatedUrl] = useState("");
+  const [renderNow] = useState(() => Date.now());
+  const plan = plans.find((item) => item.id === planId);
   if (!plan)
     return (
       <EmptyState
@@ -30,9 +47,13 @@ export function PlanPreviewPage() {
       />
     );
   const share = async () => {
-    const slug = plan.publicSlug ?? `${plan.id}-shared`;
-    await updatePlan(plan.id, { isPublic: true, publicSlug: slug });
-    const url = `${window.location.origin}/share/${slug}`;
+    const expiresAt =
+      expiry === "never"
+        ? undefined
+        : new Date(Date.now() + Number(expiry) * 24 * 60 * 60 * 1000).toISOString();
+    const snapshot = await createShare(plan.id, expiresAt);
+    const url = `${window.location.origin}/share/${snapshot.token}`;
+    setCreatedUrl(url);
     try {
       await navigator.clipboard.writeText(url);
       toast.success("Share link copied", {
@@ -52,7 +73,7 @@ export function PlanPreviewPage() {
           <ArrowLeft className="size-4" />
           Back to editor
         </Link>
-        <Button variant="secondary" size="sm" onClick={share}>
+        <Button variant="secondary" size="sm" onClick={() => setShareOpen(true)}>
           <Share2 className="size-4" />
           Share
         </Button>
@@ -205,6 +226,135 @@ export function PlanPreviewPage() {
           <SourceDisclosure plan={plan} />
         </div>
       </article>
+      {shareOpen && (
+        <div
+          className="bg-ink-950/50 fixed inset-0 z-50 grid place-items-center overflow-y-auto p-4"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Manage read-only shares"
+        >
+          <Card className="my-4 w-full max-w-2xl overflow-hidden">
+            <div className="bg-moss-900 flex items-start justify-between gap-4 p-6 text-white">
+              <div>
+                <p className="text-xs font-black tracking-wider text-emerald-200 uppercase">
+                  Immutable sharing
+                </p>
+                <h2 className="mt-1 text-2xl font-black">Share this exact version</h2>
+                <p className="mt-2 text-xs leading-5 text-white/65">
+                  Private notes and ownership metadata are removed. Future edits never alter an
+                  existing link.
+                </p>
+              </div>
+              <button
+                onClick={() => setShareOpen(false)}
+                className="grid size-9 place-items-center rounded-xl hover:bg-white/10"
+                aria-label="Close sharing"
+              >
+                <X />
+              </button>
+            </div>
+            <div className="p-6">
+              <div className="grid gap-3 sm:grid-cols-[1fr_auto] sm:items-end">
+                <label className="text-sm font-black">
+                  Link expiry
+                  <select
+                    value={expiry}
+                    onChange={(event) => setExpiry(event.target.value as typeof expiry)}
+                    className="surface mt-2 h-11 w-full rounded-xl border px-3 text-sm font-bold"
+                  >
+                    <option value="7">7 days</option>
+                    <option value="30">30 days</option>
+                    <option value="never">No expiry</option>
+                  </select>
+                </label>
+                <Button onClick={share}>
+                  <Link2 className="size-4" /> Create snapshot link
+                </Button>
+              </div>
+              {createdUrl && (
+                <div className="border-moss-200 bg-moss-50 mt-4 rounded-xl border p-3">
+                  <p className="text-moss-800 text-xs font-black">Link ready</p>
+                  <div className="mt-2 flex gap-2">
+                    <input
+                      value={createdUrl}
+                      readOnly
+                      className="min-w-0 flex-1 bg-transparent text-xs font-bold outline-none"
+                    />
+                    <button
+                      onClick={async () => {
+                        await navigator.clipboard.writeText(createdUrl);
+                        toast.success("Link copied");
+                      }}
+                      className="text-moss-800 grid size-9 shrink-0 place-items-center rounded-lg bg-white shadow-sm"
+                      aria-label="Copy link"
+                    >
+                      <Copy className="size-4" />
+                    </button>
+                  </div>
+                </div>
+              )}
+              <div className="mt-6 border-t border-black/5 pt-5">
+                <div className="flex items-center justify-between">
+                  <h3 className="font-black">Active snapshots</h3>
+                  <span className="text-ink-500 text-xs font-bold">
+                    {shares.filter((item) => item.planId === plan.id && !item.revokedAt).length}
+                  </span>
+                </div>
+                <div className="mt-3 space-y-2">
+                  {shares
+                    .filter((item) => item.planId === plan.id)
+                    .map((item) => {
+                      const expired = Boolean(
+                        item.expiresAt && new Date(item.expiresAt).getTime() <= renderNow
+                      );
+                      const inactive = Boolean(item.revokedAt || expired);
+                      return (
+                        <div
+                          key={item.id}
+                          className="surface-subtle flex flex-col gap-3 rounded-xl p-3 sm:flex-row sm:items-center"
+                        >
+                          <ShieldCheck
+                            className={`size-4 shrink-0 ${inactive ? "text-slate-400" : "text-moss-700"}`}
+                          />
+                          <div className="min-w-0 flex-1">
+                            <p className="truncate text-xs font-black">…/{item.token.slice(-18)}</p>
+                            <p className="text-muted mt-0.5 text-[10px]">
+                              Created {new Date(item.createdAt).toLocaleDateString("en-IN")} ·{" "}
+                              {item.revokedAt
+                                ? "Revoked"
+                                : expired
+                                  ? "Expired"
+                                  : item.expiresAt
+                                    ? `Expires ${new Date(item.expiresAt).toLocaleDateString("en-IN")}`
+                                    : "No expiry"}
+                            </p>
+                          </div>
+                          {!inactive && (
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={async () => {
+                                await revokeShare(item.id);
+                                toast.success("Share link revoked");
+                              }}
+                            >
+                              Revoke
+                            </Button>
+                          )}
+                        </div>
+                      );
+                    })}
+                  {!shares.some((item) => item.planId === plan.id) && (
+                    <p className="text-muted rounded-xl border border-dashed border-black/10 p-4 text-center text-xs">
+                      No share links yet.
+                    </p>
+                  )}
+                </div>
+              </div>
+            </div>
+          </Card>
+        </div>
+      )}
     </div>
   );
 }

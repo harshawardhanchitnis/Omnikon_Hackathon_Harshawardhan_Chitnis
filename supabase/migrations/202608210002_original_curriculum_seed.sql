@@ -1,9 +1,9 @@
 insert into public.curriculum_sources (
   id, title, publisher, source_url, licence, attribution, grade, subject, board, approved, content_hash
 ) values
-  ('11111111-1111-4111-8111-111111111111', 'ChalkBox original low-resource Science patterns', 'Team HarshLabs', 'https://github.com/harshawardhanchitnis/Omnikon_Hackathon_Harshawardhan_Chitnis', 'Original project content', 'Original ChalkBox teaching patterns by Team HarshLabs; may be adapted with attribution.', '6', 'Science', 'CBSE', true, 'chalkbox-science-v1'),
-  ('22222222-2222-4222-8222-222222222222', 'ChalkBox original formative-assessment patterns', 'Team HarshLabs', 'https://github.com/harshawardhanchitnis/Omnikon_Hackathon_Harshawardhan_Chitnis', 'Original project content', 'Original ChalkBox formative-assessment patterns by Team HarshLabs; may be adapted with attribution.', null, null, 'CBSE', true, 'chalkbox-assessment-v1'),
-  ('33333333-3333-4333-8333-333333333333', 'CBSE public grade and subject taxonomy', 'Central Board of Secondary Education', 'https://cbseacademic.nic.in/', 'Public taxonomy reference; no substantial source prose stored', 'Used for grade, subject and learning-outcome alignment only. Generated lesson wording remains original.', null, null, 'CBSE', true, 'cbse-taxonomy-v1')
+  ('11111111-1111-4111-8111-111111111111', 'ChalkBox original low-resource Science patterns', 'Team HarshLabs', 'https://github.com/harshawardhanchitnis/Omnikon_Hackathon_Harshawardhan_Chitnis', 'Original project content', 'Original ChalkBox teaching patterns by Team HarshLabs; may be adapted with attribution.', '6', 'Science', 'CBSE/NCERT', true, 'chalkbox-science-v1'),
+  ('22222222-2222-4222-8222-222222222222', 'ChalkBox original formative-assessment patterns', 'Team HarshLabs', 'https://github.com/harshawardhanchitnis/Omnikon_Hackathon_Harshawardhan_Chitnis', 'Original project content', 'Original ChalkBox formative-assessment patterns by Team HarshLabs; may be adapted with attribution.', null, null, 'CBSE/NCERT', true, 'chalkbox-assessment-v1'),
+  ('33333333-3333-4333-8333-333333333333', 'CBSE public grade and subject taxonomy', 'Central Board of Secondary Education', 'https://cbseacademic.nic.in/', 'Public taxonomy reference; no substantial source prose stored', 'Used for grade, subject and learning-outcome alignment only. Generated lesson wording remains original.', null, null, 'CBSE/NCERT', true, 'cbse-taxonomy-v1')
 on conflict (id) do nothing;
 
 insert into public.curriculum_chunks (source_id, chunk_index, content, metadata) values

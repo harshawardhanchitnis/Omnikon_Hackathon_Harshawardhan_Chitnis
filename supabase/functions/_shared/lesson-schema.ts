@@ -1,8 +1,9 @@
 import { z } from "npm:zod@4";
 
-export const inputSchema = z.object({
-  input: z.object({
-    grade: z.enum(["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]),
+export const generationInputSchema = z
+  .object({
+    grade: z.enum(["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]),
+    additionalGrade: z.enum(["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]).optional(),
     subject: z.enum([
       "English",
       "Hindi",
@@ -10,17 +11,42 @@ export const inputSchema = z.object({
       "Science",
       "Social Science",
       "Environmental Studies",
-      "Computer Science"
+      "Custom"
     ]),
+    customSubject: z.string().trim().min(2).max(80).optional(),
     topic: z.string().trim().min(3).max(120),
-    durationMinutes: z.number().int().min(20).max(120),
-    language: z.enum(["English", "Hindi", "Marathi", "Bilingual"]),
-    board: z.enum(["CBSE", "State Board", "Other"]),
-    classSize: z.number().int().min(1).max(120),
+    durationMinutes: z.number().int().min(20).max(90),
+    language: z.enum(["English", "Hindi", "Bilingual English–Hindi"]),
+    board: z.enum(["CBSE/NCERT", "State Board", "Custom"]),
+    customBoard: z.string().trim().min(2).max(100).optional(),
+    classSize: z.number().int().min(1).max(100),
     availableMaterials: z.array(z.string().trim().min(1).max(80)).max(12),
     constraints: z.array(z.string().trim().min(1).max(120)).max(12),
     learningLevel: z.enum(["support-needed", "mixed", "on-level", "advanced"])
-  }),
+  })
+  .superRefine((value, context) => {
+    if (value.additionalGrade === value.grade)
+      context.addIssue({
+        code: "custom",
+        path: ["additionalGrade"],
+        message: "Second grade must differ"
+      });
+    if (value.subject === "Custom" && !value.customSubject)
+      context.addIssue({
+        code: "custom",
+        path: ["customSubject"],
+        message: "Custom subject is required"
+      });
+    if (value.board === "Custom" && !value.customBoard)
+      context.addIssue({
+        code: "custom",
+        path: ["customBoard"],
+        message: "Custom curriculum is required"
+      });
+  });
+
+export const inputSchema = z.object({
+  input: generationInputSchema,
   ownerId: z.string().uuid()
 });
 

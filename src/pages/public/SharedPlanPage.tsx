@@ -6,17 +6,15 @@ import { Logo } from "@/components/brand/Logo";
 import { LessonTimeline } from "@/components/plans/LessonTimeline";
 import { Button } from "@/components/ui/Button";
 import { LoadingState } from "@/components/ui/LoadingState";
-import { demoPlans } from "@/data/demo-fixtures";
 import { supabase } from "@/lib/supabase";
-import { useAppStore } from "@/store/app-store";
+import { isShareActive } from "@/lib/sharing";
+import { useDomain } from "@/state/domain-context";
 
 export function SharedPlanPage() {
   const { slug } = useParams();
-  const storedPlans = useAppStore((state) => state.plans);
-  const localPlan = [...storedPlans, ...demoPlans].find(
-    (item) =>
-      item.publicSlug === slug || (slug === "water-cycle-demo" && item.id === "plan_water_cycle")
-  );
+  const { shares } = useDomain();
+  const localShare = shares.find((item) => item.token === slug && isShareActive(item));
+  const localPlan = localShare?.snapshot;
   const [remotePlan, setRemotePlan] = useState<LessonPlan | null>(null);
   const [loading, setLoading] = useState(Boolean(!localPlan && supabase));
   useEffect(() => {
@@ -25,13 +23,16 @@ export function SharedPlanPage() {
     let active = true;
     const load = async () => {
       const { data } = await client
-        .from("lesson_plans")
-        .select("plan_data")
-        .eq("public_slug", slug)
-        .eq("is_public", true)
+        .from("share_snapshots")
+        .select("snapshot, revoked_at, expires_at")
+        .eq("token", slug)
         .maybeSingle();
       if (active) {
-        setRemotePlan((data?.plan_data as LessonPlan | undefined) ?? null);
+        const activeShare =
+          data &&
+          !data.revoked_at &&
+          (!data.expires_at || new Date(data.expires_at).getTime() > Date.now());
+        setRemotePlan(activeShare ? (data.snapshot as LessonPlan) : null);
         setLoading(false);
       }
     };

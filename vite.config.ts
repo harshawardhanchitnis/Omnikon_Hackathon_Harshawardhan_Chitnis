@@ -28,7 +28,7 @@ export default defineConfig({
       workbox: {
         mode: "development",
         navigateFallback: "/index.html",
-        globPatterns: ["**/*.{js,css,html,svg,woff2}"]
+        globPatterns: ["**/*.{js,css,html,svg,woff,woff2}"]
       }
     })
   ],

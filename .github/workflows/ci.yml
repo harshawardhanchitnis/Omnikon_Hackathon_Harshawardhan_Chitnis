@@ -61,6 +61,14 @@ jobs:
         if: always()
         with:
           name: chalkbox-product-screenshots
-          path: docs/screenshots/*.png
+          path: |
+            docs/screenshots/01-landing.png
+            docs/screenshots/02-quick-brief.png
+            docs/screenshots/03-lesson-editor.png
+            docs/screenshots/04-classroom-mode.png
+            docs/screenshots/05-present-mode.png
+            docs/screenshots/06-quick-check.png
+            docs/screenshots/07-assessment-bank.png
+            docs/screenshots/08-mobile-classroom.png
           if-no-files-found: warn
           retention-days: 7

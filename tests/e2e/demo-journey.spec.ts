@@ -20,9 +20,8 @@ test("judge can complete the prepared lesson lifecycle", async ({ page }) => {
   await page.getByRole("link", { name: /teach mode/i }).click();
   await expect(page.getByText(/teach mode · step 1/i)).toBeVisible();
 
-  for (let index = 0; index < 4; index += 1) {
-    await page.getByRole("button", { name: /next step/i }).click();
-  }
+  await page.getByRole("button", { name: /one-minute exit check/i }).click();
+  await expect(page.getByText(/teach mode · step 5 of 5/i)).toBeVisible();
   await page.getByRole("button", { name: /finish & reflect/i }).click();
   await page
     .getByLabel("What worked well?")

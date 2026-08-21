@@ -34,6 +34,7 @@ test("judge can complete the flagship classroom-engine lifecycle", async ({ page
 
 test("teacher can record an anonymous Quick Check 2.0 signal", async ({ page }) => {
   await page.goto("/demo");
+  await expect(page.getByRole("heading", { name: /good morning, meera/i })).toBeVisible();
   await page.goto("/plans/plan_photosynthesis_flagship/teach");
   await expect(page.getByText(/quick check 2\.0/i)).toBeVisible();
   await page.getByRole("button", { name: /capture class pulse/i }).click();
@@ -45,6 +46,7 @@ test("teacher can record an anonymous Quick Check 2.0 signal", async ({ page }) 
 
 test("Present mode receives only learner-safe content", async ({ page }) => {
   await page.goto("/demo");
+  await expect(page.getByRole("heading", { name: /good morning, meera/i })).toBeVisible();
   await page.goto("/plans/plan_photosynthesis_flagship/teach");
   await expect(page.getByText(/teach · block 1\/9/i)).toBeVisible();
   await page.goto("/plans/plan_photosynthesis_flagship/present");

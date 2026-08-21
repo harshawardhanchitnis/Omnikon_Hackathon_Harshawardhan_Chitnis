@@ -14,7 +14,7 @@ test("capture the canonical judge evidence set", async ({ page }, testInfo) => {
   await page.goto("/demo");
   await expect(page.getByRole("heading", { name: /good morning, meera/i })).toBeVisible();
   await page.goto("/plans/new");
-  await expect(page.getByRole("heading", { name: /create a lesson/i })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /start with your classroom/i })).toBeVisible();
   await page.screenshot({ path: path.join(output, "02-quick-brief.png"), fullPage: true });
 
   await page.goto("/plans/plan_photosynthesis_flagship/edit");
@@ -44,6 +44,7 @@ test("capture the mobile classroom evidence", async ({ page }, testInfo) => {
   const output = path.resolve("docs/screenshots");
   await mkdir(output, { recursive: true });
   await page.goto("/demo");
+  await expect(page.getByRole("heading", { name: /good morning, meera/i })).toBeVisible();
   await page.goto("/plans/plan_photosynthesis_flagship/teach");
   await expect(page.getByText(/teach · block 1\/9/i)).toBeVisible();
   await page.screenshot({ path: path.join(output, "08-mobile-classroom.png"), fullPage: true });

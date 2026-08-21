@@ -16,7 +16,7 @@ await page.screenshot({ path: path.join(output, "01-landing.png"), fullPage: tru
 await page.goto(`${baseUrl}/demo`);
 await page.getByRole("heading", { name: /good morning, meera/i }).waitFor();
 await page.goto(`${baseUrl}/plans/new`);
-await page.getByRole("heading", { name: /create a lesson/i }).waitFor();
+await page.getByRole("heading", { name: /start with your classroom/i }).waitFor();
 await page.screenshot({ path: path.join(output, "02-quick-brief.png"), fullPage: true });
 
 await page.goto(`${baseUrl}/plans/plan_photosynthesis_flagship/edit`);
@@ -45,6 +45,7 @@ const mobilePage = await browser.newPage({
   deviceScaleFactor: 1
 });
 await mobilePage.goto(`${baseUrl}/demo`);
+await mobilePage.getByRole("heading", { name: /good morning, meera/i }).waitFor();
 await mobilePage.goto(`${baseUrl}/plans/plan_photosynthesis_flagship/teach`);
 await mobilePage.getByText(/teach · block 1\/9/i).waitFor();
 await mobilePage.screenshot({ path: path.join(output, "08-mobile-classroom.png"), fullPage: true });

@@ -35,10 +35,18 @@ The `ChalkBox quality gate` workflow is configured to run:
 - axe WCAG A/AA serious/critical checks;
 - production-build, Playwright-report and eight product-screenshot artifacts.
 
-The previous v2 baseline passed GitHub Actions run **#16**. The new v3 branch must complete its own workflow before any browser-pass claim is updated here. The workflow is configured to upload the production build, Playwright report, and eight-screen v3 product evidence set.
+The v3 Classroom Teaching Engine passed GitHub Actions run **#26** on commit `0d98afb883049498c7c07da01e74a87e5bbdc3a1`:
+
+- `verify`: passed;
+- `browser-tests`: passed;
+- Playwright: 20 discovered checks across desktop/mobile projects, **17 passed** and **3 intentional project-specific skips**;
+- accessibility checks: passed on desktop and mobile;
+- artifacts: production build, Playwright report and the exact eight-screen judge evidence set uploaded.
+
+The eight evidence screens are landing, Quick Brief, lesson editor, Classroom Mode, Present Mode, Quick Check 2.0, Assessment Bank and mobile Classroom Mode.
 
 ## Final hosted verification
 
 After Supabase and Cloudflare Pages are configured, record the exact deployment URL, function health, live Gemini generation, indexed RAG result, auth callback, cross-browser share, PWA/offline reload and downloadable PDFs in `INTEGRATION_STATUS.md`.
 
-No unexecuted browser or hosted check is represented as passing.
+No unexecuted hosted check is represented as passing.

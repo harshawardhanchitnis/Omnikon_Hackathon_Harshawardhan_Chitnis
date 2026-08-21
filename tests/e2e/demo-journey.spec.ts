@@ -10,6 +10,7 @@ test("judge can complete the prepared lesson lifecycle", async ({ page }) => {
     .getByRole("link", { name: /create lesson plan/i })
     .first()
     .click();
+  await page.getByRole("button", { name: /use structured mode/i }).click();
   await page.getByRole("button", { name: /use prepared water-cycle example/i }).click();
   await expect(page.getByText("Prepared demo content").first()).toBeVisible();
   await expect(page.locator('input[value="The Water Cycle Around Us"]')).toBeVisible();

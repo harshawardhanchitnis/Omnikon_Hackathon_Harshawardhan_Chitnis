@@ -127,7 +127,7 @@ export function DashboardPage() {
                 <ClipboardList className="size-5" />
               </span>
               <h3 className="mt-4 font-black">Build the evidence next</h3>
-              <p className="text-muted mt-1 text-xs leading-5">
+              <p className="text-ink-700 mt-1 text-xs leading-5">
                 Pull reviewed questions into a worksheet or directly into a lesson.
               </p>
             </div>

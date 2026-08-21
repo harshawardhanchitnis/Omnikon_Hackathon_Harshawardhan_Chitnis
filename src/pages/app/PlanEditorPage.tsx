@@ -1,0 +1,625 @@
+import type { LessonActivity, LessonPlan } from "@chalkbox/contracts";
+import {
+  ArrowDown,
+  ArrowLeft,
+  ArrowUp,
+  Check,
+  Eye,
+  FileText,
+  Plus,
+  Save,
+  Sparkles,
+  Trash2
+} from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { toast } from "sonner";
+import { QualityPanel } from "@/components/plans/QualityPanel";
+import { SourceDisclosure } from "@/components/plans/SourceDisclosure";
+import { Badge } from "@/components/ui/Badge";
+import { Button } from "@/components/ui/Button";
+import { Card } from "@/components/ui/Card";
+import { EmptyState } from "@/components/ui/EmptyState";
+import { Input, Select, Textarea } from "@/components/ui/Field";
+import { evaluatePlan } from "@/lib/lesson-quality";
+import { cn, uid } from "@/lib/utils";
+import { useAppStore } from "@/store/app-store";
+
+type EditorTab = "overview" | "sequence" | "assessment";
+
+export function PlanEditorPage() {
+  const { planId } = useParams();
+  const navigate = useNavigate();
+  const storedPlan = useAppStore((state) => state.plans.find((plan) => plan.id === planId));
+  const updatePlan = useAppStore((state) => state.updatePlan);
+  const [draft, setDraft] = useState<LessonPlan | null>(() =>
+    storedPlan ? structuredClone(storedPlan) : null
+  );
+  const [tab, setTab] = useState<EditorTab>("overview");
+  const [saveState, setSaveState] = useState<"saved" | "saving">("saved");
+  const firstRender = useRef(true);
+
+  useEffect(() => {
+    if (!draft || !planId) return;
+    if (firstRender.current) {
+      firstRender.current = false;
+      return;
+    }
+    setSaveState("saving");
+    const timer = window.setTimeout(async () => {
+      const quality = evaluatePlan(draft).score;
+      await updatePlan(planId, { ...draft, qualityScore: quality });
+      setSaveState("saved");
+    }, 650);
+    return () => window.clearTimeout(timer);
+  }, [draft, planId, updatePlan]);
+
+  if (!draft)
+    return (
+      <EmptyState
+        icon={FileText}
+        title="Plan not found"
+        description="This plan may have been removed or belongs to another workspace."
+        action={
+          <Link to="/library">
+            <Button>Return to library</Button>
+          </Link>
+        }
+      />
+    );
+
+  const updateDraft = (patch: Partial<LessonPlan>) =>
+    setDraft((current) =>
+      current ? { ...current, ...patch, updatedAt: new Date().toISOString() } : current
+    );
+  const updateActivity = (id: string, patch: Partial<LessonActivity>) =>
+    updateDraft({
+      activities: draft.activities.map((activity) =>
+        activity.id === id ? { ...activity, ...patch } : activity
+      )
+    });
+  const saveNow = async () => {
+    const qualityScore = evaluatePlan(draft).score;
+    await updatePlan(draft.id, { ...draft, qualityScore });
+    setDraft({ ...draft, qualityScore });
+    setSaveState("saved");
+    toast.success("Plan saved offline");
+  };
+  const addObjective = () =>
+    updateDraft({
+      objectives: [
+        ...draft.objectives,
+        { id: uid("objective"), text: "Learners will be able to…", bloomLevel: "apply" }
+      ]
+    });
+  const addActivity = () =>
+    updateDraft({
+      activities: [
+        ...draft.activities,
+        {
+          id: uid("activity"),
+          title: "New learning activity",
+          type: "activity",
+          durationMinutes: 5,
+          teacherSteps: ["Describe what the teacher will do."],
+          studentSteps: ["Describe what learners will do."],
+          materials: ["Blackboard"],
+          differentiation: "Offer a simpler prompt and an extension challenge.",
+          offlineAlternative: "Use board work and peer discussion."
+        }
+      ]
+    });
+  const moveActivity = (index: number, direction: -1 | 1) => {
+    const next = [...draft.activities];
+    const target = index + direction;
+    if (target < 0 || target >= next.length) return;
+    const current = next[index];
+    const other = next[target];
+    if (!current || !other) return;
+    next[index] = other;
+    next[target] = current;
+    updateDraft({ activities: next });
+  };
+  const markReady = async () => {
+    const score = evaluatePlan(draft).score;
+    const status = score >= 80 ? "ready" : "draft";
+    updateDraft({ status, qualityScore: score });
+    await updatePlan(draft.id, { status, qualityScore: score });
+    if (status === "ready") toast.success("Plan marked ready to teach");
+    else toast.error("Resolve the quality checks before marking this plan ready.");
+  };
+
+  const tabs: Array<{ id: EditorTab; label: string; count?: number }> = [
+    { id: "overview", label: "Plan basics", count: draft.objectives.length },
+    { id: "sequence", label: "Lesson sequence", count: draft.activities.length },
+    { id: "assessment", label: "Assessment", count: draft.assessments.length }
+  ];
+  return (
+    <div>
+      <div className="mb-5 flex flex-wrap items-center gap-3">
+        <Link
+          to="/library"
+          className="text-ink-500 hover:text-moss-700 inline-flex items-center gap-2 text-sm font-bold"
+        >
+          <ArrowLeft className="size-4" />
+          Library
+        </Link>
+        <span className="h-4 w-px bg-black/10" />
+        <span
+          className={cn(
+            "inline-flex items-center gap-1.5 text-xs font-bold",
+            saveState === "saved" ? "text-moss-700" : "text-amber-700"
+          )}
+        >
+          {saveState === "saved" ? (
+            <Check className="size-3.5" />
+          ) : (
+            <span className="size-2 animate-pulse rounded-full bg-amber-500" />
+          )}
+          {saveState === "saved" ? "Saved on this device" : "Saving…"}
+        </span>
+        {draft.generationMode === "prepared-demo" && (
+          <Badge tone="purple">Prepared demo content</Badge>
+        )}
+        <div className="ml-auto flex flex-wrap gap-2">
+          <Button variant="secondary" size="sm" onClick={saveNow}>
+            <Save className="size-4" />
+            Save
+          </Button>
+          <Button
+            variant="secondary"
+            size="sm"
+            onClick={async () => {
+              await saveNow();
+              navigate(`/plans/${draft.id}/preview`);
+            }}
+          >
+            <Eye className="size-4" />
+            Preview
+          </Button>
+          <Button size="sm" onClick={markReady}>
+            <Sparkles className="size-4" />
+            Mark ready
+          </Button>
+        </div>
+      </div>
+
+      <Card className="mb-5 p-5 sm:p-6">
+        <div className="grid gap-4 lg:grid-cols-[1fr_auto] lg:items-end">
+          <Input
+            label="Lesson plan title"
+            value={draft.title}
+            onChange={(event) => updateDraft({ title: event.target.value })}
+            className="text-lg font-black"
+          />
+          <div className="flex flex-wrap gap-2 pb-0.5">
+            <Badge tone="green">Grade {draft.grade}</Badge>
+            <Badge tone="blue">{draft.subject}</Badge>
+            <Badge>{draft.durationMinutes} min</Badge>
+            <Badge>{draft.language}</Badge>
+          </div>
+        </div>
+        <p className="text-muted mt-4 text-xs leading-5">
+          <span className="text-ink-700 font-black">Topic: </span>
+          {draft.topic} · <span className="text-ink-700 font-black">Class context: </span>
+          {draft.classSize} learners, {draft.constraints.join(", ").toLowerCase()}.
+        </p>
+      </Card>
+
+      <div className="mb-5 flex gap-1 overflow-x-auto rounded-2xl border border-black/6 bg-white p-1.5">
+        {tabs.map((item) => (
+          <button
+            key={item.id}
+            onClick={() => setTab(item.id)}
+            className={cn(
+              "flex min-w-max flex-1 items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-black transition",
+              tab === item.id ? "bg-moss-700 text-white" : "text-ink-500 hover:bg-moss-50"
+            )}
+          >
+            {item.label}
+            {item.count !== undefined && (
+              <span
+                className={cn(
+                  "rounded-full px-1.5 py-0.5 text-[10px]",
+                  tab === item.id ? "bg-white/15" : "bg-slate-100"
+                )}
+              >
+                {item.count}
+              </span>
+            )}
+          </button>
+        ))}
+      </div>
+
+      <div className="grid gap-5 xl:grid-cols-[minmax(0,1fr)_21rem]">
+        <div>
+          {tab === "overview" && (
+            <div className="space-y-5">
+              <Card className="p-5 sm:p-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h2 className="text-lg font-black">Learning objectives</h2>
+                    <p className="text-muted mt-1 text-xs">
+                      Use observable verbs that can be checked during the lesson.
+                    </p>
+                  </div>
+                  <Button variant="secondary" size="sm" onClick={addObjective}>
+                    <Plus className="size-4" />
+                    Add
+                  </Button>
+                </div>
+                <div className="mt-5 space-y-3">
+                  {draft.objectives.map((objective, index) => (
+                    <div
+                      key={objective.id}
+                      className="bg-paper grid gap-2 rounded-xl p-3 sm:grid-cols-[2rem_1fr_8rem_auto] sm:items-center"
+                    >
+                      <span className="bg-moss-100 text-moss-700 grid size-8 place-items-center rounded-lg text-xs font-black">
+                        {index + 1}
+                      </span>
+                      <input
+                        aria-label={`Objective ${index + 1}`}
+                        value={objective.text}
+                        onChange={(event) =>
+                          updateDraft({
+                            objectives: draft.objectives.map((item) =>
+                              item.id === objective.id
+                                ? { ...item, text: event.target.value }
+                                : item
+                            )
+                          })
+                        }
+                        className="surface min-h-10 rounded-lg border px-3 text-sm"
+                      />
+                      <select
+                        aria-label={`Bloom level for objective ${index + 1}`}
+                        value={objective.bloomLevel}
+                        onChange={(event) =>
+                          updateDraft({
+                            objectives: draft.objectives.map((item) =>
+                              item.id === objective.id
+                                ? {
+                                    ...item,
+                                    bloomLevel: event.target.value as typeof objective.bloomLevel
+                                  }
+                                : item
+                            )
+                          })
+                        }
+                        className="surface h-10 rounded-lg border px-2 text-xs font-bold"
+                      >
+                        <option>remember</option>
+                        <option>understand</option>
+                        <option>apply</option>
+                        <option>analyse</option>
+                        <option>evaluate</option>
+                        <option>create</option>
+                      </select>
+                      <button
+                        aria-label={`Remove objective ${index + 1}`}
+                        disabled={draft.objectives.length <= 1}
+                        onClick={() =>
+                          updateDraft({
+                            objectives: draft.objectives.filter((item) => item.id !== objective.id)
+                          })
+                        }
+                        className="grid size-9 place-items-center rounded-lg text-red-700 hover:bg-red-50 disabled:opacity-30"
+                      >
+                        <Trash2 className="size-4" />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </Card>
+              <Card className="p-5 sm:p-6">
+                <h2 className="text-lg font-black">Classroom context</h2>
+                <div className="mt-5 grid gap-4 sm:grid-cols-2">
+                  <Input
+                    label="Class size"
+                    type="number"
+                    value={draft.classSize}
+                    onChange={(event) => updateDraft({ classSize: Number(event.target.value) })}
+                  />
+                  <Input
+                    label="Duration"
+                    type="number"
+                    value={draft.durationMinutes}
+                    onChange={(event) =>
+                      updateDraft({ durationMinutes: Number(event.target.value) })
+                    }
+                  />
+                  <Input
+                    label="Available materials"
+                    value={draft.availableMaterials.join(", ")}
+                    onChange={(event) =>
+                      updateDraft({
+                        availableMaterials: event.target.value
+                          .split(",")
+                          .map((item) => item.trim())
+                          .filter(Boolean)
+                      })
+                    }
+                    hint="Comma-separated"
+                  />
+                  <Input
+                    label="Constraints"
+                    value={draft.constraints.join(", ")}
+                    onChange={(event) =>
+                      updateDraft({
+                        constraints: event.target.value
+                          .split(",")
+                          .map((item) => item.trim())
+                          .filter(Boolean)
+                      })
+                    }
+                    hint="Comma-separated"
+                  />
+                </div>
+              </Card>
+            </div>
+          )}
+
+          {tab === "sequence" && (
+            <div className="space-y-4">
+              {draft.activities.map((activity, index) => (
+                <Card key={activity.id} className="overflow-hidden">
+                  <div className="bg-paper flex items-center gap-3 border-b border-black/5 px-4 py-3">
+                    <span className="bg-moss-700 grid size-8 place-items-center rounded-lg text-xs font-black text-white">
+                      {index + 1}
+                    </span>
+                    <p className="text-moss-700 min-w-0 flex-1 truncate text-xs font-black tracking-wider uppercase">
+                      {activity.type}
+                    </p>
+                    <button
+                      onClick={() => moveActivity(index, -1)}
+                      disabled={index === 0}
+                      aria-label="Move activity up"
+                      className="grid size-8 place-items-center rounded-lg hover:bg-white disabled:opacity-25"
+                    >
+                      <ArrowUp className="size-4" />
+                    </button>
+                    <button
+                      onClick={() => moveActivity(index, 1)}
+                      disabled={index === draft.activities.length - 1}
+                      aria-label="Move activity down"
+                      className="grid size-8 place-items-center rounded-lg hover:bg-white disabled:opacity-25"
+                    >
+                      <ArrowDown className="size-4" />
+                    </button>
+                    <button
+                      onClick={() =>
+                        updateDraft({
+                          activities: draft.activities.filter((item) => item.id !== activity.id)
+                        })
+                      }
+                      disabled={draft.activities.length <= 1}
+                      aria-label="Remove activity"
+                      className="grid size-8 place-items-center rounded-lg text-red-700 hover:bg-red-50 disabled:opacity-25"
+                    >
+                      <Trash2 className="size-4" />
+                    </button>
+                  </div>
+                  <div className="grid gap-4 p-5 sm:grid-cols-[1fr_9rem]">
+                    <Input
+                      label="Activity title"
+                      value={activity.title}
+                      onChange={(event) =>
+                        updateActivity(activity.id, { title: event.target.value })
+                      }
+                    />
+                    <Input
+                      label="Minutes"
+                      type="number"
+                      min={1}
+                      value={activity.durationMinutes}
+                      onChange={(event) =>
+                        updateActivity(activity.id, { durationMinutes: Number(event.target.value) })
+                      }
+                    />
+                    <Select
+                      label="Activity type"
+                      value={activity.type}
+                      onChange={(event) =>
+                        updateActivity(activity.id, {
+                          type: event.target.value as LessonActivity["type"]
+                        })
+                      }
+                    >
+                      <option value="hook">Hook</option>
+                      <option value="explain">Explain</option>
+                      <option value="activity">Activity</option>
+                      <option value="practice">Practice</option>
+                      <option value="assessment">Assessment</option>
+                      <option value="closure">Closure</option>
+                    </Select>
+                    <Input
+                      label="Materials"
+                      value={activity.materials.join(", ")}
+                      onChange={(event) =>
+                        updateActivity(activity.id, {
+                          materials: event.target.value
+                            .split(",")
+                            .map((item) => item.trim())
+                            .filter(Boolean)
+                        })
+                      }
+                    />
+                    <div className="sm:col-span-2">
+                      <Textarea
+                        label="Teacher steps"
+                        value={activity.teacherSteps.join("\n")}
+                        onChange={(event) =>
+                          updateActivity(activity.id, {
+                            teacherSteps: event.target.value.split("\n").filter(Boolean)
+                          })
+                        }
+                        hint="One step per line"
+                      />
+                    </div>
+                    <div className="sm:col-span-2">
+                      <Textarea
+                        label="Learner actions"
+                        value={activity.studentSteps.join("\n")}
+                        onChange={(event) =>
+                          updateActivity(activity.id, {
+                            studentSteps: event.target.value.split("\n").filter(Boolean)
+                          })
+                        }
+                        hint="One action per line"
+                      />
+                    </div>
+                    <div className="sm:col-span-2">
+                      <Input
+                        label="Inclusive support"
+                        value={activity.differentiation ?? ""}
+                        onChange={(event) =>
+                          updateActivity(activity.id, { differentiation: event.target.value })
+                        }
+                      />
+                    </div>
+                    <div className="sm:col-span-2">
+                      <Input
+                        label="Offline alternative"
+                        value={activity.offlineAlternative ?? ""}
+                        onChange={(event) =>
+                          updateActivity(activity.id, { offlineAlternative: event.target.value })
+                        }
+                      />
+                    </div>
+                  </div>
+                </Card>
+              ))}
+              <Button variant="secondary" className="w-full" onClick={addActivity}>
+                <Plus className="size-4" />
+                Add activity
+              </Button>
+            </div>
+          )}
+
+          {tab === "assessment" && (
+            <div className="space-y-5">
+              <Card className="p-5 sm:p-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h2 className="text-lg font-black">Checks for understanding</h2>
+                    <p className="text-muted mt-1 text-xs">
+                      Each check should point back to at least one objective.
+                    </p>
+                  </div>
+                  <Button
+                    variant="secondary"
+                    size="sm"
+                    onClick={() =>
+                      updateDraft({
+                        assessments: [
+                          ...draft.assessments,
+                          {
+                            id: uid("assessment"),
+                            prompt: "Add a short check for understanding.",
+                            type: "exit-ticket",
+                            answerGuide: "Describe acceptable evidence.",
+                            checksObjectiveIds: draft.objectives[0] ? [draft.objectives[0].id] : []
+                          }
+                        ]
+                      })
+                    }
+                  >
+                    <Plus className="size-4" />
+                    Add
+                  </Button>
+                </div>
+                <div className="mt-5 space-y-4">
+                  {draft.assessments.map((assessment, index) => (
+                    <div key={assessment.id} className="rounded-2xl border border-black/6 p-4">
+                      <div className="flex items-center justify-between">
+                        <p className="text-moss-700 text-xs font-black tracking-wider uppercase">
+                          Check {index + 1}
+                        </p>
+                        <button
+                          aria-label="Remove assessment"
+                          onClick={() =>
+                            updateDraft({
+                              assessments: draft.assessments.filter(
+                                (item) => item.id !== assessment.id
+                              )
+                            })
+                          }
+                          className="grid size-8 place-items-center rounded-lg text-red-700 hover:bg-red-50"
+                        >
+                          <Trash2 className="size-4" />
+                        </button>
+                      </div>
+                      <div className="mt-3 space-y-4">
+                        <Textarea
+                          label="Prompt"
+                          value={assessment.prompt}
+                          onChange={(event) =>
+                            updateDraft({
+                              assessments: draft.assessments.map((item) =>
+                                item.id === assessment.id
+                                  ? { ...item, prompt: event.target.value }
+                                  : item
+                              )
+                            })
+                          }
+                        />
+                        <Textarea
+                          label="Answer / evidence guide"
+                          value={assessment.answerGuide}
+                          onChange={(event) =>
+                            updateDraft({
+                              assessments: draft.assessments.map((item) =>
+                                item.id === assessment.id
+                                  ? { ...item, answerGuide: event.target.value }
+                                  : item
+                              )
+                            })
+                          }
+                        />
+                        <Select
+                          label="Response format"
+                          value={assessment.type}
+                          onChange={(event) =>
+                            updateDraft({
+                              assessments: draft.assessments.map((item) =>
+                                item.id === assessment.id
+                                  ? { ...item, type: event.target.value as typeof assessment.type }
+                                  : item
+                              )
+                            })
+                          }
+                        >
+                          <option value="oral">Oral</option>
+                          <option value="written">Written</option>
+                          <option value="observation">Observation</option>
+                          <option value="exit-ticket">Exit ticket</option>
+                        </Select>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </Card>
+              <Card className="space-y-4 p-5 sm:p-6">
+                <Textarea
+                  label="Homework / extension"
+                  value={draft.homework}
+                  onChange={(event) => updateDraft({ homework: event.target.value })}
+                />
+                <Textarea
+                  label="Private teacher notes"
+                  value={draft.teacherNotes}
+                  onChange={(event) => updateDraft({ teacherNotes: event.target.value })}
+                  hint="Do not enter student names or personal information."
+                />
+              </Card>
+            </div>
+          )}
+        </div>
+        <aside className="space-y-5 xl:sticky xl:top-24 xl:self-start">
+          <QualityPanel plan={{ ...draft, qualityScore: evaluatePlan(draft).score }} />
+          <SourceDisclosure plan={draft} />
+        </aside>
+      </div>
+    </div>
+  );
+}

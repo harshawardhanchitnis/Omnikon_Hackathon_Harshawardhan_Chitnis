@@ -1,0 +1,7 @@
+name = "chalkbox"
+pages_build_output_dir = "dist"
+compatibility_date = "2026-08-21"
+
+[vars]
+VITE_APP_ENV = "production"
+VITE_DEMO_ENABLED = "true"

@@ -1,0 +1,16 @@
+insert into public.curriculum_sources (
+  id, title, publisher, source_url, licence, attribution, grade, subject, board, approved, content_hash
+) values
+  ('11111111-1111-4111-8111-111111111111', 'ChalkBox original low-resource Science patterns', 'Team HarshLabs', 'https://github.com/harshawardhanchitnis/Omnikon_Hackathon_Harshawardhan_Chitnis', 'Original project content', 'Original ChalkBox teaching patterns by Team HarshLabs; may be adapted with attribution.', '6', 'Science', 'CBSE', true, 'chalkbox-science-v1'),
+  ('22222222-2222-4222-8222-222222222222', 'ChalkBox original formative-assessment patterns', 'Team HarshLabs', 'https://github.com/harshawardhanchitnis/Omnikon_Hackathon_Harshawardhan_Chitnis', 'Original project content', 'Original ChalkBox formative-assessment patterns by Team HarshLabs; may be adapted with attribution.', null, null, 'CBSE', true, 'chalkbox-assessment-v1'),
+  ('33333333-3333-4333-8333-333333333333', 'CBSE public grade and subject taxonomy', 'Central Board of Secondary Education', 'https://cbseacademic.nic.in/', 'Public taxonomy reference; no substantial source prose stored', 'Used for grade, subject and learning-outcome alignment only. Generated lesson wording remains original.', null, null, 'CBSE', true, 'cbse-taxonomy-v1')
+on conflict (id) do nothing;
+
+insert into public.curriculum_chunks (source_id, chunk_index, content, metadata) values
+  ('11111111-1111-4111-8111-111111111111', 0, 'For a low-resource science lesson, begin with a locally observable puzzle, elicit several learner explanations, then use a safe teacher-led demonstration before naming the scientific idea.', '{"kind":"pedagogy-pattern","tags":["inquiry","low-resource","science"]}'),
+  ('11111111-1111-4111-8111-111111111111', 1, 'Every classroom activity should specify a no-device alternative, common materials, a safety note where relevant, and one support pathway for learners who need more language or conceptual scaffolding.', '{"kind":"inclusion-pattern","tags":["offline","differentiation","safety"]}'),
+  ('11111111-1111-4111-8111-111111111111', 2, 'When teaching a cycle or process, ask learners to sequence stages, explain one transition using evidence, and apply the process to a familiar local observation.', '{"kind":"learning-pattern","tags":["sequence","apply","local-context"]}'),
+  ('22222222-2222-4222-8222-222222222222', 0, 'A formative check should name the observable evidence expected, connect to at least one learning objective, and be quick enough for the teacher to sort responses into secure, developing, and revisit groups.', '{"kind":"assessment-pattern","tags":["formative","evidence","objective-alignment"]}'),
+  ('22222222-2222-4222-8222-222222222222', 1, 'Offer multiple response modes such as speaking, drawing, modelling, pointing, or short writing when the response mode is not itself the learning target.', '{"kind":"inclusion-pattern","tags":["multiple-means","assessment"]}'),
+  ('33333333-3333-4333-8333-333333333333', 0, 'Curriculum alignment metadata should identify board, grade, subject, topic and intended learning outcome. Teachers must verify the generated plan against their current official syllabus before classroom use.', '{"kind":"taxonomy","tags":["alignment","teacher-review"]}')
+on conflict (source_id, chunk_index) do nothing;

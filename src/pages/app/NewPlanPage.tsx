@@ -149,7 +149,7 @@ export function NewPlanPage() {
               <WandSparkles className="text-sun-500 size-6 animate-pulse" />
             </span>
             <h1 className="mt-5 text-2xl font-black">Building your classroom-ready plan</h1>
-            <p className="mt-2 text-sm text-white/60">
+            <p className="mt-2 text-sm text-white/80">
               ChalkBox is validating structure before anything reaches your library.
             </p>
           </div>

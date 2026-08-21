@@ -78,7 +78,7 @@ export function SharedPlanPage() {
             Shared classroom plan · Grade {plan.grade} {plan.subject}
           </p>
           <h1 className="mt-3 text-4xl font-black tracking-[-0.04em]">{plan.title}</h1>
-          <p className="mt-3 text-sm text-white/65">
+          <p className="mt-3 text-sm text-white/80">
             {plan.durationMinutes} minutes · {plan.language} · {plan.board}
           </p>
         </div>

@@ -62,7 +62,7 @@ export function CommunityDetailPage() {
         <div className="bg-moss-900 p-7 text-white sm:p-9">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <Badge tone="green">Community quality {summary.qualityScore}</Badge>
-            <span className="text-xs font-bold text-white/60">
+            <span className="text-xs font-bold text-white/80">
               {summary.saves} saves · {summary.adaptations} adaptations
             </span>
           </div>
@@ -70,7 +70,7 @@ export function CommunityDetailPage() {
             Grade {summary.grade} · {summary.subject}
           </p>
           <h1 className="mt-2 text-4xl font-black tracking-[-0.04em]">{summary.title}</h1>
-          <p className="mt-3 text-sm text-white/65">
+          <p className="mt-3 text-sm text-white/80">
             Shared by {summary.authorName} · {summary.authorSchool}
           </p>
           <div className="mt-7 flex flex-wrap gap-2">

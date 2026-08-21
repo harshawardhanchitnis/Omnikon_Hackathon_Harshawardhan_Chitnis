@@ -108,7 +108,7 @@ export function AppShell() {
           aria-label={isAdmin ? "Admin navigation" : "Teacher navigation"}
         >
           {isAdmin && (
-            <p className="mb-3 px-3 text-[10px] font-black tracking-[0.18em] text-white/45 uppercase">
+            <p className="mb-3 px-3 text-[10px] font-black tracking-[0.18em] text-white/75 uppercase">
               Admin workspace
             </p>
           )}
@@ -134,11 +134,11 @@ export function AppShell() {
             <div className="flex items-center gap-2 text-xs font-bold">
               <span className="size-2 rounded-full bg-emerald-300" /> Offline-ready
             </div>
-            <p className="mt-1 text-[11px] leading-5 text-white/55">
+            <p className="mt-1 text-[11px] leading-5 text-white/75">
               Your current drafts stay on this device.
             </p>
           </div>
-          <p className="mt-3 text-center text-[10px] font-bold text-white/35">
+          <p className="mt-3 text-center text-[10px] font-bold text-white/70">
             Team HarshLabs · Omnikon 2026
           </p>
         </div>

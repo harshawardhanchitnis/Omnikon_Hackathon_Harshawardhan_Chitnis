@@ -32,7 +32,7 @@ export function Logo({ compact = false, inverse = false, className, linkTo = "/"
           <span
             className={cn(
               "mt-1 block text-[9px] font-bold tracking-[0.13em] uppercase",
-              inverse ? "text-white/60" : "text-moss-700"
+              inverse ? "text-white/80" : "text-moss-700"
             )}
           >
             by HarshLabs

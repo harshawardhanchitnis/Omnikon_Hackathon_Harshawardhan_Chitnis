@@ -63,7 +63,6 @@ export function DashboardPage() {
       <section className="grid gap-4 lg:grid-cols-[1.35fr_.65fr]">
         {upcoming && (
           <Card className="bg-moss-900 relative overflow-hidden text-white">
-            <div className="bg-moss-500/25 absolute -top-24 -right-16 size-72 rounded-full blur-2xl" />
             <div className="relative p-6 sm:p-7">
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <p className="text-xs font-black tracking-[0.15em] text-emerald-200 uppercase">
@@ -76,10 +75,10 @@ export function DashboardPage() {
               <h2 className="mt-7 max-w-2xl text-3xl font-black tracking-[-0.04em]">
                 {upcoming.title}
               </h2>
-              <p className="mt-3 max-w-2xl text-sm leading-6 text-white/65">
+              <p className="mt-3 max-w-2xl text-sm leading-6 text-white/80">
                 {upcoming.objectives[0]?.text}
               </p>
-              <div className="mt-6 flex flex-wrap gap-4 text-xs font-bold text-white/70">
+              <div className="mt-6 flex flex-wrap gap-4 text-xs font-bold text-white/85">
                 <span className="flex items-center gap-1.5">
                   <Clock3 className="text-sun-500 size-4" />
                   {upcoming.durationMinutes} minutes

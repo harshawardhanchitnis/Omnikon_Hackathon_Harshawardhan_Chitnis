@@ -51,11 +51,7 @@ export function LandingPage() {
           <div className="bg-moss-100/70 absolute -top-36 -right-32 size-[34rem] rounded-full blur-3xl" />
           <div className="bg-sun-100/70 absolute -bottom-52 -left-32 size-[28rem] rounded-full blur-3xl" />
           <div className="relative mx-auto grid max-w-7xl gap-12 px-4 py-16 sm:px-6 sm:py-24 lg:grid-cols-[1.02fr_.98fr] lg:items-center lg:px-8 lg:py-28">
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.45 }}
-            >
+            <motion.div initial={{ y: 16 }} animate={{ y: 0 }} transition={{ duration: 0.45 }}>
               <Badge tone="green" className="gap-2 bg-white/80">
                 <Sparkles className="size-3.5" />
                 Built for teachers who make more with less
@@ -113,8 +109,8 @@ export function LandingPage() {
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, scale: 0.96, rotate: 1 }}
-              animate={{ opacity: 1, scale: 1, rotate: 0 }}
+              initial={{ scale: 0.96, rotate: 1 }}
+              animate={{ scale: 1, rotate: 0 }}
               transition={{ duration: 0.55, delay: 0.1 }}
               className="relative"
             >
@@ -136,7 +132,7 @@ export function LandingPage() {
                     <h2 className="mt-2 text-2xl font-black tracking-tight">
                       The Water Cycle Around Us
                     </h2>
-                    <p className="mt-2 text-sm leading-6 text-white/65">
+                    <p className="mt-2 text-sm leading-6 text-white/80">
                       Bilingual · 38 learners · no projector
                     </p>
                   </div>
@@ -210,7 +206,9 @@ export function LandingPage() {
                   <span className="bg-moss-100 text-moss-700 grid size-11 place-items-center rounded-2xl">
                     <Icon className="size-5" />
                   </span>
-                  <span className="text-3xl font-black text-black/8">{step}</span>
+                  <span aria-hidden="true" className="text-ink-500 text-3xl font-black">
+                    {step}
+                  </span>
                 </div>
                 <h3 className="mt-6 text-lg font-black">{title}</h3>
                 <p className="text-muted mt-2 text-sm leading-6">{text}</p>
@@ -260,7 +258,7 @@ export function LandingPage() {
               <h2 className="mx-auto mt-3 max-w-2xl text-3xl font-black tracking-[-0.04em] sm:text-4xl">
                 Give every teacher a better starting point.
               </h2>
-              <p className="mx-auto mt-4 max-w-xl text-sm leading-7 text-white/65">
+              <p className="mx-auto mt-4 max-w-xl text-sm leading-7 text-white/80">
                 Open the fully seeded walkthrough now. No account, API key or setup is required.
               </p>
               <Link to="/demo" className="mt-7 inline-block">

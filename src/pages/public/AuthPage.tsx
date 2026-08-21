@@ -69,7 +69,7 @@ export function AuthPage() {
             ))}
           </ul>
         </div>
-        <p className="relative text-xs text-white/40">
+        <p className="relative text-xs text-white/75">
           Team HarshLabs · Omnikon National Hackathon 2026
         </p>
       </section>

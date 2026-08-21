@@ -82,7 +82,7 @@ export function CommunityPage() {
                     Next mentor review
                   </p>
                   <h2 className="mt-2 text-2xl font-black">{expert.name}</h2>
-                  <p className="mt-1 text-sm text-white/60">{expert.title}</p>
+                  <p className="mt-1 text-sm text-white/80">{expert.title}</p>
                 </div>
                 <div className="p-5">
                   <p className="text-sm font-black">

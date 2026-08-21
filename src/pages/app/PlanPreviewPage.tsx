@@ -91,34 +91,34 @@ export function PlanPreviewPage() {
             <h1 className="mt-7 max-w-3xl text-3xl font-black tracking-[-0.04em] sm:text-5xl">
               {plan.title}
             </h1>
-            <p className="mt-4 max-w-2xl text-sm leading-6 text-white/65">{plan.topic}</p>
+            <p className="mt-4 max-w-2xl text-sm leading-6 text-white/80">{plan.topic}</p>
             <dl className="mt-7 grid grid-cols-2 gap-4 text-sm sm:grid-cols-5">
               <div>
-                <dt className="text-[10px] font-black tracking-wider text-white/45 uppercase">
+                <dt className="text-[10px] font-black tracking-wider text-white/75 uppercase">
                   Grade
                 </dt>
                 <dd className="mt-1 font-black">{plan.grade}</dd>
               </div>
               <div>
-                <dt className="text-[10px] font-black tracking-wider text-white/45 uppercase">
+                <dt className="text-[10px] font-black tracking-wider text-white/75 uppercase">
                   Subject
                 </dt>
                 <dd className="mt-1 font-black">{plan.subject}</dd>
               </div>
               <div>
-                <dt className="text-[10px] font-black tracking-wider text-white/45 uppercase">
+                <dt className="text-[10px] font-black tracking-wider text-white/75 uppercase">
                   Duration
                 </dt>
                 <dd className="mt-1 font-black">{plan.durationMinutes} min</dd>
               </div>
               <div>
-                <dt className="text-[10px] font-black tracking-wider text-white/45 uppercase">
+                <dt className="text-[10px] font-black tracking-wider text-white/75 uppercase">
                   Class
                 </dt>
                 <dd className="mt-1 font-black">{plan.classSize} learners</dd>
               </div>
               <div>
-                <dt className="text-[10px] font-black tracking-wider text-white/45 uppercase">
+                <dt className="text-[10px] font-black tracking-wider text-white/75 uppercase">
                   Updated
                 </dt>
                 <dd className="mt-1 font-black">{formatDate(plan.updatedAt)}</dd>

@@ -48,17 +48,27 @@ export function TeachModePage() {
   const [quickCheckOpen, setQuickCheckOpen] = useState(false);
   const speech = useSpeechSynthesis();
   const elapsedRef = useRef(0);
+  const startedPlanRef = useRef<string | null>(null);
+  const startSessionRef = useRef(startSession);
+  const updateSessionRef = useRef(updateSession);
   useEffect(() => {
-    if (!planId) return;
+    startSessionRef.current = startSession;
+  }, [startSession]);
+  useEffect(() => {
+    updateSessionRef.current = updateSession;
+  }, [updateSession]);
+  useEffect(() => {
+    if (!planId || startedPlanRef.current === planId) return;
+    startedPlanRef.current = planId;
     const init = async () => {
-      const created = await startSession(planId);
+      const created = await startSessionRef.current(planId);
       setSessionId(created.id);
       setElapsed(created.elapsedSeconds);
       elapsedRef.current = created.elapsedSeconds;
       setPaused(created.paused);
     };
     void init();
-  }, [planId, startSession]);
+  }, [planId]);
   useEffect(() => {
     if (paused) return;
     const timer = window.setInterval(() => {
@@ -72,9 +82,12 @@ export function TeachModePage() {
   useEffect(
     () => () => {
       if (sessionId)
-        void updateSession(sessionId, { elapsedSeconds: elapsedRef.current, paused: true });
+        void updateSessionRef.current(sessionId, {
+          elapsedSeconds: elapsedRef.current,
+          paused: true
+        });
     },
-    [sessionId, updateSession]
+    [sessionId]
   );
   if (!plan)
     return (

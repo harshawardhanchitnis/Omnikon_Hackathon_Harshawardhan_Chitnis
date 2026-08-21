@@ -6,6 +6,7 @@ import {
 } from "@chalkbox/contracts";
 import { demoPlans, DEMO_TEACHER_ID } from "@/data/demo-fixtures";
 import { appConfig } from "@/lib/config";
+import { rebalanceBlockDurations } from "@/lib/classroom-engine";
 import { invokeFunction } from "@/lib/supabase";
 import { slugify, uid } from "@/lib/utils";
 
@@ -56,26 +57,43 @@ export function createPreparedDemoPlan(input?: Partial<PlanGenerationInput>): Pl
   if (!template) throw new Error("Prepared demo content is unavailable.");
   const now = new Date().toISOString();
   const id = uid("plan");
+  const durationMinutes = input?.durationMinutes ?? template.durationMinutes;
+  const grade = input?.grade ?? template.grade;
+  const additionalGrade = input?.additionalGrade;
+  const targetGrades = additionalGrade ? [grade, additionalGrade] : [grade];
   const plan: LessonPlan = {
     ...structuredClone(template),
     id,
     ownerId: DEMO_TEACHER_ID,
     title: input?.topic ? `${input.topic}: Classroom-ready lesson` : template.title,
     topic: input?.topic ?? template.topic,
-    grade: input?.grade ?? template.grade,
-    additionalGrade: input?.additionalGrade,
+    grade,
+    additionalGrade,
     subject: input?.subject ?? template.subject,
     customSubject: input?.customSubject,
     board: input?.board ?? template.board,
     customBoard: input?.customBoard,
     language: input?.language ?? template.language,
-    durationMinutes: input?.durationMinutes ?? template.durationMinutes,
+    durationMinutes,
     classSize: input?.classSize ?? template.classSize,
     availableMaterials: input?.availableMaterials?.length
       ? input.availableMaterials
       : template.availableMaterials,
     constraints: input?.constraints?.length ? input.constraints : template.constraints,
     activities: template.activities.map((activity) => ({ ...activity, id: uid("activity") })),
+    classroomBlocks: rebalanceBlockDurations(
+      template.classroomBlocks.map((block) => ({
+        ...structuredClone(block),
+        id: uid("block"),
+        language: input?.language ?? template.language,
+        gradeTarget: {
+          grades: targetGrades,
+          label: `Class ${targetGrades.join(" + ")} · Whole class`
+        },
+        revealStages: block.revealStages.map((stage) => ({ ...stage, id: uid("reveal") }))
+      })),
+      durationMinutes
+    ),
     objectives: template.objectives.map((objective) => ({ ...objective, id: uid("objective") })),
     assessments: template.assessments.map((assessment) => ({
       ...assessment,
@@ -103,6 +121,7 @@ export function createPreparedDemoPlan(input?: Partial<PlanGenerationInput>): Pl
     provider: "prepared-demo",
     model: "Prepared ChalkBox example",
     retrievalCount: 1,
+    groundingStatus: plan.grounding.status,
     latencyMs: 650,
     warnings: ["Prepared demo content; review and adapt before classroom use."]
   };

@@ -22,18 +22,18 @@ Point out **No card**, **Offline-ready**, **Teacher stays in control**, and the 
 Enter the demo and open **Create lesson plan**.
 
 - Show Meera's reusable classroom context and privacy-safe constraints.
-- Type or dictate: “Grade 6 Science, water cycle, 45 minutes, bilingual, 38 learners, no projector, mixed reading levels.”
+- Type or dictate: “Class 7 Science, photosynthesis, 40 minutes, bilingual, 42 learners, chalkboard, intermittent internet, mixed ability.”
 - Click **Review brief** and show extracted fields, assumptions, confidence and extraction-method disclosure.
 - Mention that grades 1–10, optional mixed-grade planning, custom subject/board, 20–90 minutes and classes up to 100 are contract-enforced.
-- Select **Use prepared water-cycle example** for the guaranteed path. It is visibly labelled and not represented as live Gemini.
+- Open the prepared **Photosynthesis: How Leaves Make Food** flagship for the guaranteed path. It is visibly labelled and not represented as live Gemini.
 
 ## 1:15–2:05 — Inspect, improve and version
 
 In the editor:
 
-- Show measurable objectives, timed teacher/learner moves, materials, inclusive support, offline alternatives and mapped assessment evidence.
+- Open **Teaching engine** and show nine typed blocks, exact 40/40 timing, code-native visual, misconception, progressive reveals, inclusive support, alternatives and mapped assessment evidence.
 - Point out quality checks and source/AI disclosure.
-- Save a named checkpoint, adjust one section with AI/prepared action, and show that ChalkBox creates a **before regeneration** version.
+- Save a named checkpoint, generate one section suggestion, compare **Current** with **Suggested**, reject or accept explicitly, and show the **before regeneration** version.
 - Open version history, demonstrate restore/duplicate semantics, then preview.
 
 Explain that every edit is durable on the device first and registered accounts can sync with explicit conflict resolution.
@@ -50,16 +50,16 @@ Open **Assessment bank**:
 
 ## 2:50–3:40 — Teach and present
 
-Return to the water-cycle preview and open **Teach Mode**:
+Return to the photosynthesis preview and open **Teach Mode**:
 
-- Show the large current step, timer, read-aloud, teacher/learner moves, materials and offline alternative.
-- Open learner **Present Mode** and note that private teacher notes are excluded.
-- Record a Quick Check with anonymous aggregate response counts, then move through steps.
+- Show the exact lesson/block timers, typed lesson map, read-aloud, private teacher cue, learner content, resource alternative and support.
+- Reveal the visual inputs/outputs progressively and open learner **Present Mode**; point out that private cues, notes, expected reasoning and answers are structurally excluded.
+- Open the misconception block, then record a Quick Check 2.0 signal with anonymous counts and its suggested next action.
 - Finish and save a class-level reflection and next action.
 
 ## 3:40–4:25 — Trust: sharing, community and analytics
 
-- In preview, create an expiring share and explain that it freezes a specific version; later edits cannot mutate it and the owner can revoke it.
+- In preview, create an expiring share and explain that it freezes a version, stores only the token hash, cannot be enumerated anonymously, and remains revocable.
 - Open **Community**, inspect an approved immutable snapshot, its attribution/moderation state, and adapt it into a private copy.
 - Open **Insights** and show transparent plan, teaching, time-saved, outcome and Quick Check calculations. Emphasize no student profiles.
 
@@ -67,10 +67,10 @@ Return to the water-cycle preview and open **Teach Mode**:
 
 Close with the evidence:
 
-- complete offline-first teacher lifecycle;
+- complete offline-first Plan → Structure → Teach → Assess → Reflect → Reuse lifecycle;
 - IndexedDB domain persistence plus version-aware Supabase sync;
 - protected Gemini 3.7 Flash actions and hybrid pgvector/keyword retrieval;
-- strict schemas, one repair, provenance and deterministic quality checks;
+- strict typed-block schemas, exact timing repair, honest grounding and seven deterministic quality checks;
 - classroom profiles, voice assist, bilingual PDF fonts and responsive PWA;
 - immutable share/community snapshots and explicit moderation;
 - no student PII, no paid dependency, no competitor code/assets copied;

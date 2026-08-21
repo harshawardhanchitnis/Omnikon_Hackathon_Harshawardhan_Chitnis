@@ -41,16 +41,19 @@ The browser service `src/services/ai-actions.ts` normalizes success/error payloa
 8. Retrieved data is delimited as untrusted reference context, not instructions.
 9. Gemini receives a strict JSON schema and conservative safety configuration.
 10. Zod validates the response; one repair request is allowed, never an unbounded retry loop.
-11. Deterministic quality checks run and trusted source/disclosure metadata is attached server-side.
-12. The function returns typed content plus privacy-safe operational metadata.
+11. The server deterministically fits activities and classroom blocks to the exact requested duration.
+12. Deterministic quality checks run and trusted source/disclosure metadata is attached server-side.
+13. The function returns typed content plus an explicit grounded, partially-grounded, or ungrounded status.
 
 ## Deterministic lesson checks
 
 - at least two measurable objectives;
-- sequence duration within five minutes of the requested total;
-- offline alternative for every activity;
+- instructional-block duration equals the requested total exactly;
+- offline/resource alternative for every block;
 - every assessment maps to one or more objective IDs;
 - material use stays within the supplied/common classroom list;
+- hook, visual, misconception, quick check and recap/exit structure is present;
+- multigrade attention assignments are feasible;
 - source/disclosure metadata comes from trusted code rather than model prose.
 
 The browser repeats inspectable quality checks after teacher edits. Quality scores are product heuristics, not claims of measured learning impact.
@@ -59,7 +62,7 @@ The browser repeats inspectable quality checks after teacher edits. Quality scor
 
 `curriculum_sources` stores title, publisher, direct URL, licence, attribution, board, grade, subject, approval status and content hash. `curriculum_chunks` stores bounded original/licensed text, metadata, search text and embedding. `match_curriculum_hybrid` blends vector similarity with keyword relevance and metadata filters.
 
-The repository includes `data/curriculum/chalkbox-original.json`: original ChalkBox pedagogy guidance mapped to public curriculum taxonomy. It does not contain substantial textbook prose. The ingestion function refuses incomplete licence/attribution fields and is admin-only.
+The repository includes `data/curriculum/chalkbox-original.json` plus `ncert-class-8-science-derived.json`. The latter records the participant-supplied PDF checksum/ISBN and 18 original chapter summaries with printed/PDF page locators. It contains no textbook prose, figures, activities, exercises or answer keys. The ingestion function refuses incomplete licence/attribution fields and is admin-only.
 
 Every assessment question carries:
 

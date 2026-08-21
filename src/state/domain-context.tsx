@@ -40,6 +40,7 @@ import {
   demoTeacher,
   demoWorksheets
 } from "@/data/demo-fixtures";
+import { generateSecureShareToken, hashShareToken } from "@/lib/classroom-engine";
 import { clearOfflineDatabase, offlineDb } from "@/lib/offline-db";
 import { sanitiseShareSnapshot } from "@/lib/sharing";
 import { uid } from "@/lib/utils";
@@ -344,7 +345,7 @@ export function DomainProvider({ children }: PropsWithChildren) {
     };
 
     const updatePlan = async (id: string, patch: Partial<LessonPlan>) => {
-      const existing = state.plans.find((plan) => plan.id === id);
+      const existing = await offlineDb.plans.get(id);
       if (!existing) return;
       const updated: LessonPlan = {
         ...existing,
@@ -439,6 +440,9 @@ export function DomainProvider({ children }: PropsWithChildren) {
           ownerId: profile?.id ?? demoTeacher.id,
           startedAt: now,
           currentActivityIndex: 0,
+          currentBlockIndex: 0,
+          revealState: {},
+          skippedBlockIds: [],
           elapsedSeconds: 0,
           paused: false,
           quickNotes: [],
@@ -458,7 +462,7 @@ export function DomainProvider({ children }: PropsWithChildren) {
         return session;
       },
       updateSession: async (id, patch) => {
-        const existing = state.sessions.find((item) => item.id === id);
+        const existing = await offlineDb.sessions.get(id);
         if (!existing) return;
         const updated: TeachingSession = {
           ...existing,
@@ -556,14 +560,16 @@ export function DomainProvider({ children }: PropsWithChildren) {
         const plan = state.plans.find((item) => item.id === planId);
         if (!plan) throw new Error("Plan not found");
         const version = await createPlanVersion(planId, "shared", "Immutable public snapshot");
-        const token = uid("share").replaceAll("_", "-");
+        const rawToken = generateSecureShareToken();
+        const tokenHash = await hashShareToken(rawToken);
         const share: ShareSnapshot = {
           id: uid("share-record"),
-          token,
+          tokenHash,
+          rawToken,
           planId,
           planVersionId: version.id,
           ownerId: plan.ownerId,
-          snapshot: sanitiseShareSnapshot(version.snapshot, token),
+          snapshot: sanitiseShareSnapshot(version.snapshot),
           createdAt: new Date().toISOString(),
           ...(expiresAt ? { expiresAt } : {})
         };
@@ -710,7 +716,7 @@ export function DomainProvider({ children }: PropsWithChildren) {
           ownerId: plan.ownerId,
           planId,
           planVersionId: version.id,
-          snapshot: sanitiseShareSnapshot(version.snapshot, "community"),
+          snapshot: sanitiseShareSnapshot(version.snapshot),
           authorName: profile?.fullName ?? "ChalkBox teacher",
           authorSchool: profile?.schoolName ?? "",
           status: "submitted",

@@ -77,13 +77,13 @@ Then sign in through ChalkBox and test one real lesson generation, one Quick Bri
 
 ## 5. Index approved original curriculum content
 
-1. Review `data/curriculum/chalkbox-original.json` and confirm the source/licence/attribution fields.
-2. Run `pnpm curriculum:index` to validate the local manifest.
+1. Review both JSON bundles in `data/curriculum/` and confirm source/licence/attribution fields. The uploaded NCERT PDF itself is intentionally absent.
+2. Run `pnpm curriculum:validate` to verify both local manifests.
 3. Promote your verified user to admin in the Supabase `profiles` table.
-4. Call the authenticated admin-only `index-curriculum` function for each source/chunk batch.
+4. Run `pnpm curriculum:index`; it calls the authenticated admin-only function for all approved bundles by default.
 5. Query source rows to confirm approval and embeddings before claiming live RAG.
 
-Do not ingest substantial NCERT/commercial textbook prose. Source taxonomy and original/licensed explanations are sufficient.
+Do not ingest substantial NCERT/commercial textbook prose. Keep only original summaries, locators, source metadata, or explicitly licensed explanations.
 
 ## 6. Configure the frontend
 

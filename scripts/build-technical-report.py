@@ -207,7 +207,7 @@ story += [
     Spacer(1, 47 * mm),
     P("OMNIKON NATIONAL HACKATHON 2026  /  FINAL BUILD", "CoverEyebrow"),
     P("ChalkBox", "CoverTitle"),
-    P("Fast, practical lesson planning for the classroom a teacher actually has.", "CoverDeck"),
+    P("A premium Classroom Teaching Engine for the classroom a teacher actually has.", "CoverDeck"),
     Table(
         [[P("PROBLEM", "TableHead"), P("TEAM", "TableHead"), P("PARTICIPANT", "TableHead")],
          [P("Omni_EdTech_7", "CoverMeta"), P("Team HarshLabs", "CoverMeta"), P("Harshawardhan Chitnis", "CoverMeta")]],
@@ -229,7 +229,7 @@ story += [
 ]
 
 # Executive summary
-story += section("01 / Executive summary", "A complete teacher workflow, not a text generator.", "ChalkBox reduces lesson-planning friction for teachers who have limited time, materials, connectivity, and support. It creates a strong starting point and follows the lesson through assessment, teaching, reflection, and reuse.")
+story += section("01 / Executive summary", "A complete classroom operating loop, not a text generator.", "ChalkBox reduces lesson-planning friction for teachers who have limited time, materials, connectivity, and support. Its final loop is Plan - Structure - Teach - Assess - Reflect - Reuse.")
 story += [
     P("The challenge", "H2x"),
     P("Teachers in under-resourced schools often prepare across multiple grades and subjects without dependable internet, printing, projectors, or ready-to-use materials. Generic AI output can add another editing burden when it ignores these constraints or stops at a paragraph of advice.", "Bodyx"),
@@ -238,16 +238,16 @@ story += [
         ["Need", "ChalkBox response", "Evidence in build"],
         [
             ["Speed", "Structured plan from a bounded classroom brief", "Constraint form, protected generation, prepared demo"],
-            ["Practicality", "Timed activities using common materials", "Material allow-list, offline alternative per activity"],
+            ["Practicality", "Exact-time typed teaching blocks", "Common materials, alternatives and deterministic timing fit"],
             ["Teacher control", "Every output is editable and inspectable", "Autosaving editor, quality panel, sources"],
-            ["Classroom continuity", "Plan remains useful after preparation", "Assessment bank, Teach/Present Mode, Quick Check, reflection"],
+            ["Classroom continuity", "Plan becomes a live teaching sequence", "Progressive reveal, Present Mode, Quick Check 2.0, reflection"],
             ["Trust", "No secret in browser and no student profile", "Edge Functions, RLS, privacy-safe data model"],
             ["Resilience", "Core demo and saved plans work without APIs", "PWA, IndexedDB, explicit prepared flow"],
         ],
         [27 * mm, 68 * mm, 71 * mm],
     ),
     Spacer(1, 5 * mm),
-    callout("Core outcome", "A teacher moves from a short brief to a classroom-ready, editable lesson with measurable objectives, low-resource activities, assessment evidence, printable resources, and a reusable reflection loop."),
+    callout("Core outcome", "A teacher moves from a short brief to an exact-duration teaching sequence with code-native visuals, misconception handling, low-resource alternatives, anonymous response guidance, printable resources, and a reusable reflection loop."),
     Spacer(1, 5 * mm),
     P("Success is defined by the final working product: complete flows, strong UI/UX, transparent AI, offline behaviour, safe persistence, export, responsive design, and reproducible deployment.", "Bodyx"),
     PageBreak(),
@@ -260,7 +260,7 @@ story += [
         ("Brief", "Type or dictate; review extraction and assumptions"),
         ("Plan", "Gemini or labelled prepared example"),
         ("Assess", "Source-labelled bank and worksheet"),
-        ("Teach", "Steps, presentation and aggregate check"),
+        ("Teach", "Typed blocks, reveals and learner broadcast"),
         ("Improve", "Reflection, analytics and private reuse"),
     ], [29 * mm, 5 * mm, 29 * mm, 5 * mm, 29 * mm, 5 * mm, 29 * mm, 5 * mm, 29 * mm]),
     Spacer(1, 6 * mm),
@@ -271,10 +271,10 @@ story += [
             ["Identity", "Passwordless email, auth callback, onboarding, anonymous AI session"],
             ["Teacher home", "Next lesson, recent plans, outcome signal, assessment and classroom shortcuts"],
             ["Brief and classroom", "Voice/text extraction, review, mixed grade, custom board/subject, reusable context"],
-            ["Editor and history", "Autosave, section adjustment, checkpoints, restore, duplicate and quality checks"],
+            ["Editor and history", "Typed block editor, exact timing repair, Current vs Suggested AI review, checkpoints and restore"],
             ["Assessment", "Provenance, review state, add-to-lesson, worksheet and answer-key PDFs"],
             ["Preview and share", "Print, PDF, learner presentation and immutable expiring snapshots"],
-            ["Teach and reflect", "Timer, read-aloud, Quick Checks, class evidence and next action"],
+            ["Teach and reflect", "Block/lesson timers, progressive reveal, Quick Check 2.0, class evidence and next action"],
             ["Curriculum/community", "Source-aware explorer, moderated immutable discovery, adaptation and reports"],
             ["Insights/settings", "Aggregate trends, offline queue, conflict choices, export and demo reset"],
             ["Administration", "Moderation queue, source audit, health, quota and validation telemetry"],
@@ -292,7 +292,7 @@ story += [
     P("Primary persona", "H2x"),
     data_table(
         ["Persona", "Context", "Seeded proof"],
-        [["Meera Patil", "Grade 5-7 teacher at a fictional Zilla Parishad school in Pune district", "3 plans, 2 classrooms, assessment bank, worksheet, versions, share, session, Quick Check, reflection, publications and analytics"]],
+        [["Meera Patil", "Grade 5-7 teacher at a fictional Zilla Parishad school in Pune district", "4 plans, 2 classrooms, assessment bank, worksheet, versions, secure share, sessions, Quick Checks, reflection, publications and analytics"]],
         [33 * mm, 66 * mm, 67 * mm],
     ),
     Spacer(1, 5 * mm),
@@ -300,6 +300,7 @@ story += [
     data_table(
         ["Plan", "Status", "Classroom constraint", "Demonstrated outcome"],
         [
+            ["Photosynthesis: How Leaves Make Food", "Ready", "42 learners, bilingual, chalkboard, intermittent internet", "Flagship 40-minute teaching engine, visual reveal, misconception, class pulse and exit ticket"],
             ["The Water Cycle Around Us", "Ready", "38 learners, bilingual, no projector", "Brief, history, assessment, teach/present, share, PDF and reflection"],
             ["Fractions in the Local Market", "Taught", "Limited photocopies", "Completed session, check-in and reflection analytics"],
             ["A Story from Another View", "Draft", "42 learners, mixed reading levels", "Return-to-draft and quality improvement state"],
@@ -341,7 +342,7 @@ story += [
             ["Forms", "React Hook Form + Zod", "Typed validation shared with AI input constraints"],
             ["Offline", "Dexie / IndexedDB + PWA", "Reliable drafts, sessions and reflections on-device"],
             ["Cloud", "Supabase Auth, Postgres, Edge, pgvector", "Free-first managed backend with RLS and vector search"],
-            ["AI", "Gemini 3.7 Flash + Embedding 2", "Structured lesson JSON and 768-dimensional retrieval"],
+            ["AI", "Gemini 3.7 Flash + Embedding 2", "Strict classroom-block JSON and 768-dimensional retrieval"],
             ["Output", "React PDF + browser print", "Private client-side document export"],
             ["Quality", "Vitest + Playwright + axe", "Unit, component, lifecycle, mobile and accessibility tests"],
             ["Delivery", "Cloudflare Pages + GitHub Actions", "Free CDN deployment, headers, SPA routes and CI"],
@@ -362,7 +363,7 @@ story += [
 ]
 
 # AI
-story += section("05 / Responsible AI and retrieval", "Generate structure. Preserve judgement.", "Protected Edge Functions handle full lessons, Quick Brief parsing, section adjustment, assessment generation and translation/adaptation.")
+story += section("05 / Responsible AI and retrieval", "Generate structure. Preserve judgement.", "Protected Edge Functions generate the same typed classroom contract used by the prepared flagship, then attach provenance from trusted retrieval code.")
 story += [
     flow_table([
         ("Auth", "Verify user and owner"),
@@ -381,14 +382,14 @@ story += [
             ["Output validation", "JSON schema plus Zod", "Malformed response never enters library"],
             ["Repair", "One bounded retry with validation issues", "Reliable structure without retry loop"],
             ["Review", "AI questions enter as unreviewed variants", "Teacher accepts before bank use"],
-            ["Quality", "Objectives, timing, offline, alignment, materials", "0-100 panel the teacher can inspect"],
+            ["Quality", "Objectives, exact timing, flow, grounding, offline and multigrade feasibility", "Seven inspectable checks; exact means exact"],
             ["Failure", "Explicit provider/quota messages", "Prepared content never masquerades as AI"],
             ["Telemetry", "ID, model, status, latency, retrieval, score", "Operations without prompt contents"],
         ],
         [31 * mm, 69 * mm, 66 * mm],
     ),
     Spacer(1, 5 * mm),
-    callout("Copyright boundary", "ChalkBox uses public curriculum taxonomy, original lesson wording, and properly licensed OER. It does not store or reproduce substantial textbook prose.", SUN_LIGHT),
+    callout("Copyright boundary", "The participant-supplied NCERT Class VIII Science PDF is indexed only as 18 original concept summaries, page locators, ISBN, checksum and attribution. The repository and ZIP do not redistribute the book, figures, exercises or textbook prose.", SUN_LIGHT),
     Spacer(1, 5 * mm),
     P("Quick Brief rule-based parsing and prepared examples are labelled. Teacher review remains mandatory for current syllabus fit, facts, language, safety, accessibility, and the needs of the actual class.", "Bodyx"),
     PageBreak(),
@@ -401,7 +402,7 @@ story += [
         ["Entity", "Persists", "Access rule"],
         [
             ["Profile", "Teacher identity and defaults", "Self read/update; role column not self-editable"],
-            ["Lesson/version/share", "Content, history and immutable publication snapshot", "Owner CRUD; active token read only"],
+            ["Lesson/version/share", "Content, history and immutable publication snapshot", "Owner CRUD; SHA-256 token hash stored; raw capability resolved only by RPC"],
             ["Classroom", "Aggregate count, resources, language and support context", "Owner only; no student names"],
             ["Question/worksheet", "Provenance, review and immutable item snapshots", "Owner or approved source policy"],
             ["Teaching/Quick Check", "Current step, notes and anonymous response counts", "Owner only"],
@@ -415,6 +416,7 @@ story += [
     Spacer(1, 6 * mm),
     P("Security controls", "H2x"),
     bullet("Postgres row-level security on every user/content/operation table."),
+    bullet("Anonymous users cannot SELECT the share table; a security-definer resolver checks only a cryptographic raw token, expiry and revocation."),
     bullet("Owner ID checked both in RLS and inside the generation function."),
     bullet("Admin role resolved with a security-definer helper and explicit admin gates."),
     bullet("Content Security Policy permits only self, Supabase, Turnstile, local workers and data/blob assets."),
@@ -446,11 +448,11 @@ story += [
     ),
     Spacer(1, 6 * mm),
     P("Teach Mode priorities", "H2x"),
-    bullet("High-contrast activity title and duration."),
-    bullet("Teacher steps and learner actions separated into two columns on large screens."),
-    bullet("Offline alternative and inclusive support visible without opening another page."),
-    bullet("Timer, pause, full-screen action, progress bar and direct lesson-map navigation."),
-    bullet("Learner Present Mode removes private teacher notes and exposes only projectable content."),
+    bullet("High-contrast typed block, grade target, purpose, exact lesson timer and per-block pacing timer."),
+    bullet("Private teacher cues and projection-safe learner content are structurally separated."),
+    bullet("Code-native visual models, misconception evidence, resource alternative and inclusive support remain one glance away."),
+    bullet("Pause, full screen, previous, next, skip, progressive reveal, lesson map and multigrade focus controls."),
+    bullet("Learner Present Mode receives a redacted broadcast object without teacher cues, notes, answers or corrective guidance."),
     bullet("Read-aloud is available where the browser supports speech synthesis."),
     bullet("Quick notes stored locally with a prominent no-student-name reminder."),
     Spacer(1, 5 * mm),
@@ -479,13 +481,13 @@ story += [
     data_table(
         ["Common lesson AI", "ChalkBox"],
         [
-            ["Prompt to text", "Brief to validated domain object"],
-            ["Stops after generation", "Version, assess, worksheet, preview, teach, present, reflect and reuse"],
+            ["Prompt to text", "Brief to validated typed classroom object"],
+            ["Stops after generation", "Structure, reveal, assess, worksheet, teach, present, reflect and reuse"],
             ["Assumes connected smart classroom", "Offline alternative and real material constraints"],
             ["Citation as model text", "Server-derived provenance metadata"],
             ["Demo breaks when API fails", "Prepared and rule-based paths with explicit labels"],
             ["Mutable public copy", "Immutable expiring share and moderated publication snapshots"],
-            ["Opaque quality", "Five deterministic checks updated during editing"],
+            ["Opaque quality", "Seven deterministic checks updated during editing"],
             ["Analytics may imply student tracking", "Teacher-only, group-level reflection signals"],
         ],
         [80 * mm, 86 * mm],
@@ -502,7 +504,7 @@ story += [
             ["Fixture validation", "Every seeded plan against shared schema", "Script included"],
             ["TypeScript", "App, tests, scripts, configs and shared package", "Pass"],
             ["ESLint", "TypeScript, React hooks and JSX accessibility", "Pass with zero warnings"],
-            ["Unit/component", "Contracts, quality, fixtures, store, speech, sharing, moderation, queue", "25 tests pass"],
+            ["Unit/component", "Contracts, exact timing, learner redaction, tokens, fixtures, store, sharing, moderation and queue", "32 tests pass"],
             ["Production build", "Code splitting, PWA manifest and service worker", "Pass"],
             ["Browser lifecycle", "Lesson, worksheet, community and mobile journeys", "Playwright suite included; CI gate"],
             ["Accessibility", "WCAG A/AA serious and critical automated scan", "axe suite included; CI gate"],
@@ -517,7 +519,7 @@ story += [
     bullet("Create immutable shares/publications and enforce expiry, revocation and moderation."),
     bullet("Build learner and answer-key PDFs from provenance-labelled question snapshots."),
     bullet("Preview, print, PDF export, public share and source disclosure."),
-    bullet("Teach all steps, complete a reflection and see derived analytics."),
+    bullet("Teach all typed blocks, reveal progressively, capture a class signal, complete reflection and see derived analytics."),
     bullet("Block guests from private routes and teachers from admin routes."),
     bullet("Reset only the demo workspace to canonical seeded data."),
     Spacer(1, 5 * mm),
@@ -542,7 +544,7 @@ story += [
     ),
     Spacer(1, 6 * mm),
     P("Deployment sequence", "H2x"),
-    P("1. Apply Supabase migrations and confirm RLS.  2. Set Edge Function secrets.  3. Deploy generation, AI action, indexing and health functions.  4. Index approved original curriculum.  5. Connect GitHub to Cloudflare Pages.  6. Add public variables and Auth callbacks.  7. Enable Turnstile after hostname verification.  8. Run incognito, offline, PDF, share, moderation and role checks.", "Numberx"),
+    P("1. Apply all four Supabase migrations and confirm RLS/RPC grants.  2. Set Edge Function secrets.  3. Deploy generation, AI action, indexing and health functions.  4. Index approved original and copyright-safe derived curriculum bundles.  5. Connect GitHub to Cloudflare Pages.  6. Add public variables and Auth callbacks.  7. Enable Turnstile after hostname verification.  8. Run incognito, offline, PDF, share, moderation and role checks.", "Numberx"),
     Spacer(1, 5 * mm),
     callout("Graceful quota behaviour", "When a free AI quota is exhausted, the teacher can still open, edit, teach, duplicate, reflect, export, share saved plans, and use the prepared demo."),
     Spacer(1, 8 * mm),
@@ -561,7 +563,7 @@ story += [
     Spacer(1, 8 * mm),
     P("A useful lesson-planning system should not assume a projector, perfect internet, unlimited paper, one reading level, or an evening of free time.", "Quote"),
     Spacer(1, 6 * mm),
-    callout("Build", "A complete, responsive, installable teacher workspace with Quick Brief, assessment, Teach/Present, reflection, sharing, community moderation and a deterministic judge path."),
+    callout("Build", "A complete, responsive, installable teacher classroom OS with Quick Brief, typed teaching engine, assessment, Teach/Present, reflection, secure sharing, moderation and a deterministic flagship path."),
     Spacer(1, 4 * mm),
     callout("Innovate", "Constraint-aware structured generation, hybrid attributable retrieval, immutable trust boundaries and the plan-to-reflection evidence loop.", SUN_LIGHT),
     Spacer(1, 4 * mm),

@@ -1,27 +1,21 @@
 import { expect, test } from "@playwright/test";
 
-test("judge can complete the prepared lesson lifecycle", async ({ page }) => {
+test("judge can complete the flagship classroom-engine lifecycle", async ({ page }) => {
   await page.goto("/");
   await expect(page.getByRole("heading", { name: /a strong lesson plan/i })).toBeVisible();
   await page.getByRole("link", { name: /explore the prepared demo/i }).click();
   await expect(page.getByRole("heading", { name: /good morning, meera/i })).toBeVisible();
 
-  await page
-    .getByRole("link", { name: /create lesson plan/i })
-    .first()
-    .click();
-  await page.getByRole("button", { name: /use structured mode/i }).click();
-  await page.getByRole("button", { name: /use prepared water-cycle example/i }).click();
-  await expect(page.getByText("Prepared demo content").first()).toBeVisible();
-  await expect(page.locator('input[value="The Water Cycle Around Us"]')).toBeVisible();
-
-  await page.getByRole("button", { name: "Preview" }).click();
-  await expect(page.getByRole("heading", { name: "The Water Cycle Around Us" })).toBeVisible();
+  await page.goto("/plans/plan_photosynthesis_flagship/preview");
+  await expect(
+    page.getByRole("heading", { name: /photosynthesis: how leaves make food/i })
+  ).toBeVisible();
+  await expect(page.getByText(/9 structured blocks/i)).toBeVisible();
   await page.getByRole("link", { name: /teach mode/i }).click();
-  await expect(page.getByText(/teach mode · step 1/i)).toBeVisible();
+  await expect(page.getByText(/teach · block 1\/9/i)).toBeVisible();
 
-  await page.getByRole("button", { name: /one-minute exit check/i }).click();
-  await expect(page.getByText(/teach mode · step 5 of 5/i)).toBeVisible();
+  await page.getByRole("button", { name: /one final prediction/i }).click();
+  await expect(page.getByText(/teach · block 9\/9/i)).toBeVisible();
   await page.getByRole("button", { name: /finish & reflect/i }).click();
   await page
     .getByLabel("What worked well?")
@@ -36,6 +30,28 @@ test("judge can complete the prepared lesson lifecycle", async ({ page }) => {
   await expect(
     page.getByRole("heading", { name: /what your planning is changing/i })
   ).toBeVisible();
+});
+
+test("teacher can record an anonymous Quick Check 2.0 signal", async ({ page }) => {
+  await page.goto("/demo");
+  await page.goto("/plans/plan_photosynthesis_flagship/teach");
+  await expect(page.getByText(/quick check 2\.0/i)).toBeVisible();
+  await page.getByRole("button", { name: /capture class pulse/i }).click();
+  await page.getByRole("button", { name: /increase secure/i }).click({ clickCount: 3 });
+  await page.getByRole("button", { name: /increase developing/i }).click();
+  await page.getByRole("button", { name: /save aggregate check/i }).click();
+  await expect(page.getByText(/1 check saved/i)).toBeVisible();
+});
+
+test("Present mode receives only learner-safe content", async ({ page }) => {
+  await page.goto("/demo");
+  await page.goto("/plans/plan_photosynthesis_flagship/teach");
+  await expect(page.getByText(/teach · block 1\/9/i)).toBeVisible();
+  await page.goto("/plans/plan_photosynthesis_flagship/present");
+  await expect(page.getByText(/live learner view · teacher notes excluded/i)).toBeVisible();
+  await expect(page.getByText(/where does a plant's food come from/i).first()).toBeVisible();
+  await expect(page.getByText(/private teaching note/i)).toHaveCount(0);
+  await expect(page.getByText(/teacher cue/i)).toHaveCount(0);
 });
 
 test("mobile demo exposes the primary navigation", async ({ page }, testInfo) => {

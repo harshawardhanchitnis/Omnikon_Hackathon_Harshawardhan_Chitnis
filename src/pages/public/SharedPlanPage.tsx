@@ -13,7 +13,7 @@ import { useDomain } from "@/state/domain-context";
 export function SharedPlanPage() {
   const { slug } = useParams();
   const { shares } = useDomain();
-  const localShare = shares.find((item) => item.token === slug && isShareActive(item));
+  const localShare = shares.find((item) => item.rawToken === slug && isShareActive(item));
   const localPlan = localShare?.snapshot;
   const [remotePlan, setRemotePlan] = useState<LessonPlan | null>(null);
   const [loading, setLoading] = useState(Boolean(!localPlan && supabase));
@@ -22,17 +22,9 @@ export function SharedPlanPage() {
     const client = supabase;
     let active = true;
     const load = async () => {
-      const { data } = await client
-        .from("share_snapshots")
-        .select("snapshot, revoked_at, expires_at")
-        .eq("token", slug)
-        .maybeSingle();
+      const { data } = await client.rpc("resolve_share_snapshot", { raw_token: slug });
       if (active) {
-        const activeShare =
-          data &&
-          !data.revoked_at &&
-          (!data.expires_at || new Date(data.expires_at).getTime() > Date.now());
-        setRemotePlan(activeShare ? (data.snapshot as LessonPlan) : null);
+        setRemotePlan(data ? (data as LessonPlan) : null);
         setLoading(false);
       }
     };

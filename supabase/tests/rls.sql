@@ -1,7 +1,7 @@
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(10);
+select plan(12);
 
 select has_table('public', 'plan_versions', 'plan versions table exists');
 select has_table('public', 'share_snapshots', 'immutable share table exists');
@@ -13,8 +13,13 @@ select ok(
   'teachers cannot update their role column'
 );
 select ok(
-  has_table_privilege('anon', 'public.share_snapshots', 'SELECT'),
-  'anonymous visitors can resolve an active share token through RLS'
+  not has_table_privilege('anon', 'public.share_snapshots', 'SELECT'),
+  'anonymous visitors cannot enumerate immutable share snapshots'
+);
+select has_function('public', 'resolve_share_snapshot', array['text'], 'secure share resolver exists');
+select ok(
+  has_function_privilege('anon', 'public.resolve_share_snapshot(text)', 'EXECUTE'),
+  'anonymous visitors can resolve only a raw capability token through the RPC'
 );
 select ok(
   not has_table_privilege('anon', 'public.lesson_plans', 'INSERT'),

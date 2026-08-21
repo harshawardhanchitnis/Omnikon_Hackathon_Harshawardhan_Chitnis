@@ -1,9 +1,10 @@
-import type { LessonActivity, LessonPlan } from "@chalkbox/contracts";
+import type { InstructionalBlock, LessonPlan } from "@chalkbox/contracts";
 import {
   ArrowDown,
   ArrowLeft,
   ArrowUp,
   Check,
+  Clock3,
   Copy,
   Eye,
   FileText,
@@ -25,7 +26,7 @@ import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { Input, Select, Textarea } from "@/components/ui/Field";
-import { evaluatePlan } from "@/lib/lesson-quality";
+import { evaluatePlan, fitPlanToDuration } from "@/lib/lesson-quality";
 import { cn, uid } from "@/lib/utils";
 import { regeneratePlanSection, type RegenerableSection } from "@/services/ai-actions";
 import { useDomain } from "@/state/domain-context";
@@ -55,6 +56,13 @@ export function PlanEditorPage() {
     "Make this more practical for a mixed-ability, low-resource classroom."
   );
   const [aiWorking, setAiWorking] = useState(false);
+  const [aiSuggestion, setAiSuggestion] = useState<{
+    section: RegenerableSection;
+    patch: Partial<LessonPlan>;
+    result: unknown;
+    provider: "gemini" | "prepared-demo";
+    model: string;
+  } | null>(null);
   const firstRender = useRef(true);
 
   useEffect(() => {
@@ -90,10 +98,10 @@ export function PlanEditorPage() {
     setDraft((current) =>
       current ? { ...current, ...patch, updatedAt: new Date().toISOString() } : current
     );
-  const updateActivity = (id: string, patch: Partial<LessonActivity>) =>
+  const updateBlock = (id: string, patch: Partial<InstructionalBlock>) =>
     updateDraft({
-      activities: draft.activities.map((activity) =>
-        activity.id === id ? { ...activity, ...patch } : activity
+      classroomBlocks: draft.classroomBlocks.map((block) =>
+        block.id === id ? ({ ...block, ...patch } as InstructionalBlock) : block
       )
     });
   const saveNow = async () => {
@@ -110,25 +118,8 @@ export function PlanEditorPage() {
         { id: uid("objective"), text: "Learners will be able to…", bloomLevel: "apply" }
       ]
     });
-  const addActivity = () =>
-    updateDraft({
-      activities: [
-        ...draft.activities,
-        {
-          id: uid("activity"),
-          title: "New learning activity",
-          type: "activity",
-          durationMinutes: 5,
-          teacherSteps: ["Describe what the teacher will do."],
-          studentSteps: ["Describe what learners will do."],
-          materials: ["Blackboard"],
-          differentiation: "Offer a simpler prompt and an extension challenge.",
-          offlineAlternative: "Use board work and peer discussion."
-        }
-      ]
-    });
-  const moveActivity = (index: number, direction: -1 | 1) => {
-    const next = [...draft.activities];
+  const moveBlock = (index: number, direction: -1 | 1) => {
+    const next = [...draft.classroomBlocks];
     const target = index + direction;
     if (target < 0 || target >= next.length) return;
     const current = next[index];
@@ -136,7 +127,7 @@ export function PlanEditorPage() {
     if (!current || !other) return;
     next[index] = other;
     next[target] = current;
-    updateDraft({ activities: next });
+    updateDraft({ classroomBlocks: next });
   };
   const markReady = async () => {
     const score = evaluatePlan(draft).score;
@@ -158,6 +149,7 @@ export function PlanEditorPage() {
   };
   const runAiAdjustment = async () => {
     if (!aiInstruction.trim()) return;
+    setAiSuggestion(null);
     setAiWorking(true);
     try {
       await saveNow();
@@ -175,18 +167,19 @@ export function PlanEditorPage() {
       } else {
         patch = { teacherNotes: String(generated.result) };
       }
-      updateDraft(patch);
-      await updatePlan(draft.id, patch);
-      setAiOpen(false);
+      setAiSuggestion({
+        section: aiSection,
+        patch,
+        result: generated.result,
+        provider: generated.provider,
+        model: generated.model
+      });
       toast.success(
         generated.provider === "gemini"
-          ? `${aiSection.replaceAll("-", " ")} regenerated with ${generated.model}`
-          : "Prepared demo adjustment applied",
+          ? `${aiSection.replaceAll("-", " ")} suggestion ready`
+          : "Prepared demo suggestion ready",
         {
-          description:
-            generated.provider === "gemini"
-              ? "Review the changed section before marking the plan ready."
-              : "This was not a live AI response. The original state is preserved in version history."
+          description: "Compare Current and Suggested, then explicitly accept or reject it."
         }
       );
     } catch (caught) {
@@ -198,9 +191,25 @@ export function PlanEditorPage() {
     }
   };
 
+  const acceptAiSuggestion = async () => {
+    if (!aiSuggestion) return;
+    updateDraft(aiSuggestion.patch);
+    await updatePlan(draft.id, aiSuggestion.patch);
+    await createPlanVersion(
+      draft.id,
+      "accepted-regeneration",
+      `Accepted ${aiSuggestion.section} suggestion`
+    );
+    toast.success("Suggested change accepted", {
+      description: "The accepted result and the pre-change checkpoint are both in version history."
+    });
+    setAiSuggestion(null);
+    setAiOpen(false);
+  };
+
   const tabs: Array<{ id: EditorTab; label: string; count?: number }> = [
     { id: "overview", label: "Plan basics", count: draft.objectives.length },
-    { id: "sequence", label: "Lesson sequence", count: draft.activities.length },
+    { id: "sequence", label: "Teaching engine", count: draft.classroomBlocks.length },
     { id: "assessment", label: "Assessment", count: draft.assessments.length },
     { id: "versions", label: "Version history", count: versions.length }
   ];
@@ -439,138 +448,136 @@ export function PlanEditorPage() {
 
           {tab === "sequence" && (
             <div className="space-y-4">
-              {draft.activities.map((activity, index) => (
-                <Card key={activity.id} className="overflow-hidden">
+              <Card className="border-moss-700/15 p-5">
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                  <div>
+                    <h2 className="text-lg font-black">Classroom Teaching Engine</h2>
+                    <p className="text-muted mt-1 text-xs">
+                      Typed, projection-safe blocks drive Teach and Present modes.
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Badge
+                      tone={
+                        draft.classroomBlocks.reduce(
+                          (total, block) => total + block.durationMinutes,
+                          0
+                        ) === draft.durationMinutes
+                          ? "green"
+                          : "amber"
+                      }
+                    >
+                      {draft.classroomBlocks.reduce(
+                        (total, block) => total + block.durationMinutes,
+                        0
+                      )}{" "}
+                      / {draft.durationMinutes} min
+                    </Badge>
+                    <Button
+                      variant="secondary"
+                      size="sm"
+                      onClick={() => {
+                        const fitted = fitPlanToDuration(draft);
+                        setDraft(fitted);
+                        toast.success(
+                          `Sequence fitted to exactly ${draft.durationMinutes} minutes`
+                        );
+                      }}
+                    >
+                      <Clock3 className="size-4" /> Fit to duration
+                    </Button>
+                  </div>
+                </div>
+              </Card>
+              {draft.classroomBlocks.map((block, index) => (
+                <Card key={block.id} className="overflow-hidden">
                   <div className="bg-paper flex items-center gap-3 border-b border-black/5 px-4 py-3">
                     <span className="bg-moss-700 grid size-8 place-items-center rounded-lg text-xs font-black text-white">
                       {index + 1}
                     </span>
                     <p className="text-moss-700 min-w-0 flex-1 truncate text-xs font-black tracking-wider uppercase">
-                      {activity.type}
+                      {block.type.replaceAll("-", " ")} · {block.gradeTarget.label}
                     </p>
                     <button
-                      onClick={() => moveActivity(index, -1)}
+                      onClick={() => moveBlock(index, -1)}
                       disabled={index === 0}
-                      aria-label="Move activity up"
+                      aria-label="Move teaching block up"
                       className="grid size-8 place-items-center rounded-lg hover:bg-white disabled:opacity-25"
                     >
                       <ArrowUp className="size-4" />
                     </button>
                     <button
-                      onClick={() => moveActivity(index, 1)}
-                      disabled={index === draft.activities.length - 1}
-                      aria-label="Move activity down"
+                      onClick={() => moveBlock(index, 1)}
+                      disabled={index === draft.classroomBlocks.length - 1}
+                      aria-label="Move teaching block down"
                       className="grid size-8 place-items-center rounded-lg hover:bg-white disabled:opacity-25"
                     >
                       <ArrowDown className="size-4" />
                     </button>
-                    <button
-                      onClick={() =>
-                        updateDraft({
-                          activities: draft.activities.filter((item) => item.id !== activity.id)
-                        })
-                      }
-                      disabled={draft.activities.length <= 1}
-                      aria-label="Remove activity"
-                      className="grid size-8 place-items-center rounded-lg text-red-700 hover:bg-red-50 disabled:opacity-25"
-                    >
-                      <Trash2 className="size-4" />
-                    </button>
                   </div>
                   <div className="grid gap-4 p-5 sm:grid-cols-[1fr_9rem]">
                     <Input
-                      label="Activity title"
-                      value={activity.title}
-                      onChange={(event) =>
-                        updateActivity(activity.id, { title: event.target.value })
-                      }
+                      label="Block title"
+                      value={block.title}
+                      onChange={(event) => updateBlock(block.id, { title: event.target.value })}
                     />
                     <Input
                       label="Minutes"
                       type="number"
                       min={1}
-                      value={activity.durationMinutes}
+                      value={block.durationMinutes}
                       onChange={(event) =>
-                        updateActivity(activity.id, { durationMinutes: Number(event.target.value) })
-                      }
-                    />
-                    <Select
-                      label="Activity type"
-                      value={activity.type}
-                      onChange={(event) =>
-                        updateActivity(activity.id, {
-                          type: event.target.value as LessonActivity["type"]
-                        })
-                      }
-                    >
-                      <option value="hook">Hook</option>
-                      <option value="explain">Explain</option>
-                      <option value="activity">Activity</option>
-                      <option value="practice">Practice</option>
-                      <option value="assessment">Assessment</option>
-                      <option value="closure">Closure</option>
-                    </Select>
-                    <Input
-                      label="Materials"
-                      value={activity.materials.join(", ")}
-                      onChange={(event) =>
-                        updateActivity(activity.id, {
-                          materials: event.target.value
-                            .split(",")
-                            .map((item) => item.trim())
-                            .filter(Boolean)
-                        })
+                        updateBlock(block.id, { durationMinutes: Number(event.target.value) })
                       }
                     />
                     <div className="sm:col-span-2">
                       <Textarea
-                        label="Teacher steps"
-                        value={activity.teacherSteps.join("\n")}
+                        label="Private teacher cue"
+                        value={block.teacherCue}
                         onChange={(event) =>
-                          updateActivity(activity.id, {
-                            teacherSteps: event.target.value.split("\n").filter(Boolean)
-                          })
+                          updateBlock(block.id, { teacherCue: event.target.value })
                         }
-                        hint="One step per line"
+                        hint="Shown only in Teach mode"
                       />
                     </div>
                     <div className="sm:col-span-2">
                       <Textarea
-                        label="Learner actions"
-                        value={activity.studentSteps.join("\n")}
+                        label="Learner-safe content"
+                        value={block.learnerContent.join("\n")}
                         onChange={(event) =>
-                          updateActivity(activity.id, {
-                            studentSteps: event.target.value.split("\n").filter(Boolean)
+                          updateBlock(block.id, {
+                            learnerContent: event.target.value.split("\n").filter(Boolean)
                           })
                         }
-                        hint="One action per line"
+                        hint="One line per item; safe for Present mode"
                       />
                     </div>
                     <div className="sm:col-span-2">
                       <Input
                         label="Inclusive support"
-                        value={activity.differentiation ?? ""}
+                        value={block.differentiation.support}
                         onChange={(event) =>
-                          updateActivity(activity.id, { differentiation: event.target.value })
+                          updateBlock(block.id, {
+                            differentiation: {
+                              ...block.differentiation,
+                              support: event.target.value
+                            }
+                          })
                         }
                       />
                     </div>
                     <div className="sm:col-span-2">
                       <Input
-                        label="Offline alternative"
-                        value={activity.offlineAlternative ?? ""}
+                        label="No-device / failed-resource alternative"
+                        value={block.resourceAlternative}
                         onChange={(event) =>
-                          updateActivity(activity.id, { offlineAlternative: event.target.value })
+                          updateBlock(block.id, { resourceAlternative: event.target.value })
                         }
                       />
                     </div>
                   </div>
                 </Card>
               ))}
-              <Button variant="secondary" className="w-full" onClick={addActivity}>
-                <Plus className="size-4" />
-                Add activity
-              </Button>
             </div>
           )}
 
@@ -788,13 +795,15 @@ export function PlanEditorPage() {
           aria-modal="true"
           aria-label="AI section assistant"
         >
-          <Card className="my-4 w-full max-w-xl overflow-hidden">
+          <Card className="my-4 w-full max-w-5xl overflow-hidden">
             <div className="bg-moss-900 flex items-start justify-between gap-4 p-6 text-white">
               <div>
                 <p className="text-xs font-black tracking-wider text-emerald-200 uppercase">
                   Version-safe AI assist
                 </p>
-                <h2 className="mt-1 text-2xl font-black">Adjust one section</h2>
+                <h2 className="mt-1 text-2xl font-black">
+                  {aiSuggestion ? "Compare before accepting" : "Adjust one section"}
+                </h2>
                 <p className="mt-2 text-xs leading-5 text-white/65">
                   ChalkBox checkpoints the current plan first. Nothing is silently replaced.
                 </p>
@@ -808,39 +817,77 @@ export function PlanEditorPage() {
               </button>
             </div>
             <div className="space-y-4 p-6">
-              <Select
-                label="Section to adjust"
-                value={aiSection}
-                onChange={(event) => setAiSection(event.target.value as RegenerableSection)}
-              >
-                <option value="objectives">Learning objectives</option>
-                <option value="activities">Lesson activities</option>
-                <option value="assessments">Assessment checks</option>
-                <option value="homework">Homework / extension</option>
-                <option value="teacherNotes">Teacher notes</option>
-              </Select>
-              <Textarea
-                label="What should change?"
-                value={aiInstruction}
-                onChange={(event) => setAiInstruction(event.target.value)}
-                hint="Include the classroom reason, not learner names."
-              />
-              <div className="rounded-xl border border-violet-200 bg-violet-50 p-3 text-xs leading-5 text-violet-950">
-                <strong>Truthful fallback:</strong> configured deployments call the protected Gemini
-                action. An unconfigured demo applies a clearly labelled prepared adjustment.
-              </div>
-              <div className="flex justify-end gap-2">
-                <Button variant="ghost" onClick={() => setAiOpen(false)}>
-                  Cancel
-                </Button>
-                <Button
-                  loading={aiWorking}
-                  disabled={!aiInstruction.trim()}
-                  onClick={runAiAdjustment}
-                >
-                  <Sparkles className="size-4" /> Checkpoint & adjust
-                </Button>
-              </div>
+              {aiSuggestion ? (
+                <>
+                  <div className="grid gap-4 lg:grid-cols-2">
+                    <section className="overflow-hidden rounded-2xl border border-black/10">
+                      <div className="bg-slate-100 px-4 py-3 text-xs font-black tracking-wider uppercase">
+                        Current · unchanged
+                      </div>
+                      <pre className="max-h-[46vh] overflow-auto p-4 text-xs leading-5 whitespace-pre-wrap">
+                        {JSON.stringify(draft[aiSuggestion.section], null, 2)}
+                      </pre>
+                    </section>
+                    <section className="overflow-hidden rounded-2xl border border-violet-200 bg-violet-50/40">
+                      <div className="bg-violet-100 px-4 py-3 text-xs font-black tracking-wider text-violet-950 uppercase">
+                        Suggested · {aiSuggestion.model}
+                      </div>
+                      <pre className="max-h-[46vh] overflow-auto p-4 text-xs leading-5 whitespace-pre-wrap">
+                        {JSON.stringify(aiSuggestion.result, null, 2)}
+                      </pre>
+                    </section>
+                  </div>
+                  <p className="rounded-xl bg-amber-50 p-3 text-xs leading-5 text-amber-950">
+                    Nothing changes until you press Accept suggestion. Reject keeps the current
+                    section exactly as it is.
+                  </p>
+                  <div className="flex justify-end gap-2">
+                    <Button variant="secondary" onClick={() => setAiSuggestion(null)}>
+                      Reject suggestion
+                    </Button>
+                    <Button onClick={() => void acceptAiSuggestion()}>
+                      <Check className="size-4" /> Accept suggestion
+                    </Button>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <Select
+                    label="Section to adjust"
+                    value={aiSection}
+                    onChange={(event) => setAiSection(event.target.value as RegenerableSection)}
+                  >
+                    <option value="objectives">Learning objectives</option>
+                    <option value="activities">Lesson activities</option>
+                    <option value="assessments">Assessment checks</option>
+                    <option value="homework">Homework / extension</option>
+                    <option value="teacherNotes">Teacher notes</option>
+                  </Select>
+                  <Textarea
+                    label="What should change?"
+                    value={aiInstruction}
+                    onChange={(event) => setAiInstruction(event.target.value)}
+                    hint="Include the classroom reason, not learner names."
+                  />
+                  <div className="rounded-xl border border-violet-200 bg-violet-50 p-3 text-xs leading-5 text-violet-950">
+                    <strong>Truthful fallback:</strong> configured deployments call the protected
+                    Gemini action. An unconfigured demo creates a clearly labelled prepared
+                    suggestion.
+                  </div>
+                  <div className="flex justify-end gap-2">
+                    <Button variant="ghost" onClick={() => setAiOpen(false)}>
+                      Cancel
+                    </Button>
+                    <Button
+                      loading={aiWorking}
+                      disabled={!aiInstruction.trim()}
+                      onClick={() => void runAiAdjustment()}
+                    >
+                      <Sparkles className="size-4" /> Generate suggestion
+                    </Button>
+                  </div>
+                </>
+              )}
             </div>
           </Card>
         </div>

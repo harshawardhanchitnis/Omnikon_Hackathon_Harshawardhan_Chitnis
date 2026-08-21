@@ -16,7 +16,6 @@ import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { toast } from "sonner";
 import { LessonPlanDocument } from "@/components/plans/LessonPlanDocument";
-import { LessonTimeline } from "@/components/plans/LessonTimeline";
 import { PlanStatusBadge } from "@/components/plans/PlanStatusBadge";
 import { SourceDisclosure } from "@/components/plans/SourceDisclosure";
 import { Button } from "@/components/ui/Button";
@@ -52,7 +51,8 @@ export function PlanPreviewPage() {
         ? undefined
         : new Date(Date.now() + Number(expiry) * 24 * 60 * 60 * 1000).toISOString();
     const snapshot = await createShare(plan.id, expiresAt);
-    const url = `${window.location.origin}/share/${snapshot.token}`;
+    if (!snapshot.rawToken) throw new Error("Secure share token was not created");
+    const url = `${window.location.origin}/share/${snapshot.rawToken}`;
     setCreatedUrl(url);
     try {
       await navigator.clipboard.writeText(url);
@@ -179,17 +179,38 @@ export function PlanPreviewPage() {
             <div className="mb-5 flex items-end justify-between gap-4">
               <div>
                 <p className="text-moss-700 text-xs font-black tracking-[0.16em] uppercase">
-                  Lesson sequence
+                  Classroom Teaching Engine
                 </p>
                 <h2 className="mt-2 text-2xl font-black tracking-tight">
-                  {plan.activities.length} practical steps
+                  {plan.classroomBlocks.length} structured blocks
                 </h2>
               </div>
               <p className="text-moss-700 text-sm font-black">
-                {plan.activities.reduce((sum, item) => sum + item.durationMinutes, 0)} min allocated
+                {plan.classroomBlocks.reduce((sum, item) => sum + item.durationMinutes, 0)} /{" "}
+                {plan.durationMinutes} min
               </p>
             </div>
-            <LessonTimeline activities={plan.activities} />
+            <ol className="grid gap-3">
+              {plan.classroomBlocks.map((block, index) => (
+                <li key={block.id} className="rounded-2xl border border-black/6 bg-white p-4">
+                  <div className="flex flex-wrap items-center gap-3">
+                    <span className="bg-moss-700 grid size-8 place-items-center rounded-xl text-xs font-black text-white">
+                      {index + 1}
+                    </span>
+                    <div className="min-w-0 flex-1">
+                      <p className="text-[10px] font-black tracking-wider text-emerald-700 uppercase">
+                        {block.type.replaceAll("-", " ")} · {block.gradeTarget.label}
+                      </p>
+                      <h3 className="mt-1 font-black">{block.title}</h3>
+                    </div>
+                    <span className="rounded-full bg-amber-100 px-3 py-1 text-xs font-black text-amber-950">
+                      {block.durationMinutes} min
+                    </span>
+                  </div>
+                  <p className="text-muted mt-3 text-sm leading-6">{block.purpose}</p>
+                </li>
+              ))}
+            </ol>
           </section>
           <section>
             <p className="text-moss-700 text-xs font-black tracking-[0.16em] uppercase">
@@ -317,7 +338,11 @@ export function PlanPreviewPage() {
                             className={`size-4 shrink-0 ${inactive ? "text-slate-400" : "text-moss-700"}`}
                           />
                           <div className="min-w-0 flex-1">
-                            <p className="truncate text-xs font-black">…/{item.token.slice(-18)}</p>
+                            <p className="truncate text-xs font-black">
+                              {item.rawToken
+                                ? `…/${item.rawToken.slice(-18)}`
+                                : `Secure snapshot ${item.tokenHash.slice(0, 10)}…`}
+                            </p>
                             <p className="text-muted mt-0.5 text-[10px]">
                               Created {new Date(item.createdAt).toLocaleDateString("en-IN")} ·{" "}
                               {item.revokedAt

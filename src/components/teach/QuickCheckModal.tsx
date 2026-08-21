@@ -14,7 +14,9 @@ interface QuickCheckModalProps {
 }
 
 const keysByMode = {
-  abcd: ["A", "B", "C", "D"],
+  mcq: ["A", "B", "C", "D"],
+  "true-false": ["True", "False"],
+  confidence: ["Confident", "Unsure", "Need help"],
   understanding: ["Secure", "Developing", "Revisit"]
 } as const;
 
@@ -41,9 +43,7 @@ export function QuickCheckModal({
   );
   const changeMode = (next: QuickCheckResult["mode"]) => {
     setMode(next);
-    setCounts(
-      next === "abcd" ? { A: 0, B: 0, C: 0, D: 0 } : { Secure: 0, Developing: 0, Revisit: 0 }
-    );
+    setCounts(Object.fromEntries(keysByMode[next].map((key) => [key, 0])));
   };
   const adjust = (key: string, amount: number) =>
     setCounts((current) => ({
@@ -78,7 +78,19 @@ export function QuickCheckModal({
           </button>
         </div>
         <div className="p-6">
-          <div className="grid grid-cols-2 gap-2 rounded-xl bg-slate-100 p-1">
+          <div className="grid grid-cols-2 gap-2 rounded-xl bg-slate-100 p-1 sm:grid-cols-4">
+            <button
+              onClick={() => changeMode("mcq")}
+              className={`rounded-lg px-3 py-2 text-xs font-black ${mode === "mcq" ? "text-moss-800 bg-white shadow-sm" : "text-ink-500"}`}
+            >
+              A–D cards
+            </button>
+            <button
+              onClick={() => changeMode("true-false")}
+              className={`rounded-lg px-3 py-2 text-xs font-black ${mode === "true-false" ? "text-moss-800 bg-white shadow-sm" : "text-ink-500"}`}
+            >
+              True / false
+            </button>
             <button
               onClick={() => changeMode("understanding")}
               className={`rounded-lg px-3 py-2 text-xs font-black ${mode === "understanding" ? "text-moss-800 bg-white shadow-sm" : "text-ink-500"}`}
@@ -86,10 +98,10 @@ export function QuickCheckModal({
               Understanding bands
             </button>
             <button
-              onClick={() => changeMode("abcd")}
-              className={`rounded-lg px-3 py-2 text-xs font-black ${mode === "abcd" ? "text-moss-800 bg-white shadow-sm" : "text-ink-500"}`}
+              onClick={() => changeMode("confidence")}
+              className={`rounded-lg px-3 py-2 text-xs font-black ${mode === "confidence" ? "text-moss-800 bg-white shadow-sm" : "text-ink-500"}`}
             >
-              A–D response cards
+              Confidence
             </button>
           </div>
           <label className="mt-5 block text-sm font-black">
@@ -101,7 +113,7 @@ export function QuickCheckModal({
               className="surface mt-2 w-full rounded-xl border p-3 text-sm leading-6 font-medium"
             />
           </label>
-          {mode === "abcd" && (
+          {(mode === "mcq" || mode === "true-false") && (
             <label className="text-ink-500 mt-4 block text-xs font-black">
               Correct response{" "}
               <select
@@ -113,6 +125,8 @@ export function QuickCheckModal({
                 <option>B</option>
                 <option>C</option>
                 <option>D</option>
+                <option>True</option>
+                <option>False</option>
               </select>
             </label>
           )}
@@ -168,7 +182,7 @@ export function QuickCheckModal({
                   prompt: prompt.trim(),
                   mode,
                   counts,
-                  ...(mode === "abcd" ? { correctKey } : {}),
+                  ...(mode === "mcq" || mode === "true-false" ? { correctKey } : {}),
                   ...(note.trim() ? { note: note.trim() } : {})
                 });
                 setSaving(false);

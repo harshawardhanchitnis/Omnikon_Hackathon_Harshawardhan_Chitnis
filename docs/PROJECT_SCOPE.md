@@ -10,11 +10,11 @@ ChalkBox helps a teacher in an under-resourced Indian school move from a short c
 2. Reuse a privacy-safe classroom profile or type/dictate a Quick Brief.
 3. Review extracted grade, optional second grade, board, subject, topic, duration, language, class size, materials, constraints, assumptions, and confidence.
 4. Generate through the protected Gemini route or explicitly choose a labelled prepared example.
-5. Review objectives, timing, activities, differentiation, offline alternatives, assessment alignment, sources, disclosure, and quality checks.
-6. Edit any section; save checkpoints, restore history, or regenerate one section without losing the prior version.
+5. Review objectives and an exact-duration typed sequence with visuals, reveals, misconceptions, differentiation, offline alternatives, assessment alignment, sources, disclosure, and quality checks.
+6. Edit teaching blocks, fit timing exactly, save checkpoints, restore history, or compare an AI section suggestion against the current value before accepting or rejecting it.
 7. Add provenance-labelled assessment items and compose a printable worksheet and answer key.
 8. Preview, print, export PDF, present learner-facing material, or create an expiring immutable share snapshot.
-9. Run Teach Mode, record anonymous aggregate Quick Checks, and save non-identifying notes.
+9. Run private Teach Mode, broadcast redacted learner content to Present Mode, reveal hints/layers progressively, record anonymous aggregate Quick Check 2.0 signals, and save non-identifying notes.
 10. Reflect on whole-class evidence and next action; inspect private trends or adapt an approved community snapshot.
 
 ## Roles
@@ -71,7 +71,8 @@ ChalkBox helps a teacher in an under-resourced Indian school move from a short c
 - A share stores a plan-version snapshot. Later edits do not mutate the shared content. Expiry and revocation are checked at read time.
 - Community approval publishes an immutable submitted snapshot, never a live pointer to the author's editable private plan.
 - AI-derived questions remain unreviewed until the teacher explicitly accepts them.
-- Quick Checks store only prompt, response counts, class size and optional teacher note—no learner identity.
+- Quick Checks store only prompt, response counts, misconception signal, suggested next action and optional teacher note—no learner identity.
+- Raw share tokens are returned once to the creator and retained only on that device; Postgres stores a hash and anonymous access is RPC-only.
 
 ## Persisted data
 
@@ -100,7 +101,7 @@ Definitions remain visible. No individual learner profile, ranking or prediction
 
 `/demo` restores a fictional workspace for **Meera Patil**, a Grade 5–7 teacher at a fictional Zilla Parishad school in Pune district. It includes:
 
-- three lessons: water cycle, fractions, and narrative point of view;
+- four lessons: the 40-minute photosynthesis flagship, water cycle, fractions, and narrative point of view;
 - two reusable classroom profiles;
 - source-labelled curriculum mappings and five assessment questions;
 - one worksheet with answer key;
@@ -143,6 +144,6 @@ Prepared content is always labelled and never represented as a live Gemini respo
 - **Build:** ChalkBox, an offline-ready, teacher-controlled planning, assessment and classroom-delivery workspace for Omni_EdTech_7.
 - **Locked stack:** React 19, TypeScript, Vite, Tailwind CSS, React Router, React Hook Form, Zod, DomainProvider, Zustand for UI only, Dexie, Supabase, Gemini 3.7 Flash, Gemini Embedding 2/pgvector, Recharts, React PDF, Vitest, Playwright, Cloudflare Pages.
 - **Architectural rules:** shared contracts; domain records in IndexedDB; local-first writes; version-aware sync; secrets only in Edge Functions; RLS ownership; immutable sharing/publications; no student PII; visible provenance and AI state; accessible responsive UI.
-- **Major modules:** public/trust, identity/onboarding, classroom context, Quick Brief/generation, editor/history, assessment/worksheet, preview/share/export, Teach/Present, reflection/analytics, curriculum/community, settings/sync, admin, AI/RAG/data infrastructure.
+- **Major modules:** public/trust, identity/onboarding, classroom context, Quick Brief/generation, typed Classroom Teaching Engine, editor/history, assessment/worksheet, preview/secure share/export, Teach/Present, Quick Check 2.0, reflection/analytics, curriculum/community, settings/sync, admin, AI/RAG/data infrastructure.
 - **Build order:** contracts/data → offline persistence/sync → core plan journey → assessment/classroom tools → delivery/reflection → sharing/community → AI/RAG → analytics/admin → tests/docs → deployment/package.
 - **Definition of done:** deterministic demo works with no setup; production build and smoke pass; fixtures, formatting, types, lint and tests pass; browser suites cover critical journeys in CI; AI secrets stay server-side; persistence, error states, responsive design, exports, docs, report and final ZIP are present; hosted integration status is truthful.

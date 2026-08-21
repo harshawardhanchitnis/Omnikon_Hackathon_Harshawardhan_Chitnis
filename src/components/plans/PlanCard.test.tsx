@@ -6,7 +6,7 @@ import { PlanCard } from "./PlanCard";
 
 describe("PlanCard", () => {
   it("shows the plan context and routes to its editor", () => {
-    const plan = demoPlans[0]!;
+    const plan = demoPlans.find((item) => item.id === "plan_water_cycle")!;
     render(
       <MemoryRouter>
         <PlanCard plan={plan} onClone={vi.fn()} />

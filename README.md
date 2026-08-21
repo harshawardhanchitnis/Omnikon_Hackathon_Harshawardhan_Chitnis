@@ -4,7 +4,7 @@
 
 ChalkBox is a free-first, offline-ready lesson-planning and classroom-delivery workspace built for **Omni_EdTech_7 — Fast Lesson Planning Support for Teachers** at the Omnikon National Hackathon 2026.
 
-It converts a short teacher brief into a structured, editable plan and supports the complete cycle: **plan → assess → teach → check understanding → reflect → improve → reuse**. The deterministic prepared demo works immediately without an account, API key, database, or network after first load.
+It converts a short teacher brief into a structured, editable plan and supports the complete cycle: **Plan → Structure → Teach → Assess → Reflect → Reuse**. The deterministic prepared demo works immediately without an account, API key, database, or network after first load.
 
 ## Product highlights
 
@@ -13,10 +13,12 @@ It converts a short teacher brief into a structured, editable plan and supports 
 - **Curriculum-aware planning:** source-labelled board/grade/subject explorer and hybrid vector/keyword retrieval.
 - **Teacher-controlled AI:** protected Gemini actions, strict schemas, visible provenance, deterministic quality checks, and honest prepared fallbacks.
 - **Deep editing:** autosave, section regeneration, version checkpoints, restore, duplicate, preview, immutable share snapshots, print, and PDF.
-- **Classroom delivery:** distraction-free Teach Mode, learner-only Present Mode, read-aloud, timer, notes, and anonymous aggregate Quick Checks.
+- **Classroom Teaching Engine:** 17 typed instructional blocks, exact timing, progressive reveals, code-native visuals, misconception responses, multigrade attention scheduling, and no-device alternatives.
+- **Classroom delivery:** private Teach Mode, broadcast-driven learner-only Present Mode, read-aloud, lesson/block timers, notes, and anonymous Quick Check 2.0 response guidance.
 - **Assessment workflow:** provenance-labelled question bank, add-to-lesson, worksheet tray, learner PDF, and answer-key PDF.
 - **Moderated community:** immutable approved lesson snapshots, private adaptation, submission status, reporting, and admin moderation.
 - **Offline-first:** IndexedDB persistence, ordered sync queue, conflict choices, PWA caching, and one-click demo reset.
+- **Secure capability sharing:** only a SHA-256 token hash is stored; anonymous visitors resolve a raw token through a narrow expiry/revocation RPC and cannot enumerate the share table.
 - **Privacy by design:** no student accounts, names, individual marks, profiling, or named records.
 
 ## Run the complete demo
@@ -49,19 +51,20 @@ VITE_TURNSTILE_SITE_KEY=
 
 ## Commands
 
-| Command                  | Purpose                                                    |
-| ------------------------ | ---------------------------------------------------------- |
-| `pnpm dev`               | Start the Vite development server                          |
-| `pnpm build`             | Type-check and create the production PWA in `dist/`        |
-| `pnpm preview`           | Serve the production build locally                         |
-| `pnpm fixtures:validate` | Validate canonical demo plans against shared contracts     |
-| `pnpm curriculum:index`  | Validate and prepare the original curriculum seed manifest |
-| `pnpm typecheck`         | Run strict TypeScript project checks                       |
-| `pnpm lint`              | Run ESLint with zero warnings                              |
-| `pnpm test`              | Run unit and component tests                               |
-| `pnpm test:e2e`          | Run desktop/mobile lifecycle and accessibility tests       |
-| `pnpm screenshots`       | Capture the canonical judge evidence set                   |
-| `pnpm verify`            | Run the complete non-browser production gate               |
+| Command                    | Purpose                                                           |
+| -------------------------- | ----------------------------------------------------------------- |
+| `pnpm dev`                 | Start the Vite development server                                 |
+| `pnpm build`               | Type-check and create the production PWA in `dist/`               |
+| `pnpm preview`             | Serve the production build locally                                |
+| `pnpm fixtures:validate`   | Validate canonical demo plans against shared contracts            |
+| `pnpm curriculum:validate` | Verify source, attribution and chunk bounds for both bundles      |
+| `pnpm curriculum:index`    | Index approved original/copyright-safe derived curriculum bundles |
+| `pnpm typecheck`           | Run strict TypeScript project checks                              |
+| `pnpm lint`                | Run ESLint with zero warnings                                     |
+| `pnpm test`                | Run unit and component tests                                      |
+| `pnpm test:e2e`            | Run desktop/mobile lifecycle and accessibility tests              |
+| `pnpm screenshots`         | Capture the canonical judge evidence set                          |
+| `pnpm verify`              | Run the complete non-browser production gate                      |
 
 Install Playwright's free Chromium binary once before local E2E execution:
 
@@ -91,7 +94,7 @@ Domain records are stored in IndexedDB, not in Zustand/localStorage. Zustand ret
 ```text
 src/                    React app, domain context, pages, components and services
 packages/contracts/     Shared TypeScript/Zod domain and AI contracts
-data/curriculum/        Original ChalkBox curriculum metadata/chunks
+data/curriculum/        Original chunks and copyright-safe NCERT-derived summaries/locators
 supabase/migrations/    Postgres, pgvector, RLS, moderation and retrieval SQL
 supabase/functions/     Protected Gemini actions, RAG, indexing and health
 tests/e2e/              Critical desktop/mobile and accessibility journeys
@@ -104,13 +107,14 @@ public/                 PWA assets, free embedded fonts, headers and SPA routing
 
 ## Verification status
 
-The checked-in quality gate validates fixtures, formatting, TypeScript, lint, 25 unit/component tests, production build, PWA output, and route smoke checks. GitHub Actions additionally installs Chromium and runs the desktop/mobile Playwright and axe suites. Exact hosted-service status is recorded in [INTEGRATION_STATUS.md](INTEGRATION_STATUS.md); no unverified integration is presented as live.
+The checked-in quality gate validates fixtures, curriculum provenance, formatting, TypeScript, lint, 32 unit/component tests, production build, PWA output, and route smoke checks. GitHub Actions additionally installs Chromium and runs the desktop/mobile Playwright and axe suites. Exact hosted-service status is recorded in [INTEGRATION_STATUS.md](INTEGRATION_STATUS.md); no unverified integration is presented as live.
 
 ## Documentation
 
 - [Project scope and build contract](docs/PROJECT_SCOPE.md)
 - [System architecture](docs/ARCHITECTURE.md)
 - [AI and retrieval pipeline](docs/AI_PIPELINE.md)
+- [Classroom Teaching Engine](docs/CLASSROOM_ENGINE.md)
 - [Security and privacy](docs/SECURITY.md)
 - [Testing](docs/TESTING.md)
 - [Deployment](docs/DEPLOYMENT.md)
@@ -127,4 +131,4 @@ The competitor implementation was reviewed as an allowed benchmark. ChalkBox's s
 
 ## Licence
 
-Source code is available under the [MIT License](LICENSE). Bundled Noto Sans fonts are licensed under the SIL Open Font License 1.1 in `public/fonts/NotoSansDevanagari-OFL-1.1.txt`. Curriculum names are alignment metadata; ChalkBox does not reproduce substantial textbook prose.
+Source code is available under the [MIT License](LICENSE). Bundled Noto Sans fonts are licensed under the SIL Open Font License 1.1 in `public/fonts/NotoSansDevanagari-OFL-1.1.txt`. The participant-supplied NCERT Class VIII Science PDF is not redistributed. Its bundle contains only original Team HarshLabs summaries, page locators, checksum, ISBN and attribution.

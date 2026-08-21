@@ -1,0 +1,210 @@
+{
+  "bundleVersion": "1.0.0",
+  "derivationPolicy": "Original concept summaries and page locators only. No textbook prose, figures, exercises, or answer keys are redistributed.",
+  "sourceFile": {
+    "uploadedName": "nrt(32).pdf",
+    "sha256": "ea5b4595d7fd7b446762854566ea4ce052a7b4241d458c6796c584e33ad2ae10",
+    "pageCount": 268,
+    "isbn": "978-81-7450-812-6"
+  },
+  "sources": [
+    {
+      "source": {
+        "id": "88888888-8888-4888-8888-888888888888",
+        "title": "NCERT Science Textbook for Class VIII — participant-supplied reference",
+        "publisher": "National Council of Educational Research and Training",
+        "sourceUrl": "https://ncert.nic.in/textbook.php",
+        "licence": "Copyright © NCERT 2008. Indexed as original derived summaries and locators; full text is not redistributed.",
+        "attribution": "Concept alignment derived by Team HarshLabs from the participant-supplied NCERT Class VIII Science PDF, ISBN 978-81-7450-812-6. Verify against the official current edition.",
+        "grade": "8",
+        "subject": "Science",
+        "board": "CBSE/NCERT"
+      },
+      "chunks": [
+        {
+          "content": "Crop production can be structured as a sequence from soil preparation and sowing through nutrient management, irrigation, crop protection, harvesting, storage and animal husbandry. Teaching should connect each practice to its purpose and local agricultural decisions.",
+          "metadata": {
+            "chapter": 1,
+            "title": "Crop Production and Management",
+            "printedPages": "1–16",
+            "pdfPages": "13–28",
+            "kind": "original-derived-summary"
+          }
+        },
+        {
+          "content": "Microorganisms include useful and harmful forms. Classroom reasoning can compare their roles in food preparation, medicine, decomposition, disease and food spoilage, while linking preservation methods and the nitrogen cycle to observable evidence.",
+          "metadata": {
+            "chapter": 2,
+            "title": "Microorganisms: Friend and Foe",
+            "printedPages": "17–31",
+            "pdfPages": "29–43",
+            "kind": "original-derived-summary"
+          }
+        },
+        {
+          "content": "Synthetic fibres are human-made polymers with different properties and uses. Plastics invite a trade-off discussion: durability and versatility make them useful, while persistence and disposal create environmental problems that require responsible choices.",
+          "metadata": {
+            "chapter": 3,
+            "title": "Synthetic Fibres and Plastics",
+            "printedPages": "32–43",
+            "pdfPages": "44–55",
+            "kind": "original-derived-summary"
+          }
+        },
+        {
+          "content": "Metals and non-metals can be compared through observable physical properties and selected chemical reactions. Learners should use evidence rather than memorised labels, recognise exceptions, and connect material properties to everyday applications.",
+          "metadata": {
+            "chapter": 4,
+            "title": "Materials: Metals and Non-metals",
+            "printedPages": "44–55",
+            "pdfPages": "56–67",
+            "kind": "original-derived-summary"
+          }
+        },
+        {
+          "content": "Coal and petroleum are exhaustible natural resources formed over long periods. Their products support modern life, but limited reserves and pollution make conservation, efficient use and alternative choices central to classroom application.",
+          "metadata": {
+            "chapter": 5,
+            "title": "Coal and Petroleum",
+            "printedPages": "56–63",
+            "pdfPages": "68–75",
+            "kind": "original-derived-summary"
+          }
+        },
+        {
+          "content": "Combustion requires conditions that can be represented as a system involving fuel, oxygen and ignition temperature. Flame zones differ, fuels vary in efficiency and emissions, and fire-safety explanations should remain teacher-led and risk-aware.",
+          "metadata": {
+            "chapter": 6,
+            "title": "Combustion and Flame",
+            "printedPages": "64–76",
+            "pdfPages": "76–88",
+            "kind": "original-derived-summary"
+          }
+        },
+        {
+          "content": "Conservation reasoning links deforestation, habitat loss, biodiversity decline, soil and water effects, protected areas and species recovery. Learners can distinguish wildlife sanctuaries, national parks and biosphere reserves and evaluate local action.",
+          "metadata": {
+            "chapter": 7,
+            "title": "Conservation of Plants and Animals",
+            "printedPages": "77–89",
+            "pdfPages": "89–101",
+            "kind": "original-derived-summary",
+            "photosynthesisSupport": "Plants as food-producing organisms in ecosystems"
+          }
+        },
+        {
+          "content": "The cell is the basic structural and functional unit of living organisms. A useful model compares plant and animal cells, connects organelles to functions, and treats diagrams as simplified representations rather than literal appearances.",
+          "metadata": {
+            "chapter": 8,
+            "title": "Cell — Structure and Functions",
+            "printedPages": "90–99",
+            "pdfPages": "102–111",
+            "kind": "original-derived-summary",
+            "photosynthesisSupport": "Plant-cell context and chloroplast-related prior knowledge"
+          }
+        },
+        {
+          "content": "Animal reproduction can be organised around reproductive organs, fertilisation, embryo development and life-cycle variation. Explanations should be scientifically accurate, age-appropriate, inclusive and free of personal learner data.",
+          "metadata": {
+            "chapter": 9,
+            "title": "Reproduction in Animals",
+            "printedPages": "100–112",
+            "pdfPages": "112–124",
+            "kind": "original-derived-summary"
+          }
+        },
+        {
+          "content": "Adolescence involves coordinated physical and emotional changes influenced by hormones. Teaching should emphasise normal variation, nutrition, hygiene, respectful language and reliable health guidance without diagnosing individual learners.",
+          "metadata": {
+            "chapter": 10,
+            "title": "Reaching the Age of Adolescence",
+            "printedPages": "113–126",
+            "pdfPages": "125–138",
+            "kind": "original-derived-summary"
+          }
+        },
+        {
+          "content": "Force is a push or pull that may change motion or shape, while pressure relates force to area. Contact and non-contact forces, liquid and atmospheric pressure can be investigated through safe observations and precise causal language.",
+          "metadata": {
+            "chapter": 11,
+            "title": "Force and Pressure",
+            "printedPages": "127–145",
+            "pdfPages": "139–157",
+            "kind": "original-derived-summary"
+          }
+        },
+        {
+          "content": "Friction opposes relative motion and depends on interacting surfaces. It can be useful or harmful, can be increased or reduced, and should be explained through comparisons that hold other conditions as constant as practical.",
+          "metadata": {
+            "chapter": 12,
+            "title": "Friction",
+            "printedPages": "146–156",
+            "pdfPages": "158–168",
+            "kind": "original-derived-summary"
+          }
+        },
+        {
+          "content": "Sound begins with vibrations, travels through a medium and is perceived through the ear. Pitch and loudness describe different properties, while noise pollution supports an application task about exposure, community effects and prevention.",
+          "metadata": {
+            "chapter": 13,
+            "title": "Sound",
+            "printedPages": "157–171",
+            "pdfPages": "169–183",
+            "kind": "original-derived-summary"
+          }
+        },
+        {
+          "content": "Some liquids conduct electricity and current can produce chemical changes such as gas formation, colour change or deposition. Classroom work should use low-voltage setups, distinguish observation from explanation and follow explicit safety controls.",
+          "metadata": {
+            "chapter": 14,
+            "title": "Chemical Effects of Electric Current",
+            "printedPages": "172–183",
+            "pdfPages": "184–195",
+            "kind": "original-derived-summary"
+          }
+        },
+        {
+          "content": "Lightning and earthquakes are natural phenomena that require model-based explanations and practical safety decisions. Learners should separate prediction myths from evidence and rehearse appropriate protective actions for local contexts.",
+          "metadata": {
+            "chapter": 15,
+            "title": "Some Natural Phenomena",
+            "printedPages": "184–198",
+            "pdfPages": "196–210",
+            "kind": "original-derived-summary"
+          }
+        },
+        {
+          "content": "Light reflection can be represented with incident and reflected rays, regular and diffused reflection, multiple images and the human eye. Visual access, tactile alternatives and eye-safety guidance are essential in classroom demonstrations.",
+          "metadata": {
+            "chapter": 16,
+            "title": "Light",
+            "printedPages": "199–214",
+            "pdfPages": "211–226",
+            "kind": "original-derived-summary"
+          }
+        },
+        {
+          "content": "The night sky can be organised by distinguishing stars, planets, satellites, constellations and the Solar System. Scale models are necessarily simplified, so lessons should state what a model represents and what it distorts.",
+          "metadata": {
+            "chapter": 17,
+            "title": "Stars and the Solar System",
+            "printedPages": "215–238",
+            "pdfPages": "227–250",
+            "kind": "original-derived-summary"
+          }
+        },
+        {
+          "content": "Air and water pollution can be analysed through sources, pollutants, effects and prevention. Greenhouse warming, acid rain, potable water and local responsibility support cause-effect models and feasible community action plans.",
+          "metadata": {
+            "chapter": 18,
+            "title": "Pollution of Air and Water",
+            "printedPages": "239–252",
+            "pdfPages": "251–264",
+            "kind": "original-derived-summary",
+            "photosynthesisSupport": "Carbon dioxide, oxygen and environmental-system context"
+          }
+        }
+      ]
+    }
+  ]
+}

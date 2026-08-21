@@ -15,29 +15,32 @@ test("capture the canonical judge evidence set", async ({ page }, testInfo) => {
   await expect(page.getByRole("heading", { name: /good morning, meera/i })).toBeVisible();
   await page.screenshot({ path: path.join(output, "02-dashboard.png"), fullPage: true });
 
-  await page.goto("/plans/plan_water_cycle/preview");
-  await expect(page.getByRole("heading", { name: /the water cycle around us/i })).toBeVisible();
+  await page.goto("/plans/plan_photosynthesis_flagship/preview");
+  await expect(
+    page.getByRole("heading", { name: /photosynthesis: how leaves make food/i })
+  ).toBeVisible();
   await page.screenshot({ path: path.join(output, "03-plan-preview.png"), fullPage: true });
+
+  await page.goto("/plans/plan_photosynthesis_flagship/edit");
+  await page.getByRole("button", { name: /teaching engine/i }).click();
+  await expect(page.getByRole("heading", { name: /classroom teaching engine/i })).toBeVisible();
+  await page.screenshot({ path: path.join(output, "04-teaching-engine.png"), fullPage: true });
+
+  await page.goto("/plans/plan_photosynthesis_flagship/teach");
+  await expect(page.getByText(/teach · block 1\/9/i)).toBeVisible();
+  await page.screenshot({ path: path.join(output, "05-teach-mode.png"), fullPage: true });
+
+  await page.goto("/plans/plan_photosynthesis_flagship/present");
+  await expect(page.getByText(/live learner view/i)).toBeVisible();
+  await page.screenshot({ path: path.join(output, "06-present-mode.png"), fullPage: true });
+
+  await page.goto("/assessments");
+  await expect(page.getByRole("heading", { name: /assessment bank/i })).toBeVisible();
+  await page.screenshot({ path: path.join(output, "07-assessment-bank.png"), fullPage: true });
 
   await page.goto("/analytics");
   await expect(
     page.getByRole("heading", { name: /what your planning is changing/i })
   ).toBeVisible();
-  await page.screenshot({ path: path.join(output, "04-analytics.png"), fullPage: true });
-
-  await page.goto("/plans/new");
-  await expect(page.getByRole("heading", { name: /start with your classroom/i })).toBeVisible();
-  await page.screenshot({ path: path.join(output, "05-quick-brief.png"), fullPage: true });
-
-  await page.goto("/assessments");
-  await expect(page.getByRole("heading", { name: /assessment bank/i })).toBeVisible();
-  await page.screenshot({ path: path.join(output, "06-assessment-bank.png"), fullPage: true });
-
-  await page.goto("/plans/plan_water_cycle/teach");
-  await expect(page.getByText(/teach mode · step 1/i)).toBeVisible();
-  await page.screenshot({ path: path.join(output, "07-teach-mode.png"), fullPage: true });
-
-  await page.goto("/community");
-  await expect(page.getByRole("heading", { name: /community lessons/i })).toBeVisible();
-  await page.screenshot({ path: path.join(output, "08-community.png"), fullPage: true });
+  await page.screenshot({ path: path.join(output, "08-analytics.png"), fullPage: true });
 });

@@ -80,7 +80,7 @@ export async function loadExtendedDomainRemote(): Promise<ExtendedDomainRemote> 
     })),
     shares: (shares.data ?? []).map((row) => ({
       id: row.id,
-      token: row.token,
+      tokenHash: row.token_hash,
       planId: row.plan_id,
       planVersionId: row.plan_version_id,
       ownerId: row.owner_id,
@@ -219,11 +219,14 @@ export async function loadExtendedDomainRemote(): Promise<ExtendedDomainRemote> 
       sessionId: row.session_id,
       ownerId: row.owner_id,
       ...(row.activity_id ? { activityId: row.activity_id } : {}),
+      ...(row.block_id ? { blockId: row.block_id } : {}),
       prompt: row.prompt,
       mode: row.mode as QuickCheckResult["mode"],
       counts: row.counts as Record<string, number>,
       ...(row.correct_key ? { correctKey: row.correct_key } : {}),
       ...(row.note ? { note: row.note } : {}),
+      ...(row.misconception_signal ? { misconceptionSignal: row.misconception_signal } : {}),
+      ...(row.suggested_action ? { suggestedAction: row.suggested_action } : {}),
       createdAt: row.created_at
     }))
   };
@@ -248,7 +251,7 @@ export async function saveShareRemote(share: ShareSnapshot) {
   if (!supabase) return;
   const { error } = await supabase.from("share_snapshots").upsert({
     id: share.id,
-    token: share.token,
+    token_hash: share.tokenHash,
     plan_id: share.planId,
     plan_version_id: share.planVersionId,
     owner_id: share.ownerId,
@@ -419,11 +422,14 @@ export async function saveQuickCheckRemote(check: QuickCheckResult) {
     session_id: check.sessionId,
     owner_id: check.ownerId,
     activity_id: check.activityId ?? null,
+    block_id: check.blockId ?? null,
     prompt: check.prompt,
     mode: check.mode,
     counts: check.counts,
     correct_key: check.correctKey ?? null,
     note: check.note ?? null,
+    misconception_signal: check.misconceptionSignal ?? null,
+    suggested_action: check.suggestedAction ?? null,
     created_at: check.createdAt
   });
   if (error) throw new Error(error.message);

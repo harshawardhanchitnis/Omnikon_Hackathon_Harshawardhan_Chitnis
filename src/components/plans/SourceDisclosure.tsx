@@ -1,5 +1,6 @@
 import type { LessonPlan } from "@chalkbox/contracts";
 import { ExternalLink, Info, ShieldCheck } from "lucide-react";
+import { Badge } from "@/components/ui/Badge";
 import { Card } from "@/components/ui/Card";
 
 export function SourceDisclosure({ plan }: { plan: LessonPlan }) {
@@ -10,8 +11,22 @@ export function SourceDisclosure({ plan }: { plan: LessonPlan }) {
           <ShieldCheck className="size-5" />
         </span>
         <div>
-          <h3 className="font-black">Sources & responsible AI</h3>
+          <div className="flex flex-wrap items-center gap-2">
+            <h3 className="font-black">Sources & responsible AI</h3>
+            <Badge
+              tone={
+                plan.grounding.status === "grounded"
+                  ? "green"
+                  : plan.grounding.status === "partially-grounded"
+                    ? "amber"
+                    : "red"
+              }
+            >
+              {plan.grounding.status.replace("-", " ")}
+            </Badge>
+          </div>
           <p className="text-muted mt-1 text-xs leading-5">{plan.aiDisclosure}</p>
+          <p className="mt-2 text-xs leading-5 font-bold text-slate-700">{plan.grounding.note}</p>
         </div>
       </div>
       <div className="mt-4 space-y-3">
@@ -29,6 +44,12 @@ export function SourceDisclosure({ plan }: { plan: LessonPlan }) {
             <p className="text-muted mt-1 text-xs leading-5">{source.attribution}</p>
           </div>
         ))}
+        {plan.sources.length === 0 && (
+          <div className="rounded-xl border border-amber-200 bg-amber-50 p-3 text-xs leading-5 text-amber-950">
+            No verified curriculum source was retrieved. ChalkBox does not invent a citation; review
+            this plan against the current official syllabus before teaching.
+          </div>
+        )}
       </div>
       <p className="text-muted mt-4 flex gap-2 text-[11px] leading-5">
         <Info className="mt-0.5 size-3.5 shrink-0" />

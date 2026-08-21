@@ -1,12 +1,12 @@
 import type { LessonPlan, ShareSnapshot } from "@chalkbox/contracts";
 
-export function sanitiseShareSnapshot(plan: LessonPlan, token: string): LessonPlan {
+export function sanitiseShareSnapshot(plan: LessonPlan): LessonPlan {
   return {
     ...structuredClone(plan),
     ownerId: "shared",
     teacherNotes: "",
     isPublic: true,
-    publicSlug: token
+    publicSlug: undefined
   };
 }
 

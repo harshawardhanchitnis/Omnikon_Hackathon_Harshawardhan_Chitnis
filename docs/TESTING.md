@@ -7,6 +7,9 @@
 - canonical lesson/classroom bounds, including grades 1–10, one optional second grade, 20–90 minutes and class sizes 1–100;
 - all prepared lesson fixtures against the shared Zod contract;
 - deterministic lesson-quality scoring and derived analytics;
+- exact block timing repair, progressive learner redaction and multigrade feasibility;
+- Quick Check 2.0 misconception signals and suggested teaching actions;
+- secure random share tokens, stable base64url hashes and SQL privilege contract;
 - Quick Brief parsing for duration, bilingual/support constraints and extraction labels;
 - IndexedDB/offline queue ordering and conflict behavior;
 - immutable sharing: private fields stripped, snapshot unaffected by later edits, expiry/revocation checks;
@@ -15,13 +18,13 @@
 - UI/preferences persistence without domain data in localStorage;
 - accessible plan-card rendering and actions.
 
-Current local result: **12 test files, 25 tests passing**.
+Current local result: **14 test files, 32 tests passing**.
 
 ### End-to-end journeys
 
 - landing → deterministic demo → dashboard;
-- Quick Brief prepared example → editor → preview;
-- Teach Mode steps → reflection → insights;
+- flagship photosynthesis preview → typed Teach Mode → reflection → insights;
+- Quick Check 2.0 aggregate signal and learner-safe Present Mode;
 - mobile bottom navigation;
 - provenance-labelled assessment → worksheet builder;
 - moderated immutable community snapshot → private adaptation;
@@ -34,6 +37,7 @@ The suite runs against Desktop Chrome and a Pixel 7 viewport. GitHub Actions ins
 
 ```bash
 pnpm fixtures:validate
+pnpm curriculum:validate
 pnpm format:check
 pnpm typecheck
 pnpm lint
@@ -52,11 +56,11 @@ pnpm test:e2e
 2. Parse/review a Quick Brief without silently claiming a rule-based result is AI.
 3. Generate through the protected function when configured and preserve work on failure.
 4. Create/edit/reload a plan from IndexedDB.
-5. Save, restore and regenerate with version history intact.
+5. Save, restore, compare Current vs Suggested, accept/reject explicitly, and retain version history.
 6. Preview, print and generate lesson/worksheet PDFs with Hindi/English text.
-7. Run Teach/Present Mode without leaking private teacher notes into learner view.
+7. Run exact-time Teach/Present Mode without leaking teacher cues, expected reasoning, notes or answer guidance into learner view.
 8. Save an anonymous aggregate Quick Check and private reflection.
-9. Create an immutable share; enforce expiry/revocation; later edits cannot change it.
+9. Create a hashed-token immutable share; prevent table enumeration; enforce expiry/revocation; later edits cannot change it.
 10. Adapt an approved community snapshot without modifying the publication.
 11. Queue offline writes and resolve a simulated version conflict explicitly.
 12. Block guests from private routes and teachers from admin routes.

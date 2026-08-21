@@ -5,19 +5,20 @@ import { isShareActive, sanitiseShareSnapshot } from "@/lib/sharing";
 describe("immutable sharing", () => {
   it("removes private ownership and teacher notes from a detached snapshot", () => {
     const source = structuredClone(demoPlans[0]!);
-    const shared = sanitiseShareSnapshot(source, "public-token-123456");
+    const shared = sanitiseShareSnapshot(source);
     source.title = "Changed later";
     expect(shared.title).not.toBe(source.title);
     expect(shared.teacherNotes).toBe("");
     expect(shared.ownerId).toBe("shared");
-    expect(shared.publicSlug).toBe("public-token-123456");
+    expect(shared.publicSlug).toBeUndefined();
   });
 
   it("rejects revoked and expired links", () => {
-    const snapshot = sanitiseShareSnapshot(demoPlans[0]!, "public-token-123456");
+    const snapshot = sanitiseShareSnapshot(demoPlans[0]!);
     const base = {
       id: "share_1",
-      token: "public-token-123456",
+      tokenHash: "secure-hash",
+      rawToken: "public-token-123456",
       planId: snapshot.id,
       planVersionId: "version_1",
       ownerId: demoPlans[0]!.ownerId,

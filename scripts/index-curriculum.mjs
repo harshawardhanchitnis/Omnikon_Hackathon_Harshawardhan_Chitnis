@@ -12,13 +12,22 @@ if (!supabaseUrl || !publishableKey || !adminAccessToken) {
   );
 }
 
-const sourcePath = path.resolve(process.argv[2] ?? "data/curriculum/chalkbox-original.json");
-const payload = JSON.parse(await readFile(sourcePath, "utf8"));
-if (!Array.isArray(payload.sources) || payload.sources.length === 0) {
-  throw new Error("The curriculum bundle must contain a non-empty sources array.");
+const sourcePaths = process.argv[2]
+  ? [path.resolve(process.argv[2])]
+  : [
+      path.resolve("data/curriculum/chalkbox-original.json"),
+      path.resolve("data/curriculum/ncert-class-8-science-derived.json")
+    ];
+const entries = [];
+for (const sourcePath of sourcePaths) {
+  const payload = JSON.parse(await readFile(sourcePath, "utf8"));
+  if (!Array.isArray(payload.sources) || payload.sources.length === 0) {
+    throw new Error(`${sourcePath}: curriculum bundle must contain a non-empty sources array.`);
+  }
+  entries.push(...payload.sources);
 }
 
-for (const entry of payload.sources) {
+for (const entry of entries) {
   const response = await fetch(`${supabaseUrl}/functions/v1/index-curriculum`, {
     method: "POST",
     headers: {

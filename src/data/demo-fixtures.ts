@@ -9,6 +9,7 @@ import type {
   Expert,
   GuidancePlan,
   Invitation,
+  InstructionalBlock,
   LessonPlan,
   Notification,
   PlanVersion,
@@ -20,6 +21,7 @@ import type {
   UserProfile,
   Worksheet
 } from "@chalkbox/contracts";
+import { photosynthesisDemoPlan } from "./photosynthesis-demo";
 
 export const DEMO_TEACHER_ID = "teacher_meera_demo";
 
@@ -39,7 +41,11 @@ export const demoTeacher: UserProfile = {
   lastActiveAt: "2026-08-21T06:15:00.000Z"
 };
 
-export const demoPlans: LessonPlan[] = [
+type DemoPlanSeed = Omit<LessonPlan, "classroomBlocks" | "grounding"> &
+  Partial<Pick<LessonPlan, "classroomBlocks" | "grounding">>;
+
+const demoPlanSeeds: DemoPlanSeed[] = [
+  photosynthesisDemoPlan,
   {
     id: "plan_water_cycle",
     ownerId: DEMO_TEACHER_ID,
@@ -422,6 +428,92 @@ export const demoPlans: LessonPlan[] = [
   }
 ];
 
+function deriveClassroomBlocks(plan: DemoPlanSeed): InstructionalBlock[] {
+  const grades = plan.additionalGrade ? [plan.grade, plan.additionalGrade] : [plan.grade];
+  return plan.activities.map((activity) => {
+    const common = {
+      id: `block_${activity.id}`,
+      title: activity.title,
+      purpose: `Teach ${activity.title.toLowerCase()} as one focused classroom step.`,
+      durationMinutes: activity.durationMinutes,
+      teacherCue: activity.teacherSteps.join(" "),
+      learnerContent: activity.studentSteps,
+      resourceAlternative: activity.offlineAlternative ?? "Use the spoken and board-based version.",
+      differentiation: {
+        support: activity.differentiation ?? "Offer a spoken, drawn or modelled response.",
+        extension: "Ask learners to justify one connection using evidence."
+      },
+      language: plan.language,
+      gradeTarget: { grades, label: `Class ${grades.join(" + ")} · Whole class` },
+      accessibilitySupport: ["Read key instructions aloud"],
+      revealStages: [],
+      sourceIds: plan.sources.map((source) => source.id)
+    };
+    if (activity.type === "hook") {
+      return {
+        ...common,
+        type: "hook",
+        prompt: activity.studentSteps[0] ?? activity.title,
+        expectedResponse: activity.teacherSteps[0]
+      } satisfies InstructionalBlock;
+    }
+    if (activity.type === "assessment") {
+      return {
+        ...common,
+        type: "quick-check",
+        checkMode: "understanding",
+        question: activity.studentSteps[0] ?? activity.title,
+        options: [],
+        answer: "Use the linked assessment guide.",
+        explanation: activity.teacherSteps.join(" "),
+        responseGuidance: [
+          {
+            maximumCorrectPercent: 70,
+            message: "Pause, model the reasoning once more and collect another class signal."
+          }
+        ]
+      } satisfies InstructionalBlock;
+    }
+    return {
+      ...common,
+      type:
+        activity.type === "closure"
+          ? "recap"
+          : activity.type === "practice"
+            ? "guided-practice"
+            : activity.type === "activity"
+              ? "demonstration"
+              : "explanation",
+      teacherExplanation: activity.teacherSteps.join(" "),
+      expectedReasoning: activity.studentSteps.join(" ")
+    } satisfies InstructionalBlock;
+  });
+}
+
+export const demoPlans: LessonPlan[] = demoPlanSeeds.map((plan) => ({
+  ...plan,
+  classroomBlocks: plan.classroomBlocks ?? deriveClassroomBlocks(plan),
+  grounding:
+    plan.grounding ??
+    (plan.sources.length
+      ? {
+          status: "partially-grounded" as const,
+          verifiedSourceIds: plan.sources.map((source) => source.id),
+          note: "Source metadata is available; the original ChalkBox lesson wording still requires teacher syllabus review."
+        }
+      : {
+          status: "ungrounded" as const,
+          verifiedSourceIds: [],
+          note: "AI-generated without verified curriculum grounding."
+        })
+}));
+
+function requiredDemoPlan(id: string) {
+  const plan = demoPlans.find((item) => item.id === id);
+  if (!plan) throw new Error(`Missing demo plan: ${id}`);
+  return plan;
+}
+
 export const demoSessions: TeachingSession[] = [
   {
     id: "session_fractions_1",
@@ -430,6 +522,9 @@ export const demoSessions: TeachingSession[] = [
     startedAt: "2026-08-18T06:30:00.000Z",
     completedAt: "2026-08-18T07:12:00.000Z",
     currentActivityIndex: 3,
+    currentBlockIndex: 3,
+    revealState: {},
+    skippedBlockIds: [],
     elapsedSeconds: 2520,
     paused: false,
     attendanceCount: 34,
@@ -514,7 +609,7 @@ export const demoClassroomProfiles: ClassroomProfile[] = [
   }
 ];
 
-const questionSource = demoPlans[0]!.sources[0]!;
+const questionSource = requiredDemoPlan("plan_water_cycle").sources[0]!;
 
 export const demoAssessmentQuestions: AssessmentQuestion[] = [
   {
@@ -611,7 +706,7 @@ export const demoAssessmentQuestions: AssessmentQuestion[] = [
     answer: "3/4 is greater; 3/4 = 9/12 and 2/3 = 8/12.",
     provenance: "teacher-authored",
     reviewState: "teacher-reviewed",
-    source: demoPlans[1]!.sources[0]!,
+    source: requiredDemoPlan("plan_fractions_market").sources[0]!,
     attribution: "Teacher-authored item aligned to public grade taxonomy.",
     createdAt: "2026-08-17T08:00:00.000Z",
     updatedAt: "2026-08-18T08:00:00.000Z"
@@ -635,7 +730,7 @@ export const demoAssessmentQuestions: AssessmentQuestion[] = [
       "True when ‘I’ is used by the narrator to tell their own experience; a quoted speaker does not by itself set the narration viewpoint.",
     provenance: "chalkbox-authored",
     reviewState: "curator-approved",
-    source: demoPlans[2]!.sources[0]!,
+    source: requiredDemoPlan("plan_story_perspective").sources[0]!,
     attribution: "Original ChalkBox item aligned to public language outcomes.",
     createdAt: "2026-08-20T08:00:00.000Z",
     updatedAt: "2026-08-20T08:00:00.000Z"
@@ -680,11 +775,12 @@ export const demoPlanVersions: PlanVersion[] = demoPlans.map((plan) => ({
 export const demoShares: ShareSnapshot[] = [
   {
     id: "share_fractions_demo",
-    token: "fractions-local-market-demo",
+    tokenHash: "iPG-M97wXEP8Htkv-OANLZkx8HjYz7HXCRMr9IjEfgA",
+    rawToken: "fractions-local-market-demo",
     planId: "plan_fractions_market",
     planVersionId: "version_plan_fractions_market_4",
     ownerId: DEMO_TEACHER_ID,
-    snapshot: structuredClone(demoPlans[1]!),
+    snapshot: structuredClone(requiredDemoPlan("plan_fractions_market")),
     createdAt: "2026-08-18T10:11:00.000Z"
   }
 ];
@@ -695,7 +791,7 @@ export const demoPublications: CommunityPublication[] = [
     ownerId: DEMO_TEACHER_ID,
     planId: "plan_fractions_market",
     planVersionId: "version_plan_fractions_market_4",
-    snapshot: structuredClone(demoPlans[1]!),
+    snapshot: structuredClone(requiredDemoPlan("plan_fractions_market")),
     authorName: "Meera Patil",
     authorSchool: "Zilla Parishad Primary School, Khed",
     status: "approved",
@@ -714,7 +810,7 @@ export const demoPublications: CommunityPublication[] = [
     planId: "community_plan_water_lab",
     planVersionId: "community_version_water_lab_2",
     snapshot: {
-      ...structuredClone(demoPlans[0]!),
+      ...structuredClone(requiredDemoPlan("plan_water_cycle")),
       id: "community_plan_water_lab",
       ownerId: "teacher_ananya_demo",
       title: "Monsoon Water Cycle Lab",
@@ -742,7 +838,7 @@ export const demoPublications: CommunityPublication[] = [
     planId: "community_plan_story_voice",
     planVersionId: "community_version_story_voice_3",
     snapshot: {
-      ...structuredClone(demoPlans[2]!),
+      ...structuredClone(requiredDemoPlan("plan_story_perspective")),
       id: "community_plan_story_voice",
       ownerId: "teacher_sana_demo",
       title: "Switch the Story Camera",
@@ -772,7 +868,7 @@ export const demoPublications: CommunityPublication[] = [
     planId: "plan_story_perspective",
     planVersionId: "version_plan_story_perspective_1",
     snapshot: {
-      ...structuredClone(demoPlans[2]!),
+      ...structuredClone(requiredDemoPlan("plan_story_perspective")),
       teacherNotes: "",
       isPublic: true
     },
@@ -796,7 +892,7 @@ export const demoQuickChecks: QuickCheckResult[] = [
     ownerId: DEMO_TEACHER_ID,
     activityId: "act_frac_4",
     prompt: "Which is greater: 3/4 or 2/3?",
-    mode: "abcd",
+    mode: "mcq",
     counts: { A: 8, B: 20, C: 4, D: 2 },
     correctKey: "B",
     note: "Re-model unlike denominators with six learners.",

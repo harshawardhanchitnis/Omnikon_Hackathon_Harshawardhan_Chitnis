@@ -4,24 +4,25 @@ This record separates checks executed in the local build environment from checks
 
 ## Executed locally on 21 August 2026
 
-- Fixture validation: passed; 3 canonical lesson-plan fixtures.
+- Fixture validation: passed; 4 canonical lesson-plan fixtures.
+- Curriculum provenance validation: passed; 3 attributed sources and 23 original chunks.
 - Formatting: passed; all supported source/documentation files match Prettier.
 - TypeScript project references: passed with no errors.
 - ESLint: passed with zero warnings.
-- Vitest: passed; 12 files and 25 unit/component tests.
-- Vite production build: passed; 3,394 modules transformed.
-- PWA generation: passed; 87 precache entries, manifest and service worker emitted.
+- Vitest: passed; 14 files and 32 unit/component tests.
+- Vite production build: passed; 3,399 modules transformed.
+- PWA generation: passed; 89 precache entries, manifest and service worker emitted.
 - Production smoke: passed; `/`, `/demo`, `/manifest.webmanifest` and `/sw.js` returned HTTP 200.
 
 Command executed:
 
 ```bash
-pnpm fixtures:validate && pnpm format:check && pnpm typecheck && pnpm lint && pnpm test && pnpm build && pnpm smoke
+pnpm fixtures:validate && pnpm curriculum:validate && pnpm format:check && pnpm typecheck && pnpm lint && pnpm test && pnpm build && pnpm smoke
 ```
 
 ## Browser-suite environment note
 
-The local Playwright invocation was attempted, but the runtime did not contain Chromium. The allowed environment could not download the browser archive (the CDN response was empty/truncated), so no browser assertion actually ran locally. This is an infrastructure precondition failure, not recorded as an application pass or failure.
+The local Playwright invocation was attempted, but the runtime did not contain Chromium. The workspace could not install a browser because the execution service rejected that dependency action, so no browser assertion actually ran locally. This is an infrastructure precondition failure, not recorded as an application pass or failure.
 
 ## GitHub Actions verification
 
@@ -34,7 +35,7 @@ The `ChalkBox quality gate` workflow is configured to run:
 - axe WCAG A/AA serious/critical checks;
 - production-build, Playwright-report and eight product-screenshot artifacts.
 
-GitHub Actions run **#16** for commit `06678f9` completed successfully on 21 August 2026. Both the `verify` and `browser-tests` jobs passed. The browser suite reported **12 passed**, **2 intentional project-specific skips**, and no flaky retries; the workflow also uploaded the production build, Playwright report, and eight-screen product evidence set.
+The previous v2 baseline passed GitHub Actions run **#16**. The new v3 branch must complete its own workflow before any browser-pass claim is updated here. The workflow is configured to upload the production build, Playwright report, and eight-screen v3 product evidence set.
 
 ## Final hosted verification
 

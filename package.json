@@ -22,9 +22,10 @@
     "test:e2e": "playwright test",
     "test:a11y": "playwright test tests/e2e/accessibility.spec.ts",
     "fixtures:validate": "node --import tsx scripts/validate-fixtures.ts",
+    "curriculum:validate": "node scripts/validate-curriculum.mjs",
     "screenshots": "node --import tsx scripts/capture-screenshots.ts",
     "curriculum:index": "node scripts/index-curriculum.mjs",
-    "verify": "pnpm fixtures:validate && pnpm format:check && pnpm typecheck && pnpm lint && pnpm test && pnpm build && pnpm smoke"
+    "verify": "pnpm fixtures:validate && pnpm curriculum:validate && pnpm format:check && pnpm typecheck && pnpm lint && pnpm test && pnpm build && pnpm smoke"
   },
   "dependencies": {
     "@chalkbox/contracts": "workspace:*",

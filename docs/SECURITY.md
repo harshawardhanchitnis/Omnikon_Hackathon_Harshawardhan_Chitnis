@@ -19,7 +19,8 @@ ChalkBox deliberately has no student entity. It never needs student names, email
 - Profile column grants prevent users from elevating their own role.
 - Admin moderation/indexing checks the server-side profile role.
 - Edge Functions re-check action authorization and request ownership.
-- Share access uses a high-entropy token to an immutable snapshot and still enforces expiry/revocation.
+- Share creation uses 32 cryptographically random bytes. The browser receives the raw capability once; Postgres stores only its SHA-256 base64url hash.
+- Anonymous users have no direct `SELECT` privilege on `share_snapshots`; `resolve_share_snapshot(raw_token)` checks the hash, expiry and revocation and returns one snapshot or null.
 - Community discovery exposes only approved immutable publication rows, never private mutable plans.
 
 ## Version and conflict integrity
@@ -55,7 +56,7 @@ Zustand localStorage contains UI preferences/profile shell only. Plans, assessme
 - Safety-sensitive activities keep teacher control and an offline/low-resource alternative.
 - Sources and AI disclosure remain visible in editor, preview, shared view and PDFs.
 - Curriculum ingestion requires licence and attribution metadata.
-- The bundled corpus is original ChalkBox guidance mapped to curriculum taxonomy; substantial NCERT/commercial textbook prose is excluded.
+- The bundled corpus contains original ChalkBox guidance plus original Team HarshLabs summaries/page locators derived from the participant-supplied NCERT Class VIII Science reference. The book itself and substantial textbook prose are excluded.
 - Community approval publishes a specific submitted snapshot and attribution. Reports enter a moderation queue.
 - The competitor was reviewed as an allowed benchmark; ChalkBox contains no copied competitor code, CSS, text, assets or layout.
 

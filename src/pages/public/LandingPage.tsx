@@ -154,7 +154,7 @@ export function LandingPage() {
                   ))}
                 </div>
               </Card>
-              <div className="shadow-lift absolute -right-4 -bottom-5 rounded-2xl border border-black/8 bg-white p-3 sm:right-6">
+              <div className="shadow-lift absolute right-2 -bottom-12 rounded-2xl border border-black/8 bg-white p-3 sm:right-6">
                 <p className="text-ink-500 text-[10px] font-black tracking-wider uppercase">
                   Quality check
                 </p>

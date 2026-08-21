@@ -11,6 +11,7 @@ tmp/
 !.env.example
 .DS_Store
 *.log
+.ci-*.zip
 .supabase/
 supabase/.temp/
 report/evidence/test-results/*

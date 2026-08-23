@@ -1,121 +1,49 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
-
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+    <main className="min-h-screen bg-[var(--chalkbox-cream)]">
+      <section className="flex min-h-screen items-center justify-center px-6 py-12">
+        <div className="w-full max-w-4xl rounded-[32px] border border-[var(--chalkbox-border)] bg-[var(--chalkbox-paper)] p-8 shadow-[0_24px_80px_rgba(16,58,38,0.10)] sm:p-12">
+          <div className="flex flex-col items-center text-center">
+            <img
+              src="/branding/logo.png"
+              alt="ChalkBox by HarshLabs AI"
+              className="mb-10 w-full max-w-[420px]"
+            />
 
-      <div className="ticks"></div>
+            <span className="mb-5 rounded-full border border-[#cbdccc] bg-[#eef5ec] px-4 py-2 text-sm font-semibold text-[#176b43]">
+              ChalkBox Rebuild
+            </span>
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
+            <h1 className="max-w-3xl text-4xl font-bold tracking-tight text-[#17211b] sm:text-5xl">
+              Your classroom. Your plan.
+              <span className="block text-[#0f5132]">
+                Powered by HarshLabs AI.
+              </span>
+            </h1>
+
+            <p className="mt-6 max-w-2xl text-base leading-7 text-[var(--chalkbox-text-muted)] sm:text-lg">
+              The ChalkBox frontend foundation is ready. React, TypeScript,
+              Vite and the new blackboard-green design system are now working
+              together.
+            </p>
+
+            <div className="mt-10 flex flex-wrap justify-center gap-3">
+              <div className="rounded-xl bg-[#0f5132] px-5 py-3 text-sm font-semibold text-white">
+                Blackboard Green
+              </div>
+
+              <div className="rounded-xl border border-[var(--chalkbox-border)] bg-[#f3f7f0] px-5 py-3 text-sm font-semibold text-[#0f5132]">
+                Off-white Canvas
+              </div>
+
+              <div className="rounded-xl border border-[var(--chalkbox-border)] bg-white px-5 py-3 text-sm font-semibold text-[#17211b]">
+                Teacher-first UI
+              </div>
+            </div>
+          </div>
         </div>
       </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+    </main>
   )
 }
 

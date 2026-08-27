@@ -1,0 +1,737 @@
+{
+  "schemaVersion": 1,
+  "catalogPolicyVersion": "chalkbox-source-catalog-v1",
+  "lessonKey": "class-10-electricity",
+  "classLevel": 10,
+  "subject": "Science",
+  "title": "Electricity",
+  "sourceFileName": "NCERT-Class-10-Electricity-official.pdf",
+  "canonicalSource": {
+    "pageStart": 1,
+    "pageEnd": 24,
+    "pageCount": 24,
+    "approxTokenCount": 10995,
+    "canonicalContentSha256": "5614f5d394c44d6fc03595d9e5c07c41c4f90af1a23d178f86561f3d13035025"
+  },
+  "allowedTextbookLabels": {
+    "activities": [
+      "Activity 11.1",
+      "Activity 11.2",
+      "Activity 11.3",
+      "Activity 11.4",
+      "Activity 11.5",
+      "Activity 11.6"
+    ],
+    "examples": [
+      "Example 11.1",
+      "Example 11.2",
+      "Example 11.3",
+      "Example 11.4",
+      "Example 11.5",
+      "Example 11.6",
+      "Example 11.7",
+      "Example 11.8",
+      "Example 11.9",
+      "Example 11.10",
+      "Example 11.11",
+      "Example 11.12",
+      "Example 11.13"
+    ],
+    "figures": [
+      "Figure 11.1",
+      "Fig. 11.2",
+      "Figure 11.3",
+      "Fig. 11.4",
+      "Fig. 11.5",
+      "Figure 11.6",
+      "Figure 11.7",
+      "Fig. 11.8",
+      "Fig. 11.9",
+      "Figure 11",
+      "Fig. 11.10",
+      "Fig. 11.11",
+      "Fig. 11.12",
+      "Fig. 11.13"
+    ],
+    "tables": [
+      "Table 11.1",
+      "Table 11.2"
+    ]
+  },
+  "sourceObjects": {
+    "activities": [
+      {
+        "kind": "ACTIVITY",
+        "canonicalId": "ACTIVITY:11.1",
+        "preferredSourceLabel": "Activity 11.1",
+        "printedLabels": [
+          "Activity 11.1"
+        ],
+        "sourcePages": [
+          5
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 5,
+        "firstOccurrenceSnippet": "tricity 175 11.4 OHM’S LA11.4 OHM’S LA11.4 OHM’S LA11.4 OHM’S LA11.4 OHM’S LAWWWWW Is there a relationship between the potential difference across a conductor and the current through it? Let us explore with an Activity. Activity 11.1 n Set up a circuit as shown in Fig. 11.2, consisting of a nichrome wire XY of length, say 0.5 m, an ammeter, a voltmeter and four cells of 1.5 V each. (Nichrome is an alloy of nickel, chromium, manganese, and iron metal"
+      },
+      {
+        "kind": "ACTIVITY",
+        "canonicalId": "ACTIVITY:11.2",
+        "preferredSourceLabel": "Activity 11.2",
+        "printedLabels": [
+          "Activity 11.2"
+        ],
+        "sourcePages": [
+          6
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 6,
+        "firstOccurrenceSnippet": "Science176 Figure 11.3 V–I graph for a nichrome wire. A straight line plot shows that as the current through a wire increases, the potential difference across the wire increases linearly – this is Ohm’s law. Activity 11.2 n Take a nichrome wire, a torch bulb, a 10 W bulb and an ammeter (0 – 5 A range), a plug key and some connecting wires. n Set up the circuit by connecting four dry cells of 1.5 V each in series with the ammeter leaving"
+      },
+      {
+        "kind": "ACTIVITY",
+        "canonicalId": "ACTIVITY:11.3",
+        "preferredSourceLabel": "Activity 11.3",
+        "printedLabels": [
+          "Activity 11.3"
+        ],
+        "sourcePages": [
+          7
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 7,
+        "firstOccurrenceSnippet": "ponents connected in the gap XY? What do the above observations indicate? n You may repeat this Activity by keeping any material component in the gap. Observe the ammeter readings in each case. Analyse the observations. Activity 11.3 n Complete an electric circuit consisting of a cell, an ammeter, a nichrome wire of length l [say, marked (1)] and a plug key, as shown in Fig. 11.5.Reprint 2026-27"
+      },
+      {
+        "kind": "ACTIVITY",
+        "canonicalId": "ACTIVITY:11.4",
+        "preferredSourceLabel": "Activity 11.4",
+        "printedLabels": [
+          "Activity 11.4"
+        ],
+        "sourcePages": [
+          12,
+          13
+        ],
+        "occurrenceCount": 2,
+        "firstOccurrencePage": 12,
+        "firstOccurrenceSnippet": "mmeter is the same, independent of its position in the electric circuit. It means that in a series combination of resistors the current is the same in every part of the circuit or the same current through each resistor. Activity 11.4 n Join three resistors of different values in series. Connect them with a battery, an ammeter and a plug key, as shown in Fig. 11.6. You may use the resistors of values like 1 Ω, 2 Ω, 3 Ω etc., and a battery of 6 V for"
+      },
+      {
+        "kind": "ACTIVITY",
+        "canonicalId": "ACTIVITY:11.5",
+        "preferredSourceLabel": "Activity 11.5",
+        "printedLabels": [
+          "Activity 11.5"
+        ],
+        "sourcePages": [
+          13
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 13,
+        "firstOccurrenceSnippet": "Electricity 183 Activity 11.5 n In Activity 11.4, insert a voltmeter across the ends X and Y of the series combination of three resistors, as shown in Fig. 11.6. n Plug the key in the circuit and note the voltmeter reading. It gives the potential di"
+      },
+      {
+        "kind": "ACTIVITY",
+        "canonicalId": "ACTIVITY:11.6",
+        "preferredSourceLabel": "Activity 11.6",
+        "printedLabels": [
+          "Activity 11.6"
+        ],
+        "sourcePages": [
+          15
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 15,
+        "firstOccurrenceSnippet": "be the readings in the ammeter and the voltmeter? 11.6.2 Resistors in Parallel Now, let us consider the arrangement of three resistors joined in parallel with a combination of cells (or a battery), as shown in Fig.11.7. Activity 11.6 n Make a parallel combination, XY, of three resistors having resistances R1, R2, and R3, respectively. Connect it with a battery, a plug key and an ammeter, as shown in Fig. 11.10. Also connect a voltmeter in parallel w"
+      }
+    ],
+    "examples": [
+      {
+        "kind": "EXAMPLE",
+        "canonicalId": "EXAMPLE:11.1",
+        "preferredSourceLabel": "Example 11.1",
+        "printedLabels": [
+          "Example 11.1"
+        ],
+        "sourcePages": [
+          2
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 2,
+        "firstOccurrenceSnippet": "e terminal of the cell to the negative terminal of the cell through the bulb and ammeter. Figure 11.1 A schematic diagram of an electric circuit comprising – cell, electric bulb, ammeter and plug key Q U E S T I O N S ? Example 11.1 A current of 0.5 A is drawn by a filament of an electric bulb for 10 minutes. Find the amount of electric charge that flows through the circuit. Solution We are given, I = 0.5 A; t = 10 min = 600 s. From Eq. (11.1), we"
+      },
+      {
+        "kind": "EXAMPLE",
+        "canonicalId": "EXAMPLE:11.2",
+        "preferredSourceLabel": "Example 11.2",
+        "printedLabels": [
+          "Example 11.2"
+        ],
+        "sourcePages": [
+          3
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 3,
+        "firstOccurrenceSnippet": "V = 1 J C–1 The potential difference is measured by means of an instrument called the voltmeter. The voltmeter is always connected in parallel across the points between which the potential difference is to be measured. Example 11.2 How much work is done in moving a charge of 2 C across two points having a potential difference 12 V? Solution The amount of charge Q, that flows between two points at potential difference V (= 12 V) is 2 C. Thus, the a"
+      },
+      {
+        "kind": "EXAMPLE",
+        "canonicalId": "EXAMPLE:11.3",
+        "preferredSourceLabel": "Example 11.3",
+        "printedLabels": [
+          "Example 11.3"
+        ],
+        "sourcePages": [
+          9,
+          17
+        ],
+        "occurrenceCount": 2,
+        "firstOccurrencePage": 9,
+        "firstOccurrenceSnippet": "Cr, Mn and Fe) Insulators Glass 1010 – 1014 Hard rubber 1013 – 1016 Ebonite 1015 – 1017 Diamond 1012 - 1013 Paper (dry) 1012 * You need not memorise these values. You can use these values for solving numerical problems. Example 11.3 (a) How much current will an electric bulb draw from a 220 V source, if the resistance of the bulb filament is 1200 Ω? (b) How much current will an electric heater coil draw from a 220 V source, if the resistance of the"
+      },
+      {
+        "kind": "EXAMPLE",
+        "canonicalId": "EXAMPLE:11.4",
+        "preferredSourceLabel": "Example 11.4",
+        "printedLabels": [
+          "Example 11.4"
+        ],
+        "sourcePages": [
+          10
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 10,
+        "firstOccurrenceSnippet": "Science180 Example 11.4 The potential difference between the terminals of an electric heater is 60 V when it draws a current of 4 A from the source. What current will the heater draw if the potential difference is increased to 120 V? Solution"
+      },
+      {
+        "kind": "EXAMPLE",
+        "canonicalId": "EXAMPLE:11.5",
+        "preferredSourceLabel": "Example 11.5",
+        "printedLabels": [
+          "Example 11.5"
+        ],
+        "sourcePages": [
+          10
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 10,
+        "firstOccurrenceSnippet": "rrent I = 4 A. According to Ohm’s law, 60 V = = 15 4 A V R I = Ω . When the potential difference is increased to 120 V the current is given by current = 120 V = = 8 A V R Ω . The current through the heater becomes 8 A. Example 11.5 Resistance of a metal wire of length 1 m is 26 Ω at 20°C. If the diameter of the wire is 0.3 mm, what will be the resistivity of the metal at that temperature? Using Table 11.2, predict the material of the wire. Solutio"
+      },
+      {
+        "kind": "EXAMPLE",
+        "canonicalId": "EXAMPLE:11.6",
+        "preferredSourceLabel": "Example 11.6",
+        "printedLabels": [
+          "Example 11.6"
+        ],
+        "sourcePages": [
+          10
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 10,
+        "firstOccurrenceSnippet": "llic wire is ρ = (RA/l ) = (R πd2/4l ) Substitution of values in this gives ρ = 1.84 × 10–6 Ω m The resistivity of the metal at 20°C is 1.84 × 10–6 Ω m. From Table 11.2, we see that this is the resistivity of manganese. Example 11.6 A wire of given material having length l and area of cross-section A has a resistance of 4 Ω. What would be the resistance of another wire of the same material having length l/2 and area of cross-section 2A? Solution Fo"
+      },
+      {
+        "kind": "EXAMPLE",
+        "canonicalId": "EXAMPLE:11.7",
+        "preferredSourceLabel": "Example 11.7",
+        "printedLabels": [
+          "Example 11.7"
+        ],
+        "sourcePages": [
+          14
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 14,
+        "firstOccurrenceSnippet": ".14) We can conclude that when several resistors are joined in series, the resistance of the combination Rs equals the sum of their individual resistances, R1, R2, R3, and is thus greater than any individual resistance. Example 11.7 An electric lamp, whose resistance is 20 Ω, and a conductor of 4 Ω resistance are connected to a 6 V battery (Fig. 11.9). Calculate (a) the total resistance of the circuit, (b) the current through the circuit, and (c) t"
+      },
+      {
+        "kind": "EXAMPLE",
+        "canonicalId": "EXAMPLE:11.8",
+        "preferredSourceLabel": "Example 11.8",
+        "printedLabels": [
+          "Example 11.8"
+        ],
+        "sourcePages": [
+          16
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 16,
+        "firstOccurrenceSnippet": "1/Rp = 1/R1 + 1/R2 + 1/R3 (11.18) Thus, we may conclude that the reciprocal of the equivalent resistance of a group of resistances joined in parallel is equal to the sum of the reciprocals of the individual resistances. Example 11.8 In the circuit diagram given in Fig. 11.10, suppose the resistors R1, R2 and R3 have the values 5 Ω, 10 Ω, 30 Ω, respectively, which have been connected to a battery of 12 V. Calculate (a) the current through each resis"
+      },
+      {
+        "kind": "EXAMPLE",
+        "canonicalId": "EXAMPLE:11.9",
+        "preferredSourceLabel": "Example 11.9",
+        "printedLabels": [
+          "Example 11.9"
+        ],
+        "sourcePages": [
+          17
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 17,
+        "firstOccurrenceSnippet": ", through R3 = V/R3 I3 = 12 V/30 Ω = 0.4 A. The total current in the circuit, I = I1 + I2 + I3 = (2.4 + 1.2 + 0.4) A = 4 A The total resistance Rp, is given by [Eq. (11.18)] 1 1 1 1 1 5 10 30 3pR = + + = Thus, Rp = 3 Ω. Example 11.9 If in Fig. 11.12, R1 = 10 Ω, R2 = 40 Ω, R3 = 30 Ω, R4 = 20 Ω, R5 = 60 Ω, and a 12 V battery is connected to the arrangement. Calculate (a) the total resistance in the circuit, and (b) the total current flowing in the ci"
+      },
+      {
+        "kind": "EXAMPLE",
+        "canonicalId": "EXAMPLE:11.10",
+        "preferredSourceLabel": "Example 11.10",
+        "printedLabels": [
+          "Example 11.10"
+        ],
+        "sourcePages": [
+          19
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 19,
+        "firstOccurrenceSnippet": "e current flows through the resistor. In practical situations, when an electric appliance is connected to a known voltage source, Eq. (11.21) is used after calculating the current through it, using the relation I = V/R. Example 11.10 An electric iron consumes energy at a rate of 840 W when heating is at the maximum rate and 360 W when the heating is at the minimum. The voltage is 220 V. What are the current and the resistance in each case? Solution"
+      },
+      {
+        "kind": "EXAMPLE",
+        "canonicalId": "EXAMPLE:11.11",
+        "preferredSourceLabel": "Example 11.11",
+        "printedLabels": [
+          "Example 11.11"
+        ],
+        "sourcePages": [
+          19
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 19,
+        "firstOccurrenceSnippet": "d the resistance of the electric iron is R = V/I = 220 V/3.82 A = 57.60 Ω. (b) When heating is at the minimum rate, I = 360 W/220 V = 1.64 A; and the resistance of the electric iron is R = V/I = 220 V/1.64 A = 134.15 Ω. Example 11.11 100 J of heat is produced each second in a 4 Ω resistance. Find the potential difference across the resistor. Solution H = 100 J, R = 4 Ω, t = 1 s, V = ? From Eq. (11.21) we have the current through the resistor as I ="
+      },
+      {
+        "kind": "EXAMPLE",
+        "canonicalId": "EXAMPLE:11.12",
+        "preferredSourceLabel": "Example 11.12",
+        "printedLabels": [
+          "Example 11.12"
+        ],
+        "sourcePages": [
+          21
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 21,
+        "firstOccurrenceSnippet": "electric circuit. This is wrong! We pay the electricity board or electric company to provide energy to move electrons through the electric gadgets like electric bulb, fan and engines. We pay for the energy that we use. Example 11.12 An electric bulb is connected to a 220 V generator. The current is 0.50 A. What is the power of the bulb? Solution P = VI = 220 V × 0.50 A = 110 J/s = 110 W. Example 11.13 An electric refrigerator rated 400 W operates 8"
+      },
+      {
+        "kind": "EXAMPLE",
+        "canonicalId": "EXAMPLE:11.13",
+        "preferredSourceLabel": "Example 11.13",
+        "printedLabels": [
+          "Example 11.13"
+        ],
+        "sourcePages": [
+          21
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 21,
+        "firstOccurrenceSnippet": "and engines. We pay for the energy that we use. Example 11.12 An electric bulb is connected to a 220 V generator. The current is 0.50 A. What is the power of the bulb? Solution P = VI = 220 V × 0.50 A = 110 J/s = 110 W. Example 11.13 An electric refrigerator rated 400 W operates 8 hour/day. What is the cost of the energy to operate it for 30 days at Rs 3.00 per kW h?Reprint 2026-27"
+      }
+    ],
+    "figures": [
+      {
+        "kind": "FIGURE",
+        "canonicalId": "FIGURE:11.1",
+        "preferredSourceLabel": "Figure 11.1",
+        "printedLabels": [
+          "Figure 11.1",
+          "Fig. 11.1"
+        ],
+        "sourcePages": [
+          2,
+          4
+        ],
+        "occurrenceCount": 3,
+        "firstOccurrencePage": 2,
+        "firstOccurrenceSnippet": "liampere (1 mA = 10–3 A) or in microampere (1 μA = 10–6 A). An instrument called ammeter measures electric current in a circuit. It is always connected in series in a circuit through which the current is to be measured. Figure 11.1 shows the schematic diagram of a typical electric circuit comprising a cell, an electric bulb, an ammeter and a plug key. Note that the electric current flows in the circuit from the positive terminal of the cell to the"
+      },
+      {
+        "kind": "FIGURE",
+        "canonicalId": "FIGURE:11.2",
+        "preferredSourceLabel": "Fig. 11.2",
+        "printedLabels": [
+          "Fig. 11.2",
+          "Figure 11.2"
+        ],
+        "sourcePages": [
+          5
+        ],
+        "occurrenceCount": 2,
+        "firstOccurrencePage": 5,
+        "firstOccurrenceSnippet": "M’S LA11.4 OHM’S LA11.4 OHM’S LAWWWWW Is there a relationship between the potential difference across a conductor and the current through it? Let us explore with an Activity. Activity 11.1 n Set up a circuit as shown in Fig. 11.2, consisting of a nichrome wire XY of length, say 0.5 m, an ammeter, a voltmeter and four cells of 1.5 V each. (Nichrome is an alloy of nickel, chromium, manganese, and iron metals.) n First use only one cell as the sour"
+      },
+      {
+        "kind": "FIGURE",
+        "canonicalId": "FIGURE:11.3",
+        "preferredSourceLabel": "Figure 11.3",
+        "printedLabels": [
+          "Figure 11.3",
+          "Fig. 11.3"
+        ],
+        "sourcePages": [
+          6
+        ],
+        "occurrenceCount": 2,
+        "firstOccurrencePage": 6,
+        "firstOccurrenceSnippet": "Science176 Figure 11.3 V–I graph for a nichrome wire. A straight line plot shows that as the current through a wire increases, the potential difference across the wire increases linearly – this is Ohm’s law. Activity 11.2 n Take a nichrome wi"
+      },
+      {
+        "kind": "FIGURE",
+        "canonicalId": "FIGURE:11.4",
+        "preferredSourceLabel": "Fig. 11.4",
+        "printedLabels": [
+          "Fig. 11.4",
+          "Figure 11.4"
+        ],
+        "sourcePages": [
+          6,
+          7
+        ],
+        "occurrenceCount": 2,
+        "firstOccurrencePage": 6,
+        "firstOccurrenceSnippet": ", a 10 W bulb and an ammeter (0 – 5 A range), a plug key and some connecting wires. n Set up the circuit by connecting four dry cells of 1.5 V each in series with the ammeter leaving a gap XY in the circuit, as shown in Fig. 11.4. In this Activity, you will find that approximately the same value for V/I is obtained in each case. Thus the V–I graph is a straight line that passes through the origin of the graph, as shown in Fig. 11.3. Thus, V/I is"
+      },
+      {
+        "kind": "FIGURE",
+        "canonicalId": "FIGURE:11.5",
+        "preferredSourceLabel": "Fig. 11.5",
+        "printedLabels": [
+          "Fig. 11.5",
+          "Figure 11.5"
+        ],
+        "sourcePages": [
+          7,
+          8
+        ],
+        "occurrenceCount": 4,
+        "firstOccurrencePage": 7,
+        "firstOccurrenceSnippet": "serve the ammeter readings in each case. Analyse the observations. Activity 11.3 n Complete an electric circuit consisting of a cell, an ammeter, a nichrome wire of length l [say, marked (1)] and a plug key, as shown in Fig. 11.5.Reprint 2026-27"
+      },
+      {
+        "kind": "FIGURE",
+        "canonicalId": "FIGURE:11.6",
+        "preferredSourceLabel": "Figure 11.6",
+        "printedLabels": [
+          "Figure 11.6",
+          "Fig. 11.6"
+        ],
+        "sourcePages": [
+          11,
+          12,
+          13
+        ],
+        "occurrenceCount": 4,
+        "firstOccurrencePage": 11,
+        "firstOccurrenceSnippet": "ious electrical gadgets, we often use resistors in various combinations. We now therefore intend to see how Ohm’s law can be applied to combinations of resistors. There are two methods of joining the resistors together. Figure 11.6 shows an electric circuit in which three resistors having resistances R1, R2 and R3, respectively, are joined end to end. Here the resistors are said to be connected in series. Figure 11.6 Resistors in seriesReprint 202"
+      },
+      {
+        "kind": "FIGURE",
+        "canonicalId": "FIGURE:11.7",
+        "preferredSourceLabel": "Figure 11.7",
+        "printedLabels": [
+          "Figure 11.7",
+          "Fig.11.7"
+        ],
+        "sourcePages": [
+          12,
+          15
+        ],
+        "occurrenceCount": 3,
+        "firstOccurrencePage": 12,
+        "firstOccurrenceSnippet": "Science182 Figure 11.7 Resistors in parallel You will observe that the value of the current in the ammeter is the same, independent of its position in the electric circuit. It means that in a series combination of resistors the current is the"
+      },
+      {
+        "kind": "FIGURE",
+        "canonicalId": "FIGURE:11.8",
+        "preferredSourceLabel": "Fig. 11.8",
+        "printedLabels": [
+          "Fig. 11.8",
+          "Figure 11.8"
+        ],
+        "sourcePages": [
+          13
+        ],
+        "occurrenceCount": 3,
+        "firstOccurrencePage": 13,
+        "firstOccurrenceSnippet": "ntial difference across the two terminals of the battery. Compare the two values. n Take out the plug key and disconnect the voltmeter. Now insert the voltmeter across the ends X and P of the first resistor, as shown in Fig. 11.8. Figure 11.8 n Plug the key and measure the potential difference across the first resistor. Let it be V1. n Similarly, measure the potential difference across the other two resistors, separately. Let these values be V2"
+      },
+      {
+        "kind": "FIGURE",
+        "canonicalId": "FIGURE:11.9",
+        "preferredSourceLabel": "Fig. 11.9",
+        "printedLabels": [
+          "Fig. 11.9",
+          "Figure 11.9"
+        ],
+        "sourcePages": [
+          14
+        ],
+        "occurrenceCount": 2,
+        "firstOccurrencePage": 14,
+        "firstOccurrenceSnippet": "of their individual resistances, R1, R2, R3, and is thus greater than any individual resistance. Example 11.7 An electric lamp, whose resistance is 20 Ω, and a conductor of 4 Ω resistance are connected to a 6 V battery (Fig. 11.9). Calculate (a) the total resistance of the circuit, (b) the current through the circuit, and (c) the potential difference across the electric lamp and conductor. Solution The resistance of electric lamp, R1 = 20 Ω, The"
+      },
+      {
+        "kind": "FIGURE",
+        "canonicalId": "FIGURE:11",
+        "preferredSourceLabel": "Figure 11",
+        "printedLabels": [
+          "Figure 11"
+        ],
+        "sourcePages": [
+          15
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 15,
+        "firstOccurrenceSnippet": "ng. It gives the potential difference V, across the combination. The potential difference across each resistor is also V. This can be checked by connecting the voltmeter across each individual resistor (see Fig. 11.11). Figure 11.10Figure 11.10Figure 11.10Figure 11.10Figure 11.10Reprint 2026-27"
+      },
+      {
+        "kind": "FIGURE",
+        "canonicalId": "FIGURE:11.10",
+        "preferredSourceLabel": "Fig. 11.10",
+        "printedLabels": [
+          "Fig. 11.10"
+        ],
+        "sourcePages": [
+          15,
+          16
+        ],
+        "occurrenceCount": 2,
+        "firstOccurrencePage": 15,
+        "firstOccurrenceSnippet": "or a battery), as shown in Fig.11.7. Activity 11.6 n Make a parallel combination, XY, of three resistors having resistances R1, R2, and R3, respectively. Connect it with a battery, a plug key and an ammeter, as shown in Fig. 11.10. Also connect a voltmeter in parallel with the combination of resistors. n Plug the key and note the ammeter reading. Let the current be I. Also take the voltmeter reading. It gives the potential difference V, across th"
+      },
+      {
+        "kind": "FIGURE",
+        "canonicalId": "FIGURE:11.11",
+        "preferredSourceLabel": "Fig. 11.11",
+        "printedLabels": [
+          "Fig. 11.11",
+          "Figure 11.11"
+        ],
+        "sourcePages": [
+          15,
+          16
+        ],
+        "occurrenceCount": 3,
+        "firstOccurrencePage": 15,
+        "firstOccurrenceSnippet": "ltmeter reading. It gives the potential difference V, across the combination. The potential difference across each resistor is also V. This can be checked by connecting the voltmeter across each individual resistor (see Fig. 11.11). Figure 11.10Figure 11.10Figure 11.10Figure 11.10Figure 11.10Reprint 2026-27"
+      },
+      {
+        "kind": "FIGURE",
+        "canonicalId": "FIGURE:11.12",
+        "preferredSourceLabel": "Fig. 11.12",
+        "printedLabels": [
+          "Fig. 11.12",
+          "Figure 11.12"
+        ],
+        "sourcePages": [
+          17
+        ],
+        "occurrenceCount": 2,
+        "firstOccurrencePage": 17,
+        "firstOccurrenceSnippet": "I3 = 12 V/30 Ω = 0.4 A. The total current in the circuit, I = I1 + I2 + I3 = (2.4 + 1.2 + 0.4) A = 4 A The total resistance Rp, is given by [Eq. (11.18)] 1 1 1 1 1 5 10 30 3pR = + + = Thus, Rp = 3 Ω. Example 11.9 If in Fig. 11.12, R1 = 10 Ω, R2 = 40 Ω, R3 = 30 Ω, R4 = 20 Ω, R5 = 60 Ω, and a 12 V battery is connected to the arrangement. Calculate (a) the total resistance in the circuit, and (b) the total current flowing in the circuit. Solution S"
+      },
+      {
+        "kind": "FIGURE",
+        "canonicalId": "FIGURE:11.13",
+        "preferredSourceLabel": "Fig. 11.13",
+        "printedLabels": [
+          "Fig. 11.13",
+          "Figure 11.13"
+        ],
+        "sourcePages": [
+          18,
+          19
+        ],
+        "occurrenceCount": 2,
+        "firstOccurrencePage": 18,
+        "firstOccurrenceSnippet": "ng effect of electric current. This effect is utilised in devices such as electric heater, electric iron etc. Consider a current I flowing through a resistor of resistance R. Let the potential difference across it be V (Fig. 11.13). Let t be the time during which a charge Q flows across. The work done in moving the charge Q through a potential difference V is VQ. Therefore, the source must supply energy equal to VQ in time t. Hence the power inpu"
+      }
+    ],
+    "tables": [
+      {
+        "kind": "TABLE",
+        "canonicalId": "TABLE:11.1",
+        "preferredSourceLabel": "Table 11.1",
+        "printedLabels": [
+          "Table 11.1"
+        ],
+        "sourcePages": [
+          4
+        ],
+        "occurrenceCount": 2,
+        "firstOccurrencePage": 4,
+        "firstOccurrenceSnippet": "schematic diagram, in which different components of the circuit are represented by the symbols conveniently used. Conventional symbols used to represent some of the most commonly used electrical components are given in Table 11.1. Table 11.1 Symbols of some commonly used components in circuit diagrams S l . Components Symbols No. 1 An electric cell 2 A battery or a combination of cells 3 Plug key or switch (open) 4 Plug key or switch (closed) 5"
+      },
+      {
+        "kind": "TABLE",
+        "canonicalId": "TABLE:11.2",
+        "preferredSourceLabel": "Table 11.2",
+        "printedLabels": [
+          "Table 11.2"
+        ],
+        "sourcePages": [
+          9,
+          10,
+          11
+        ],
+        "occurrenceCount": 5,
+        "firstOccurrencePage": 9,
+        "firstOccurrenceSnippet": "10–8 Ω m to 10–6 Ω m. They are good conductors of electricity. Insulators like rubber and glass have resistivity of the order of 1012 to 1017 Ω m. Both the resistance and resistivity of a material vary with temperature. Table 11.2 reveals that the resistivity of an alloy is generally higher than that of its constituent metals. Alloys do not oxidise (burn) readily at high temperatures. For this reason, they are commonly used in electrical heating"
+      }
+    ]
+  },
+  "provenanceRules": {
+    "textbookActivity": [
+      "TEXTBOOK_ACTIVITY may only use a label listed in allowedTextbookLabels.activities.",
+      "Otherwise use CHALKBOX_ACTIVITY with sourceLabel=null."
+    ],
+    "textbookExample": [
+      "TEXTBOOK_EXAMPLE may only use a label listed in allowedTextbookLabels.examples.",
+      "Unlabelled source-derived teaching examples must use CHALKBOX_EXAMPLE with sourceLabel=null."
+    ],
+    "textbookVisual": [
+      "TEXTBOOK_VISUAL may only use a label listed in allowedTextbookLabels.figures or allowedTextbookLabels.tables.",
+      "Actual visual fidelity still requires PDF verification.",
+      "Adapted teacher redraws must use BOARD_VISUAL with sourceLabel=null."
+    ]
+  },
+  "visualSource": {
+    "available": true,
+    "outputFileName": "class-10-electricity.pdf",
+    "outputSha256": "9343caceae98286ac68f6fe686661ea86280b6c152eb329a1f6fa73650955464",
+    "pageCount": 24,
+    "pageMappings": [
+      {
+        "chapterPage": 1,
+        "sourcePdfPage": 1,
+        "textbookPageLabel": 1
+      },
+      {
+        "chapterPage": 2,
+        "sourcePdfPage": 2,
+        "textbookPageLabel": 2
+      },
+      {
+        "chapterPage": 3,
+        "sourcePdfPage": 3,
+        "textbookPageLabel": 3
+      },
+      {
+        "chapterPage": 4,
+        "sourcePdfPage": 4,
+        "textbookPageLabel": 4
+      },
+      {
+        "chapterPage": 5,
+        "sourcePdfPage": 5,
+        "textbookPageLabel": 5
+      },
+      {
+        "chapterPage": 6,
+        "sourcePdfPage": 6,
+        "textbookPageLabel": 6
+      },
+      {
+        "chapterPage": 7,
+        "sourcePdfPage": 7,
+        "textbookPageLabel": 7
+      },
+      {
+        "chapterPage": 8,
+        "sourcePdfPage": 8,
+        "textbookPageLabel": 8
+      },
+      {
+        "chapterPage": 9,
+        "sourcePdfPage": 9,
+        "textbookPageLabel": 9
+      },
+      {
+        "chapterPage": 10,
+        "sourcePdfPage": 10,
+        "textbookPageLabel": 10
+      },
+      {
+        "chapterPage": 11,
+        "sourcePdfPage": 11,
+        "textbookPageLabel": 11
+      },
+      {
+        "chapterPage": 12,
+        "sourcePdfPage": 12,
+        "textbookPageLabel": 12
+      },
+      {
+        "chapterPage": 13,
+        "sourcePdfPage": 13,
+        "textbookPageLabel": 13
+      },
+      {
+        "chapterPage": 14,
+        "sourcePdfPage": 14,
+        "textbookPageLabel": 14
+      },
+      {
+        "chapterPage": 15,
+        "sourcePdfPage": 15,
+        "textbookPageLabel": 15
+      },
+      {
+        "chapterPage": 16,
+        "sourcePdfPage": 16,
+        "textbookPageLabel": 16
+      },
+      {
+        "chapterPage": 17,
+        "sourcePdfPage": 17,
+        "textbookPageLabel": 17
+      },
+      {
+        "chapterPage": 18,
+        "sourcePdfPage": 18,
+        "textbookPageLabel": 18
+      },
+      {
+        "chapterPage": 19,
+        "sourcePdfPage": 19,
+        "textbookPageLabel": 19
+      },
+      {
+        "chapterPage": 20,
+        "sourcePdfPage": 20,
+        "textbookPageLabel": 20
+      },
+      {
+        "chapterPage": 21,
+        "sourcePdfPage": 21,
+        "textbookPageLabel": 21
+      },
+      {
+        "chapterPage": 22,
+        "sourcePdfPage": 22,
+        "textbookPageLabel": 22
+      },
+      {
+        "chapterPage": 23,
+        "sourcePdfPage": 23,
+        "textbookPageLabel": 23
+      },
+      {
+        "chapterPage": 24,
+        "sourcePdfPage": 24,
+        "textbookPageLabel": 24
+      }
+    ]
+  },
+  "statistics": {
+    "activities": 6,
+    "examples": 13,
+    "figureLabels": 14,
+    "tableLabels": 2,
+    "totalLabelledSourceObjects": 35
+  },
+  "builtAt": "2026-08-25T18:37:38.715Z"
+}

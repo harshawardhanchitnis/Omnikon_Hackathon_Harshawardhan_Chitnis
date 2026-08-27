@@ -1,0 +1,368 @@
+{
+  "artifactVersion": 1,
+  "auditPolicyVersion": "chalkbox-audit-v1-gemini-35",
+  "status": "AUDIT_COMPLETED",
+  "finalDecision": "REJECT",
+  "lessonKey": "class-10-electricity",
+  "requestedDurationMinutes": 40,
+  "sourceArtifact": "data\\generated-demo-lessons-v3\\class-10-electricity-40min.json",
+  "judgeReady": false,
+  "repairReady": false,
+  "deterministicPreAudit": {
+    "status": "PASS",
+    "errors": [],
+    "warnings": [
+      {
+        "severity": "WARNING",
+        "category": "COVERAGE",
+        "field": "sourceCoverage.pagesUsed",
+        "issueType": "LOW_FULL_CHAPTER_PAGE_USAGE",
+        "explanation": "Only 12/24 canonical chapter pages are represented in sourceCoverage. This does not automatically prove poor coverage, but the semantic auditor must verify that major chapter concepts have not been omitted.",
+        "sourcePages": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          21
+        ],
+        "repairInstruction": "Ensure every major chapter concept is meaningfully taught; expand the lesson if important concepts are absent."
+      },
+      {
+        "severity": "WARNING",
+        "category": "CONSISTENCY",
+        "field": "sourceCoverage.visualPagesUsed",
+        "issueType": "VISUAL_PAGE_CLAIM_NOT_LINKED_TO_VISUAL_SECTION",
+        "explanation": "Canonical page 5 is listed in visualPagesUsed but no TEXTBOOK_VISUAL section explicitly cites that page.",
+        "sourcePages": [
+          5
+        ],
+        "repairInstruction": "Either link the visual page to an actual textbook-visual use in the lesson or remove it from visualPagesUsed."
+      },
+      {
+        "severity": "WARNING",
+        "category": "CONSISTENCY",
+        "field": "sourceCoverage.visualPagesUsed",
+        "issueType": "VISUAL_PAGE_CLAIM_NOT_LINKED_TO_VISUAL_SECTION",
+        "explanation": "Canonical page 8 is listed in visualPagesUsed but no TEXTBOOK_VISUAL section explicitly cites that page.",
+        "sourcePages": [
+          8
+        ],
+        "repairInstruction": "Either link the visual page to an actual textbook-visual use in the lesson or remove it from visualPagesUsed."
+      }
+    ],
+    "allFindings": [
+      {
+        "severity": "WARNING",
+        "category": "COVERAGE",
+        "field": "sourceCoverage.pagesUsed",
+        "issueType": "LOW_FULL_CHAPTER_PAGE_USAGE",
+        "explanation": "Only 12/24 canonical chapter pages are represented in sourceCoverage. This does not automatically prove poor coverage, but the semantic auditor must verify that major chapter concepts have not been omitted.",
+        "sourcePages": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          21
+        ],
+        "repairInstruction": "Ensure every major chapter concept is meaningfully taught; expand the lesson if important concepts are absent."
+      },
+      {
+        "severity": "WARNING",
+        "category": "CONSISTENCY",
+        "field": "sourceCoverage.visualPagesUsed",
+        "issueType": "VISUAL_PAGE_CLAIM_NOT_LINKED_TO_VISUAL_SECTION",
+        "explanation": "Canonical page 5 is listed in visualPagesUsed but no TEXTBOOK_VISUAL section explicitly cites that page.",
+        "sourcePages": [
+          5
+        ],
+        "repairInstruction": "Either link the visual page to an actual textbook-visual use in the lesson or remove it from visualPagesUsed."
+      },
+      {
+        "severity": "WARNING",
+        "category": "CONSISTENCY",
+        "field": "sourceCoverage.visualPagesUsed",
+        "issueType": "VISUAL_PAGE_CLAIM_NOT_LINKED_TO_VISUAL_SECTION",
+        "explanation": "Canonical page 8 is listed in visualPagesUsed but no TEXTBOOK_VISUAL section explicitly cites that page.",
+        "sourcePages": [
+          8
+        ],
+        "repairInstruction": "Either link the visual page to an actual textbook-visual use in the lesson or remove it from visualPagesUsed."
+      }
+    ]
+  },
+  "modelAudit": {
+    "schemaVersion": 1,
+    "auditPolicyVersion": "chalkbox-audit-v1-gemini-35",
+    "lessonKey": "class-10-electricity",
+    "decision": "REJECT",
+    "scores": {
+      "scientificAccuracy": 8,
+      "sourceGrounding": 7,
+      "coverage": 4,
+      "activityProvenance": 10,
+      "visualGrounding": 4,
+      "pedagogy": 5,
+      "internalConsistency": 3,
+      "overall": 5
+    },
+    "summary": "The lesson fails to qualify as a judge-demo lesson due to major full-chapter coverage gaps, an internal consistency failure, and a visual hallucination. While it claims to be a FULL_CHAPTER lesson, it completely omits the entire second half of the chapter (Resistors in Series/Parallel, Joule's Heating, and Electric Power), rendering three out of its six learning objectives completely untaught. Furthermore, the visual section for Figure 11.1 instructs the teacher to draw a voltmeter, which does not exist in the textbook's Figure 11.1.",
+    "coverage": {
+      "status": "FAIL",
+      "majorConcepts": [
+        {
+          "concept": "Electric current and circuit (I = Q/t)",
+          "sourcePages": [
+            1,
+            2
+          ],
+          "status": "COVERED",
+          "lessonEvidenceFields": [
+            "fullLesson.define",
+            "fullLesson.example"
+          ],
+          "explanation": "Properly defined and reinforced with textbook formulas and Example 11.1."
+        },
+        {
+          "concept": "Electric Potential and Potential Difference (V = W/Q)",
+          "sourcePages": [
+            3,
+            4
+          ],
+          "status": "COVERED",
+          "lessonEvidenceFields": [
+            "fullLesson.define"
+          ],
+          "explanation": "Correctly defined with SI units and basic equations."
+        },
+        {
+          "concept": "Ohm's Law (V = IR)",
+          "sourcePages": [
+            5,
+            6
+          ],
+          "status": "COVERED",
+          "lessonEvidenceFields": [
+            "fullLesson.explain"
+          ],
+          "explanation": "Correctly explained along with the constant-temperature constraint."
+        },
+        {
+          "concept": "Factors affecting Resistance and Electrical Resistivity (rho)",
+          "sourcePages": [
+            7,
+            8,
+            9,
+            10
+          ],
+          "status": "COVERED",
+          "lessonEvidenceFields": [
+            "fullLesson.explain",
+            "fullLesson.activity"
+          ],
+          "explanation": "Thoroughly explored via the text in explain and Activity 11.3."
+        },
+        {
+          "concept": "Resistance of a System of Resistors (Series and Parallel combinations)",
+          "sourcePages": [
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "status": "MISSING",
+          "lessonEvidenceFields": [],
+          "explanation": "This concept is completely omitted from the actual lesson content, despite being listed in Learning Objective 4."
+        },
+        {
+          "concept": "Heating Effect of Electric Current (Joule's Law and applications)",
+          "sourcePages": [
+            18,
+            19,
+            20
+          ],
+          "status": "MISSING",
+          "lessonEvidenceFields": [],
+          "explanation": "No coverage in define, explain, or boardPlan, despite being listed in Learning Objective 5."
+        },
+        {
+          "concept": "Electric Power (SI Unit, commercial unit kWh, and cost)",
+          "sourcePages": [
+            21,
+            22
+          ],
+          "status": "MISSING",
+          "lessonEvidenceFields": [],
+          "explanation": "Completely missing from the instructional text, despite being listed in Learning Objective 6."
+        }
+      ]
+    },
+    "activityAudit": [
+      {
+        "field": "fullLesson.activity",
+        "sourceType": "TEXTBOOK_ACTIVITY",
+        "sourceLabel": "Activity 11.3",
+        "sourcePages": [
+          7,
+          8
+        ],
+        "status": "PASS",
+        "explanation": "Activity 11.3 is highly accurate, matching the textbook steps for investigating the factors affecting resistance."
+      },
+      {
+        "field": "quickIdeas.lowResourceActivity",
+        "sourceType": "CHALKBOX_ACTIVITY",
+        "sourceLabel": null,
+        "sourcePages": [
+          4,
+          5
+        ],
+        "status": "PASS",
+        "explanation": "Safe, practical peer flashcard activity for mastering circuit symbols based on Table 11.1."
+      }
+    ],
+    "visualAudit": [
+      {
+        "field": "fullLesson.visualize",
+        "sourceType": "TEXTBOOK_VISUAL",
+        "sourceLabel": "Figure 11.1",
+        "sourcePages": [
+          2
+        ],
+        "status": "FAIL",
+        "explanation": "The board drawing steps instruct the teacher to draw a voltmeter 'V' in parallel and tells students to observe its connection. However, Figure 11.1 on Page 2 does NOT contain a voltmeter. The voltmeter is only introduced in Section 11.2 and shown in Figure 11.2 (Page 5). This is a severe visual hallucination/misalignment."
+      }
+    ],
+    "pedagogy": {
+      "status": "FAIL",
+      "strengths": [
+        "The hook is highly engaging and immediately links a real-life observation to the concept of current and switches.",
+        "Worked examples and numerical practice are highly aligned with Class 10 cognitive expectations."
+      ],
+      "issues": [
+        "Extremely overloaded chapter scope. Trying to fit all of Electricity (including series/parallel, heating, power) into a single 40-minute lesson is mathematically and pedagogically impossible. Because of this, the lesson simply cut off halfway, leaving several objectives untaught."
+      ]
+    },
+    "issues": [
+      {
+        "severity": "ERROR",
+        "category": "COVERAGE",
+        "field": "fullLesson.explain",
+        "issueType": "MISSING_MAJOR_CONCEPTS",
+        "explanation": "The entire second half of the chapter is missing. Resistors in Series/Parallel (pages 11-17), Joule's heating (pages 18-20), and Electric Power (pages 21-22) are completely absent.",
+        "sourcePages": [
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22
+        ],
+        "repairInstruction": "Because a single 40-minute lesson cannot cover the entire chapter, change the scope of the lesson to 'Electricity - Part 1 (Current, Potential Difference, and Ohm's Law)' and remove learning objectives 4, 5, and 6."
+      },
+      {
+        "severity": "ERROR",
+        "category": "VISUAL_GROUNDING",
+        "field": "fullLesson.visualize.boardDrawingSteps",
+        "issueType": "VISUAL_HALLUCINATION",
+        "explanation": "The board steps describe drawing a parallel voltmeter across the bulb for Figure 11.1. Figure 11.1 on page 2 contains only a cell, bulb, ammeter, and plug key, and explicitly lacks a voltmeter.",
+        "sourcePages": [
+          2
+        ],
+        "repairInstruction": "Either remove the voltmeter from the drawing steps and key observations, or change the visual source reference to Figure 11.2 on Page 5 which correctly depicts a circuit with a voltmeter."
+      },
+      {
+        "severity": "WARNING",
+        "category": "CONSISTENCY",
+        "field": "sourceCoverage.visualPagesUsed",
+        "issueType": "VISUAL_PAGE_CLAIM_NOT_LINKED_TO_VISUAL_SECTION",
+        "explanation": "Pages 5 and 8 are claimed as visualPagesUsed, but no TEXTBOOK_VISUAL section in the lesson plan references or maps to visuals on pages 5 or 8.",
+        "sourcePages": [
+          5,
+          8
+        ],
+        "repairInstruction": "Remove pages 5 and 8 from visualPagesUsed unless an explicit TEXTBOOK_VISUAL is created for those pages (e.g., Figure 11.2 or Figure 11.5)."
+      }
+    ],
+    "repairTargets": [
+      {
+        "priority": "HIGH",
+        "field": "learningObjectives",
+        "instruction": "Narrow down the learning objectives to focus exclusively on Current, PD, Ohm's Law, and Resistivity to match the actual 40-minute teaching capacity of this lesson plan.",
+        "sourcePages": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      {
+        "priority": "HIGH",
+        "field": "fullLesson.visualize",
+        "instruction": "Modify drawing steps to remove references to the voltmeter if citing Figure 11.1, or switch the cited figure to Figure 11.2 on page 5.",
+        "sourcePages": [
+          2,
+          5
+        ]
+      }
+    ]
+  },
+  "auditGeneration": {
+    "provider": "google",
+    "model": "gemini-3.5-flash",
+    "thinkingLevel": "MEDIUM",
+    "attempt": 1,
+    "elapsedMs": 48826,
+    "finishReason": "STOP",
+    "finishMessage": null,
+    "maxOutputTokens": 16384,
+    "requestTimeoutMs": 180000,
+    "modelVersion": "gemini-3.5-flash",
+    "responseId": "Rr6Naur6BPvVqfkPzvzz8Qw",
+    "usage": {
+      "promptTokens": 47323,
+      "outputTokens": 2124,
+      "thoughtTokens": 4803,
+      "totalTokens": 54250
+    }
+  },
+  "summaryMetrics": {
+    "deterministicErrors": 0,
+    "deterministicWarnings": 3,
+    "modelErrors": 2,
+    "modelWarnings": 1,
+    "majorConceptsCovered": 4,
+    "majorConceptsPartial": 0,
+    "majorConceptsMissing": 3,
+    "repairTargets": 2
+  },
+  "auditedAt": "2026-08-25T16:10:28.711Z"
+}

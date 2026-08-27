@@ -1,0 +1,624 @@
+{
+  "artifactVersion": 5,
+  "generationPolicyVersion": "chalkbox-lesson-v5-catalog-grounded-gemini-35",
+  "status": "PROVENANCE_VALIDATED",
+  "fullyAudited": false,
+  "judgeReady": false,
+  "lesson": {
+    "schemaVersion": 5,
+    "generationPolicyVersion": "chalkbox-lesson-v5-catalog-grounded-gemini-35",
+    "lessonKey": "class-9-force-laws-motion",
+    "title": "Force and Laws of Motion",
+    "classLevel": 9,
+    "subject": "Science",
+    "requestedDurationMinutes": 40,
+    "chapterConceptLedger": [
+      {
+        "concept": "Force and its effects (change in speed, direction, shape)",
+        "importance": "SUPPORTING",
+        "sourcePages": [
+          1,
+          2
+        ],
+        "lessonEvidenceFields": [
+          "fullLesson.define",
+          "fullLesson.explain"
+        ]
+      },
+      {
+        "concept": "Balanced and Unbalanced Forces",
+        "importance": "CORE",
+        "sourcePages": [
+          2,
+          3
+        ],
+        "lessonEvidenceFields": [
+          "fullLesson.define",
+          "fullLesson.explain"
+        ]
+      },
+      {
+        "concept": "Newton's First Law of Motion and Inertia",
+        "importance": "CORE",
+        "sourcePages": [
+          3,
+          4,
+          5
+        ],
+        "lessonEvidenceFields": [
+          "fullLesson.define",
+          "fullLesson.explain",
+          "fullLesson.activity"
+        ]
+      },
+      {
+        "concept": "Momentum (p = mv)",
+        "importance": "CORE",
+        "sourcePages": [
+          6
+        ],
+        "lessonEvidenceFields": [
+          "fullLesson.define",
+          "fullLesson.explain"
+        ]
+      },
+      {
+        "concept": "Newton's Second Law of Motion (F = ma)",
+        "importance": "CORE",
+        "sourcePages": [
+          6,
+          7,
+          8,
+          9
+        ],
+        "lessonEvidenceFields": [
+          "fullLesson.define",
+          "fullLesson.explain",
+          "fullLesson.example",
+          "fullLesson.practice"
+        ]
+      },
+      {
+        "concept": "Newton's Third Law of Motion (Action and Reaction)",
+        "importance": "CORE",
+        "sourcePages": [
+          9,
+          10
+        ],
+        "lessonEvidenceFields": [
+          "fullLesson.define",
+          "fullLesson.explain",
+          "fullLesson.howToTeach"
+        ]
+      },
+      {
+        "concept": "Law of Conservation of Momentum",
+        "importance": "CORE",
+        "sourcePages": [
+          10,
+          11,
+          12,
+          13,
+          14
+        ],
+        "lessonEvidenceFields": [
+          "fullLesson.define",
+          "fullLesson.explain",
+          "fullLesson.visualize",
+          "fullLesson.practice"
+        ]
+      }
+    ],
+    "prerequisites": [
+      {
+        "concept": "Motion along a straight line (distance, displacement, velocity, acceleration)",
+        "importance": "REQUIRED",
+        "contentOrigin": "SOURCE_GROUNDED",
+        "sourcePages": [
+          1
+        ],
+        "sourceLimitations": []
+      },
+      {
+        "concept": "Basic algebraic substitution and linear equation solving",
+        "importance": "REQUIRED",
+        "contentOrigin": "PEDAGOGICAL_ADDITION",
+        "sourcePages": [],
+        "sourceLimitations": [
+          "Mathematical prerequisite assumed for NCERT chapter numerical solutions."
+        ]
+      }
+    ],
+    "learningObjectives": [
+      "Distinguish between balanced and unbalanced forces and predict their effects on an object's state of motion.",
+      "Explain Newton's First Law of Motion and define inertia as a property measured quantitatively by mass.",
+      "Define momentum and state Newton's Second Law of Motion, deriving the formula F = ma.",
+      "Apply F = ma to perform calculations involving force, mass, and changing velocity over time.",
+      "State Newton's Third Law of Motion and identify action-reaction force pairs acting on different bodies.",
+      "State the Law of Conservation of Momentum and solve horizontal collision and recoil velocity problems."
+    ],
+    "objectiveCoverage": [
+      {
+        "objectiveIndex": 0,
+        "lessonEvidenceFields": [
+          "fullLesson.define",
+          "fullLesson.explain"
+        ]
+      },
+      {
+        "objectiveIndex": 1,
+        "lessonEvidenceFields": [
+          "fullLesson.define",
+          "fullLesson.explain",
+          "fullLesson.activity"
+        ]
+      },
+      {
+        "objectiveIndex": 2,
+        "lessonEvidenceFields": [
+          "fullLesson.define",
+          "fullLesson.explain"
+        ]
+      },
+      {
+        "objectiveIndex": 3,
+        "lessonEvidenceFields": [
+          "fullLesson.example",
+          "fullLesson.practice",
+          "fullLesson.checkUnderstanding"
+        ]
+      },
+      {
+        "objectiveIndex": 4,
+        "lessonEvidenceFields": [
+          "fullLesson.define",
+          "fullLesson.explain",
+          "fullLesson.howToTeach"
+        ]
+      },
+      {
+        "objectiveIndex": 5,
+        "lessonEvidenceFields": [
+          "fullLesson.define",
+          "fullLesson.explain",
+          "fullLesson.visualize",
+          "fullLesson.practice"
+        ]
+      }
+    ],
+    "hook": {
+      "priority": "ESSENTIAL",
+      "contentOrigin": "MIXED",
+      "teacherPrompt": "If I slide this plastic bottle cap across this desk, why does it eventually slow down and stop? For centuries, major thinkers believed that 'rest' was the natural state of all objects and that motion always required a continuous push. Is that true? What would happen if we could make this table completely, infinitely smooth?",
+      "expectedStudentResponse": "Friction stops it. If the table were perfectly smooth with no friction, it would probably keep moving forever without stopping.",
+      "sourcePages": [
+        1,
+        3
+      ],
+      "sourceLimitations": []
+    },
+    "fullLesson": {
+      "define": {
+        "priority": "ESSENTIAL",
+        "contentOrigin": "SOURCE_GROUNDED",
+        "teacherScript": "Today, we dive into the laws governing why and how things move. First, let us define our core terms clearly. A Force is any push, pull, or hit that changes or tends to change an object's state of rest, uniform motion, direction, or shape. Balanced Forces are equal in magnitude and opposite in direction; they do not alter the object's state of rest or uniform motion. Unbalanced Forces have a non-zero net external force, which produces acceleration. Newton's First Law of Motion states that an object remains in a state of rest or of uniform motion in a straight line unless compelled to change that state by an applied external force. This resistance to change is Inertia, and Mass is its quantitative measure. Momentum, p, is the product of mass and velocity: p = mv. Newton's Second Law of Motion states that the rate of change of momentum of an object is proportional to the applied unbalanced force in the direction of the force, yielding F = ma. Newton's Third Law states that to every action there is an equal and opposite reaction, acting on different bodies. Finally, the Law of Conservation of Momentum states that in an isolated system where no external unbalanced force acts, the total momentum remains conserved.",
+        "boardWork": [
+          "1. FORCE: Push, pull, or hit changing state of motion, direction, or shape.",
+          "2. BALANCED FORCES: Net force = 0. No change in rest/uniform motion.",
+          "3. UNBALANCED FORCES: Net force > 0. Causes acceleration.",
+          "4. FIRST LAW (Inertia): Objects resist changes to their state of motion. Mass measures inertia.",
+          "5. MOMENTUM: p = mv (SI unit: kg m s^-1).",
+          "6. SECOND LAW: F = ma (SI unit: Newton, N = kg m s^-2).",
+          "7. THIRD LAW: Action = -Reaction (acts on DIFFERENT objects).",
+          "8. CONSERVATION OF MOMENTUM: Total initial momentum = Total final momentum (if external F = 0)."
+        ],
+        "keyPoints": [
+          "Forces can change speed, direction of motion, or shape.",
+          "Balanced forces maintain the current state of motion; unbalanced forces cause acceleration.",
+          "Inertia is purely a function of mass, not velocity.",
+          "Momentum is a vector pointing in the same direction as velocity.",
+          "Action and reaction never act on the same body, so they cannot cancel each other out.",
+          "Total momentum is conserved in collisions when net external forces are zero."
+        ],
+        "sourcePages": [
+          1,
+          2,
+          3,
+          5,
+          6,
+          9,
+          11
+        ],
+        "sourceLimitations": []
+      },
+      "explain": {
+        "priority": "IMPORTANT",
+        "contentOrigin": "SOURCE_GROUNDED",
+        "teacherScript": "Let's unpack how these concepts connect. Why does a massive train have more inertia than a toy cart? Because mass is the physical measure of inertia. A force that easily accelerates the cart has a negligible effect on the train. Next, let us mathematically derive F = ma from the Second Law. If an object of mass 'm' accelerates from initial velocity 'u' to final velocity 'v' in time 't' due to a constant force 'F', the initial momentum is p1 = mu and the final is p2 = mv. The change in momentum is m(v - u). The rate of change of momentum is m(v - u)/t. By definition, F is proportional to this rate: F = k * m * (v-u)/t. Since (v - u)/t is acceleration 'a', we get F = kma. We define 1 unit of force such that it accelerates 1 kg mass at 1 m s^-2, making k = 1, so F = ma. For the Third Law, remember the classic mistake: thinking action and reaction cancel. They cannot cancel because they act on different bodies. For example, when you jump from a boat, you push the boat backward (action) and the boat pushes you forward (reaction). Lastly, during a collision between ball A (mA) and ball B (mB), the action force FAB is equal and opposite to reaction FBA: FAB = -FBA. Substituting their rates of change of momentum over the collision time 't' yields: mA(vA - uA)/t = -mB(vB - uB)/t. Solving this gives us mA*uA + mB*uB = mA*vA + mB*vB, which mathematically proves that total momentum is conserved.",
+        "boardWork": [
+          "DERIVATION OF F = ma:",
+          "  Initial momentum (p1) = mu",
+          "  Final momentum (p2) = mv",
+          "  Change in momentum = mv - mu = m(v - u)",
+          "  Rate of change of momentum = m(v - u) / t",
+          "  F = k * m * a  (where a = (v - u) / t)",
+          "  Define 1 N such that k = 1 => F = ma",
+          "",
+          "CONSERVATION OF MOMENTUM DERIVATION:",
+          "  During collision: FAB = -FBA",
+          "  mA*(vA - uA)/t = -mB*(vB - uB)/t",
+          "  mA*vA - mA*uA = -mB*vB + mB*uB",
+          "  mA*uA + mB*uB = mA*vA + mB*vB",
+          "  Total Momentum Before = Total Momentum After"
+        ],
+        "keyPoints": [
+          "Mass measures how strongly an object resists a change in its motion.",
+          "The unit Newton (N) is defined specifically to keep the constant of proportionality k = 1.",
+          "Action and reaction forces occur instantaneously and act on separate interacting objects.",
+          "The Law of Conservation of Momentum is derived directly by equating Newton's Third Law and Second Law."
+        ],
+        "sourcePages": [
+          5,
+          6,
+          9,
+          10,
+          11
+        ],
+        "sourceLimitations": []
+      },
+      "visualize": {
+        "priority": "IMPORTANT",
+        "contentOrigin": "MIXED",
+        "sourceType": "BOARD_VISUAL",
+        "sourceLabel": null,
+        "teacherInstructions": "Draw a clear, step-by-step diagram of two colliding balls on the board to illustrate the conservation of momentum visually. Use contrasting chalk colors if available for Ball A and Ball B.",
+        "boardDrawingSteps": [
+          "Draw two separate circles side-by-side representing Ball A (mass mA, initial velocity uA) and Ball B (mass mB, initial velocity uB) with arrows pointing right. Label this state 'Before Collision (uA > uB)'.",
+          "Directly below, draw the two circles in contact. Draw a force arrow pointing left on A, labeled 'FBA (reaction force by B on A)'. Draw an equal-length force arrow pointing right on B, labeled 'FAB (action force by A on B)'. Label this state 'During Collision'.",
+          "Directly below, draw the two circles separated again with velocity arrows labeled vA and vB pointing right. Label this state 'After Collision'.",
+          "Write the conservation of momentum formula underneath: 'mA*uA + mB*uB = mA*vA + mB*vB'."
+        ],
+        "whatStudentsShouldNotice": [
+          "The force arrows acting on Ball A and Ball B during the collision are equal in size but face in opposite directions.",
+          "The individual velocities of the balls change after the collision, but the sum of their mass-velocity products remains constant."
+        ],
+        "sourcePages": [
+          10
+        ],
+        "sourceLimitations": [
+          "This is an adapted board diagram simplified for direct classroom drafting based on Figure 9.14 on page 10."
+        ]
+      },
+      "example": {
+        "priority": "ESSENTIAL",
+        "contentOrigin": "SOURCE_GROUNDED",
+        "sourceType": "TEXTBOOK_EXAMPLE",
+        "sourceLabel": "Example 9.1",
+        "title": "Calculating Force and Final Velocity",
+        "explanation": "This example shows how to calculate the force required to change an object's velocity over a specific duration, and then predicts a new final velocity if the same force is applied for a longer period.",
+        "steps": [
+          "Identify the given values: Mass (m) = 5 kg, initial velocity (u) = 3 m s^-1, final velocity (v) = 7 m s^-1, duration (t) = 2 s.",
+          "Apply the Second Law formula: F = m(v - u) / t",
+          "Substitute the values: F = 5 kg * (7 m s^-1 - 3 m s^-1) / 2 s = 10 N.",
+          "For the second part of the question: Let the same force F = 10 N act for a longer duration, t = 5 s.",
+          "Rearrange the formula to solve for the new final velocity (v): v = u + (F * t) / m",
+          "Substitute the values to find the new final velocity: v = 3 m s^-1 + (10 N * 5 s) / 5 kg = 13 m s^-1."
+        ],
+        "sourcePages": [
+          7
+        ],
+        "sourceLimitations": []
+      },
+      "activity": {
+        "priority": "ESSENTIAL",
+        "contentOrigin": "SOURCE_GROUNDED",
+        "sourceType": "TEXTBOOK_ACTIVITY",
+        "sourceLabel": "activity 9.2",
+        "title": "Flicking the Card and Coin Experiment",
+        "concepts": [
+          "Inertia of Rest",
+          "Newton's First Law of Motion"
+        ],
+        "objective": "To demonstrate that a stationary object tends to resist any change to its state of rest.",
+        "materials": [
+          "An empty glass tumbler",
+          "A stiff playing card or index card",
+          "A five-rupee coin"
+        ],
+        "steps": [
+          "Place the empty glass tumbler upright on a stable, flat table.",
+          "Place the stiff card horizontally across the mouth of the tumbler.",
+          "Place the five-rupee coin exactly in the center of the card, directly over the opening of the tumbler.",
+          "Flick the edge of the card sharply and horizontally with your finger.",
+          "Observe that the card flies off the tumbler, while the coin falls vertically straight down into the tumbler.",
+          "Explain to the students: The force of the flick acts only on the card, causing it to move. The coin, due to its inertia of rest, resists moving horizontally and falls into the tumbler once the card is removed."
+        ],
+        "safetyNote": null,
+        "sourcePages": [
+          5
+        ],
+        "sourceLimitations": []
+      },
+      "howToTeach": {
+        "priority": "IMPORTANT",
+        "contentOrigin": "MIXED",
+        "teacherMoves": [
+          "Introduce the concept of inertia using the physical activity (Activity 9.2) before detailing Newton's First Law on the board.",
+          "Emphasize the distinction between mass and weight; clarify that mass is the sole measure of inertia.",
+          "Explicitly walk through the physical system of action-reaction pairs by asking students to identify the two interacting objects in common scenarios (e.g., walking, firing a gun)."
+        ],
+        "misconceptions": [
+          {
+            "misconception": "Action and reaction forces cancel each other out because they are equal and opposite.",
+            "correction": "Action and reaction forces never act on the same object. They act on two different bodies, so they can never cancel each other's acceleration.",
+            "sourcePages": [
+              9
+            ]
+          },
+          {
+            "misconception": "An object always requires a continuous, active force to keep moving with constant speed.",
+            "correction": "An object in uniform motion requires zero net force to keep moving. Frictional forces in everyday environments oppose motion, which is why we must apply an balancing force to maintain speed.",
+            "sourcePages": [
+              2,
+              3
+            ]
+          }
+        ],
+        "questionsToAsk": [
+          "If a horse pulls a cart forward, and the cart pulls the horse backward with an equal and opposite force, how does the system move at all?",
+          "Why does a fast-moving cricket ball hurt a spectator more than a light table tennis ball moving at the same speed?"
+        ],
+        "sourcePages": [
+          3,
+          6,
+          9,
+          13
+        ],
+        "sourceLimitations": []
+      },
+      "boardPlan": {
+        "priority": "ESSENTIAL",
+        "contentOrigin": "MIXED",
+        "text": "========================================================================\nCLASS 9: FORCE AND LAWS OF MOTION\n========================================================================\n\n1. FORCE & EFFECTS:\n   - Push, Pull, or Hit.\n   - Changes: Speed, Direction, or Shape.\n\n2. BALANCED vs. UNBALANCED FORCES:\n   - Balanced: Net Force = 0. State of motion is maintained.\n   - Unbalanced: Net Force > 0. Causes acceleration.\n\n3. NEWTON'S FIRST LAW (Law of Inertia):\n   - Objects resist changes to their state of rest/uniform motion.\n   - Mass is the quantitative measure of Inertia (More Mass = More Inertia).\n\n4. MOMENTUM (p):\n   - p = mv  (SI Unit: kg m s^-1)\n\n5. NEWTON'S SECOND LAW:\n   - Rate of change of momentum is proportional to applied force.\n   - F = ma  (SI Unit: Newton, N = kg m s^-2)\n   - 1 Newton: Force accelerating 1 kg mass by 1 m s^-2.\n\n6. NEWTON'S THIRD LAW:\n   - To every action, there is an equal and opposite reaction.\n   - Action and Reaction act on *different* bodies (never cancel).\n\n7. CONSERVATION OF MOMENTUM:\n   - Total momentum of isolated system is constant.\n   - mA*uA + mB*uB = mA*vA + mB*vB\n========================================================================",
+        "sourcePages": [
+          1,
+          2,
+          3,
+          5,
+          6,
+          9,
+          11
+        ],
+        "sourceLimitations": [
+          "Chalkboard layout optimized for high readability and structured notes."
+        ]
+      },
+      "practice": {
+        "priority": "IMPORTANT",
+        "questions": [
+          {
+            "question": "Calculate the force required to accelerate a 4 kg mass at 5 m s^-2.",
+            "expectedAnswer": "Using F = ma: F = 4 kg * 5 m s^-2 = 20 N.",
+            "sourcePages": [
+              8
+            ]
+          },
+          {
+            "question": "A motorcar is moving with a velocity of 108 km/h. Convert this velocity into meters per second (m s^-1).",
+            "expectedAnswer": "108 km/h = 108 * (1000 m / 3600 s) = 30 m s^-1.",
+            "sourcePages": [
+              8
+            ]
+          },
+          {
+            "question": "Calculate the momentum of a bullet of mass 20 g fired with a velocity of 150 m s^-1.",
+            "expectedAnswer": "Mass m = 20 g = 0.02 kg. Momentum p = mv = 0.02 kg * 150 m s^-1 = 3 kg m s^-1.",
+            "sourcePages": [
+              11
+            ]
+          }
+        ]
+      },
+      "checkUnderstanding": {
+        "priority": "ESSENTIAL",
+        "questions": [
+          {
+            "question": "Explain why some of the leaves may get detached from a tree if we vigorously shake its branch.",
+            "expectedAnswer": "When the branch is shaken, it is put into motion. However, the leaves tend to remain at rest due to their inertia of rest. This relative motion causes the leaves to detach.",
+            "difficulty": "basic",
+            "sourcePages": [
+              5
+            ]
+          },
+          {
+            "question": "A constant force acts on an object of mass 10 kg for a duration of 4 s, increasing its velocity from 2 m s^-1 to 8 m s^-1. Find the magnitude of the force.",
+            "expectedAnswer": "Using F = m(v - u)/t: F = 10 * (8 - 2) / 4 = 10 * 6 / 4 = 15 N.",
+            "difficulty": "intermediate",
+            "sourcePages": [
+              7
+            ]
+          },
+          {
+            "question": "Explain why is it difficult for a fireman to hold a hose, which ejects large amounts of water at a high velocity.",
+            "expectedAnswer": "According to Newton's Third Law, when the hose ejects water forward with a large force (action), the water exerts an equal and opposite backward force on the hose (reaction). This strong backward push makes it difficult to hold.",
+            "difficulty": "application",
+            "sourcePages": [
+              13
+            ]
+          }
+        ]
+      },
+      "materials": [
+        "Stiff playing card or index card",
+        "Five-rupee coin",
+        "Glass tumbler",
+        "Chalk (white and colored)"
+      ]
+    },
+    "quickIdeas": {
+      "analogy": {
+        "contentOrigin": "PEDAGOGICAL_ADDITION",
+        "text": "Momentum is like a running crowd. A single toddler running at you is easy to stop (low mass, low momentum). A heavy linebacker walking towards you is very difficult to stop (high mass, high momentum). A tiny bullet moving at sonic speed is also incredibly hard to stop because its extremely high velocity creates massive momentum despite its tiny mass.",
+        "sourcePages": [],
+        "sourceLimitations": [
+          "This is an conceptual analogy for intuitive classroom understanding."
+        ]
+      },
+      "lowResourceActivity": {
+        "priority": "OPTIONAL",
+        "contentOrigin": "SOURCE_GROUNDED",
+        "sourceType": "CHALKBOX_ACTIVITY",
+        "sourceLabel": null,
+        "title": "Striking the Stack (Coin Inertia)",
+        "concepts": [
+          "Inertia of Rest"
+        ],
+        "objective": "To visually isolate the inertia of individual stacked items.",
+        "materials": [
+          "5-10 identical carom coins or flat metal washers",
+          "A ruler or a striker coin"
+        ],
+        "steps": [
+          "Pile the identical coins vertically on a flat, smooth desk to create a stable tower.",
+          "Use a plastic ruler to make a rapid, sharp horizontal strike at the lowest coin of the pile.",
+          "Observe that the lowest coin shoots out quickly, while the rest of the pile drops vertically down intact onto the table.",
+          "Discuss: The horizontal striking force is applied only to the bottom coin. The inertia of rest of the upper coins keeps them in place, causing them to fall straight down due to gravity once the base coin is removed."
+        ],
+        "safetyNote": null,
+        "sourcePages": [
+          4
+        ],
+        "sourceLimitations": [
+          "This is a low-resource adaptation of the source material using basic flat washers if carom boards are unavailable."
+        ]
+      },
+      "quickChecks": [
+        {
+          "question": "Which has more inertia: a rubber ball or a stone of the same size?",
+          "expectedAnswer": "The stone, because it has greater mass.",
+          "sourcePages": [
+            5
+          ]
+        },
+        {
+          "question": "What is the SI unit of force?",
+          "expectedAnswer": "Newton (N), which is equivalent to kg m s^-2.",
+          "sourcePages": [
+            6
+          ]
+        }
+      ]
+    },
+    "sourceCoverage": {
+      "pagesUsed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "keyConceptsCovered": [
+        "Force and its effects (change in speed, direction, shape)",
+        "Balanced and Unbalanced Forces",
+        "Newton's First Law of Motion and Inertia",
+        "Momentum (p = mv)",
+        "Newton's Second Law of Motion (F = ma)",
+        "Newton's Third Law of Motion (Action and Reaction)",
+        "Law of Conservation of Momentum"
+      ],
+      "visualPagesUsed": [
+        10
+      ],
+      "sourceLimitations": [
+        "Classroom board illustrations are simplified 2D adaptations of the textbook's visual figures."
+      ]
+    }
+  },
+  "generation": {
+    "provider": "google",
+    "model": "gemini-3.5-flash",
+    "thinkingLevel": "MEDIUM",
+    "attempt": 1,
+    "elapsedMs": 65377,
+    "finishReason": "STOP",
+    "finishMessage": null,
+    "modelVersion": "gemini-3.5-flash",
+    "responseId": "adqNavjeBf-kqfkP27rBuAE",
+    "maxOutputTokens": 32768,
+    "requestTimeoutMs": 180000,
+    "usage": {
+      "promptTokens": 34395,
+      "outputTokens": 6231,
+      "thoughtTokens": 5594,
+      "totalTokens": 46220
+    }
+  },
+  "source": {
+    "mode": "FULL_CHAPTER",
+    "lessonKey": "class-9-force-laws-motion",
+    "sourceFileName": "NCERT-Class-9-Force-and-Laws-of-Motion-and-Work-and-Energy.pdf",
+    "canonicalPageStart": 1,
+    "canonicalPageEnd": 17,
+    "canonicalPageCount": 17,
+    "visualFileName": "class-9-force-laws-motion.pdf",
+    "visualPageCount": 17,
+    "visualMappingVerified": true,
+    "sourceCatalog": {
+      "policyVersion": "chalkbox-source-catalog-v1",
+      "canonicalContentSha256": "897ccf860f9b8239adcf77e9c486a2aec125ed524a9f698c5f95ec7efd9f40b3",
+      "activities": 1,
+      "examples": 8,
+      "figures": 19,
+      "tables": 0,
+      "verifiedBeforeGeneration": true
+    }
+  },
+  "validation": {
+    "deterministicProvenance": "PASS",
+    "independentQualityAudit": "PENDING",
+    "errors": [],
+    "warnings": [
+      {
+        "severity": "WARNING",
+        "field": "fullLesson.visualize",
+        "issueType": "FINAL_BOARD_VISUAL_AUDIT_REQUIRED",
+        "message": "Board visual requires later scientific/topological verification.",
+        "sourcePages": [
+          10
+        ]
+      },
+      {
+        "severity": "WARNING",
+        "field": "fullLesson.activity",
+        "issueType": "FINAL_ACTIVITY_SEMANTIC_AUDIT_REQUIRED",
+        "message": "Textbook activity label/page provenance passed catalog validation; semantic relevance must still be independently audited.",
+        "sourcePages": [
+          5
+        ]
+      }
+    ],
+    "embeddedSourceLabelClaims": "PASS"
+  },
+  "generatedAt": "2026-08-25T18:10:47.946Z",
+  "postGenerationNormalizations": [
+    {
+      "policyVersion": "chalkbox-source-limitations-label-normalization-v1",
+      "type": "UNSUPPORTED_SOURCE_LIMITATIONS_LABEL_TO_GENERIC_SOURCE_REFERENCE",
+      "replacements": 1,
+      "semanticRepair": false,
+      "llmCalls": 0,
+      "teachingContentChanged": false,
+      "reason": "Unsupported numbered textbook-object labels were removed only from provenance/sourceLimitations wording and replaced with a generic source-material reference.",
+      "normalizedAt": "2026-08-25T18:19:59.513Z"
+    }
+  ]
+}

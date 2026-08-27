@@ -1,0 +1,66 @@
+{
+  "artifactVersion": 1,
+  "auditPolicyVersion": "chalkbox-source-claim-audit-v1",
+  "status": "PASS",
+  "lessonKey": "class-8-materials-metals-non-metals",
+  "requestedDurationMinutes": 40,
+  "sourceArtifact": "data\\generated-demo-lessons-v5\\class-8-materials-metals-non-metals-40min.json",
+  "catalogPolicyVersion": "chalkbox-source-catalog-v1",
+  "canonicalContentSha256": "c3408b27c4a2ace087ffc28155b7fd32155c215412a58e6d9cbbb1db4524ebbb",
+  "metrics": {
+    "totalClaims": 6,
+    "supportedClaims": 6,
+    "unsupportedClaims": 0
+  },
+  "claims": [
+    {
+      "field": "fullLesson.visualize.sourceLimitations[0]",
+      "rawLabel": "Fig. 4.2",
+      "kind": "FIGURE",
+      "number": "4.2",
+      "canonicalId": "FIGURE:4.2",
+      "supported": true
+    },
+    {
+      "field": "fullLesson.example.sourceLimitations[0]",
+      "rawLabel": "Activity 4.8",
+      "kind": "ACTIVITY",
+      "number": "4.8",
+      "canonicalId": "ACTIVITY:4.8",
+      "supported": true
+    },
+    {
+      "field": "fullLesson.activity.sourceLabel",
+      "rawLabel": "Activity 4.8",
+      "kind": "ACTIVITY",
+      "number": "4.8",
+      "canonicalId": "ACTIVITY:4.8",
+      "supported": true
+    },
+    {
+      "field": "fullLesson.howToTeach.teacherMoves[1]",
+      "rawLabel": "Activity 4.5",
+      "kind": "ACTIVITY",
+      "number": "4.5",
+      "canonicalId": "ACTIVITY:4.5",
+      "supported": true
+    },
+    {
+      "field": "fullLesson.howToTeach.teacherMoves[3]",
+      "rawLabel": "Activity 4.8",
+      "kind": "ACTIVITY",
+      "number": "4.8",
+      "canonicalId": "ACTIVITY:4.8",
+      "supported": true
+    },
+    {
+      "field": "quickIdeas.lowResourceActivity.sourceLimitations[0]",
+      "rawLabel": "Activity 4.3",
+      "kind": "ACTIVITY",
+      "number": "4.3",
+      "canonicalId": "ACTIVITY:4.3",
+      "supported": true
+    }
+  ],
+  "auditedAt": "2026-08-25T19:42:03.564Z"
+}

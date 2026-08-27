@@ -1,0 +1,629 @@
+import {
+  ChevronLeft,
+  ChevronRight,
+  Expand,
+  Eye,
+  EyeOff,
+  Minimize2,
+  Pause,
+  Play,
+  RotateCcw,
+  X,
+} from 'lucide-react'
+import {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
+
+import LessonVisual from '@/components/lesson/LessonVisual'
+import {
+  useLessonTranslation,
+} from '@/hooks/useLessonTranslation'
+import {
+  formatFormulaText,
+} from '@/lib/formulaText'
+import {
+  buildTeachSteps,
+  type FormulaLike,
+  type JsonRecord,
+  type LessonLanguage,
+} from '@/lib/lessonExperience'
+import {
+  adaptTeachSteps,
+  type LessonSourceMode,
+  type ResourceLevel,
+} from '@/lib/lessonPresentation'
+
+type Props = {
+  lesson: JsonRecord
+  lessonKey: string
+  title: string
+  durationMinutes: number
+  resourceLevel: ResourceLevel
+  language: LessonLanguage
+  sourceMode?: LessonSourceMode
+  formulas?: FormulaLike[]
+  customized?: boolean
+  onClose: () => void
+}
+
+type PresentationSlide = {
+  key: string
+  label: string
+  timeLabel: string
+  primaryText: string
+  bullets: string[]
+  question: string | null
+  answer: string | null
+  visual: boolean
+  formulas: FormulaLike[]
+}
+
+
+function structurePresentationText(text: string) {
+  const normalized = text.replace(/\s+/g, ' ').trim()
+
+  if (!normalized) {
+    return { lead: '', points: [] as string[] }
+  }
+
+  const marker = /(?:\b(?:FIRSTLY|SECONDLY|THIRDLY|FOURTHLY|FIFTHLY|SIXTHLY|SEVENTHLY|EIGHTHLY|NINTHLY|TENTHLY|LASTLY|FINALLY|FIRST|SECOND|THIRD|FOURTH|FIFTH|SIXTH|SEVENTH|EIGHTH|NINTH|TENTH)\s*[,.:;)\-–—]\s*|(?:^|\s)(?:\(\d{1,2}\)|\d{1,2}[.):;\-])\s*)/gi
+  const matches = [...normalized.matchAll(marker)]
+
+  if (matches.length < 2) {
+    return { lead: normalized, points: [] as string[] }
+  }
+
+  const lead = normalized.slice(0, matches[0].index ?? 0).trim()
+  const points = matches
+    .map((match, index) => {
+      const start = (match.index ?? 0) + match[0].length
+      const end =
+        index + 1 < matches.length
+          ? matches[index + 1].index ?? normalized.length
+          : normalized.length
+
+      return normalized
+        .slice(start, end)
+        .replace(/^[,;\s]+|[,;\s]+$/g, '')
+        .trim()
+    })
+    .filter(Boolean)
+
+  return { lead, points }
+}
+
+function formatTime(seconds: number) {
+  const minutes = Math.floor(
+    seconds / 60,
+  )
+  const remaining = seconds % 60
+  return `${String(minutes).padStart(2, '0')}:${String(remaining).padStart(2, '0')}`
+}
+
+function PresentMode({
+  lesson,
+  lessonKey,
+  title,
+  durationMinutes,
+  resourceLevel,
+  language,
+  sourceMode = 'textbook',
+  formulas = [],
+  customized = false,
+  onClose,
+}: Props) {
+  const rootRef =
+    useRef<HTMLDivElement>(null)
+  const [activeIndex, setActiveIndex] =
+    useState(0)
+  const [answerVisible, setAnswerVisible] =
+    useState(false)
+  const [running, setRunning] =
+    useState(false)
+  const [elapsedSeconds, setElapsedSeconds] =
+    useState(0)
+  const [fullscreen, setFullscreen] =
+    useState(Boolean(document.fullscreenElement))
+
+  const isHindi = language === 'hindi'
+
+  const slides = useMemo<PresentationSlide[]>(
+    () => {
+      const teachingSlides: PresentationSlide[] = adaptTeachSteps(
+        buildTeachSteps(lesson),
+        lesson,
+        durationMinutes,
+        resourceLevel,
+        sourceMode,
+      ).map((step) => {
+        const structured = structurePresentationText(step.primaryText)
+        const filteredBullets = step.bullets.filter(
+          (item) =>
+            !/^listen for:/i.test(item) &&
+            !/^resource adaptation:/i.test(item),
+        )
+
+        return {
+          key: step.key,
+          label:
+            step.key === 'checkUnderstanding'
+              ? 'Quick Check'
+              : step.label,
+          timeLabel: step.timeLabel,
+          primaryText: structured.lead,
+          bullets: [...structured.points, ...filteredBullets],
+          question: step.question,
+          answer: step.answer,
+          visual: step.key === 'visualize',
+          formulas: [],
+        }
+      })
+
+      if (formulas.length > 0) {
+        const insertAt = Math.min(
+          2,
+          teachingSlides.length,
+        )
+        teachingSlides.splice(insertAt, 0, {
+          key: 'formulas',
+          label: 'Key Formulas',
+          timeLabel: '',
+          primaryText: '',
+          bullets: [],
+          question: null,
+          answer: null,
+          visual: false,
+          formulas,
+        })
+      }
+
+      return teachingSlides
+    }, [
+      durationMinutes,
+      formulas,
+      lesson,
+      resourceLevel,
+      sourceMode,
+    ],
+  )
+
+  const safeIndex = Math.min(
+    activeIndex,
+    Math.max(0, slides.length - 1),
+  )
+  const slide = slides[safeIndex]
+
+  const translationInput = useMemo(
+    () => {
+      if (!slide) {
+        return []
+      }
+
+      return [
+        slide.label,
+        slide.primaryText,
+        ...slide.bullets,
+        slide.question ?? '',
+        slide.answer ?? '',
+        ...slide.formulas.flatMap(
+          (formula) => [
+            formula.label,
+            formula.note,
+          ],
+        ),
+      ]
+    }, [slide],
+  )
+
+  const { texts } = useLessonTranslation(
+    translationInput,
+    language,
+  )
+
+  let translationCursor = 0
+  const translatedLabel =
+    texts[translationCursor++] ??
+    slide?.label ??
+    ''
+  const translatedPrimary =
+    texts[translationCursor++] ??
+    slide?.primaryText ??
+    ''
+  const translatedBullets =
+    (slide?.bullets ?? []).map(
+      (item) =>
+        texts[translationCursor++] ?? item,
+    )
+  const translatedQuestion =
+    texts[translationCursor++] ??
+    slide?.question ??
+    ''
+  const translatedAnswer =
+    texts[translationCursor++] ??
+    slide?.answer ??
+    ''
+  const translatedFormulas =
+    (slide?.formulas ?? []).map(
+      (formula) => ({
+        ...formula,
+        label:
+          texts[translationCursor++] ??
+          formula.label,
+        note:
+          texts[translationCursor++] ??
+          formula.note,
+      }),
+    )
+
+  useEffect(() => {
+    const previousOverflow =
+      document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+
+    return () => {
+      document.body.style.overflow =
+        previousOverflow
+    }
+  }, [])
+
+  useEffect(() => {
+    if (!running) {
+      return
+    }
+
+    const timer = window.setInterval(
+      () => {
+        setElapsedSeconds(
+          (current) => current + 1,
+        )
+      },
+      1000,
+    )
+
+    return () =>
+      window.clearInterval(timer)
+  }, [running])
+
+  useEffect(() => {
+    const handleFullscreen = () =>
+      setFullscreen(
+        Boolean(document.fullscreenElement),
+      )
+
+    document.addEventListener(
+      'fullscreenchange',
+      handleFullscreen,
+    )
+
+    return () =>
+      document.removeEventListener(
+        'fullscreenchange',
+        handleFullscreen,
+      )
+  }, [])
+
+  useEffect(() => {
+    setAnswerVisible(false)
+  }, [safeIndex])
+
+  function previousSlide() {
+    setActiveIndex((current) =>
+      Math.max(0, current - 1),
+    )
+  }
+
+  function nextSlide() {
+    setActiveIndex((current) =>
+      Math.min(
+        slides.length - 1,
+        current + 1,
+      ),
+    )
+  }
+
+  async function toggleFullscreen() {
+    try {
+      if (document.fullscreenElement) {
+        await document.exitFullscreen()
+      } else {
+        await rootRef.current?.requestFullscreen()
+      }
+    } catch {
+      // Fullscreen is an enhancement; presentation remains usable without it.
+    }
+  }
+
+  if (!slide) {
+    return null
+  }
+
+  return (
+    <div
+      ref={rootRef}
+      className="fixed inset-0 z-[100] flex min-h-screen flex-col overflow-hidden bg-[#0b2f21] text-white"
+    >
+      <header className="flex flex-wrap items-center gap-3 border-b border-white/10 bg-[#09291d] px-4 py-3 sm:px-6">
+        <button
+          type="button"
+          onClick={onClose}
+          className="flex size-10 items-center justify-center rounded-xl border border-white/15 bg-white/[0.06] hover:bg-white/[0.12]"
+          aria-label="Exit presentation"
+        >
+          <X className="size-4" />
+        </button>
+
+        <div className="min-w-0 flex-1">
+          <p className="text-[8px] font-extrabold uppercase tracking-[0.16em] text-[#9dc7a9]">
+            {isHindi
+              ? 'कक्षा प्रस्तुति'
+              : 'Classroom presentation'}
+          </p>
+          <p className="mt-0.5 truncate text-sm font-extrabold sm:text-base">
+            {title}
+          </p>
+        </div>
+
+        {customized && (
+          <span className="hidden rounded-full border border-[#f1cf68]/35 bg-[#f1cf68]/10 px-3 py-1.5 text-[8px] font-extrabold uppercase tracking-[0.1em] text-[#f5d978] sm:inline-flex">
+            {isHindi
+              ? 'शिक्षक बदलाव'
+              : 'Teacher customized'}
+          </span>
+        )}
+
+        <div className="flex items-center gap-2">
+          <div className="flex h-10 items-center gap-2 rounded-xl border border-white/15 bg-white/[0.06] px-3 font-mono text-[11px] font-bold">
+            {formatTime(elapsedSeconds)}
+            <span className="text-white/45">
+              / {durationMinutes}:00
+            </span>
+          </div>
+
+          <button
+            type="button"
+            onClick={() =>
+              setRunning((current) => !current)
+            }
+            className="flex size-10 items-center justify-center rounded-xl bg-[#f0ca5b] text-[#173525]"
+            aria-label={
+              running ? 'Pause timer' : 'Start timer'
+            }
+          >
+            {running ? (
+              <Pause className="size-4" />
+            ) : (
+              <Play className="size-4" />
+            )}
+          </button>
+
+          <button
+            type="button"
+            onClick={() => {
+              setRunning(false)
+              setElapsedSeconds(0)
+            }}
+            className="flex size-10 items-center justify-center rounded-xl border border-white/15 bg-white/[0.06]"
+            aria-label="Reset timer"
+          >
+            <RotateCcw className="size-4" />
+          </button>
+
+          <button
+            type="button"
+            onClick={toggleFullscreen}
+            className="flex size-10 items-center justify-center rounded-xl border border-white/15 bg-white/[0.06]"
+            aria-label={
+              fullscreen
+                ? 'Exit fullscreen'
+                : 'Enter fullscreen'
+            }
+          >
+            {fullscreen ? (
+              <Minimize2 className="size-4" />
+            ) : (
+              <Expand className="size-4" />
+            )}
+          </button>
+        </div>
+      </header>
+
+      <div className="h-1 bg-white/10">
+        <div
+          className="h-full bg-[#f0ca5b] transition-all"
+          style={{
+            width: `${((safeIndex + 1) / slides.length) * 100}%`,
+          }}
+        />
+      </div>
+
+      <main className="flex min-h-0 flex-1 items-center justify-center overflow-y-auto px-4 py-6 sm:px-8 sm:py-8 lg:px-12">
+        <section className="w-full max-w-[1320px]">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <p className="text-[9px] font-extrabold uppercase tracking-[0.16em] text-[#9dc7a9]">
+                {isHindi ? 'चरण' : 'Step'} {safeIndex + 1}{' '}
+                {isHindi ? '/' : 'of'} {slides.length}
+                {slide.timeLabel
+                  ? ` · ${slide.timeLabel}`
+                  : ''}
+              </p>
+              <h1 className="mt-2 text-3xl font-extrabold tracking-[-0.04em] text-[#fffdf5] sm:text-4xl lg:text-5xl">
+                {translatedLabel}
+              </h1>
+            </div>
+          </div>
+
+          {slide.formulas.length > 0 ? (
+            <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+              {translatedFormulas.map(
+                (formula, index) => (
+                  <div
+                    key={`${formula.label}-${index}`}
+                    className="rounded-[24px] border border-white/12 bg-white/[0.06] p-6"
+                  >
+                    <p className="text-[10px] font-extrabold uppercase tracking-[0.14em] text-[#9dc7a9]">
+                      {formula.label}
+                    </p>
+                    <p className="mt-4 font-serif text-3xl font-bold leading-tight text-[#f5d978] sm:text-4xl">
+                      {formatFormulaText(
+                        formula.formula,
+                      )}
+                    </p>
+                    <p className="mt-4 text-sm font-medium leading-6 text-white/72">
+                      {formatFormulaText(
+                        formula.note,
+                      )}
+                    </p>
+                  </div>
+                ),
+              )}
+            </div>
+          ) : slide.visual ? (
+            <div className="mt-7 space-y-4">
+              <div className="rounded-[28px] bg-[#fffef9] p-3 text-[#17211b] shadow-2xl sm:p-5">
+                <LessonVisual
+                  lessonKey={lessonKey}
+                  lesson={lesson}
+                  sourceMode={sourceMode}
+                />
+              </div>
+
+              {translatedBullets.length > 0 && (
+                <div className="grid gap-3 md:grid-cols-2">
+                  {translatedBullets.map((item, index) => (
+                    <div
+                      key={`${item}-${index}`}
+                      className="flex items-start gap-3 rounded-2xl border border-white/12 bg-white/[0.07] p-4"
+                    >
+                      <span
+                        aria-hidden="true"
+                        className="mt-[9px] size-2.5 shrink-0 rounded-full bg-[#f0ca5b]"
+                      />
+                      <p className="text-base font-semibold leading-7 text-white/90">
+                        {item}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          ) : (
+            <div
+              className={`mt-8 grid gap-6 ${
+                translatedPrimary || translatedQuestion
+                  ? 'lg:grid-cols-[minmax(0,1.2fr)_minmax(320px,0.8fr)]'
+                  : 'mx-auto max-w-5xl grid-cols-1'
+              }`}
+            >
+              <div>
+                {translatedPrimary && (
+                  <p className="max-w-5xl whitespace-pre-line text-2xl font-bold leading-[1.45] text-[#fffdf5] sm:text-3xl lg:text-[36px]">
+                    {translatedPrimary}
+                  </p>
+                )}
+
+                {translatedQuestion &&
+                  translatedQuestion !==
+                    translatedPrimary && (
+                  <div className="mt-7 rounded-[24px] border border-[#f0ca5b]/30 bg-[#f0ca5b]/10 p-5 sm:p-6">
+                    <p className="text-[9px] font-extrabold uppercase tracking-[0.14em] text-[#f5d978]">
+                      {isHindi ? 'प्रश्न' : 'Question'}
+                    </p>
+                    <p className="mt-3 text-2xl font-extrabold leading-snug sm:text-3xl">
+                      {translatedQuestion}
+                    </p>
+                  </div>
+                )}
+              </div>
+
+              {translatedBullets.length > 0 && (
+                <ul className="space-y-3">
+                  {translatedBullets.map((item, index) => (
+                    <li
+                      key={`${item}-${index}`}
+                      className="flex items-start gap-3 rounded-2xl border border-white/12 bg-white/[0.07] p-4"
+                    >
+                      <span
+                        aria-hidden="true"
+                        className="mt-[9px] size-2.5 shrink-0 rounded-full bg-[#f0ca5b]"
+                      />
+                      <p className="text-base font-semibold leading-7 text-white/90 sm:text-lg">
+                        {item}
+                      </p>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          )}
+
+          {translatedAnswer && (
+            <div className="mt-7">
+              <button
+                type="button"
+                onClick={() =>
+                  setAnswerVisible(
+                    (current) => !current,
+                  )
+                }
+                className="inline-flex items-center gap-2 rounded-xl border border-[#f0ca5b]/35 bg-[#f0ca5b]/10 px-4 py-3 text-[10px] font-extrabold uppercase tracking-[0.1em] text-[#f5d978]"
+              >
+                {answerVisible ? (
+                  <EyeOff className="size-4" />
+                ) : (
+                  <Eye className="size-4" />
+                )}
+                {answerVisible
+                  ? isHindi
+                    ? 'उत्तर छिपाएँ'
+                    : 'Hide answer'
+                  : isHindi
+                    ? 'उत्तर दिखाएँ'
+                    : 'Show answer'}
+              </button>
+
+              {answerVisible && (
+                <div className="mt-4 rounded-[24px] border border-[#8cc39b]/25 bg-[#163f2c] p-5 text-lg font-semibold leading-8 text-[#dff0e3] sm:text-xl">
+                  {translatedAnswer}
+                </div>
+              )}
+            </div>
+          )}
+        </section>
+      </main>
+
+      <footer className="border-t border-white/10 bg-[#09291d] px-4 py-3 sm:px-6">
+        <div className="mx-auto flex max-w-[1320px] items-center justify-between gap-3">
+          <button
+            type="button"
+            onClick={previousSlide}
+            disabled={safeIndex === 0}
+            className="inline-flex h-11 items-center gap-2 rounded-xl border border-white/15 px-4 text-[10px] font-extrabold disabled:opacity-25"
+          >
+            <ChevronLeft className="size-4" />
+            {isHindi ? 'पिछला' : 'Previous'}
+          </button>
+
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={nextSlide}
+              disabled={
+                safeIndex === slides.length - 1
+              }
+              className="inline-flex h-11 items-center gap-2 rounded-xl bg-[#f0ca5b] px-5 text-[10px] font-extrabold text-[#173525] disabled:opacity-30"
+            >
+              {isHindi ? 'अगला' : 'Next'}
+              <ChevronRight className="size-4" />
+            </button>
+          </div>
+        </div>
+      </footer>
+    </div>
+  )
+}
+
+export default PresentMode

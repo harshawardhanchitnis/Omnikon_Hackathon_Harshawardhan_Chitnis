@@ -1,0 +1,330 @@
+{
+  "artifactVersion": 5,
+  "auditPolicyVersion": "chalkbox-generated-audit-v5-catalog-grounded-gemini-36",
+  "status": "AUDIT_COMPLETED",
+  "lessonKey": "class-8-chemical-effects-electric-current",
+  "requestedDurationMinutes": 40,
+  "generationPolicyVersion": "chalkbox-lesson-v5-catalog-grounded-gemini-35",
+  "sourceCatalogPolicyVersion": "chalkbox-source-catalog-v1",
+  "sourceClaimAuditPolicyVersion": "chalkbox-source-claim-audit-v1",
+  "finalDecision": "PASS",
+  "judgeReady": true,
+  "deterministicNormalizations": 0,
+  "deterministicPreAudit": {
+    "status": "PASS",
+    "errors": [],
+    "warnings": []
+  },
+  "sourceClaimGate": {
+    "status": "PASS",
+    "auditFile": "data\\source-claim-audits-v1\\class-8-chemical-effects-electric-current-40min-source-claims.json",
+    "canonicalContentSha256": "967d769bd211b5dd9364033ca27f86cea684bdbd970878f605c56887fdc7d814",
+    "sourceCatalogArtifactSha256": "878943558b2f9637b36d292cb8f20f23d300c10eae3c0f37cbc7c5e769aeb734",
+    "unsupportedClaims": 0
+  },
+  "modelAudit": {
+    "decision": "PASS",
+    "summary": "The generated FULL_CHAPTER lesson for Class 8 Science 'Chemical Effects of Electric Current' is fully compliant with NCERT canonical content, catalog rules, and pedagogical guidelines. All core concepts—including conductivity of liquids, weak current detection via LEDs and magnetic testers, chemical effects (electrolysis & potato terminal detector), and electroplating mechanism and applications—are thoroughly and accurately covered with faithful activity procedures, correct scientific claims, and accurate page citations.",
+    "scores": {
+      "scientificAccuracy": 10,
+      "sourceGrounding": 10,
+      "citationAccuracy": 10,
+      "conceptLedger": 10,
+      "objectiveConsistency": 10,
+      "coverage": 10,
+      "activityProvenance": 10,
+      "exampleFidelity": 10,
+      "visualGrounding": 10,
+      "pedagogy": 10,
+      "internalConsistency": 10,
+      "timingReadiness": 10,
+      "overall": 10
+    },
+    "independentConceptAudit": {
+      "status": "PASS",
+      "majorConcepts": [
+        {
+          "concept": "Electrical Conductivity of Liquids (Good vs Poor Conductors)",
+          "sourcePages": [
+            1,
+            2,
+            4
+          ],
+          "ledgerStatus": "PRESENT",
+          "lessonStatus": "COVERED",
+          "lessonEvidenceFields": [
+            "fullLesson.define",
+            "fullLesson.explain",
+            "fullLesson.howToTeach"
+          ],
+          "explanation": "Accurately defines good/poor conductors in liquid form and explains why the classification as 'good/poor' is preferred over binary 'conductor/insulator'."
+        },
+        {
+          "concept": "Detection of Weak Currents (LED and Magnetic Testers)",
+          "sourcePages": [
+            2,
+            3,
+            4
+          ],
+          "ledgerStatus": "PRESENT",
+          "lessonStatus": "COVERED",
+          "lessonEvidenceFields": [
+            "fullLesson.explain",
+            "quickIdeas.lowResourceActivity",
+            "quickIdeas.quickChecks"
+          ],
+          "explanation": "Explains why weak currents fail to light standard bulb filaments and details both LED polarity rules and magnetic needle compass tester construction."
+        },
+        {
+          "concept": "Conduction in Aqueous Solutions (Distilled vs Tap water, Acids, Bases, Salts)",
+          "sourcePages": [
+            4,
+            5
+          ],
+          "ledgerStatus": "PRESENT",
+          "lessonStatus": "COVERED",
+          "lessonEvidenceFields": [
+            "fullLesson.explain",
+            "fullLesson.practice",
+            "fullLesson.checkUnderstanding"
+          ],
+          "explanation": "Explains how presence of dissolved salts, acids, or bases renders distilled water conductive, citing relevant textbook safety precautions."
+        },
+        {
+          "concept": "Chemical Effects of Electric Current (Electrolysis, Gas Bubbles, Potato Spot)",
+          "sourcePages": [
+            5,
+            6,
+            7
+          ],
+          "ledgerStatus": "PRESENT",
+          "lessonStatus": "COVERED",
+          "lessonEvidenceFields": [
+            "fullLesson.define",
+            "fullLesson.explain",
+            "fullLesson.example"
+          ],
+          "explanation": "Covers William Nicholson's 1800 electrolysis discovery (O2 at positive, H2 at negative electrode) and Boojho's potato positive-terminal detector."
+        },
+        {
+          "concept": "Electroplating Mechanism",
+          "sourcePages": [
+            7,
+            8
+          ],
+          "ledgerStatus": "PRESENT",
+          "lessonStatus": "COVERED",
+          "lessonEvidenceFields": [
+            "fullLesson.define",
+            "fullLesson.activity",
+            "fullLesson.visualize",
+            "fullLesson.boardPlan"
+          ],
+          "explanation": "Thoroughly explains CuSO4 dissociation, deposition of copper on the negative electrode (cathode), and replenishment from the positive copper plate (anode)."
+        },
+        {
+          "concept": "Applications and Environmental Concerns of Electroplating",
+          "sourcePages": [
+            8
+          ],
+          "ledgerStatus": "PRESENT",
+          "lessonStatus": "COVERED",
+          "lessonEvidenceFields": [
+            "fullLesson.explain",
+            "fullLesson.practice",
+            "fullLesson.howToTeach",
+            "quickIdeas.quickChecks"
+          ],
+          "explanation": "Covers commercial uses (chromium, zinc, tin, gold/silver) and details the polluting nature of conducting solution waste."
+        }
+      ]
+    },
+    "objectiveAudit": [
+      {
+        "objectiveIndex": 0,
+        "status": "PASS",
+        "evidenceFields": [
+          "fullLesson.define",
+          "fullLesson.explain",
+          "fullLesson.howToTeach"
+        ],
+        "explanation": "Objective on differentiating good and poor conductors in liquids is supported by text and thoroughly taught."
+      },
+      {
+        "objectiveIndex": 1,
+        "status": "PASS",
+        "evidenceFields": [
+          "fullLesson.explain",
+          "quickIdeas.lowResourceActivity"
+        ],
+        "explanation": "Objective on weak current detection using LEDs and magnetic compass needle is fully supported and taught."
+      },
+      {
+        "objectiveIndex": 2,
+        "status": "PASS",
+        "evidenceFields": [
+          "fullLesson.explain",
+          "fullLesson.practice",
+          "fullLesson.checkUnderstanding"
+        ],
+        "explanation": "Objective comparing distilled water, tap water, acids, bases, and salts is grounded and assessed."
+      },
+      {
+        "objectiveIndex": 3,
+        "status": "PASS",
+        "evidenceFields": [
+          "fullLesson.define",
+          "fullLesson.explain",
+          "fullLesson.example"
+        ],
+        "explanation": "Objective detailing chemical effects (gas bubbles and potato terminal test) is faithfully presented."
+      },
+      {
+        "objectiveIndex": 4,
+        "status": "PASS",
+        "evidenceFields": [
+          "fullLesson.define",
+          "fullLesson.activity",
+          "fullLesson.visualize",
+          "fullLesson.boardPlan"
+        ],
+        "explanation": "Objective explaining electroplating mechanism, applications, and waste disposal is completely covered."
+      }
+    ],
+    "citationAudit": [
+      {
+        "field": "fullLesson.define",
+        "sourcePages": [
+          1,
+          4,
+          6,
+          8
+        ],
+        "status": "PASS",
+        "explanation": "Page numbers accurately reflect locations of good/poor conductor definitions, chemical effects, and electroplating."
+      },
+      {
+        "field": "fullLesson.explain",
+        "sourcePages": [
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "status": "PASS",
+        "explanation": "Citations correctly correspond to weak current mechanisms, distilled water conduction, Nicholson's experiment, and electroplating mechanics."
+      },
+      {
+        "field": "fullLesson.activity",
+        "sourcePages": [
+          7,
+          8
+        ],
+        "status": "PASS",
+        "explanation": "Activity 14.7 electroplating procedure and observations are located on canonical pages 7 and 8."
+      }
+    ],
+    "activityAudit": [
+      {
+        "field": "fullLesson.activity",
+        "sourceType": "TEXTBOOK_ACTIVITY",
+        "sourceLabel": "Activity 14.7",
+        "sourcePages": [
+          7,
+          8
+        ],
+        "status": "PASS",
+        "explanation": "Matches catalog entry Activity 14.7. Procedure, materials (CuSO4, copper plates, acid, water), safety notes, and observations are completely faithful to canonical text."
+      },
+      {
+        "field": "quickIdeas.lowResourceActivity",
+        "sourceType": "TEXTBOOK_ACTIVITY",
+        "sourceLabel": "Activity 14.3",
+        "sourcePages": [
+          3
+        ],
+        "status": "PASS",
+        "explanation": "Matches catalog entry Activity 14.3. Correct matchbox tray, wire wrap, and compass setup."
+      }
+    ],
+    "exampleAudit": [
+      {
+        "field": "fullLesson.example",
+        "sourceType": "CHALKBOX_EXAMPLE",
+        "sourceLabel": null,
+        "sourcePages": [
+          6,
+          7
+        ],
+        "status": "PASS",
+        "calculationVerified": true,
+        "explanation": "Correctly uses CHALKBOX_EXAMPLE with sourceLabel=null to frame Boojho's potato experiment."
+      }
+    ],
+    "visualAudit": [
+      {
+        "field": "fullLesson.visualize",
+        "sourceType": "BOARD_VISUAL",
+        "sourceLabel": null,
+        "sourcePages": [
+          7
+        ],
+        "status": "PASS",
+        "topologyCorrect": true,
+        "directionalityCorrect": true,
+        "explanation": "BOARD_VISUAL correctly sets sourceLabel=null, maintains proper electrical topology and direction of metal transport grounded in Fig. 14.7."
+      }
+    ],
+    "pedagogy": {
+      "status": "PASS",
+      "explanation": "Excellent teacher guidance provided across all sections, including clear board work, misconception handling, practical safety notes, and low-resource activity alternatives."
+    },
+    "timingReadiness": {
+      "status": "PASS",
+      "explanation": "Priorities (ESSENTIAL vs IMPORTANT) are clearly designated across all modules, allowing a deterministic timing solver to scale content seamlessly."
+    },
+    "issues": [],
+    "repairTargets": []
+  },
+  "auditGeneration": {
+    "provider": "google",
+    "model": "gemini-3.6-flash",
+    "thinkingLevel": "MEDIUM",
+    "attempt": 1,
+    "elapsedMs": 32059,
+    "finishReason": "STOP",
+    "modelVersion": "gemini-3.6-flash",
+    "responseId": "GPKNapC7JuGkqfkPsNfwmAM",
+    "maxOutputTokens": 24576,
+    "requestTimeoutMs": 180000,
+    "usage": {
+      "promptTokens": 27955,
+      "outputTokens": 2067,
+      "thoughtTokens": 1685,
+      "totalTokens": 31707
+    }
+  },
+  "source": {
+    "mode": "FULL_CHAPTER",
+    "sourceFileName": "NCERT-Class-8-Chemical-Effects-of-Electric-Current-and-Materials-Metals-and-Non-Metals.pdf",
+    "canonicalPageStart": 1,
+    "canonicalPageEnd": 12,
+    "canonicalPageCount": 12,
+    "canonicalContentSha256": "967d769bd211b5dd9364033ca27f86cea684bdbd970878f605c56887fdc7d814",
+    "sourceCatalogArtifactSha256": "878943558b2f9637b36d292cb8f20f23d300c10eae3c0f37cbc7c5e769aeb734",
+    "sourceCatalogFile": "data\\source-catalog-v1\\class-8-chemical-effects-electric-current.json",
+    "visualFileName": "class-8-chemical-effects-electric-current.pdf",
+    "visualPageCount": 12,
+    "visualMappingVerified": true,
+    "catalogStatistics": {
+      "activities": 7,
+      "examples": 0,
+      "figures": 11,
+      "tables": 1
+    }
+  },
+  "auditedAt": "2026-08-25T19:51:19.709Z"
+}

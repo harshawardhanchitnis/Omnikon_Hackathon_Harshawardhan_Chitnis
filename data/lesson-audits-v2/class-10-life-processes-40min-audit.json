@@ -1,0 +1,364 @@
+{
+  "artifactVersion": 2,
+  "auditPolicyVersion": "chalkbox-generated-audit-v2-gemini-35",
+  "status": "AUDIT_COMPLETED",
+  "finalDecision": "PASS",
+  "lessonKey": "class-10-life-processes",
+  "requestedDurationMinutes": 40,
+  "sourceArtifact": "data\\generated-demo-lessons-v4\\class-10-life-processes-40min.json",
+  "judgeReady": true,
+  "deterministicPreAudit": {
+    "status": "PASS",
+    "errors": [],
+    "warnings": [],
+    "allFindings": []
+  },
+  "modelAudit": {
+    "schemaVersion": 2,
+    "auditPolicyVersion": "chalkbox-generated-audit-v2-gemini-35",
+    "lessonKey": "class-10-life-processes",
+    "decision": "PASS",
+    "scores": {
+      "scientificAccuracy": 10,
+      "sourceGrounding": 10,
+      "citationAccuracy": 10,
+      "conceptLedger": 10,
+      "objectiveConsistency": 10,
+      "coverage": 10,
+      "activityProvenance": 10,
+      "visualGrounding": 10,
+      "pedagogy": 10,
+      "internalConsistency": 10,
+      "timingReadiness": 10,
+      "overall": 10
+    },
+    "summary": "The lesson is exceptionally well-aligned with the Class 10 NCERT Life Processes chapter. Every major physiological concept (nutrition, respiration, transportation, and excretion) is represented with precise scientific rigor. The pathways of glucose breakdown, double circulation, plant vascular transport, and nephron selective reabsorption are mapped onto teacher scripts, board plans, and student activities with total accuracy. The lesson meets all strict curriculum and pedagogy guidelines, and is ready for classroom deployment.",
+    "independentConceptAudit": {
+      "status": "PASS",
+      "majorConcepts": [
+        {
+          "concept": "Definition and Criteria of Life Processes",
+          "sourcePages": [
+            1,
+            2,
+            3
+          ],
+          "ledgerStatus": "PRESENT",
+          "lessonStatus": "COVERED",
+          "lessonEvidenceFields": [
+            "fullLesson.define",
+            "fullLesson.explain"
+          ],
+          "explanation": "Introduced using the distinction of invisible molecular movements versus macroscopic movements, directly grounded in page 1 and 2."
+        },
+        {
+          "concept": "Autotrophic Nutrition and Photosynthesis Mechanism",
+          "sourcePages": [
+            3,
+            4,
+            5,
+            6
+          ],
+          "ledgerStatus": "PRESENT",
+          "lessonStatus": "COVERED",
+          "lessonEvidenceFields": [
+            "fullLesson.explain",
+            "fullLesson.boardPlan"
+          ],
+          "explanation": "Taught with the exact three events of photosynthesis on page 4, alongside guard cell mechanics on page 5."
+        },
+        {
+          "concept": "Heterotrophic Nutrition and Human Alimentary System",
+          "sourcePages": [
+            6,
+            7,
+            8
+          ],
+          "ledgerStatus": "PRESENT",
+          "lessonStatus": "COVERED",
+          "lessonEvidenceFields": [
+            "fullLesson.explain",
+            "fullLesson.example"
+          ],
+          "explanation": "Covers digestive enzymes (amylase, pepsin, trypsin, lipase), peristalsis, bile emulsification, and villi surface area optimization."
+        },
+        {
+          "concept": "Respiration: Breakdown of Glucose Pathways",
+          "sourcePages": [
+            9,
+            10,
+            11
+          ],
+          "ledgerStatus": "PRESENT",
+          "lessonStatus": "COVERED",
+          "lessonEvidenceFields": [
+            "fullLesson.explain",
+            "fullLesson.visualize"
+          ],
+          "explanation": "The three critical respiratory pathways (aerobic, anaerobic, muscle lactic acid) are fully taught and mapped as a board flowchart."
+        },
+        {
+          "concept": "Gaseous Exchange and Human Respiratory System",
+          "sourcePages": [
+            11,
+            12,
+            13
+          ],
+          "ledgerStatus": "PRESENT",
+          "lessonStatus": "COVERED",
+          "lessonEvidenceFields": [
+            "fullLesson.explain",
+            "fullLesson.activity"
+          ],
+          "explanation": "Addresses nostrils, rings of cartilage, alveoli surface area expansion, and haemoglobin oxygen transport."
+        },
+        {
+          "concept": "Human Circulatory System and Double Circulation",
+          "sourcePages": [
+            13,
+            14,
+            15,
+            16
+          ],
+          "ledgerStatus": "PRESENT",
+          "lessonStatus": "COVERED",
+          "lessonEvidenceFields": [
+            "fullLesson.explain",
+            "fullLesson.howToTeach"
+          ],
+          "explanation": "Details the 4 chambers, separation of oxygenated/deoxygenated blood, blood vessels (artery vs. vein), platelets, and lymph."
+        },
+        {
+          "concept": "Transport of Water and Food in Plants",
+          "sourcePages": [
+            16,
+            17,
+            18
+          ],
+          "ledgerStatus": "PRESENT",
+          "lessonStatus": "COVERED",
+          "lessonEvidenceFields": [
+            "fullLesson.explain",
+            "quickIdeas.lowResourceActivity"
+          ],
+          "explanation": "Distinguishes transpiration pull in xylem from dynamic, active ATP-driven translocation of sucrose in phloem."
+        },
+        {
+          "concept": "Human Excretion: Nephron Structure and Function",
+          "sourcePages": [
+            18,
+            19,
+            20
+          ],
+          "ledgerStatus": "PRESENT",
+          "lessonStatus": "COVERED",
+          "lessonEvidenceFields": [
+            "fullLesson.explain",
+            "fullLesson.checkUnderstanding"
+          ],
+          "explanation": "Explains filtration in the glomerulus/Bowman's capsule, followed by selective reabsorption along the renal tubule."
+        },
+        {
+          "concept": "Excretion Strategies in Plants",
+          "sourcePages": [
+            20
+          ],
+          "ledgerStatus": "PRESENT",
+          "lessonStatus": "COVERED",
+          "lessonEvidenceFields": [
+            "fullLesson.explain",
+            "fullLesson.practice"
+          ],
+          "explanation": "Covers strategies like vacuolar storage, leaf shedding, resins/gums in old xylem, and excretion into the soil."
+        }
+      ]
+    },
+    "objectiveAudit": [
+      {
+        "objectiveIndex": 0,
+        "status": "PASS",
+        "lessonEvidenceFields": [
+          "fullLesson.define"
+        ],
+        "explanation": "Fully taught in the 'define' section with reference to environmental forces decaying organized living structures."
+      },
+      {
+        "objectiveIndex": 1,
+        "status": "PASS",
+        "lessonEvidenceFields": [
+          "fullLesson.explain",
+          "fullLesson.boardPlan"
+        ],
+        "explanation": "The three steps of photosynthesis are listed on the board, and guard cell swelling/shrinking is explained."
+      },
+      {
+        "objectiveIndex": 2,
+        "status": "PASS",
+        "lessonEvidenceFields": [
+          "fullLesson.explain",
+          "fullLesson.example"
+        ],
+        "explanation": "All major enzymes and juices (saliva, gastrics, pepsin, bile, trypsin, lipase) are traced through the mouth, stomach, and small intestine."
+      },
+      {
+        "objectiveIndex": 3,
+        "status": "PASS",
+        "lessonEvidenceFields": [
+          "fullLesson.explain",
+          "fullLesson.visualize"
+        ],
+        "explanation": "The board drawing step-by-step replicates the three pathways of glucose breakdown from Figure 5.8."
+      },
+      {
+        "objectiveIndex": 4,
+        "status": "PASS",
+        "lessonEvidenceFields": [
+          "fullLesson.explain",
+          "fullLesson.activity",
+          "fullLesson.howToTeach"
+        ],
+        "explanation": "The structural optimizations (alveoli, 4 heart chambers, nephron) are highlighted across these sections to show how surface area is maximized and mixing is prevented."
+      },
+      {
+        "objectiveIndex": 5,
+        "status": "PASS",
+        "lessonEvidenceFields": [
+          "fullLesson.explain",
+          "quickIdeas.lowResourceActivity"
+        ],
+        "explanation": "Differentiates xylem (driven by transpiration pull) from phloem (utilizing active energy transport/sucrose translocation)."
+      },
+      {
+        "objectiveIndex": 6,
+        "status": "PASS",
+        "lessonEvidenceFields": [
+          "fullLesson.explain",
+          "fullLesson.checkUnderstanding"
+        ],
+        "explanation": "Detailed explanation of glomerular filtration, selective reabsorption of water, and nervous control of the urinary bladder."
+      },
+      {
+        "objectiveIndex": 7,
+        "status": "PASS",
+        "lessonEvidenceFields": [
+          "fullLesson.explain",
+          "fullLesson.practice"
+        ],
+        "explanation": "Details five distinct excretory strategies used by plants."
+      }
+    ],
+    "citationAudit": [
+      {
+        "field": "fullLesson.visualize",
+        "claimedPages": [
+          10
+        ],
+        "status": "PASS",
+        "explanation": "Correctly cites Figure 5.8 on page 10 for the pathway of glucose breakdown."
+      },
+      {
+        "field": "fullLesson.activity",
+        "claimedPages": [
+          9
+        ],
+        "status": "PASS",
+        "explanation": "Activity 5.4 is located on page 9 of the canonical text, representing limewater exhalation."
+      },
+      {
+        "field": "fullLesson.explain",
+        "claimedPages": [
+          8
+        ],
+        "status": "PASS",
+        "explanation": "Correctly references page 8 for bile action and fat digestion in the small intestine."
+      }
+    ],
+    "activityAudit": [
+      {
+        "field": "fullLesson.activity",
+        "sourceType": "TEXTBOOK_ACTIVITY",
+        "sourceLabel": "Activity 5.4",
+        "sourcePages": [
+          9
+        ],
+        "status": "PASS",
+        "explanation": "Procedurally faithful to the NCERT experimental setup comparing atmospheric air vs. exhaled air passed through limewater."
+      },
+      {
+        "field": "quickIdeas.lowResourceActivity",
+        "sourceType": "CHALKBOX_ACTIVITY",
+        "sourceLabel": null,
+        "sourcePages": [
+          17
+        ],
+        "status": "PASS",
+        "explanation": "Safe, low-resource activity using celery/soft stem with dye to visualize water transport paths in plants."
+      }
+    ],
+    "visualAudit": [
+      {
+        "field": "fullLesson.visualize",
+        "sourceType": "BOARD_VISUAL",
+        "sourceLabel": null,
+        "sourcePages": [
+          10
+        ],
+        "status": "PASS",
+        "explanation": "Instructs the teacher to draw a clear schematic flowchart of the pathways of glucose breakdown based on Fig 5.8."
+      }
+    ],
+    "pedagogy": {
+      "status": "PASS",
+      "strengths": [
+        "Excellent hook focusing on the molecular basis of life to resolve the virus controversy.",
+        "Vivid analogies, such as the cellular currency comparison (glucose as gold bar, ATP as local currency).",
+        "Strong focus on structural-functional relationships (villi, alveoli, nephrons, heart chambers) designed to maximize surface area."
+      ],
+      "issues": []
+    },
+    "timingReadiness": {
+      "status": "PASS",
+      "explanation": "The breakdown of ESSENTIAL, IMPORTANT, and OPTIONAL elements is logical and will allow a deterministic timing solver to compress or expand the lesson effectively."
+    },
+    "issues": [
+      {
+        "severity": "INFO",
+        "category": "CONSISTENCY",
+        "field": "fullLesson.boardPlan",
+        "issueType": "Minor Pedagogical Addition",
+        "explanation": "The board plan includes '2 ATP' for yeast anaerobic respiration. While biochemically correct and useful for exams, Figure 5.8 in the textbook simply notes '+ Energy'.",
+        "sourcePages": [
+          10
+        ],
+        "repairInstruction": "No repair needed as the section is appropriately designated as a PEDAGOGICAL_ADDITION."
+      }
+    ],
+    "repairTargets": []
+  },
+  "auditGeneration": {
+    "provider": "google",
+    "model": "gemini-3.5-flash",
+    "thinkingLevel": "MEDIUM",
+    "attempt": 1,
+    "elapsedMs": 33376,
+    "finishReason": "STOP",
+    "modelVersion": "gemini-3.5-flash",
+    "responseId": "18iNav3fBsa3g8UPpYOfmAI",
+    "usage": {
+      "promptTokens": 44301,
+      "outputTokens": 2627,
+      "thoughtTokens": 2147,
+      "totalTokens": 49075
+    }
+  },
+  "summaryMetrics": {
+    "deterministicErrors": 0,
+    "deterministicWarnings": 0,
+    "auditErrors": 0,
+    "auditWarnings": 0,
+    "conceptsCovered": 9,
+    "conceptsPartial": 0,
+    "conceptsMissing": 0
+  },
+  "auditedAt": "2026-08-25T16:55:17.980Z"
+}

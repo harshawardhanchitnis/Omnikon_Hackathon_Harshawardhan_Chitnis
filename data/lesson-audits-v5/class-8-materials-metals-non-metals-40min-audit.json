@@ -1,0 +1,371 @@
+{
+  "artifactVersion": 5,
+  "auditPolicyVersion": "chalkbox-generated-audit-v5-catalog-grounded-gemini-35",
+  "status": "AUDIT_COMPLETED",
+  "lessonKey": "class-8-materials-metals-non-metals",
+  "requestedDurationMinutes": 40,
+  "generationPolicyVersion": "chalkbox-lesson-v5-catalog-grounded-gemini-35",
+  "sourceCatalogPolicyVersion": "chalkbox-source-catalog-v1",
+  "sourceClaimAuditPolicyVersion": "chalkbox-source-claim-audit-v1",
+  "finalDecision": "PASS",
+  "judgeReady": true,
+  "deterministicNormalizations": 0,
+  "deterministicPreAudit": {
+    "status": "PASS",
+    "errors": [],
+    "warnings": []
+  },
+  "sourceClaimGate": {
+    "status": "PASS",
+    "auditFile": "data\\source-claim-audits-v1\\class-8-materials-metals-non-metals-40min-source-claims.json",
+    "canonicalContentSha256": "c3408b27c4a2ace087ffc28155b7fd32155c215412a58e6d9cbbb1db4524ebbb",
+    "sourceCatalogArtifactSha256": "7a8ae6761c2ddbc9325d19adddc5030e57e047fa499da46714cbebd8115f53c5",
+    "unsupportedClaims": 0
+  },
+  "modelAudit": {
+    "decision": "PASS",
+    "summary": "The generated lesson plan is an exceptional, scientifically accurate, and instructionally robust resource that perfectly covers the full chapter of Class 8 Science Chapter 4 (Materials: Metals and Non-Metals). It meticulously maps to the canonical NCERT text, utilizes correct page citations, adheres to the deterministic catalog rules for activities, examples, and visuals, and maintains strict pedagogical excellence throughout.",
+    "scores": {
+      "scientificAccuracy": 10,
+      "sourceGrounding": 10,
+      "citationAccuracy": 10,
+      "conceptLedger": 10,
+      "objectiveConsistency": 10,
+      "coverage": 10,
+      "activityProvenance": 10,
+      "exampleFidelity": 10,
+      "visualGrounding": 10,
+      "pedagogy": 10,
+      "internalConsistency": 10,
+      "timingReadiness": 10,
+      "overall": 10
+    },
+    "independentConceptAudit": {
+      "status": "PASS",
+      "majorConcepts": [
+        {
+          "concept": "Physical properties of metals and non-metals (malleability, ductility, sonority, conductivity)",
+          "sourcePages": [
+            13,
+            14,
+            15
+          ],
+          "ledgerStatus": "PRESENT",
+          "lessonStatus": "COVERED",
+          "lessonEvidenceFields": [
+            "fullLesson.define",
+            "fullLesson.explain",
+            "fullLesson.visualize",
+            "fullLesson.practice",
+            "fullLesson.checkUnderstanding"
+          ],
+          "explanation": "Properly defined and explained with exact NCERT terms like malleability, ductility, sonority, and heat/electrical conductivity."
+        },
+        {
+          "concept": "Exceptions to physical properties (Sodium, Potassium, Mercury)",
+          "sourcePages": [
+            15
+          ],
+          "ledgerStatus": "PRESENT",
+          "lessonStatus": "COVERED",
+          "lessonEvidenceFields": [
+            "fullLesson.explain",
+            "fullLesson.practice",
+            "quickIdeas.quickChecks"
+          ],
+          "explanation": "Correctly details that sodium and potassium can be cut with a knife and mercury is liquid at room temperature."
+        },
+        {
+          "concept": "Reaction with Oxygen and nature of oxides",
+          "sourcePages": [
+            15,
+            16,
+            17
+          ],
+          "ledgerStatus": "PRESENT",
+          "lessonStatus": "COVERED",
+          "lessonEvidenceFields": [
+            "fullLesson.explain",
+            "fullLesson.howToTeach",
+            "fullLesson.checkUnderstanding"
+          ],
+          "explanation": "Accurately covers metallic oxides being basic (turning red litmus blue) and non-metallic oxides being acidic (sulphur dioxide forming sulphurous acid and turning blue litmus red)."
+        },
+        {
+          "concept": "Reaction with Water and storage of highly reactive elements",
+          "sourcePages": [
+            17,
+            18
+          ],
+          "ledgerStatus": "PRESENT",
+          "lessonStatus": "COVERED",
+          "lessonEvidenceFields": [
+            "fullLesson.explain",
+            "fullLesson.howToTeach",
+            "fullLesson.practice",
+            "quickIdeas.lowResourceActivity"
+          ],
+          "explanation": "Explains the vigorous reaction of sodium (stored in kerosene) and phosphorus catching fire in air (stored in water)."
+        },
+        {
+          "concept": "Reaction with Acids and Bases (Hydrogen gas evolution)",
+          "sourcePages": [
+            18,
+            19
+          ],
+          "ledgerStatus": "PRESENT",
+          "lessonStatus": "COVERED",
+          "lessonEvidenceFields": [
+            "fullLesson.explain",
+            "fullLesson.practice",
+            "fullLesson.checkUnderstanding"
+          ],
+          "explanation": "Explains reaction with dilute HCl and sulphuric acid, noting copper's lack of reaction with dilute HCl and highlighting the 'pop' sound test for hydrogen gas."
+        },
+        {
+          "concept": "Displacement reactions and reactivity series of metals (Zn, Fe, Cu)",
+          "sourcePages": [
+            19,
+            20
+          ],
+          "ledgerStatus": "PRESENT",
+          "lessonStatus": "COVERED",
+          "lessonEvidenceFields": [
+            "fullLesson.example",
+            "fullLesson.activity",
+            "fullLesson.boardPlan",
+            "fullLesson.checkUnderstanding"
+          ],
+          "explanation": "Provides a comprehensive study of Activity 4.8 across 5 beakers to establish the reactivity order: Zn > Fe > Cu."
+        },
+        {
+          "concept": "Concept of elements, atoms, and metalloids",
+          "sourcePages": [
+            21
+          ],
+          "ledgerStatus": "PRESENT",
+          "lessonStatus": "COVERED",
+          "lessonEvidenceFields": [
+            "fullLesson.define",
+            "fullLesson.explain",
+            "fullLesson.checkUnderstanding"
+          ],
+          "explanation": "Definitions of elements, atoms as basic units, and metalloids are correctly captured from Page 21."
+        },
+        {
+          "concept": "Uses of metals and non-metals in daily life",
+          "sourcePages": [
+            20
+          ],
+          "ledgerStatus": "PRESENT",
+          "lessonStatus": "COVERED",
+          "lessonEvidenceFields": [
+            "fullLesson.explain",
+            "quickIdeas.analogy",
+            "fullLesson.practice"
+          ],
+          "explanation": "Examines important uses of non-metals (breathing, fertilisers, water purification, antiseptic, crackers) and metals."
+        }
+      ]
+    },
+    "objectiveAudit": [
+      {
+        "objectiveIndex": 0,
+        "status": "PASS",
+        "evidenceFields": [
+          "fullLesson.define",
+          "fullLesson.explain",
+          "fullLesson.visualize"
+        ],
+        "explanation": "The learning objective is fully covered through direct terminology definitions, exceptional highlights, and the electrical conductivity board diagram."
+      },
+      {
+        "objectiveIndex": 1,
+        "status": "PASS",
+        "evidenceFields": [
+          "fullLesson.explain",
+          "fullLesson.howToTeach",
+          "quickIdeas.quickChecks"
+        ],
+        "explanation": "Oxide chemical equations, the basicity of rust/magnesium oxide, and acidity of sulphurous acid are clearly explained and assessed."
+      },
+      {
+        "objectiveIndex": 2,
+        "status": "PASS",
+        "evidenceFields": [
+          "fullLesson.explain",
+          "fullLesson.howToTeach",
+          "quickIdeas.lowResourceActivity"
+        ],
+        "explanation": "Detailed explanation of storage in water/kerosene is paired with low-resource experiments and pedagogical tips."
+      },
+      {
+        "objectiveIndex": 3,
+        "status": "PASS",
+        "evidenceFields": [
+          "fullLesson.explain",
+          "fullLesson.practice"
+        ],
+        "explanation": "Accurately details chemical properties of acid-metal interactions and lists the pop sound test as validation."
+      },
+      {
+        "objectiveIndex": 4,
+        "status": "PASS",
+        "evidenceFields": [
+          "fullLesson.example",
+          "fullLesson.activity",
+          "fullLesson.boardPlan"
+        ],
+        "explanation": "Includes a dedicated textbook activity walkthrough of Activity 4.8 and an example of CuSO4 + Fe reaction."
+      },
+      {
+        "objectiveIndex": 5,
+        "status": "PASS",
+        "evidenceFields": [
+          "fullLesson.define",
+          "fullLesson.explain",
+          "quickIdeas.analogy"
+        ],
+        "explanation": "Atom, element, metalloid, and the everyday uses list are explicitly defined and simplified using analogies."
+      }
+    ],
+    "citationAudit": [
+      {
+        "field": "fullLesson.define",
+        "sourcePages": [
+          13,
+          14,
+          15,
+          21,
+          22
+        ],
+        "status": "PASS",
+        "explanation": "Accurately points to definitions of properties (13-15), atom/element/metalloid concepts (21), and keywords section (22)."
+      },
+      {
+        "field": "fullLesson.explain",
+        "sourcePages": [
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21
+        ],
+        "status": "PASS",
+        "explanation": "Thoroughly references the sequence of chemical properties (reactions with oxygen, water, acids, bases, and displacement) spanning those pages."
+      },
+      {
+        "field": "fullLesson.practice",
+        "sourcePages": [
+          14,
+          19,
+          23,
+          24
+        ],
+        "status": "PASS",
+        "explanation": "Correctly links to NCERT Exercises 6(a) (malleable foil on 14/23), 7 (lemon pickle in aluminium on 23), and 9(a) (acid on copper plate on 19/24)."
+      }
+    ],
+    "activityAudit": [
+      {
+        "field": "fullLesson.activity",
+        "sourceType": "TEXTBOOK_ACTIVITY",
+        "sourceLabel": "Activity 4.8",
+        "sourcePages": [
+          19,
+          20
+        ],
+        "status": "PASS",
+        "explanation": "This maps exactly to textbook Activity 4.8 on displacement. The content, materials, steps, and observations across Beakers A through E are completely faithful to the text."
+      },
+      {
+        "field": "quickIdeas.lowResourceActivity",
+        "sourceType": "CHALKBOX_ACTIVITY",
+        "sourceLabel": null,
+        "sourcePages": [
+          15
+        ],
+        "status": "PASS",
+        "explanation": "An excellent low-resource adaptation of Activity 4.3 (testing the nature of rust) using cabbage juice or local iron scraping. It does not masquerade as a textbook-numbered item."
+      }
+    ],
+    "exampleAudit": [
+      {
+        "field": "fullLesson.example",
+        "sourceType": "CHALKBOX_EXAMPLE",
+        "sourceLabel": null,
+        "sourcePages": [
+          19,
+          20
+        ],
+        "status": "PASS",
+        "calculationVerified": true,
+        "explanation": "Since there are no ALLOWED TEXTBOOK EXAMPLES, a ChalkBox example detailing Beaker B's copper-iron displacement reaction is used. The chemical reaction equation (CuSO4 + Fe -> FeSO4 + Cu) is correct."
+      }
+    ],
+    "visualAudit": [
+      {
+        "field": "fullLesson.visualize",
+        "sourceType": "BOARD_VISUAL",
+        "sourceLabel": null,
+        "sourcePages": [
+          14
+        ],
+        "status": "PASS",
+        "topologyCorrect": true,
+        "directionalityCorrect": true,
+        "explanation": "This board visual adaptation of Fig. 4.2 (Electric Tester) outlines correct logical and chemical connectivity for measuring electrical conductivity. It shows the open terminals A and B to insert samples and correctly matches the outcome to the sample type."
+      }
+    ],
+    "pedagogy": {
+      "status": "PASS",
+      "explanation": "The lesson is highly useful for teachers, providing clear board work, scripts, safety advice for sodium and acids, concrete common misconceptions with accurate scientific corrections, and immediate formative check-for-understanding questions."
+    },
+    "timingReadiness": {
+      "status": "PASS",
+      "explanation": "All sections are prioritized logically using ESSENTIAL and IMPORTANT tags. No nested timing arithmetic is included, making it highly compatible with a deterministic priority-based scheduling solver."
+    },
+    "issues": [],
+    "repairTargets": []
+  },
+  "auditGeneration": {
+    "provider": "google",
+    "model": "gemini-3.5-flash",
+    "thinkingLevel": "MEDIUM",
+    "attempt": 1,
+    "elapsedMs": 43797,
+    "finishReason": "STOP",
+    "modelVersion": "gemini-3.5-flash",
+    "responseId": "DvCNaufgGpOMjuMP2NTdwAg",
+    "maxOutputTokens": 24576,
+    "requestTimeoutMs": 180000,
+    "usage": {
+      "promptTokens": 28857,
+      "outputTokens": 2473,
+      "thoughtTokens": 4205,
+      "totalTokens": 35535
+    }
+  },
+  "source": {
+    "mode": "FULL_CHAPTER",
+    "sourceFileName": "NCERT-Class-8-Chemical-Effects-of-Electric-Current-and-Materials-Metals-and-Non-Metals.pdf",
+    "canonicalPageStart": 13,
+    "canonicalPageEnd": 24,
+    "canonicalPageCount": 12,
+    "canonicalContentSha256": "c3408b27c4a2ace087ffc28155b7fd32155c215412a58e6d9cbbb1db4524ebbb",
+    "sourceCatalogArtifactSha256": "7a8ae6761c2ddbc9325d19adddc5030e57e047fa499da46714cbebd8115f53c5",
+    "sourceCatalogFile": "data\\source-catalog-v1\\class-8-materials-metals-non-metals.json",
+    "visualFileName": "class-8-materials-metals-non-metals.pdf",
+    "visualPageCount": 12,
+    "visualMappingVerified": true,
+    "catalogStatistics": {
+      "activities": 8,
+      "examples": 0,
+      "figures": 6,
+      "tables": 5
+    }
+  },
+  "auditedAt": "2026-08-25T19:42:49.214Z"
+}

@@ -1,0 +1,410 @@
+{
+  "schemaVersion": 1,
+  "catalogPolicyVersion": "chalkbox-source-catalog-v1",
+  "lessonKey": "class-8-materials-metals-non-metals",
+  "classLevel": 8,
+  "subject": "Science",
+  "title": "Materials: Metals and Non-Metals",
+  "sourceFileName": "NCERT-Class-8-Chemical-Effects-of-Electric-Current-and-Materials-Metals-and-Non-Metals.pdf",
+  "canonicalSource": {
+    "pageStart": 13,
+    "pageEnd": 24,
+    "pageCount": 12,
+    "approxTokenCount": 5282,
+    "canonicalContentSha256": "c3408b27c4a2ace087ffc28155b7fd32155c215412a58e6d9cbbb1db4524ebbb"
+  },
+  "allowedTextbookLabels": {
+    "activities": [
+      "Activity 4.1",
+      "Activity 4.2",
+      "Activity 4.3",
+      "Activity 4.4",
+      "Activity 4.5",
+      "Activity 4.6",
+      "Activity 4.7",
+      "Activity 4.8"
+    ],
+    "examples": [],
+    "figures": [
+      "Fig. 4.1",
+      "Fig. 4.2",
+      "Fig. 4.3",
+      "Fig. 4.4",
+      "Fig. 4.5",
+      "Fig. 4.6"
+    ],
+    "tables": [
+      "Table 4.1",
+      "Table 4.2",
+      "Table 4.3",
+      "Table 4.4",
+      "Table 4.5"
+    ]
+  },
+  "sourceObjects": {
+    "activities": [
+      {
+        "kind": "ACTIVITY",
+        "canonicalId": "ACTIVITY:4.1",
+        "preferredSourceLabel": "Activity 4.1",
+        "printedLabels": [
+          "Activity 4.1"
+        ],
+        "sourcePages": [
+          13
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 13,
+        "firstOccurrenceSnippet": "ATERIALS : METALS AND NON-METALS You are familiar with a number of materials like iron, aluminium, copper, etc. Some materials have been given in Table 4.1. similar change if we try to beat a wood log ? Let us find out. Activity 4.1 Take a small iron nail, a coal piece, a piece of thick aluminium wire and a pencil lead. Beat the iron nail with a hammer (Fig. 4.1). (But take care that you don’t hurt yourself in the process). Try to hit hard. Hit har"
+      },
+      {
+        "kind": "ACTIVITY",
+        "canonicalId": "ACTIVITY:4.2",
+        "preferredSourceLabel": "Activity 4.2",
+        "printedLabels": [
+          "Activity 4.2"
+        ],
+        "sourcePages": [
+          14
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 14,
+        "firstOccurrenceSnippet": "ngs. On the basis of these experiences what can you say about the conduction of heat by wood and plastic? You must have seen an electrician using his screw driver. What kind of handle does it have? Why? Let us find out. Activity 4.2 Recall how to make an electric circuit to test whether electricity can pass through an object or not (Fig. 4.2). You might have performed the activity with various objects in Class VI. Now, repeat the activity with the"
+      },
+      {
+        "kind": "ACTIVITY",
+        "canonicalId": "ACTIVITY:4.3",
+        "preferredSourceLabel": "Activity 4.3",
+        "printedLabels": [
+          "Activity 4.3"
+        ],
+        "sourcePages": [
+          15
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 15,
+        "firstOccurrenceSnippet": "air. You had learnt that in both the processes oxide formation takes place. Complete the following reactions of iron and magnesium with oxygen. Iron (Fe) + Oxygen (O2) + Water (H2O) → ? Magnesium (Mg) + Oxygen (O2) → ? Activity 4.3 Let us check the nature of rust formed as a result of the reaction between iron, oxygen and water. Collect a spoonful of rust and dissolve it in a very little amount of water. You will find that the rust remains suspend"
+      },
+      {
+        "kind": "ACTIVITY",
+        "canonicalId": "ACTIVITY:4.4",
+        "preferredSourceLabel": "Activity 4.4",
+        "printedLabels": [
+          "Activity 4.4"
+        ],
+        "sourcePages": [
+          16
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 16,
+        "firstOccurrenceSnippet": "in this? You must have observed that the red litmus turns blue. So, oxide of magnesium is also basic in nature. In general, metallic oxides are basic in nature. Let us now observe the reaction of non-metals with oxygen. Activity 4.4 (To be demonstrated by the teacher in the class) Take a small amount of powdered sulphur in a deflagrating spoon and heat it. If deflagrating spoon is not available, you may take a metallic cap of any bottle and wrap a"
+      },
+      {
+        "kind": "ACTIVITY",
+        "canonicalId": "ACTIVITY:4.5",
+        "preferredSourceLabel": "Activity 4.5",
+        "printedLabels": [
+          "Activity 4.5"
+        ],
+        "sourcePages": [
+          17
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 17,
+        "firstOccurrenceSnippet": ". Calcium hydroxide Calcium Sulphuric acid Sulphur 2. 3. 4. 5. Sodium metal is very reactive. It reacts vigorously with oxygen and water. A lot of heat is generated in the reaction. It is, therefore, stored in kerosene. Activity 4.5 To be demonstrated by the teacher. During demonstration special care should be taken that the size of the sodium metal piece is roughly the size of a wheat grain. It should be held with a pair of tongs.) Take a 250 mL b"
+      },
+      {
+        "kind": "ACTIVITY",
+        "canonicalId": "ACTIVITY:4.6",
+        "preferredSourceLabel": "Activity 4.6",
+        "printedLabels": [
+          "Activity 4.6"
+        ],
+        "sourcePages": [
+          18
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 18,
+        "firstOccurrenceSnippet": "reactive non-metal. It catches fire if exposed to air. To prevent the contact of phosphorus with atmospheric oxygen, it is stored in water. C. Reactions with Acids Let us see how metals and non-metals behave with acids. Activity 4.6 Warning : Keep the mouth of the test tube away from your face. Use test tube holder to hold the test tube. Take samples of metals and nonmetals listed in Table 4.5 in separate Table 4.5 : Reaction of metals and non-meta"
+      },
+      {
+        "kind": "ACTIVITY",
+        "canonicalId": "ACTIVITY:4.7",
+        "preferredSourceLabel": "Activity 4.7",
+        "printedLabels": [
+          "Activity 4.7"
+        ],
+        "sourcePages": [
+          19
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 19,
+        "firstOccurrenceSnippet": "SCIENCE50 Cu Cu No Change ZnSO4 FeSO4 copper does not react with dilute hydrochloric acid even on heating but it reacts with sulphuric acid. D. Reactions with Bases Activity 4.7 To be demonstrated by the teacher. During the preparation of sodium hydroxide solution, care should be taken that pellets of sodium hydroxide are handled with a plastic spatula. Prepare a fresh solution of sodium hydrox"
+      },
+      {
+        "kind": "ACTIVITY",
+        "canonicalId": "ACTIVITY:4.8",
+        "preferredSourceLabel": "Activity 4.8",
+        "printedLabels": [
+          "Activity 4.8"
+        ],
+        "sourcePages": [
+          19
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 19,
+        "firstOccurrenceSnippet": "ions of non-metals with bases are complex. E. Displacement Reactions Recall the activity of the reaction between copper sulphate and iron that you performed in Class VII. Let us observe some more reactions of that kind. Activity 4.8 Take five 100 mL beakers and label them A, B, C, D and E. Take about 50 mL of water in each beaker. Dissolve in each beaker a teaspoonful of each substance as indicated in Fig. 4.6 (a). (a) Beaker A : Copper sulphate (C"
+      }
+    ],
+    "examples": [],
+    "figures": [
+      {
+        "kind": "FIGURE",
+        "canonicalId": "FIGURE:4.1",
+        "preferredSourceLabel": "Fig. 4.1",
+        "printedLabels": [
+          "Fig. 4.1"
+        ],
+        "sourcePages": [
+          13
+        ],
+        "occurrenceCount": 2,
+        "firstOccurrencePage": 13,
+        "firstOccurrenceSnippet": "given in Table 4.1. similar change if we try to beat a wood log ? Let us find out. Activity 4.1 Take a small iron nail, a coal piece, a piece of thick aluminium wire and a pencil lead. Beat the iron nail with a hammer (Fig. 4.1). (But take care that you don’t hurt yourself in the process). Try to hit hard. Hit hard Table 4.1 : Appearance and Hardness of materials Object Appearance Hardness /Material (Shiny/Dull) (Very hard/ Not very hard) Iron"
+      },
+      {
+        "kind": "FIGURE",
+        "canonicalId": "FIGURE:4.2",
+        "preferredSourceLabel": "Fig. 4.2",
+        "printedLabels": [
+          "Fig. 4.2"
+        ],
+        "sourcePages": [
+          14
+        ],
+        "occurrenceCount": 2,
+        "firstOccurrencePage": 14,
+        "firstOccurrenceSnippet": "Fig. 4.2 : Electric tester Where do you find the use of aluminium and copper wires? Have you seen wires of coal? Definitely not! The property of metal by which it can be drawn into wires is called ductility. Have you ever notice"
+      },
+      {
+        "kind": "FIGURE",
+        "canonicalId": "FIGURE:4.3",
+        "preferredSourceLabel": "Fig. 4.3",
+        "printedLabels": [
+          "Fig. 4.3"
+        ],
+        "sourcePages": [
+          15
+        ],
+        "occurrenceCount": 2,
+        "firstOccurrencePage": 15,
+        "firstOccurrenceSnippet": "d water. Collect a spoonful of rust and dissolve it in a very little amount of water. You will find that the rust remains suspended in water. Shake the suspension well. Test the solution with red and blue litmus papers (Fig. 4.3). What do you observe? Is the solution acidic or basic? Metals like sodium and potassium are soft and can be cut with a knife. Mercury is the only metal which is found in liquid state at room temperature. These are exce"
+      },
+      {
+        "kind": "FIGURE",
+        "canonicalId": "FIGURE:4.4",
+        "preferredSourceLabel": "Fig. 4.4",
+        "printedLabels": [
+          "Fig. 4.4"
+        ],
+        "sourcePages": [
+          16
+        ],
+        "occurrenceCount": 5,
+        "firstOccurrencePage": 16,
+        "firstOccurrenceSnippet": "MATERIALS : METALS AND NON-METALS 47 Fig. 4.4 (a) : Burning of sulphur powder Improvised deflagrating spoonNow recall the activity of burning magnesium ribbon. The ash obtained on burning magnesium ribbon is dissolved in water and tested for its acidic / basic natu"
+      },
+      {
+        "kind": "FIGURE",
+        "canonicalId": "FIGURE:4.5",
+        "preferredSourceLabel": "Fig. 4.5",
+        "printedLabels": [
+          "Fig. 4.5"
+        ],
+        "sourcePages": [
+          17
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 17,
+        "firstOccurrenceSnippet": "fully. During observation keep away from the beaker. When reaction stops touch the beaker. What do you feel? Has the beaker become hot? Test the solution with red and blue litmus papers. Is the solution acidic or basic? Fig. 4.5 : Reaction of sodium with water© NCERT not to be republished"
+      },
+      {
+        "kind": "FIGURE",
+        "canonicalId": "FIGURE:4.6",
+        "preferredSourceLabel": "Fig. 4.6",
+        "printedLabels": [
+          "Fig. 4.6"
+        ],
+        "sourcePages": [
+          19
+        ],
+        "occurrenceCount": 2,
+        "firstOccurrencePage": 19,
+        "firstOccurrenceSnippet": "some more reactions of that kind. Activity 4.8 Take five 100 mL beakers and label them A, B, C, D and E. Take about 50 mL of water in each beaker. Dissolve in each beaker a teaspoonful of each substance as indicated in Fig. 4.6 (a). (a) Beaker A : Copper sulphate (CuSO4) + Zinc granule (Zn), Beaker B : Copper sulphate (CuSO4) + Iron nail (Fe) Beaker C : Zinc sulphate (ZnSO4) + Copper turnings (Cu), Beaker D : Iron sulphate (FeSO4) + Copper tur"
+      }
+    ],
+    "tables": [
+      {
+        "kind": "TABLE",
+        "canonicalId": "TABLE:4.1",
+        "preferredSourceLabel": "Table 4.1",
+        "printedLabels": [
+          "Table 4.1"
+        ],
+        "sourcePages": [
+          13
+        ],
+        "occurrenceCount": 3,
+        "firstOccurrencePage": 13,
+        "firstOccurrenceSnippet": "MATERIALS : METALS AND NON-METALSMATERIALS : METALS AND NON-METALS You are familiar with a number of materials like iron, aluminium, copper, etc. Some materials have been given in Table 4.1. similar change if we try to beat a wood log ? Let us find out. Activity 4.1 Take a small iron nail, a coal piece, a piece of thick aluminium wire and a pencil lead. Beat the iron nail with a hammer (Fig. 4.1). (But tak"
+      },
+      {
+        "kind": "TABLE",
+        "canonicalId": "TABLE:4.2",
+        "preferredSourceLabel": "Table 4.2",
+        "printedLabels": [
+          "Table 4.2"
+        ],
+        "sourcePages": [
+          13
+        ],
+        "occurrenceCount": 2,
+        "firstOccurrencePage": 13,
+        "firstOccurrenceSnippet": "tals and Non-metals Have you ever seen a blacksmith beating an iron piece or an article made up of iron, like a spade, a shovel, an axe? Do you find a change in the shape of these articles on beating? Would you expect a Table 4.2 Malleability of Materials Object/ Change in Shape Material (Flattens/Breaks into pieces) Iron nail Coal piece Aluminium wire Pencil lead also the aluminium wire. Then repeat the same kind of treatment on the coal piece"
+      },
+      {
+        "kind": "TABLE",
+        "canonicalId": "TABLE:4.3",
+        "preferredSourceLabel": "Table 4.3",
+        "printedLabels": [
+          "Table 4.3"
+        ],
+        "sourcePages": [
+          14
+        ],
+        "occurrenceCount": 2,
+        "firstOccurrencePage": 14,
+        "firstOccurrenceSnippet": "electric circuit to test whether electricity can pass through an object or not (Fig. 4.2). You might have performed the activity with various objects in Class VI. Now, repeat the activity with the materials mentioned in Table 4.3. Observe and group these materials into good conductors and poor conductors. Table 4.3 : Electrical conductivity of materials S.No. Materials Good Conductor / Poor Conductor 1. Iron rod/nail 2. Sulphur 3. Coal piece 4."
+      },
+      {
+        "kind": "TABLE",
+        "canonicalId": "TABLE:4.4",
+        "preferredSourceLabel": "Table 4.4",
+        "printedLabels": [
+          "Table 4.4"
+        ],
+        "sourcePages": [
+          17
+        ],
+        "occurrenceCount": 2,
+        "firstOccurrencePage": 17,
+        "firstOccurrenceSnippet": "2SO3) The sulphurous acid turns blue litmus paper red. Generally, oxides of non-metals are acidic in nature. Recall the name of some of the laboratory acids and bases you have read in Class VII. Note down their names in Table 4.4. Identify the metal or nonmetal present in them which forms oxides with oxygen. B. Reaction with Water Let us see how metals and non-metals react with water. Table 4.4 : Metals and Non-metals in Acids and Bases S.No. Na"
+      },
+      {
+        "kind": "TABLE",
+        "canonicalId": "TABLE:4.5",
+        "preferredSourceLabel": "Table 4.5",
+        "printedLabels": [
+          "Table 4.5"
+        ],
+        "sourcePages": [
+          18
+        ],
+        "occurrenceCount": 3,
+        "firstOccurrencePage": 18,
+        "firstOccurrenceSnippet": "us see how metals and non-metals behave with acids. Activity 4.6 Warning : Keep the mouth of the test tube away from your face. Use test tube holder to hold the test tube. Take samples of metals and nonmetals listed in Table 4.5 in separate Table 4.5 : Reaction of metals and non-metals with acids Test Metal/ Reaction with dilute Reaction with dilute tube Non-Metal Hydrochloric acid Sulphuric acid Label room warm room warm temperature temperatur"
+      }
+    ]
+  },
+  "provenanceRules": {
+    "textbookActivity": [
+      "TEXTBOOK_ACTIVITY may only use a label listed in allowedTextbookLabels.activities.",
+      "Otherwise use CHALKBOX_ACTIVITY with sourceLabel=null."
+    ],
+    "textbookExample": [
+      "TEXTBOOK_EXAMPLE may only use a label listed in allowedTextbookLabels.examples.",
+      "Unlabelled source-derived teaching examples must use CHALKBOX_EXAMPLE with sourceLabel=null."
+    ],
+    "textbookVisual": [
+      "TEXTBOOK_VISUAL may only use a label listed in allowedTextbookLabels.figures or allowedTextbookLabels.tables.",
+      "Actual visual fidelity still requires PDF verification.",
+      "Adapted teacher redraws must use BOARD_VISUAL with sourceLabel=null."
+    ]
+  },
+  "visualSource": {
+    "available": true,
+    "outputFileName": "class-8-materials-metals-non-metals.pdf",
+    "outputSha256": "5d0bcb466712ee4d5bf5b52772b0468552d7d5a0cefe20a0173778ddab108150",
+    "pageCount": 12,
+    "pageMappings": [
+      {
+        "chapterPage": 1,
+        "sourcePdfPage": 13,
+        "textbookPageLabel": 13
+      },
+      {
+        "chapterPage": 2,
+        "sourcePdfPage": 14,
+        "textbookPageLabel": 14
+      },
+      {
+        "chapterPage": 3,
+        "sourcePdfPage": 15,
+        "textbookPageLabel": 15
+      },
+      {
+        "chapterPage": 4,
+        "sourcePdfPage": 16,
+        "textbookPageLabel": 16
+      },
+      {
+        "chapterPage": 5,
+        "sourcePdfPage": 17,
+        "textbookPageLabel": 17
+      },
+      {
+        "chapterPage": 6,
+        "sourcePdfPage": 18,
+        "textbookPageLabel": 18
+      },
+      {
+        "chapterPage": 7,
+        "sourcePdfPage": 19,
+        "textbookPageLabel": 19
+      },
+      {
+        "chapterPage": 8,
+        "sourcePdfPage": 20,
+        "textbookPageLabel": 20
+      },
+      {
+        "chapterPage": 9,
+        "sourcePdfPage": 21,
+        "textbookPageLabel": 21
+      },
+      {
+        "chapterPage": 10,
+        "sourcePdfPage": 22,
+        "textbookPageLabel": 22
+      },
+      {
+        "chapterPage": 11,
+        "sourcePdfPage": 23,
+        "textbookPageLabel": 23
+      },
+      {
+        "chapterPage": 12,
+        "sourcePdfPage": 24,
+        "textbookPageLabel": 24
+      }
+    ]
+  },
+  "statistics": {
+    "activities": 8,
+    "examples": 0,
+    "figureLabels": 6,
+    "tableLabels": 5,
+    "totalLabelledSourceObjects": 19
+  },
+  "builtAt": "2026-08-25T18:37:38.744Z"
+}

@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "catalogPolicyVersion": "chalkbox-source-catalog-v1",
+  "purpose": "CHALKBOX_DETERMINISTIC_SOURCE_OBJECT_CATALOG",
+  "lessonCount": 6,
+  "lessons": [
+    {
+      "lessonKey": "class-10-electricity",
+      "title": "Electricity",
+      "fileName": "class-10-electricity.json",
+      "canonicalContentSha256": "5614f5d394c44d6fc03595d9e5c07c41c4f90af1a23d178f86561f3d13035025",
+      "pageCount": 24,
+      "visualSourceAvailable": true,
+      "activities": 6,
+      "examples": 13,
+      "figures": 14,
+      "tables": 2,
+      "totalObjects": 35
+    },
+    {
+      "lessonKey": "class-10-life-processes",
+      "title": "Life Processes",
+      "fileName": "class-10-life-processes.json",
+      "canonicalContentSha256": "68e5fcc58e822f375ddd73b4b459f346c1cd711b946f53cf3486e87535b25b92",
+      "pageCount": 21,
+      "visualSourceAvailable": true,
+      "activities": 8,
+      "examples": 0,
+      "figures": 14,
+      "tables": 0,
+      "totalObjects": 22
+    },
+    {
+      "lessonKey": "class-8-chemical-effects-electric-current",
+      "title": "Chemical Effects of Electric Current",
+      "fileName": "class-8-chemical-effects-electric-current.json",
+      "canonicalContentSha256": "967d769bd211b5dd9364033ca27f86cea684bdbd970878f605c56887fdc7d814",
+      "pageCount": 12,
+      "visualSourceAvailable": true,
+      "activities": 7,
+      "examples": 0,
+      "figures": 11,
+      "tables": 1,
+      "totalObjects": 19
+    },
+    {
+      "lessonKey": "class-8-materials-metals-non-metals",
+      "title": "Materials: Metals and Non-Metals",
+      "fileName": "class-8-materials-metals-non-metals.json",
+      "canonicalContentSha256": "c3408b27c4a2ace087ffc28155b7fd32155c215412a58e6d9cbbb1db4524ebbb",
+      "pageCount": 12,
+      "visualSourceAvailable": true,
+      "activities": 8,
+      "examples": 0,
+      "figures": 6,
+      "tables": 5,
+      "totalObjects": 19
+    },
+    {
+      "lessonKey": "class-9-force-laws-motion",
+      "title": "Force and Laws of Motion",
+      "fileName": "class-9-force-laws-motion.json",
+      "canonicalContentSha256": "897ccf860f9b8239adcf77e9c486a2aec125ed524a9f698c5f95ec7efd9f40b3",
+      "pageCount": 17,
+      "visualSourceAvailable": true,
+      "activities": 6,
+      "examples": 8,
+      "figures": 19,
+      "tables": 0,
+      "totalObjects": 33
+    },
+    {
+      "lessonKey": "class-9-work-energy",
+      "title": "Work and Energy",
+      "fileName": "class-9-work-energy.json",
+      "canonicalContentSha256": "445421df0c0ebd2d708aa5a0ff153896764de81c06a10eda03f10be8312150dd",
+      "pageCount": 14,
+      "visualSourceAvailable": true,
+      "activities": 17,
+      "examples": 9,
+      "figures": 8,
+      "tables": 0,
+      "totalObjects": 34
+    }
+  ],
+  "builtAt": "2026-08-25T18:37:38.773Z"
+}

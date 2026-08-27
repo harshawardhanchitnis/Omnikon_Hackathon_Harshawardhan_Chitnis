@@ -1,0 +1,514 @@
+{
+  "schemaVersion": 1,
+  "catalogPolicyVersion": "chalkbox-source-catalog-v1",
+  "lessonKey": "class-10-life-processes",
+  "classLevel": 10,
+  "subject": "Science",
+  "title": "Life Processes",
+  "sourceFileName": "NCERT-Class-10-Life-Processes-official.pdf",
+  "canonicalSource": {
+    "pageStart": 1,
+    "pageEnd": 21,
+    "pageCount": 21,
+    "approxTokenCount": 12902,
+    "canonicalContentSha256": "68e5fcc58e822f375ddd73b4b459f346c1cd711b946f53cf3486e87535b25b92"
+  },
+  "allowedTextbookLabels": {
+    "activities": [
+      "Activity 5.1",
+      "Activity 5.2",
+      "Activity 5.3",
+      "Activity 5.4",
+      "Activity 5.5",
+      "Activity 5.6",
+      "Activity 5.7",
+      "Activity 5.8"
+    ],
+    "examples": [],
+    "figures": [
+      "Figure 5.1",
+      "Figure 5.2",
+      "Fig. 5.3",
+      "Fig. 5.4",
+      "Fig. 5.5",
+      "Fig. 5.6",
+      "Fig. 5.7",
+      "Fig. 5.8",
+      "Fig. 5.9",
+      "Fig. 5.10",
+      "Fig. 5.11",
+      "Figure 5.12",
+      "Fig. 5.13",
+      "Fig. 5.14"
+    ],
+    "tables": []
+  },
+  "sourceObjects": {
+    "activities": [
+      {
+        "kind": "ACTIVITY",
+        "canonicalId": "ACTIVITY:5.1",
+        "preferredSourceLabel": "Activity 5.1",
+        "printedLabels": [
+          "Activity 5.1"
+        ],
+        "sourcePages": [
+          4
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 4,
+        "firstOccurrenceSnippet": "us now see what actually happens during the process of photosynthesis. The following events occur during this process – Figure 5.2 Variegated leaf (a) before and (b) after starch test Figure 5.1 Cross-section of a leaf Activity 5.1 n Take a potted plant with variegated leaves – for example, money plant or crotons. n Keep the plant in a dark room for three days so that all the starch gets used up. n Now keep the plant in sunlight for about six hour"
+      },
+      {
+        "kind": "ACTIVITY",
+        "canonicalId": "ACTIVITY:5.2",
+        "preferredSourceLabel": "Activity 5.2",
+        "printedLabels": [
+          "Activity 5.2"
+        ],
+        "sourcePages": [
+          5
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 5,
+        "firstOccurrenceSnippet": "heck for the presence of starch as in the above activity. n Do both the leaves show the presence of the same amount of starch? n What can you conclude from this activity? Figure 5.3 (a) Open and (b) closed stomatal pore Activity 5.2 Based on the two activities performed above, can we design an experiment to demonstrate that sunlight is essential for photosynthesis? So far, we have talked about how autotrophs meet their energy requirements. But they"
+      },
+      {
+        "kind": "ACTIVITY",
+        "canonicalId": "ACTIVITY:5.3",
+        "preferredSourceLabel": "Activity 5.3",
+        "printedLabels": [
+          "Activity 5.3"
+        ],
+        "sourcePages": [
+          7
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 7,
+        "firstOccurrenceSnippet": "Life Processes 85 Activity 5.3 n Take 1 mL starch solution (1%) in two test tubes (A and B). n Add 1 mL saliva to test tube A and leave both test tubes undisturbed for 20-30 minutes. n Now add a few drops of dilute iodine solution to the test tubes."
+      },
+      {
+        "kind": "ACTIVITY",
+        "canonicalId": "ACTIVITY:5.4",
+        "preferredSourceLabel": "Activity 5.4",
+        "printedLabels": [
+          "Activity 5.4"
+        ],
+        "sourcePages": [
+          9
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 9,
+        "firstOccurrenceSnippet": "Life Processes 87 5.3 RESPIR5.3 RESPIR5.3 RESPIR5.3 RESPIR5.3 RESPIRAAAAATIONTIONTIONTIONTION Activity 5.4 n Take some freshly prepared lime water in a test tube. n Blow air through this lime water. n Note how long it takes for the lime water to turn milky. n Use a syringe or pichkari to pass air through some fresh lime wate"
+      },
+      {
+        "kind": "ACTIVITY",
+        "canonicalId": "ACTIVITY:5.5",
+        "preferredSourceLabel": "Activity 5.5",
+        "printedLabels": [
+          "Activity 5.5"
+        ],
+        "sourcePages": [
+          9
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 9,
+        "firstOccurrenceSnippet": "our stomach? 4. What is the function of digestive enzymes? 5. How is the small intestine designed to absorb digested food? Tube Test tube containing lime waterLime water Rubber tube (a) (b) Pichkari Q U E S T I O N S ? Activity 5.5 n Take some fruit juice or sugar solution and add some yeast to this. Take this mixture in a test tube fitted with a one-holed cork. n Fit the cork with a bent glass tube. Dip the free end of the glass tube into a test"
+      },
+      {
+        "kind": "ACTIVITY",
+        "canonicalId": "ACTIVITY:5.6",
+        "preferredSourceLabel": "Activity 5.6",
+        "printedLabels": [
+          "Activity 5.6"
+        ],
+        "sourcePages": [
+          11
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 11,
+        "firstOccurrenceSnippet": "of oxygen from the environment and for getting rid of the carbon dioxide produced. Terrestrial animals can breathe the oxygen in the atmosphere, but animals that live in water need to use the oxygen dissolved in water. Activity 5.6 n Observe fish in an aquarium. They open and close their mouths and the gill-slits (or the operculum which covers the gill-slits) behind their eyes also open and close. Are the timings of the opening and closing of the"
+      },
+      {
+        "kind": "ACTIVITY",
+        "canonicalId": "ACTIVITY:5.7",
+        "preferredSourceLabel": "Activity 5.7",
+        "printedLabels": [
+          "Activity 5.7"
+        ],
+        "sourcePages": [
+          13
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 13,
+        "firstOccurrenceSnippet": "hich glucose is oxidised to provide energy in various organisms? 3. How is oxygen and carbon dioxide transported in human beings? 4. How are the lungs designed in human beings to maximise the area for exchange of gases? Activity 5.7 n Visit a health centre in your locality and find out what is the normal range of haemoglobin content in human beings. n Is it the same for children and adults? n Is there any difference in the haemoglobin levels for me"
+      },
+      {
+        "kind": "ACTIVITY",
+        "canonicalId": "ACTIVITY:5.8",
+        "preferredSourceLabel": "Activity 5.8",
+        "printedLabels": [
+          "Activity 5.8"
+        ],
+        "sourcePages": [
+          17
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 17,
+        "firstOccurrenceSnippet": "er, this pressure by itself is unlikely to be enough to move water over the heights that we commonly see in plants. Plants use another strategy to move water in the xylem upwards to the highest points of the plant body. Activity 5.8 n Take two small pots of approximately the same size and having the same amount of soil. One should have a plant in it. Place a stick of the same height as the plant in the other pot. n Cover the soil in both pots with"
+      }
+    ],
+    "examples": [],
+    "figures": [
+      {
+        "kind": "FIGURE",
+        "canonicalId": "FIGURE:5.1",
+        "preferredSourceLabel": "Figure 5.1",
+        "printedLabels": [
+          "Figure 5.1",
+          "Fig. 5.1"
+        ],
+        "sourcePages": [
+          4
+        ],
+        "occurrenceCount": 2,
+        "firstOccurrencePage": 4,
+        "firstOccurrenceSnippet": "Science82 Let us now see what actually happens during the process of photosynthesis. The following events occur during this process – Figure 5.2 Variegated leaf (a) before and (b) after starch test Figure 5.1 Cross-section of a leaf Activity 5.1 n Take a potted plant with variegated leaves – for example, money plant or crotons. n Keep the plant in a dark room for three days so that all the starch gets used up. n Now keep the"
+      },
+      {
+        "kind": "FIGURE",
+        "canonicalId": "FIGURE:5.2",
+        "preferredSourceLabel": "Figure 5.2",
+        "printedLabels": [
+          "Figure 5.2",
+          "Fig. 5.2"
+        ],
+        "sourcePages": [
+          4
+        ],
+        "occurrenceCount": 2,
+        "firstOccurrencePage": 4,
+        "firstOccurrenceSnippet": "Science82 Let us now see what actually happens during the process of photosynthesis. The following events occur during this process – Figure 5.2 Variegated leaf (a) before and (b) after starch test Figure 5.1 Cross-section of a leaf Activity 5.1 n Take a potted plant with variegated leaves – for example, money plant or crotons. n Keep the plant in a dark room fo"
+      },
+      {
+        "kind": "FIGURE",
+        "canonicalId": "FIGURE:5.3",
+        "preferredSourceLabel": "Fig. 5.3",
+        "printedLabels": [
+          "Fig. 5.3",
+          "Figure 5.3"
+        ],
+        "sourcePages": [
+          5
+        ],
+        "occurrenceCount": 2,
+        "firstOccurrencePage": 5,
+        "firstOccurrenceSnippet": "Life Processes 83 Now, let us study how the plant obtains carbon dioxide. In Class IX, we had talked about stomata (Fig. 5.3) which are tiny pores present on the surface of the leaves. Massive amounts of gaseous exchange takes place in the leaves through these pores for the purpose of photosynthesis. But it is important to note here that exch"
+      },
+      {
+        "kind": "FIGURE",
+        "canonicalId": "FIGURE:5.4",
+        "preferredSourceLabel": "Fig. 5.4",
+        "printedLabels": [
+          "Fig. 5.4",
+          "Figure 5.4"
+        ],
+        "sourcePages": [
+          5
+        ],
+        "occurrenceCount": 2,
+        "firstOccurrencePage": 5,
+        "firstOccurrenceSnippet": "parate glass plates. Place a watch-glass containing potassium hydroxide by the side of one of the plants. The potassium hydroxide is used to absorb carbon dioxide. n Cover both plants with separate bell-jars as shown in Fig. 5.4. n Use vaseline to seal the bottom of the jars to the glass plates so that the set-up is air-tight. n Keep the plants in sunlight for about two hours. n Pluck a leaf from each plant and check for the presence of starch"
+      },
+      {
+        "kind": "FIGURE",
+        "canonicalId": "FIGURE:5.5",
+        "preferredSourceLabel": "Fig. 5.5",
+        "printedLabels": [
+          "Fig. 5.5",
+          "Figure 5.5"
+        ],
+        "sourcePages": [
+          6
+        ],
+        "occurrenceCount": 2,
+        "firstOccurrencePage": 6,
+        "firstOccurrenceSnippet": ", different parts become specialised to perform different functions. For example, Amoeba takes in food using temporary finger-like extensions of the cell surface which fuse over the food particle forming a food-vacuole (Fig. 5.5). Inside the foodvacuole, complex substances are broken down into simpler ones which then diffuse into the cytoplasm. The remaining undigested material is moved to the surface of the cell and thrown out. In Paramoecium,"
+      },
+      {
+        "kind": "FIGURE",
+        "canonicalId": "FIGURE:5.6",
+        "preferredSourceLabel": "Fig. 5.6",
+        "printedLabels": [
+          "Fig. 5.6",
+          "Figure 5.6"
+        ],
+        "sourcePages": [
+          6,
+          7
+        ],
+        "occurrenceCount": 2,
+        "firstOccurrencePage": 6,
+        "firstOccurrenceSnippet": "pot. Food is moved to this spot by the movement of cilia which cover the entire surface of the cell. 5.2.4 Nutrition in Human Beings The alimentary canal is basically a long tube extending from the mouth to the anus. In Fig. 5.6, we can see that the tube has different parts. Various regions are specialised to perform different functions. What happens to the food once it enters our body? We shall discuss this process here. Figure 5.5 Nutrition i"
+      },
+      {
+        "kind": "FIGURE",
+        "canonicalId": "FIGURE:5.7",
+        "preferredSourceLabel": "Fig. 5.7",
+        "printedLabels": [
+          "Fig. 5.7",
+          "Figure 5.7"
+        ],
+        "sourcePages": [
+          9
+        ],
+        "occurrenceCount": 2,
+        "firstOccurrencePage": 9,
+        "firstOccurrenceSnippet": "lime water in a test tube. n Blow air through this lime water. n Note how long it takes for the lime water to turn milky. n Use a syringe or pichkari to pass air through some fresh lime water taken in another test tube (Fig. 5.7). n Note how long it takes for this lime water to turn milky. n What does this tell us about the amount of carbon dioxide in the air that we breathe out? 1. What are the differences between autotrophic nutrition and het"
+      },
+      {
+        "kind": "FIGURE",
+        "canonicalId": "FIGURE:5.8",
+        "preferredSourceLabel": "Fig. 5.8",
+        "printedLabels": [
+          "Fig. 5.8",
+          "Figure 5.8"
+        ],
+        "sourcePages": [
+          9,
+          10
+        ],
+        "occurrenceCount": 2,
+        "firstOccurrencePage": 9,
+        "firstOccurrenceSnippet": "rovide energy for various life processes. Diverse organisms do this in different ways – some use oxygen to break-down glucose completely into carbon dioxide and water, some use other pathways that do not involve oxygen (Fig. 5.8). In all cases, the first step is the break-down of glucose, a six-carbon molecule, into a three-carbon molecule called pyruvate. This process takes place in the cytoplasm. Further, the pyruvate may be converted into et"
+      },
+      {
+        "kind": "FIGURE",
+        "canonicalId": "FIGURE:5.9",
+        "preferredSourceLabel": "Fig. 5.9",
+        "printedLabels": [
+          "Fig. 5.9",
+          "Figure 5.9"
+        ],
+        "sourcePages": [
+          11,
+          12
+        ],
+        "occurrenceCount": 2,
+        "firstOccurrencePage": 11,
+        "firstOccurrenceSnippet": "s usually placed within the body, so there have to be passages that will take air to this area. In addition, there is a mechanism for moving the air in and out of this area where the oxygen is absorbed. In human beings (Fig. 5.9), air is taken into the body through the nostrils. The air passing through the nostrils is filtered by fine hairs that line the passage. The passage is also lined with mucus which helps in this process. From here, the a"
+      },
+      {
+        "kind": "FIGURE",
+        "canonicalId": "FIGURE:5.10",
+        "preferredSourceLabel": "Fig. 5.10",
+        "printedLabels": [
+          "Fig. 5.10",
+          "Figure 5.10"
+        ],
+        "sourcePages": [
+          14
+        ],
+        "occurrenceCount": 2,
+        "firstOccurrencePage": 14,
+        "firstOccurrenceSnippet": "Science92 The heart is a muscular organ which is as big as our fist (Fig. 5.10). Because both oxygen and carbon dioxide have to be transported by the blood, the heart has different chambers to prevent the oxygen-rich blood from mixing with the blood containing carbon dioxide. The carbon dioxide-ri"
+      },
+      {
+        "kind": "FIGURE",
+        "canonicalId": "FIGURE:5.11",
+        "preferredSourceLabel": "Fig. 5.11",
+        "printedLabels": [
+          "Fig. 5.11",
+          "Figure 5.11"
+        ],
+        "sourcePages": [
+          14
+        ],
+        "occurrenceCount": 2,
+        "firstOccurrencePage": 14,
+        "firstOccurrenceSnippet": "for the carbon dioxide to be removed, and the oxygenated blood from the lungs has to be brought back to the heart. This oxygen-rich blood is then pumped to the rest of the body. We can follow this process step by step (Fig. 5.11). Oxygen-rich blood from the lungs comes to the thin-walled upper chamber of the heart on the left, the left atrium. The left atrium relaxes when it is collecting this blood. It then contracts, while the next chamber, t"
+      },
+      {
+        "kind": "FIGURE",
+        "canonicalId": "FIGURE:5.12",
+        "preferredSourceLabel": "Figure 5.12",
+        "printedLabels": [
+          "Figure 5.12"
+        ],
+        "sourcePages": [
+          17
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 17,
+        "firstOccurrenceSnippet": "with the help of adjacent companion cells both in upward and downward directions. Unlike transport in xylem which can be largely explained by simple physical forces, the translocation in phloem is achieved by utilising Figure 5.12 Movement of water during transpiration in a treeReprint 2026-27"
+      },
+      {
+        "kind": "FIGURE",
+        "canonicalId": "FIGURE:5.13",
+        "preferredSourceLabel": "Fig. 5.13",
+        "printedLabels": [
+          "Fig. 5.13",
+          "Figure 5.13"
+        ],
+        "sourcePages": [
+          18
+        ],
+        "occurrenceCount": 2,
+        "firstOccurrencePage": 18,
+        "firstOccurrenceSnippet": "into the surrounding water. As we have seen in other processes, complex multi-cellular organisms use specialised organs to perform the same function. 5.5.1 Excretion in Human Beings The excretory system of human beings (Fig. 5.13) includes a pair of kidneys, a pair of ureters, a urinary bladder and a urethra. Kidneys are located in the abdomen, one on either side of the backbone. Urine produced in the kidneys passes through the ureters into the"
+      },
+      {
+        "kind": "FIGURE",
+        "canonicalId": "FIGURE:5.14",
+        "preferredSourceLabel": "Fig. 5.14",
+        "printedLabels": [
+          "Fig. 5.14",
+          "Figure 5.14"
+        ],
+        "sourcePages": [
+          19
+        ],
+        "occurrenceCount": 2,
+        "firstOccurrencePage": 19,
+        "firstOccurrenceSnippet": "s 97 like in the lungs, is a cluster of very thin-walled blood capillaries. Each capillary cluster in the kidney is associated with the cup-shaped end of a coiled tube called Bowman’s capsule that collects the filtrate (Fig. 5.14). Each kidney has large numbers of these filtration units called nephrons packed close together. Some substances in the initial filtrate, such as glucose, amino acids, salts and a major amount of water, are selectively"
+      }
+    ],
+    "tables": []
+  },
+  "provenanceRules": {
+    "textbookActivity": [
+      "TEXTBOOK_ACTIVITY may only use a label listed in allowedTextbookLabels.activities.",
+      "Otherwise use CHALKBOX_ACTIVITY with sourceLabel=null."
+    ],
+    "textbookExample": [
+      "TEXTBOOK_EXAMPLE may only use a label listed in allowedTextbookLabels.examples.",
+      "Unlabelled source-derived teaching examples must use CHALKBOX_EXAMPLE with sourceLabel=null."
+    ],
+    "textbookVisual": [
+      "TEXTBOOK_VISUAL may only use a label listed in allowedTextbookLabels.figures or allowedTextbookLabels.tables.",
+      "Actual visual fidelity still requires PDF verification.",
+      "Adapted teacher redraws must use BOARD_VISUAL with sourceLabel=null."
+    ]
+  },
+  "visualSource": {
+    "available": true,
+    "outputFileName": "class-10-life-processes.pdf",
+    "outputSha256": "f5a532acc0f5213d92f76c9a467e7534d4c14e6744f180d7103149b891b8f760",
+    "pageCount": 21,
+    "pageMappings": [
+      {
+        "chapterPage": 1,
+        "sourcePdfPage": 1,
+        "textbookPageLabel": 1
+      },
+      {
+        "chapterPage": 2,
+        "sourcePdfPage": 2,
+        "textbookPageLabel": 2
+      },
+      {
+        "chapterPage": 3,
+        "sourcePdfPage": 3,
+        "textbookPageLabel": 3
+      },
+      {
+        "chapterPage": 4,
+        "sourcePdfPage": 4,
+        "textbookPageLabel": 4
+      },
+      {
+        "chapterPage": 5,
+        "sourcePdfPage": 5,
+        "textbookPageLabel": 5
+      },
+      {
+        "chapterPage": 6,
+        "sourcePdfPage": 6,
+        "textbookPageLabel": 6
+      },
+      {
+        "chapterPage": 7,
+        "sourcePdfPage": 7,
+        "textbookPageLabel": 7
+      },
+      {
+        "chapterPage": 8,
+        "sourcePdfPage": 8,
+        "textbookPageLabel": 8
+      },
+      {
+        "chapterPage": 9,
+        "sourcePdfPage": 9,
+        "textbookPageLabel": 9
+      },
+      {
+        "chapterPage": 10,
+        "sourcePdfPage": 10,
+        "textbookPageLabel": 10
+      },
+      {
+        "chapterPage": 11,
+        "sourcePdfPage": 11,
+        "textbookPageLabel": 11
+      },
+      {
+        "chapterPage": 12,
+        "sourcePdfPage": 12,
+        "textbookPageLabel": 12
+      },
+      {
+        "chapterPage": 13,
+        "sourcePdfPage": 13,
+        "textbookPageLabel": 13
+      },
+      {
+        "chapterPage": 14,
+        "sourcePdfPage": 14,
+        "textbookPageLabel": 14
+      },
+      {
+        "chapterPage": 15,
+        "sourcePdfPage": 15,
+        "textbookPageLabel": 15
+      },
+      {
+        "chapterPage": 16,
+        "sourcePdfPage": 16,
+        "textbookPageLabel": 16
+      },
+      {
+        "chapterPage": 17,
+        "sourcePdfPage": 17,
+        "textbookPageLabel": 17
+      },
+      {
+        "chapterPage": 18,
+        "sourcePdfPage": 18,
+        "textbookPageLabel": 18
+      },
+      {
+        "chapterPage": 19,
+        "sourcePdfPage": 19,
+        "textbookPageLabel": 19
+      },
+      {
+        "chapterPage": 20,
+        "sourcePdfPage": 20,
+        "textbookPageLabel": 20
+      },
+      {
+        "chapterPage": 21,
+        "sourcePdfPage": 21,
+        "textbookPageLabel": 21
+      }
+    ]
+  },
+  "statistics": {
+    "activities": 8,
+    "examples": 0,
+    "figureLabels": 14,
+    "tableLabels": 0,
+    "totalLabelledSourceObjects": 22
+  },
+  "builtAt": "2026-08-25T18:37:38.727Z"
+}

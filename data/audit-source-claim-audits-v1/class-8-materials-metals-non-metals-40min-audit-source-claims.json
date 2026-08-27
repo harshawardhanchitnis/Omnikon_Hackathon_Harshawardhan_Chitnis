@@ -1,0 +1,67 @@
+{
+  "artifactVersion": 1,
+  "validationPolicyVersion": "chalkbox-audit-source-claim-validation-v1",
+  "status": "PASS",
+  "lessonKey": "class-8-materials-metals-non-metals",
+  "requestedDurationMinutes": 40,
+  "auditPolicyVersion": "chalkbox-generated-audit-v5-catalog-grounded-gemini-35",
+  "sourceCatalogPolicyVersion": "chalkbox-source-catalog-v1",
+  "canonicalContentSha256": "c3408b27c4a2ace087ffc28155b7fd32155c215412a58e6d9cbbb1db4524ebbb",
+  "sourceAuditFile": "data\\lesson-audits-v5\\class-8-materials-metals-non-metals-40min-audit.json",
+  "metrics": {
+    "totalAuditClaims": 6,
+    "supportedAuditClaims": 6,
+    "unsupportedAuditClaims": 0
+  },
+  "claims": [
+    {
+      "field": "independentConceptAudit.majorConcepts[5].explanation",
+      "rawLabel": "Activity 4.8",
+      "kind": "ACTIVITY",
+      "number": "4.8",
+      "canonicalId": "ACTIVITY:4.8",
+      "supported": true
+    },
+    {
+      "field": "objectiveAudit[4].explanation",
+      "rawLabel": "Activity 4.8",
+      "kind": "ACTIVITY",
+      "number": "4.8",
+      "canonicalId": "ACTIVITY:4.8",
+      "supported": true
+    },
+    {
+      "field": "activityAudit[0].sourceLabel",
+      "rawLabel": "Activity 4.8",
+      "kind": "ACTIVITY",
+      "number": "4.8",
+      "canonicalId": "ACTIVITY:4.8",
+      "supported": true
+    },
+    {
+      "field": "activityAudit[0].explanation",
+      "rawLabel": "Activity 4.8",
+      "kind": "ACTIVITY",
+      "number": "4.8",
+      "canonicalId": "ACTIVITY:4.8",
+      "supported": true
+    },
+    {
+      "field": "activityAudit[1].explanation",
+      "rawLabel": "Activity 4.3",
+      "kind": "ACTIVITY",
+      "number": "4.3",
+      "canonicalId": "ACTIVITY:4.3",
+      "supported": true
+    },
+    {
+      "field": "visualAudit[0].explanation",
+      "rawLabel": "Fig. 4.2",
+      "kind": "FIGURE",
+      "number": "4.2",
+      "canonicalId": "FIGURE:4.2",
+      "supported": true
+    }
+  ],
+  "validatedAt": "2026-08-25T19:42:50.742Z"
+}

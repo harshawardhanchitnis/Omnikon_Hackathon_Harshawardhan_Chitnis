@@ -1,0 +1,663 @@
+{
+  "artifactVersion": 5,
+  "generationPolicyVersion": "chalkbox-lesson-v5-catalog-grounded-gemini-35",
+  "status": "PROVENANCE_VALIDATED",
+  "fullyAudited": false,
+  "judgeReady": false,
+  "lesson": {
+    "schemaVersion": 5,
+    "generationPolicyVersion": "chalkbox-lesson-v5-catalog-grounded-gemini-35",
+    "lessonKey": "class-8-materials-metals-non-metals",
+    "title": "Materials: Metals and Non-Metals",
+    "classLevel": 8,
+    "subject": "Science",
+    "requestedDurationMinutes": 40,
+    "chapterConceptLedger": [
+      {
+        "concept": "Physical properties of metals and non-metals (malleability, ductility, sonority, conductivity)",
+        "importance": "CORE",
+        "sourcePages": [
+          13,
+          14,
+          15
+        ],
+        "lessonEvidenceFields": [
+          "fullLesson.define",
+          "fullLesson.explain",
+          "fullLesson.visualize",
+          "fullLesson.practice",
+          "fullLesson.checkUnderstanding"
+        ]
+      },
+      {
+        "concept": "Exceptions to physical properties (Sodium, Potassium, Mercury)",
+        "importance": "CORE",
+        "sourcePages": [
+          15
+        ],
+        "lessonEvidenceFields": [
+          "fullLesson.explain",
+          "fullLesson.practice",
+          "quickIdeas.quickChecks"
+        ]
+      },
+      {
+        "concept": "Reaction with Oxygen and nature of oxides",
+        "importance": "CORE",
+        "sourcePages": [
+          15,
+          16,
+          17
+        ],
+        "lessonEvidenceFields": [
+          "fullLesson.explain",
+          "fullLesson.howToTeach",
+          "fullLesson.checkUnderstanding"
+        ]
+      },
+      {
+        "concept": "Reaction with Water and storage of highly reactive elements",
+        "importance": "CORE",
+        "sourcePages": [
+          17,
+          18
+        ],
+        "lessonEvidenceFields": [
+          "fullLesson.explain",
+          "fullLesson.howToTeach",
+          "fullLesson.practice",
+          "quickIdeas.lowResourceActivity"
+        ]
+      },
+      {
+        "concept": "Reaction with Acids and Bases (Hydrogen gas evolution)",
+        "importance": "CORE",
+        "sourcePages": [
+          18,
+          19
+        ],
+        "lessonEvidenceFields": [
+          "fullLesson.explain",
+          "fullLesson.practice",
+          "fullLesson.checkUnderstanding"
+        ]
+      },
+      {
+        "concept": "Displacement reactions and reactivity series of metals (Zn, Fe, Cu)",
+        "importance": "CORE",
+        "sourcePages": [
+          19,
+          20
+        ],
+        "lessonEvidenceFields": [
+          "fullLesson.example",
+          "fullLesson.activity",
+          "fullLesson.boardPlan",
+          "fullLesson.checkUnderstanding"
+        ]
+      },
+      {
+        "concept": "Concept of elements, atoms, and metalloids",
+        "importance": "SUPPORTING",
+        "sourcePages": [
+          21
+        ],
+        "lessonEvidenceFields": [
+          "fullLesson.define",
+          "fullLesson.explain",
+          "fullLesson.checkUnderstanding"
+        ]
+      },
+      {
+        "concept": "Uses of metals and non-metals in daily life",
+        "importance": "SUPPORTING",
+        "sourcePages": [
+          20
+        ],
+        "lessonEvidenceFields": [
+          "fullLesson.explain",
+          "quickIdeas.analogy",
+          "fullLesson.practice"
+        ]
+      }
+    ],
+    "prerequisites": [
+      {
+        "concept": "Basic distinction between elements and compounds from earlier classes",
+        "importance": "HELPFUL",
+        "contentOrigin": "MIXED",
+        "sourcePages": [
+          21
+        ],
+        "sourceLimitations": [
+          "Earlier classes introduce elements qualitatively; Class VIII deepens this with atomic terms."
+        ]
+      },
+      {
+        "concept": "Acids, bases, and indicator testing using litmus paper",
+        "importance": "REQUIRED",
+        "contentOrigin": "MIXED",
+        "sourcePages": [
+          15,
+          16
+        ],
+        "sourceLimitations": [
+          "Class VII introduces indicators, which is a necessary foundation for determining oxide behavior in this chapter."
+        ]
+      }
+    ],
+    "learningObjectives": [
+      "Distinguish between metals and non-metals based on their physical properties and identify key exceptions (sodium, potassium, mercury).",
+      "Compare the reaction of metals and non-metals with oxygen, identifying the nature of the oxides formed using litmus test.",
+      "Explain the unique behavior of sodium and phosphorus with water/air and the reasons for their specific storage.",
+      "Demonstrate how metals react with acids and bases to release hydrogen gas, identified via the pop sound test.",
+      "Predict the outcomes of displacement reactions among zinc, iron, and copper based on their relative reactivity.",
+      "Define elements, atoms, metalloids, and summarize their major everyday uses."
+    ],
+    "objectiveCoverage": [
+      {
+        "objectiveIndex": 0,
+        "lessonEvidenceFields": [
+          "fullLesson.define",
+          "fullLesson.explain",
+          "fullLesson.visualize"
+        ]
+      },
+      {
+        "objectiveIndex": 1,
+        "lessonEvidenceFields": [
+          "fullLesson.explain",
+          "fullLesson.howToTeach",
+          "quickIdeas.quickChecks"
+        ]
+      },
+      {
+        "objectiveIndex": 2,
+        "lessonEvidenceFields": [
+          "fullLesson.explain",
+          "fullLesson.howToTeach",
+          "quickIdeas.lowResourceActivity"
+        ]
+      },
+      {
+        "objectiveIndex": 3,
+        "lessonEvidenceFields": [
+          "fullLesson.explain",
+          "fullLesson.practice"
+        ]
+      },
+      {
+        "objectiveIndex": 4,
+        "lessonEvidenceFields": [
+          "fullLesson.example",
+          "fullLesson.activity",
+          "fullLesson.boardPlan"
+        ]
+      },
+      {
+        "objectiveIndex": 5,
+        "lessonEvidenceFields": [
+          "fullLesson.define",
+          "fullLesson.explain",
+          "quickIdeas.analogy"
+        ]
+      }
+    ],
+    "hook": {
+      "priority": "ESSENTIAL",
+      "contentOrigin": "PEDAGOGICAL_ADDITION",
+      "teacherPrompt": "Students, look at this iron nail and this piece of charcoal. If I take a heavy hammer and strike both with full force, what will happen to each of them? Will they both break into powder, or will one behave differently?",
+      "expectedStudentResponse": "The iron nail will flatten and change shape, but it won't break easily. The charcoal piece will shatter into small black powdery pieces!",
+      "sourcePages": [
+        13
+      ],
+      "sourceLimitations": []
+    },
+    "fullLesson": {
+      "define": {
+        "priority": "ESSENTIAL",
+        "contentOrigin": "SOURCE_GROUNDED",
+        "teacherScript": "Let us define some key terms today. First, Malleability: the property of metals by which they can be beaten into thin sheets. Second, Ductility: the property of metals by which they can be drawn into wires. Third, Sonorous: the property of producing a ringing sound when struck hard. Lastly, an Element is a substance that cannot be broken down further by chemical reactions, by cooling, heating, or by electrolysis. The smallest unit of an element is an atom.",
+        "boardWork": [
+          "Malleability: Can be beaten into thin sheets (e.g., Aluminium foil).",
+          "Ductility: Can be drawn into wires (e.g., Copper wire).",
+          "Sonorous: Produces a ringing sound when struck hard.",
+          "Element: Substance that cannot be broken down further chemically. Smallest unit = Atom.",
+          "Metalloids: Elements possessing characters of both metals and non-metals."
+        ],
+        "keyPoints": [
+          "Metals are malleable, ductile, sonorous, hard, lustrous, and good conductors of heat and electricity.",
+          "Non-metals are generally soft, dull, non-sonorous, brittle, and poor conductors.",
+          "An element contains only one kind of atoms, unaffected by physical changes."
+        ],
+        "sourcePages": [
+          13,
+          14,
+          15,
+          21,
+          22
+        ],
+        "sourceLimitations": []
+      },
+      "explain": {
+        "priority": "ESSENTIAL",
+        "contentOrigin": "SOURCE_GROUNDED",
+        "teacherScript": "While physical properties help us categorize most materials, chemical reactions show us how these substances interact at an atomic level. First, let's address the exceptions to our physical rules: sodium and potassium are metals, yet they are so soft they can be cut with a knife. Mercury is a metal, but it is liquid at room temperature. Now, let's explore chemical behavior. 1) Reaction with Oxygen: Metals burn to form metallic oxides which are basic in nature, turning red litmus blue. Non-metals form non-metallic oxides which are acidic, turning blue litmus red (for example, sulphur dioxide dissolved in water forms sulphurous acid, H2SO3). 2) Reaction with Water: Sodium reacts vigorously with water and oxygen, generating huge heat; hence, it's stored in kerosene. Phosphorus, a highly reactive non-metal, catches fire in air, so it's stored in water. 3) Reaction with Acids & Bases: Metals react with dilute acids to produce salt and hydrogen gas (which burns with a pop sound). Non-metals generally do not react with acids. Metals also react with sodium hydroxide to produce hydrogen gas. 4) Displacement: A more reactive metal displaces a less reactive metal from its salt solution.",
+        "boardWork": [
+          "Exceptions:",
+          "- Soft metals (cut with knife): Sodium (Na), Potassium (K)",
+          "- Liquid metal at room temp: Mercury (Hg)",
+          "",
+          "Chemical Reactions:",
+          "1. Oxygen:",
+          "   - Metal + O2 -> Metal Oxide (Basic, turns red litmus blue)",
+          "   - Non-Metal + O2 -> Non-Metal Oxide (Acidic, turns blue litmus red)",
+          "2. Water:",
+          "   - Sodium + Water -> Vigorous reaction (stored in Kerosene)",
+          "   - Phosphorus + Air -> Catches fire (stored in Water)",
+          "3. Acids:",
+          "   - Metal + Acid -> Salt + H2 gas (Pop sound test)",
+          "   - Non-metal + Acid -> Generally NO reaction"
+        ],
+        "keyPoints": [
+          "In general, metallic oxides are basic; non-metallic oxides are acidic.",
+          "Sodium is highly reactive with water/oxygen; phosphorus is highly reactive with atmospheric oxygen.",
+          "Copper does not react with dilute HCl even on heating, but reacts with sulphuric acid.",
+          "Zinc is more reactive than iron, which is more reactive than copper (Zn > Fe > Cu)."
+        ],
+        "sourcePages": [
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21
+        ],
+        "sourceLimitations": []
+      },
+      "visualize": {
+        "priority": "IMPORTANT",
+        "contentOrigin": "MIXED",
+        "sourceType": "BOARD_VISUAL",
+        "sourceLabel": null,
+        "teacherInstructions": "Draw a simple circuit on the blackboard to show how to test whether a given sample is a conductor of electricity. Label the components clearly so students can replicate this in their notebooks.",
+        "boardDrawingSteps": [
+          "1. Draw a 1.5V electric cell on the left with positive (+) and negative (-) terminals.",
+          "2. Draw a connecting wire from the positive terminal to a small torch bulb.",
+          "3. Draw a wire from the bulb leaving a free clip/terminal labeled 'A'.",
+          "4. Draw a wire from the negative terminal of the cell ending in a free clip/terminal labeled 'B'.",
+          "5. Insert a shaded rectangle between clips 'A' and 'B' representing the test sample (e.g., 'Iron Nail' or 'Coal Piece').",
+          "6. Draw glowing rays around the bulb only when the 'Iron Nail' is connected."
+        ],
+        "whatStudentsShouldNotice": [
+          "The bulb glows only when metals like iron or copper are inserted between terminals A and B.",
+          "The bulb remains dark when non-metals like coal or sulphur are inserted, showing they do not conduct electricity."
+        ],
+        "sourcePages": [
+          14
+        ],
+        "sourceLimitations": [
+          "This is a simplified blackboard representation of the Electric Tester shown in Fig. 4.2."
+        ]
+      },
+      "example": {
+        "priority": "ESSENTIAL",
+        "contentOrigin": "MIXED",
+        "sourceType": "CHALKBOX_EXAMPLE",
+        "sourceLabel": null,
+        "title": "The Blue-to-Green Transition: Displacement of Copper by Iron",
+        "explanation": "This example shows how a more reactive metal (iron) displaces a less reactive metal (copper) from its salt solution (copper sulphate), which is a key demonstration of displacement reactions.",
+        "steps": [
+          "Step 1: Dissolve a teaspoon of Copper Sulphate (CuSO4) in 50 mL of water. The solution is bright blue.",
+          "Step 2: Clean an iron nail with sandpaper and drop it into the blue copper sulphate solution.",
+          "Step 3: Leave the beaker undisturbed for 30 minutes.",
+          "Step 4: Observe the changes: The bright blue color of the solution fades and turns greenish (due to the formation of Iron Sulphate, FeSO4).",
+          "Step 5: Notice the red-brown powdery coating of copper deposited on the iron nail.",
+          "Equation: Copper Sulphate (CuSO4) [Blue] + Iron (Fe) -> Iron Sulphate (FeSO4) [Green] + Copper (Cu) [Red-brown]"
+        ],
+        "sourcePages": [
+          19,
+          20
+        ],
+        "sourceLimitations": [
+          "This is a detailed pedagogical walkthrough of Beaker B from Activity 4.8, adapted for step-by-step classroom explanation."
+        ]
+      },
+      "activity": {
+        "priority": "ESSENTIAL",
+        "contentOrigin": "SOURCE_GROUNDED",
+        "sourceType": "TEXTBOOK_ACTIVITY",
+        "sourceLabel": "Activity 4.8",
+        "title": "Displacement Reactions among Zinc, Iron, and Copper",
+        "concepts": [
+          "Reactivity series of metals",
+          "Displacement reactions",
+          "Chemical change and observations"
+        ],
+        "objective": "To demonstrate that a more reactive metal can displace a less reactive metal from its salt solution, whereas a less reactive metal cannot displace a more reactive one.",
+        "materials": [
+          "Five 100 mL beakers (labeled A, B, C, D, E)",
+          "Water",
+          "Copper Sulphate (CuSO4)",
+          "Zinc Sulphate (ZnSO4)",
+          "Iron Sulphate (FeSO4)",
+          "Zinc granules",
+          "Iron nails",
+          "Copper turnings/wire"
+        ],
+        "steps": [
+          "Take 50 mL of water in each of the 5 beakers.",
+          "Dissolve a teaspoon of: CuSO4 in Beakers A and B; ZnSO4 in Beakers C and E; FeSO4 in Beaker D.",
+          "Add: Zinc granules to Beaker A; an Iron nail to Beaker B; Copper turnings to Beakers C and D; an Iron nail to Beaker E.",
+          "Keep the beakers undisturbed for some time and observe.",
+          "Note down that: Beaker A changes from blue to colourless with a red copper deposit. Beaker B changes from blue to light green with a copper deposit. Beakers C, D, and E show absolutely no change."
+        ],
+        "safetyNote": "Handle chemical solutions carefully. Do not taste any chemicals and wash hands thoroughly after the experiment.",
+        "sourcePages": [
+          19,
+          20
+        ],
+        "sourceLimitations": []
+      },
+      "howToTeach": {
+        "priority": "IMPORTANT",
+        "contentOrigin": "MIXED",
+        "teacherMoves": [
+          "Start by reviewing physical properties using daily life objects (foil, coins, coal).",
+          "Ensure to perform the Sodium-water reaction (Activity 4.5) strictly as a teacher demonstration. Never let students handle sodium metal directly.",
+          "Emphasize the 'pop' sound test as the definitive proof for Hydrogen gas evolution when metals react with acids or bases.",
+          "Guide students to construct their own reactivity hierarchy (Zn > Fe > Cu) based on the results of Activity 4.8."
+        ],
+        "misconceptions": [
+          {
+            "misconception": "All metals are hard solids.",
+            "correction": "Sodium and potassium are metals so soft they can be cut with a knife, and mercury is a liquid metal at room temperature.",
+            "sourcePages": [
+              15
+            ]
+          },
+          {
+            "misconception": "Copper can displace zinc because it is shiny and widely used in electrical wires.",
+            "correction": "Reactivity is a chemical property, not a physical one. Zinc is chemically more reactive than copper; thus, copper cannot displace zinc from its solution.",
+            "sourcePages": [
+              20
+            ]
+          },
+          {
+            "misconception": "Non-metals react with acids in the same way as metals but just slower.",
+            "correction": "Generally, non-metals do not react with dilute acids at all.",
+            "sourcePages": [
+              18
+            ]
+          }
+        ],
+        "questionsToAsk": [
+          "Why is sodium stored in kerosene rather than in water or open containers?",
+          "What gas is produced when aluminium foil reacts with sodium hydroxide solution, and how do we test for it?",
+          "If we put copper turnings into zinc sulphate solution, will we see a color change? Why or why not?"
+        ],
+        "sourcePages": [
+          15,
+          17,
+          18,
+          19,
+          20
+        ],
+        "sourceLimitations": []
+      },
+      "boardPlan": {
+        "priority": "ESSENTIAL",
+        "contentOrigin": "MIXED",
+        "text": "CLASS 8 | SCIENCE | METALS AND NON-METALS\n\n1. PHYSICAL PROPERTIES & EXCEPTIONS:\n   - Metals: Malleable, Ductile, Sonorous, Conductors.\n   - Non-Metals: Soft/Brittle, Dull, Poor Conductors.\n   - EXCEPTIONS: Sodium/Potassium (soft), Mercury (liquid metal).\n\n2. CHEMICAL PROPERTIES:\n   - OXYGEN: \n     * Metal + O2 -> Basic Oxide (Turns red litmus blue)\n     * Non-Metal + O2 -> Acidic Oxide (Turns blue litmus red)\n   - ACIDS & BASES:\n     * Metal + Acid/Base -> Hydrogen Gas ('Pop' sound on burning)\n     * Non-Metal + Acid -> No reaction\n\n3. REACTIVITY & DISPLACEMENT:\n   - Rule: More reactive metal displaces less reactive metal.\n   - Reactivity Order: Zinc (Zn) > Iron (Fe) > Copper (Cu)\n   - Equation (Beaker A):\n     CuSO4 (Blue) + Zn -> ZnSO4 (Colourless) + Cu (Red deposit)",
+        "sourcePages": [
+          13,
+          14,
+          15,
+          18,
+          19,
+          20
+        ],
+        "sourceLimitations": [
+          "This is a condensed chalk plan summarizing both physical and chemical properties of the whole chapter."
+        ]
+      },
+      "practice": {
+        "priority": "ESSENTIAL",
+        "questions": [
+          {
+            "question": "Give reasons why aluminium foils are used to wrap food items.",
+            "expectedAnswer": "Aluminium is highly malleable, meaning it can be beaten into very thin sheets without breaking. It is also relatively unreactive with food, keeping it clean and protected.",
+            "sourcePages": [
+              14,
+              23
+            ]
+          },
+          {
+            "question": "Can you store lemon pickle in an aluminium utensil? Explain why or why not.",
+            "expectedAnswer": "No, lemon pickle contains organic acids which react with the aluminium metal to produce harmful salts and hydrogen gas. This can spoil the pickle and damage the utensil.",
+            "sourcePages": [
+              23
+            ]
+          },
+          {
+            "question": "What happens when dilute sulphuric acid is poured on a copper plate? Write the word equation.",
+            "expectedAnswer": "Copper does not react with dilute hydrochloric acid, but it reacts with sulphuric acid on heating to form copper sulphate and hydrogen gas. Word Equation: Copper + Dilute Sulphuric acid -> Copper Sulphate + Hydrogen",
+            "sourcePages": [
+              19,
+              24
+            ]
+          }
+        ]
+      },
+      "checkUnderstanding": {
+        "priority": "ESSENTIAL",
+        "questions": [
+          {
+            "question": "Identify the element which is a very reactive non-metal, catches fire in air, and must be stored in water.",
+            "expectedAnswer": "Phosphorus",
+            "difficulty": "basic",
+            "sourcePages": [
+              18,
+              23
+            ]
+          },
+          {
+            "question": "If you drop an iron nail into a zinc sulphate solution, will displacement take place? Explain based on reactivity rules.",
+            "expectedAnswer": "No, displacement will not take place. Iron is less reactive than zinc. According to the rules, a less reactive metal cannot displace a more reactive metal from its salt solution.",
+            "difficulty": "application",
+            "sourcePages": [
+              20
+            ]
+          },
+          {
+            "question": "An element's oxide turns moist red litmus paper blue. Is the element a metal or a non-metal? Provide an example from the chapter.",
+            "expectedAnswer": "It is a metal. Metallic oxides are basic in nature, so they turn red litmus blue. Examples include magnesium (forming magnesium oxide) or iron (forming rust/iron oxide).",
+            "difficulty": "intermediate",
+            "sourcePages": [
+              15,
+              16
+            ]
+          }
+        ]
+      },
+      "materials": [
+        "Iron nail",
+        "Coal piece/charcoal",
+        "Aluminium wire/foil",
+        "Pencil lead",
+        "Copper sulphate, Zinc sulphate, Iron sulphate",
+        "Zinc granules, Copper turnings",
+        "Red and Blue litmus papers",
+        "Beakers and test tubes",
+        "Dilute Hydrochloric acid and Sulphuric acid",
+        "Sodium hydroxide pellets",
+        "Deflagrating spoon, burner, and test tube holder"
+      ]
+    },
+    "quickIdeas": {
+      "analogy": {
+        "contentOrigin": "PEDAGOGICAL_ADDITION",
+        "text": "Think of displacement like a game of musical chairs or a stronger friend taking a seat on a bench. The 'stronger' (more reactive) metal easily pushes the 'weaker' (less reactive) metal out of its seat (the chemical compound) to take its place. But a weaker friend cannot push a stronger, firmly-seated friend away!",
+        "sourcePages": [
+          20
+        ],
+        "sourceLimitations": []
+      },
+      "lowResourceActivity": {
+        "priority": "IMPORTANT",
+        "contentOrigin": "PEDAGOGICAL_ADDITION",
+        "sourceType": "CHALKBOX_ACTIVITY",
+        "sourceLabel": null,
+        "title": "Rust Collection and Simple Acid-Base Test",
+        "concepts": [
+          "Oxidation of iron",
+          "Basic nature of metallic oxides"
+        ],
+        "objective": "To verify that rust (iron oxide) forms a basic suspension using low-resource local materials.",
+        "materials": [
+          "An old rusted iron object (e.g., gate hinge, nail)",
+          "Small container of water",
+          "Red litmus paper or homemade red cabbage juice indicator"
+        ],
+        "steps": [
+          "Ask students to scrape a spoonful of rust from a rusted iron item at home or school.",
+          "Mix the collected rust in a small amount of water to form a suspension.",
+          "Dip a strip of red litmus paper into the suspension (or add a few drops of red cabbage indicator).",
+          "Observe the red litmus turning blue, demonstrating the basic nature of metallic oxides."
+        ],
+        "safetyNote": "Ensure students wash their hands thoroughly after handling rusted materials to prevent any risk of infection.",
+        "sourcePages": [
+          15
+        ],
+        "sourceLimitations": [
+          "This is a low-resource adaptation of Activity 4.3 using household indicators if litmus is unavailable."
+        ]
+      },
+      "quickChecks": [
+        {
+          "question": "Which liquid metal is used in thermometers?",
+          "expectedAnswer": "Mercury",
+          "sourcePages": [
+            15,
+            23
+          ]
+        },
+        {
+          "question": "What compound is formed when sulphur dioxide gas dissolves in water?",
+          "expectedAnswer": "Sulphurous acid (H2SO3)",
+          "sourcePages": [
+            17
+          ]
+        },
+        {
+          "question": "Does copper react with dilute hydrochloric acid on heating?",
+          "expectedAnswer": "No, copper does not react with dilute hydrochloric acid even on heating.",
+          "sourcePages": [
+            19
+          ]
+        }
+      ]
+    },
+    "sourceCoverage": {
+      "pagesUsed": [
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24
+      ],
+      "keyConceptsCovered": [
+        "Physical properties of metals and non-metals (malleability, ductility, sonority, conductivity)",
+        "Exceptions to physical properties (Sodium, Potassium, Mercury)",
+        "Reaction with Oxygen and nature of oxides",
+        "Reaction with Water and storage of highly reactive elements",
+        "Reaction with Acids and Bases (Hydrogen gas evolution)",
+        "Displacement reactions and reactivity series of metals (Zn, Fe, Cu)",
+        "Concept of elements, atoms, and metalloids",
+        "Uses of metals and non-metals in daily life"
+      ],
+      "visualPagesUsed": [
+        14
+      ],
+      "sourceLimitations": [
+        "The chemical equation for rust formation is introduced conceptually but not completely balanced in the textbook's simple fill-in-the-blank text.",
+        "The reactivity series is built inductively using only three specific metals (Zn, Fe, Cu)."
+      ]
+    }
+  },
+  "generation": {
+    "provider": "google",
+    "model": "gemini-3.5-flash",
+    "thinkingLevel": "MEDIUM",
+    "attempt": 1,
+    "elapsedMs": 67834,
+    "finishReason": "STOP",
+    "finishMessage": null,
+    "modelVersion": "gemini-3.5-flash",
+    "responseId": "rO6Nao72Dd6kg8UPpJfVsQc",
+    "maxOutputTokens": 32768,
+    "requestTimeoutMs": 180000,
+    "usage": {
+      "promptTokens": 23458,
+      "outputTokens": 5241,
+      "thoughtTokens": 7118,
+      "totalTokens": 35817
+    }
+  },
+  "source": {
+    "mode": "FULL_CHAPTER",
+    "lessonKey": "class-8-materials-metals-non-metals",
+    "sourceFileName": "NCERT-Class-8-Chemical-Effects-of-Electric-Current-and-Materials-Metals-and-Non-Metals.pdf",
+    "canonicalPageStart": 13,
+    "canonicalPageEnd": 24,
+    "canonicalPageCount": 12,
+    "visualFileName": "class-8-materials-metals-non-metals.pdf",
+    "visualPageCount": 12,
+    "visualMappingVerified": true,
+    "sourceCatalog": {
+      "policyVersion": "chalkbox-source-catalog-v1",
+      "canonicalContentSha256": "c3408b27c4a2ace087ffc28155b7fd32155c215412a58e6d9cbbb1db4524ebbb",
+      "sourceCatalogArtifactSha256": "7a8ae6761c2ddbc9325d19adddc5030e57e047fa499da46714cbebd8115f53c5",
+      "activities": 8,
+      "examples": 0,
+      "figures": 6,
+      "tables": 5,
+      "verifiedBeforeGeneration": true
+    }
+  },
+  "validation": {
+    "deterministicProvenance": "PASS",
+    "independentQualityAudit": "PENDING",
+    "errors": [],
+    "warnings": [
+      {
+        "severity": "WARNING",
+        "field": "fullLesson.visualize",
+        "issueType": "FINAL_BOARD_VISUAL_AUDIT_REQUIRED",
+        "message": "Board visual requires later scientific/topological verification.",
+        "sourcePages": [
+          14
+        ]
+      },
+      {
+        "severity": "WARNING",
+        "field": "fullLesson.activity",
+        "issueType": "FINAL_ACTIVITY_SEMANTIC_AUDIT_REQUIRED",
+        "message": "Textbook activity label/page provenance passed catalog validation; semantic relevance must still be independently audited.",
+        "sourcePages": [
+          19,
+          20
+        ]
+      }
+    ]
+  },
+  "generatedAt": "2026-08-25T19:37:19.068Z"
+}

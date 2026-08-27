@@ -1,0 +1,28 @@
+@media print {
+  [data-chalkbox-section-body] {
+    display: block !important;
+  }
+
+  [data-chalkbox-visual-frame] {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  [data-chalkbox-visual-scroll] {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+  }
+
+  [data-chalkbox-visual-scroll] svg {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    height: auto !important;
+    margin-inline: auto !important;
+  }
+}

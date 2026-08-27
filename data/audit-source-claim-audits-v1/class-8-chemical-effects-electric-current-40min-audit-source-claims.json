@@ -1,0 +1,67 @@
+{
+  "artifactVersion": 1,
+  "validationPolicyVersion": "chalkbox-audit-source-claim-validation-v1",
+  "status": "PASS",
+  "lessonKey": "class-8-chemical-effects-electric-current",
+  "requestedDurationMinutes": 40,
+  "auditPolicyVersion": "chalkbox-generated-audit-v5-catalog-grounded-gemini-36",
+  "sourceCatalogPolicyVersion": "chalkbox-source-catalog-v1",
+  "canonicalContentSha256": "967d769bd211b5dd9364033ca27f86cea684bdbd970878f605c56887fdc7d814",
+  "sourceAuditFile": "data\\lesson-audits-v5\\class-8-chemical-effects-electric-current-40min-audit.json",
+  "metrics": {
+    "totalAuditClaims": 6,
+    "supportedAuditClaims": 6,
+    "unsupportedAuditClaims": 0
+  },
+  "claims": [
+    {
+      "field": "citationAudit[2].explanation",
+      "rawLabel": "Activity 14.7",
+      "kind": "ACTIVITY",
+      "number": "14.7",
+      "canonicalId": "ACTIVITY:14.7",
+      "supported": true
+    },
+    {
+      "field": "activityAudit[0].sourceLabel",
+      "rawLabel": "Activity 14.7",
+      "kind": "ACTIVITY",
+      "number": "14.7",
+      "canonicalId": "ACTIVITY:14.7",
+      "supported": true
+    },
+    {
+      "field": "activityAudit[0].explanation",
+      "rawLabel": "Activity 14.7",
+      "kind": "ACTIVITY",
+      "number": "14.7",
+      "canonicalId": "ACTIVITY:14.7",
+      "supported": true
+    },
+    {
+      "field": "activityAudit[1].sourceLabel",
+      "rawLabel": "Activity 14.3",
+      "kind": "ACTIVITY",
+      "number": "14.3",
+      "canonicalId": "ACTIVITY:14.3",
+      "supported": true
+    },
+    {
+      "field": "activityAudit[1].explanation",
+      "rawLabel": "Activity 14.3",
+      "kind": "ACTIVITY",
+      "number": "14.3",
+      "canonicalId": "ACTIVITY:14.3",
+      "supported": true
+    },
+    {
+      "field": "visualAudit[0].explanation",
+      "rawLabel": "Fig. 14.7",
+      "kind": "FIGURE",
+      "number": "14.7",
+      "canonicalId": "FIGURE:14.7",
+      "supported": true
+    }
+  ],
+  "validatedAt": "2026-08-25T19:56:46.956Z"
+}

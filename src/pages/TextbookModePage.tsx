@@ -13,7 +13,10 @@ import {
   Sparkles,
 } from 'lucide-react'
 import { useMemo, useState } from 'react'
-import { Link } from 'react-router-dom'
+import {
+  Link,
+  useNavigate,
+} from 'react-router-dom'
 
 import { Button } from '@/components/ui/button'
 import {
@@ -42,6 +45,7 @@ const steps = [
 ]
 
 function TextbookModePage() {
+  const navigate = useNavigate()
   const [currentStep, setCurrentStep] = useState(1)
 
   const [selectedClass, setSelectedClass] = useState<number>(8)
@@ -68,6 +72,43 @@ function TextbookModePage() {
     if (firstLesson) {
       setSelectedLessonKey(firstLesson.key)
     }
+  }
+
+  function openLessonWorkspace() {
+    const durationMinutes =
+      Number.parseInt(
+        duration,
+        10,
+      ) || 40
+
+    const resources =
+      resourceLevel ===
+      'Well-equipped classroom'
+        ? 'well'
+        : resourceLevel ===
+            'Standard classroom'
+          ? 'standard'
+          : 'low'
+
+    const openingLanguage =
+      language === 'Hindi'
+        ? 'hindi'
+        : 'english'
+
+    const query =
+      new URLSearchParams({
+        duration:
+          String(
+            durationMinutes,
+          ),
+        resources,
+        language:
+          openingLanguage,
+      })
+
+    navigate(
+      `/lesson/${selectedLessonKey}?${query.toString()}`,
+    )
   }
 
   function goNext() {
@@ -194,11 +235,10 @@ function TextbookModePage() {
               return (
                 <div
                   key={step.number}
-                  className={`relative flex flex-1 flex-col items-center ${
-                    index < steps.length - 1
+                  className={`relative flex flex-1 flex-col items-center ${index < steps.length - 1
                       ? "after:absolute after:left-[50%] after:top-4 after:h-px after:w-full after:bg-[#dce4da] after:content-['']"
                       : ''
-                  }`}
+                    }`}
                 >
                   <button
                     type="button"
@@ -207,13 +247,12 @@ function TextbookModePage() {
                         setCurrentStep(step.number)
                       }
                     }}
-                    className={`relative z-10 flex size-8 items-center justify-center rounded-full border text-[11px] font-extrabold transition-all ${
-                      completed
+                    className={`relative z-10 flex size-8 items-center justify-center rounded-full border text-[11px] font-extrabold transition-all ${completed
                         ? 'border-[#176b43] bg-[#176b43] text-white'
                         : active
                           ? 'border-[#176b43] bg-[#edf5e9] text-[#176b43] ring-4 ring-[#e4efe2]'
                           : 'border-[#d6ded3] bg-[#fffef9] text-[#8a958d]'
-                    }`}
+                      }`}
                   >
                     {completed ? (
                       <Check className="size-4" />
@@ -223,11 +262,10 @@ function TextbookModePage() {
                   </button>
 
                   <span
-                    className={`relative z-10 mt-2 bg-[#fffef9] px-2 text-[10px] font-bold ${
-                      active || completed
+                    className={`relative z-10 mt-2 bg-[#fffef9] px-2 text-[10px] font-bold ${active || completed
                         ? 'text-[#176b43]'
                         : 'text-[#8a958d]'
-                    }`}
+                      }`}
                   >
                     {step.label}
                   </span>
@@ -276,19 +314,17 @@ function TextbookModePage() {
                       key={classLevel}
                       type="button"
                       onClick={() => selectClass(classLevel)}
-                      className={`min-h-[145px] rounded-2xl border p-5 text-left transition-all duration-200 ${
-                        selected
+                      className={`min-h-[145px] rounded-2xl border p-5 text-left transition-all duration-200 ${selected
                           ? 'border-[#71a882] bg-[#edf5e9] shadow-[0_8px_22px_rgba(22,82,48,0.08)]'
                           : 'border-[#dce3d9] bg-white hover:-translate-y-0.5 hover:border-[#bfd0bd] hover:bg-[#f7faf5]'
-                      }`}
+                        }`}
                     >
                       <div className="flex items-center justify-between">
                         <School
-                          className={`size-5 ${
-                            selected
+                          className={`size-5 ${selected
                               ? 'text-[#176b43]'
                               : 'text-[#7f8a82]'
-                          }`}
+                            }`}
                         />
 
                         {selected && (
@@ -402,18 +438,16 @@ function TextbookModePage() {
                       onClick={() =>
                         setSelectedLessonKey(lesson.key)
                       }
-                      className={`group flex min-h-[92px] items-center gap-4 rounded-2xl border p-5 text-left transition-all ${
-                        selected
+                      className={`group flex min-h-[92px] items-center gap-4 rounded-2xl border p-5 text-left transition-all ${selected
                           ? 'border-[#79a987] bg-[#edf5e9] shadow-[0_8px_22px_rgba(22,82,48,0.06)]'
                           : 'border-[#dce3da] bg-white hover:-translate-y-0.5 hover:border-[#bfd0bd] hover:bg-[#f8faf6]'
-                      }`}
+                        }`}
                     >
                       <div
-                        className={`flex size-11 shrink-0 items-center justify-center rounded-xl transition-colors ${
-                          selected
+                        className={`flex size-11 shrink-0 items-center justify-center rounded-xl transition-colors ${selected
                             ? 'bg-[#176b43] text-white'
                             : 'bg-[#edf3ea] text-[#176b43]'
-                        }`}
+                          }`}
                       >
                         <BookOpen className="size-4" />
                       </div>
@@ -627,6 +661,9 @@ function TextbookModePage() {
             ) : (
               <Button
                 type="button"
+                onClick={
+                  openLessonWorkspace
+                }
                 className="group h-11 rounded-xl bg-[#0f5132] px-6 text-[12px] font-extrabold text-white shadow-[0_9px_24px_rgba(15,81,50,0.18)] hover:-translate-y-0.5 hover:bg-[#0b3d28]"
               >
                 <Sparkles className="mr-1 size-4" />

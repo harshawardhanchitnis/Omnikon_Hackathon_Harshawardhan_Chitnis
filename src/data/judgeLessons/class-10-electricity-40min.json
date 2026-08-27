@@ -1,0 +1,480 @@
+{
+  "artifactVersion": 1,
+  "promotionPolicyVersion": "chalkbox-judge-demo-promotion-v1",
+  "status": "JUDGE_READY",
+  "fullyAudited": true,
+  "judgeReady": true,
+  "immutable": true,
+  "lessonKey": "class-10-electricity",
+  "requestedDurationMinutes": 40,
+  "lesson": {
+    "schemaVersion": 3,
+    "generationPolicyVersion": "chalkbox-lesson-v3-gemini-35",
+    "lessonKey": "class-10-electricity",
+    "title": "Electricity",
+    "classLevel": 10,
+    "subject": "Science",
+    "requestedDurationMinutes": 40,
+    "prerequisites": [
+      {
+        "concept": "Concept of electric charge, attraction between opposite charges, and repulsion between like charges.",
+        "importance": "REQUIRED",
+        "contentOrigin": "PEDAGOGICAL_ADDITION",
+        "sourcePages": [],
+        "sourceLimitations": []
+      },
+      {
+        "concept": "Understanding of basic work, energy, and power from Class 9 Science.",
+        "importance": "HELPFUL",
+        "contentOrigin": "PEDAGOGICAL_ADDITION",
+        "sourcePages": [],
+        "sourceLimitations": []
+      }
+    ],
+    "learningObjectives": [
+      "Define electric current and potential difference, state their SI units, and calculate charge and work using basic formulas.",
+      "State Ohm's law, explain factors affecting resistance, and distinguish between the resistance of a conductor and electrical resistivity as a material property.",
+      "Determine equivalent resistance for series and parallel combinations of resistors and analyze their practical advantages and disadvantages.",
+      "State Joule's law of heating, explain its practical applications in domestic appliances (fuse, bulb), and calculate heat generated.",
+      "Define electric power and electrical energy, identify the commercial unit (kWh), and compute household electricity consumption costs."
+    ],
+    "hook": {
+      "priority": "ESSENTIAL",
+      "contentOrigin": "MIXED",
+      "teacherPrompt": "Imagine you are in a pitch-dark room during a power cut. You switch on a hand-held torch. The bulb glows instantly! What exactly is rushing through the thin wires to make that bulb glow? And what does the switch actually do to make it stop or start?",
+      "expectedStudentResponse": "Electric current or charges flow through the wire to light the bulb. The switch connects or breaks the path of the electricity.",
+      "sourcePages": [
+        1
+      ],
+      "sourceLimitations": []
+    },
+    "fullLesson": {
+      "define": {
+        "priority": "ESSENTIAL",
+        "contentOrigin": "SOURCE_GROUNDED",
+        "teacherScript": "Let us establish our key concepts. First, electric current (represented by 'I') is the rate of flow of electric charges. If a net charge 'Q' flows across any cross-section of a conductor in time 't', then I = Q/t. Its SI unit is the Ampere (A). Second, the electric potential difference ('V') between two points in a current-carrying circuit is the work done ('W') to move a unit charge ('Q') from one point to the other: V = W/Q. Its SI unit is the Volt (V). Third, resistance ('R') is the property of a conductor to resist the flow of charges through it, measured in Ohms (symbol: Omega). It depends on the conductor's geometry and material, rather than being a single inherent material property. Fourth, the equivalent resistance of a system of resistors is the single resistance that can replace a combination of resistors while maintaining the same current under the same voltage: for series, Rs = R1 + R2 + R3; for parallel, 1/Rp = 1/R1 + 1/R2 + 1/R3. Fifth, Joule's heating represents the thermal energy dissipated in a resistor when current passes through it. Sixth, electric power ('P') is the rate at which electrical energy is consumed in a circuit, measured in Watts (W).",
+        "boardWork": [
+          "1. Electric Current: I = Q / t",
+          "   - Charge (Q) SI Unit: Coulomb (C)",
+          "   - Current (I) SI Unit: Ampere (A) [1 A = 1 C / 1 s]",
+          "   - 1 electron charge = -1.6 x 10^-19 C",
+          "   - 1 Coulomb ≈ 6 x 10^18 electrons",
+          "2. Potential Difference: V = W / Q",
+          "   - Work Done (W) SI Unit: Joule (J)",
+          "   - Potential Difference (V) SI Unit: Volt (V) [1 V = 1 J / 1 C]",
+          "3. Resistance: R = V / I [Unit: Ohm (Ω)]",
+          "4. Resistors in Series: Rs = R1 + R2 + R3",
+          "5. Resistors in Parallel: 1/Rp = 1/R1 + 1/R2 + 1/R3",
+          "6. Electric Power: P = VI = I^2 * R = V^2 / R [Unit: Watt (W)]"
+        ],
+        "keyPoints": [
+          "Conventionally, current direction is opposite to the direction of electron flow.",
+          "An ammeter measures current (connected in series); a voltmeter measures potential difference (connected in parallel).",
+          "Equivalent resistance in series is greater than any individual resistance, whereas in parallel it is smaller than the smallest individual resistance.",
+          "The commercial unit of electrical energy is the kilowatt hour (kWh), where 1 kWh = 3.6 x 10^6 Joules."
+        ],
+        "sourcePages": [
+          1,
+          2,
+          3,
+          6,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          18,
+          21
+        ],
+        "sourceLimitations": []
+      },
+      "explain": {
+        "priority": "ESSENTIAL",
+        "contentOrigin": "SOURCE_GROUNDED",
+        "teacherScript": "Now let us understand how these variables interact under different conditions. Ohm's law states that the potential difference 'V' across a metallic wire is directly proportional to the current 'I' flowing through it, provided its temperature remains constant: V = IR. It is important to note that if the potential difference remains constant, current is inversely proportional to resistance; doubling resistance halves the current. \n\nWhat determines this resistance? The resistance 'R' of a uniform metallic conductor is directly proportional to its length 'l' and inversely proportional to its cross-sectional area 'A': R = rho * (l/A). Here, 'rho' is the electrical resistivity, which is the actual characteristic material property (it depends on the nature of the material and temperature, not the wire's length or thickness).\n\nWhen connecting multiple resistors, we have two methods: series and parallel. In series, the current remains the same in every part of the circuit, but the voltage divides (V = V1 + V2 + V3). A major disadvantage of series connections is that if one component fails, the circuit is broken. In a parallel combination, the potential difference across each resistor is identical, but the total current is divided (I = I1 + I2 + I3). Parallel circuits allow domestic appliances of different resistances to receive their required currents and operate independently.\n\nFinally, when current flows through a resistor, the source energy is dissipated as heat. Joule's law of heating states that heat produced in a resistor is directly proportional to the square of current for a given resistance, directly proportional to resistance for a given current, and directly proportional to the time: H = I^2 * R * t. This is utilized in appliances like electric irons, heaters, bulbs (using high-melting-point tungsten filaments), and fuses (which protect circuits by melting when current is too high).",
+        "boardWork": [
+          "Ohm's Law: V = I * R (At constant Temperature)",
+          "  - If potential difference (V) is constant, Current (I) ∝ 1/R.",
+          "Factors affecting Resistance (R):",
+          "  - R = rho * (l / A)",
+          "  - rho (ρ) = Electrical Resistivity (characteristic material property, SI Unit: Ω·m)",
+          "Resistors in Series:",
+          "  - Current is constant; Rs = R1 + R2 + R3",
+          "Resistors in Parallel:",
+          "  - Voltage is constant; 1/Rp = 1/R1 + 1/R2 + 1/R3",
+          "Joule's Law of Heating: H = I^2 * R * t",
+          "  - Fuse: Low melting point alloy connected in series to protect appliances.",
+          "Electric Power & Energy:",
+          "  - Energy = Power * time",
+          "  - Commercial unit: 1 kWh = 3.6 x 10^6 J"
+        ],
+        "keyPoints": [
+          "Ohm's law holds true only if temperature remains constant because temperature changes alter resistivity.",
+          "Resistance depends on the length and thickness of a conductor, while resistivity depends only on the nature of the material and temperature.",
+          "Domestic circuits utilize parallel connections to ensure every appliance gets the same constant voltage and operates independently.",
+          "Alloys have higher resistivity than constituent metals and do not oxidize (burn) easily at high temperatures, making them ideal for heating elements."
+        ],
+        "sourcePages": [
+          5,
+          6,
+          8,
+          9,
+          11,
+          13,
+          14,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21
+        ],
+        "sourceLimitations": []
+      },
+      "visualize": {
+        "priority": "IMPORTANT",
+        "contentOrigin": "MIXED",
+        "sourceType": "BOARD_VISUAL",
+        "sourceLabel": null,
+        "teacherInstructions": "Draw a board-friendly Ohm’s-law circuit grounded in the connections shown on canonical page 5. Show the battery, key and ammeter in the main series path; show the nichrome wire between X and Y; and connect the voltmeter in parallel across X and Y. The board layout is a pedagogical redraw and does not need to reproduce the textbook figure’s exact top/bottom placement.",
+        "boardDrawingSteps": [
+          "Draw a closed rectangular loop using lines for connecting wires.",
+          "On the bottom horizontal wire, draw a battery (four cells connected in series, showing alternating long and short lines) and a plug key 'K'.",
+          "On the right vertical wire, insert an Ammeter 'A' in series, labeling its positive (+) and negative (-) terminals matched to the battery.",
+          "On the top horizontal wire, insert a resistor wire representing a nichrome wire and label its ends 'X' and 'Y'.",
+          "Draw a voltmeter symbol 'V' in parallel, branching off from the wires directly at points X and Y.",
+          "Draw conventional current arrows traveling from the positive (+) terminal of the battery through X, Y, the ammeter, and the closed key, back to the negative (-) terminal."
+        ],
+        "whatStudentsShouldNotice": [
+          "The ammeter is connected directly in the main branch (series) to measure current through the nichrome wire.",
+          "The voltmeter is connected as a bridge across points X and Y (parallel) to measure potential difference.",
+          "The battery of four cells provides the variable potential difference source for the activity."
+        ],
+        "sourcePages": [
+          5
+        ],
+        "sourceLimitations": [
+          "This is a ChalkBox board redraw grounded in the circuit relationships shown on canonical page 5. It is not an exact spatial reproduction of textbook Figure 11.2."
+        ]
+      },
+      "example": {
+        "priority": "ESSENTIAL",
+        "contentOrigin": "SOURCE_GROUNDED",
+        "sourceType": "TEXTBOOK_EXAMPLE",
+        "sourceLabel": "Example 11.1",
+        "title": "Finding Charge from Current and Time",
+        "explanation": "This example helps students apply the basic current formula to calculate the net quantity of charge flowing through an electric circuit over a given duration of time.",
+        "steps": [
+          "Step 1: Identify the given values from the problem. Current (I) = 0.5 A, Time (t) = 10 minutes.",
+          "Step 2: Convert time into the standard SI unit (seconds). t = 10 minutes x 60 seconds/minute = 600 s.",
+          "Step 3: State the formula connecting current, charge, and time: I = Q / t.",
+          "Step 4: Rearrange the formula to solve for Charge (Q): Q = I * t.",
+          "Step 5: Substitute the values: Q = 0.5 A * 600 s = 300 C.",
+          "Step 6: State the final answer with its correct unit: The amount of electric charge that flows through the circuit is 300 Coulombs (C)."
+        ],
+        "sourcePages": [
+          2
+        ],
+        "sourceLimitations": []
+      },
+      "activity": {
+        "priority": "IMPORTANT",
+        "contentOrigin": "SOURCE_GROUNDED",
+        "sourceType": "TEXTBOOK_ACTIVITY",
+        "sourceLabel": "Activity 11.3",
+        "title": "Investigating the Factors Affecting Resistance",
+        "concepts": [
+          "Effect of length of a conductor on resistance.",
+          "Effect of cross-sectional area of a conductor on resistance.",
+          "Effect of material composition of a conductor on resistance."
+        ],
+        "objective": "To observe and analyze changes in electric current when the length, thickness, and material of a wire in the circuit are modified.",
+        "materials": [
+          "A cell or battery source",
+          "An ammeter",
+          "A plug key",
+          "Connecting wires",
+          "Nichrome wire of length 'l'",
+          "Nichrome wire of same thickness but length '2l'",
+          "Thicker nichrome wire of length 'l'",
+          "Copper wire of same length 'l' and same thickness as the first nichrome wire"
+        ],
+        "steps": [
+          "Connect the circuit in series containing the cell, ammeter, plug key, and a gap XY.",
+          "First, connect the nichrome wire of length 'l' in the gap XY. Plug the key and note down the ammeter reading.",
+          "Next, replace it with the double-length nichrome wire (2l) in the gap XY. Observe and record the new ammeter reading. (Notice that the current is reduced to one-half).",
+          "Replace the second wire with the thicker nichrome wire (larger area of cross-section A) of length 'l'. Record the ammeter reading. (Notice that the current increases).",
+          "Now, replace the nichrome wire with a copper wire of the same length 'l' and same thickness. Record the ammeter reading. (Notice that the current is significantly higher).",
+          "Extract the key from the plug and compare the current values obtained in all four steps to conclude how resistance depends on length, area of cross-section, and material."
+        ],
+        "safetyNote": "Always take out the key from the plug after taking each measurement. Do not allow current to flow continuously as it will heat up the wires and alter their resistance.",
+        "sourcePages": [
+          7,
+          8
+        ],
+        "sourceLimitations": []
+      },
+      "howToTeach": {
+        "priority": "IMPORTANT",
+        "contentOrigin": "MIXED",
+        "teacherMoves": [
+          "Begin the session with the 'torch-light hook' to trigger curiosity about charge transport.",
+          "When explaining Ohm's law, emphasize the condition 'provided its temperature remains the same' because heating changes resistivity.",
+          "Walk around the classroom while students sketch the circuit diagrams to ensure ammeters are in series and voltmeters are in parallel.",
+          "Differentiate clearly between 'resistance' (the property of an object of a specific dimension) and 'resistivity' (the characteristic material property)."
+        ],
+        "misconceptions": [
+          {
+            "misconception": "Electrons are consumed or 'used up' in a circuit as current flows.",
+            "correction": "Electrons are not consumed in a circuit. They simply act as energy carriers. The power company provides the potential energy to move these existing electrons through household devices.",
+            "sourcePages": [
+              21
+            ]
+          },
+          {
+            "misconception": "Electric current flows from the negative terminal to the positive terminal since electrons are negative.",
+            "correction": "While negative electrons flow from the negative terminal to the positive terminal, the conventional direction of electric current is historically defined as the direction of positive charge flow, which is from positive to negative terminal.",
+            "sourcePages": [
+              1
+            ]
+          }
+        ],
+        "questionsToAsk": [
+          "If you double the length of a wire, what happens to its resistance? Why?",
+          "Why are transmission lines made of copper and aluminium rather than alloys like nichrome?",
+          "If a circuit is broken at the switch, why does the entire flow of electricity stop instantly?"
+        ],
+        "sourcePages": [
+          1,
+          8,
+          9,
+          21
+        ],
+        "sourceLimitations": []
+      },
+      "boardPlan": {
+        "priority": "IMPORTANT",
+        "contentOrigin": "MIXED",
+        "text": "========================================================================\nCHAPTER: ELECTRICITY\n========================================================================\n\n1. CURRENT (I) & CHARGE (Q)             2. POTENTIAL DIFFERENCE (V)\n   * I = Q / t                             * V = W / Q\n   * SI Unit: Ampere (A)                   * SI Unit: Volt (V)\n   * Ammeter: Connected in SERIES          * Voltmeter: Connected in PARALLEL\n\n3. OHM'S LAW & RESISTANCE               4. FACTORS AFFECTING RESISTANCE\n   * V = I * R (Temp. = Constant)          * R = rho * (l / A)\n   * Under constant V, I ∝ 1/R             * rho (ρ) = Resistivity (Ohm-meter [Ω.m])\n\n5. SYSTEM OF RESISTORS                  6. JOULE'S LAW OF HEATING\n   * Series: Rs = R1 + R2 + R3             * H = I^2 * R * t\n   * Parallel: 1/Rp = 1/R1 + 1/R2 + 1/R3   * Fuse is connected in series\n\n7. ELECTRIC POWER & ENERGY\n   * P = VI = I^2 * R = V^2 / R\n   * Energy E = P * t; Commercial Unit: 1 kWh = 3.6 x 10^6 J\n========================================================================\n",
+        "sourcePages": [
+          2,
+          3,
+          6,
+          8,
+          14,
+          16,
+          19,
+          21
+        ],
+        "sourceLimitations": []
+      },
+      "practice": {
+        "priority": "ESSENTIAL",
+        "questions": [
+          {
+            "question": "Calculate the number of electrons constituting one coulomb of charge.",
+            "expectedAnswer": "Charge of one electron (e) = 1.6 x 10^-19 C. Since Q = n * e, for Q = 1 C: n = 1 / (1.6 x 10^-19) = 6.25 x 10^18 electrons (often approximated as nearly 6 x 10^18 electrons).",
+            "sourcePages": [
+              2
+            ]
+          },
+          {
+            "question": "How much energy is given to each coulomb of charge passing through a 6 V battery?",
+            "expectedAnswer": "Potential difference V = 6 V, Charge Q = 1 C. Since V = W / Q, the work done (or energy given) is W = V * Q = 6 V * 1 C = 6 Joules.",
+            "sourcePages": [
+              4
+            ]
+          },
+          {
+            "question": "A metal wire of length 1 m has a resistance of 26 Ohms. If its diameter is 0.3 mm, calculate the resistivity of the metal at 20°C.",
+            "expectedAnswer": "Given: R = 26 Ohms, l = 1 m, d = 0.3 mm = 3 x 10^-4 m. Area of cross-section A = pi * d^2 / 4 = 3.14 * (3 x 10^-4)^2 / 4 = 7.065 x 10^-8 m^2. Since R = rho * l / A, then rho = R * A / l = 26 * 7.065 x 10^-8 / 1 = 1.84 x 10^-6 Ohm-meter.",
+            "sourcePages": [
+              10
+            ]
+          },
+          {
+            "question": "An electric refrigerator rated 400 W operates 8 hours/day. What is the cost of the energy to operate it for 30 days at Rs 3.00 per kWh?",
+            "expectedAnswer": "Total Energy = Power * daily hours * days = 400 W * 8 h/day * 30 days = 96,000 Wh = 96 kWh. Cost = 96 kWh * Rs 3.00/kWh = Rs 288.00.",
+            "sourcePages": [
+              21,
+              22
+            ]
+          }
+        ]
+      },
+      "checkUnderstanding": {
+        "priority": "ESSENTIAL",
+        "questions": [
+          {
+            "question": "What is the key difference in how an ammeter and a voltmeter are connected within an electric circuit?",
+            "expectedAnswer": "An ammeter measures current and is always connected in series, whereas a voltmeter measures potential difference and is always connected in parallel across the respective component.",
+            "difficulty": "basic",
+            "sourcePages": [
+              2,
+              3
+            ]
+          },
+          {
+            "question": "Why are the heating elements of electric toasters and electric irons made of alloys like nichrome rather than a pure metal?",
+            "expectedAnswer": "Alloys have a higher resistivity compared to their constituent pure metals. Furthermore, alloys do not oxidize or burn readily at high temperatures.",
+            "difficulty": "intermediate",
+            "sourcePages": [
+              9,
+              11
+            ]
+          },
+          {
+            "question": "How can three resistors of resistances 2 Ω, 3 Ω, and 6 Ω be connected to give a total equivalent resistance of (a) 4 Ω, (b) 1 Ω?",
+            "expectedAnswer": "(a) To get 4 Ω, connect the 3 Ω and 6 Ω resistors in parallel (equivalent to 2 Ω) and place this combination in series with the 2 Ω resistor. (b) To get 1 Ω, connect all three resistors (2 Ω, 3 Ω, 6 Ω) in parallel: 1/Rp = 1/2 + 1/3 + 1/6 = 1 Ω.",
+            "difficulty": "application",
+            "sourcePages": [
+              18
+            ]
+          }
+        ]
+      },
+      "materials": [
+        "Nichrome wire pieces of various lengths and thicknesses",
+        "Copper wire piece",
+        "Dry cells (1.5 V each)",
+        "Ammeter (0 - 5 A range)",
+        "Voltmeter (0 - 10 V range)",
+        "Plug key and connecting wires",
+        "Blackboard and colored chalks"
+      ]
+    },
+    "quickIdeas": {
+      "analogy": {
+        "contentOrigin": "MIXED",
+        "text": "Think of electric current as water flowing through a horizontal pipe. The potential difference is like a water pump that creates pressure difference between the ends of the pipe, forcing water to flow. The narrow segments or dirt in the pipe represent the resistance, which obstructs the flow of water.",
+        "sourcePages": [
+          3
+        ],
+        "sourceLimitations": []
+      },
+      "lowResourceActivity": {
+        "priority": "OPTIONAL",
+        "contentOrigin": "PEDAGOGICAL_ADDITION",
+        "sourceType": "CHALKBOX_ACTIVITY",
+        "sourceLabel": null,
+        "title": "Drawing Your Own Circuit Symbols",
+        "concepts": [
+          "Circuit diagram literacy",
+          "Understanding component symbols"
+        ],
+        "objective": "To help students familiarize themselves with standard electrical schematic symbols using peer-to-peer flashcards.",
+        "materials": [
+          "Small scrap paper pieces",
+          "Pens/Pencils"
+        ],
+        "steps": [
+          "Have each student tear a sheet of paper into 5 small pieces.",
+          "On one side of each card, they write the name of a component (e.g., cell, closed key, rheostat). On the other side, they sketch its standard textbook symbol.",
+          "Students pair up and quiz each other using their homemade flashcards to reinforce symbol identification."
+        ],
+        "safetyNote": null,
+        "sourcePages": [
+          4,
+          5
+        ],
+        "sourceLimitations": []
+      },
+      "quickChecks": [
+        {
+          "question": "What is the commercial unit of electrical energy and its value in Joules?",
+          "expectedAnswer": "Kilowatt hour (kWh); 1 kWh = 3.6 x 10^6 Joules.",
+          "sourcePages": [
+            21
+          ]
+        },
+        {
+          "question": "How does the current through a resistor change if its resistance is doubled while the potential difference remains constant?",
+          "expectedAnswer": "The current gets halved.",
+          "sourcePages": [
+            6
+          ]
+        }
+      ]
+    },
+    "sourceCoverage": {
+      "pagesUsed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22
+      ],
+      "keyConceptsCovered": [
+        "Electric current and charge",
+        "Electric potential difference and voltage",
+        "Circuit diagram symbols and measurements (ammeter, voltmeter)",
+        "Ohm's law and constant-temperature constraint",
+        "Factors affecting resistance and electrical resistivity",
+        "Resistors in series and parallel combinations",
+        "Joule's law of heating and practical applications (fuses, bulbs)",
+        "Electric power and commercial energy calculations (kWh)"
+      ],
+      "visualPagesUsed": [
+        5
+      ],
+      "sourceLimitations": []
+    }
+  },
+  "qualityGate": {
+    "decision": "PASS",
+    "finalAuditPolicyVersion": "chalkbox-final-repaired-audit-v2-gemini-35",
+    "deterministicPreAudit": "PASS",
+    "scientificAccuracy": "PASS",
+    "sourceGrounding": "PASS",
+    "citationAccuracy": "PASS",
+    "coverage": "PASS",
+    "activityProvenance": "PASS",
+    "visualGrounding": "PASS",
+    "pedagogy": "PASS",
+    "internalConsistency": "PASS",
+    "timingReadiness": "PASS",
+    "repairPassesUsed": 1,
+    "maximumRepairPasses": 1,
+    "postAuditNormalization": "chalkbox-visual-provenance-normalization-v1"
+  },
+  "scores": {
+    "scientificAccuracy": 10,
+    "sourceGrounding": 10,
+    "citationAccuracy": 10,
+    "coverage": 10,
+    "activityProvenance": 10,
+    "visualGrounding": 10,
+    "pedagogy": 10,
+    "internalConsistency": 10,
+    "timingReadiness": 10,
+    "overall": 10
+  },
+  "provenance": {
+    "repairedArtifact": "data\\repaired-demo-lessons-v1\\class-10-electricity-40min.json",
+    "repairedArtifactSha256": "3f0d5cc7b4c3d39725e3e29d340f3bae150ae7b271ce92709b4fe54192a10a2e",
+    "finalAuditArtifact": "data\\final-lesson-audits-v2\\class-10-electricity-40min-final-audit.json",
+    "finalAuditArtifactSha256": "f11ba181514576076dab27d21f0f5534e3fbee3914e95c226bdca9aad6063e65",
+    "visualProvenanceNormalized": true,
+    "normalizationPolicyVersion": "chalkbox-visual-provenance-normalization-v1",
+    "postAuditSemanticRepair": false
+  },
+  "promotedAt": "2026-08-25T16:35:52.019Z"
+}

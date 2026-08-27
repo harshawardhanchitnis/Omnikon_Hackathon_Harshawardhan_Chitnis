@@ -1,0 +1,646 @@
+{
+  "schemaVersion": 1,
+  "catalogPolicyVersion": "chalkbox-source-catalog-v1",
+  "lessonKey": "class-9-work-energy",
+  "classLevel": 9,
+  "subject": "Science",
+  "title": "Work and Energy",
+  "sourceFileName": "NCERT-Class-9-Force-and-Laws-of-Motion-and-Work-and-Energy.pdf",
+  "canonicalSource": {
+    "pageStart": 18,
+    "pageEnd": 31,
+    "pageCount": 14,
+    "approxTokenCount": 9170,
+    "canonicalContentSha256": "445421df0c0ebd2d708aa5a0ff153896764de81c06a10eda03f10be8312150dd"
+  },
+  "allowedTextbookLabels": {
+    "activities": [
+      "Activity 11.1",
+      "Activity 11.2",
+      "Activity 11.3",
+      "Activity 11.4",
+      "Activity 11.5",
+      "Activity 11.6",
+      "Activity 11.7",
+      "Activity 11.10",
+      "Activity 11.11",
+      "Activity 11.12",
+      "Activity 11.8",
+      "Activity 11.9",
+      "Activity 11.13",
+      "Activity 11.14",
+      "Activity 11.15",
+      "Activity 11.16",
+      "Activity 11.17"
+    ],
+    "examples": [
+      "Example 11.1",
+      "Example 11.2",
+      "Example 11.3",
+      "Example 11.4",
+      "Example 11.5",
+      "Example 11.6",
+      "Example 11.7",
+      "Example 11.8",
+      "Example 11.9"
+    ],
+    "figures": [
+      "Fig. 11.1",
+      "Fig. 11.2",
+      "Fig. 11.3",
+      "Fig. 11.4",
+      "Fig. 11.5",
+      "Fig. 11.6",
+      "Fig. 11.7",
+      "Fig. 11.8"
+    ],
+    "tables": []
+  },
+  "sourceObjects": {
+    "activities": [
+      {
+        "kind": "ACTIVITY",
+        "canonicalId": "ACTIVITY:11.1",
+        "preferredSourceLabel": "Activity 11.1",
+        "printedLabels": [
+          "Activity _____________ 11.1"
+        ],
+        "sourcePages": [
+          18
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 18,
+        "firstOccurrenceSnippet": "a function are sometimes not considered to be work. What constitutes ‘work’ depends on the way we define it. We use and define the term work differently in science. To understand this let us do the following activities: Activity _____________ 11.1 • We have discussed in the above paragraphs a number of activities which we normally consider to be work 11 WWWWWORKORKORKORKORK ANDANDANDANDAND EEEEENERGYNERGYNERGYNERGYNERGY C hapter© NCERT not to be republished"
+      },
+      {
+        "kind": "ACTIVITY",
+        "canonicalId": "ACTIVITY:11.2",
+        "preferredSourceLabel": "Activity 11.2",
+        "printedLabels": [
+          "Activity _____________ 11.2"
+        ],
+        "sourcePages": [
+          19
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 19,
+        "firstOccurrenceSnippet": "s not exist, work is not done. This is the way we view work in science. A bullock is pulling a cart. The cart moves. There is a force on the cart and the cart has moved. Do you think that work is done in this situation? Activity _____________ 11.2 • Think of some situations from your daily life involving work. • List them. • Discuss with your friends whether work is being done in each situation. • Try to reason out your response. • If work is done, which is the f"
+      },
+      {
+        "kind": "ACTIVITY",
+        "canonicalId": "ACTIVITY:11.3",
+        "preferredSourceLabel": "Activity 11.3",
+        "printedLabels": [
+          "Activity _____________ 11.3"
+        ],
+        "sourcePages": [
+          19
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 19,
+        "firstOccurrenceSnippet": "Activity _____________ 11.3 • Think of situations when the object is not displaced in spite of a force acting on it. • Also think of situations when an object gets displaced in the absence of a force acting on it. • List all the situations that yo"
+      },
+      {
+        "kind": "ACTIVITY",
+        "canonicalId": "ACTIVITY:11.4",
+        "preferredSourceLabel": "Activity 11.4",
+        "printedLabels": [
+          "Activity _____________ 11.4"
+        ],
+        "sourcePages": [
+          20
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 20,
+        "firstOccurrenceSnippet": "nus sign. The work done by the force is F × (–s) or (–F × s). It is clear from the above discussion that the work done by a force can be either positive or negative. To understand this, let us do the following activity: Activity _____________ 11.4 • Lift an object up. Work is done by the force exerted by you on the object. The object moves upwards. The force you exerted is in the direction of displacement. However, there is the force of gravity acting on the obje"
+      },
+      {
+        "kind": "ACTIVITY",
+        "canonicalId": "ACTIVITY:11.5",
+        "preferredSourceLabel": "Activity 11.5",
+        "printedLabels": [
+          "Activity _____________ 11.5"
+        ],
+        "sourcePages": [
+          21
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 21,
+        "firstOccurrenceSnippet": "t natural source of energy to us. Many of our energy sources are derived from the Sun. We can also get energy from the nuclei of atoms, the interior of the earth, and the tides. Can you think of other sources of energy? Activity _____________ 11.5 • A few sources of energy are listed above. There are many other sources of energy. List them. • Discuss in small groups how certain sources of energy are due to the Sun. • Are there sources of energy which are not due"
+      },
+      {
+        "kind": "ACTIVITY",
+        "canonicalId": "ACTIVITY:11.6",
+        "preferredSourceLabel": "Activity 11.6",
+        "printedLabels": [
+          "Activity _____________11.6"
+        ],
+        "sourcePages": [
+          22
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 22,
+        "firstOccurrenceSnippet": "kinetic energy of a body moving with a certain velocity is equal to the work done on it to make it acquire that velocity. 11.2.211.2.211.2.211.2.211.2.2 KKKKKINETICINETICINETICINETICINETIC ENERGYENERGYENERGYENERGYENERGY Activity _____________11.6 • Take a heavy ball. Drop it on a thick bed of sand. A wet bed of sand would be better. Drop the ball on the sand bed from height of about 25 cm. The ball creates a depression. • Repeat this activity from heights of 50"
+      },
+      {
+        "kind": "ACTIVITY",
+        "canonicalId": "ACTIVITY:11.7",
+        "preferredSourceLabel": "Activity 11.7",
+        "printedLabels": [
+          "Activity _____________ 11.7"
+        ],
+        "sourcePages": [
+          22
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 22,
+        "firstOccurrenceSnippet": "ns to indicate the height from which the ball was dropped. • Compare their depths. • Which one of them is deepest? • Which one is shallowest? Why? • What has caused the ball to make a deeper dent? • Discuss and analyse. Activity _____________ 11.7 • Set up the apparatus as shown in Fig. 11.5. • Place a wooden block of known mass in front of the trolley at a convenient fixed distance. • Place a known mass on the pan so that the trolley starts moving. James Prescot"
+      },
+      {
+        "kind": "ACTIVITY",
+        "canonicalId": "ACTIVITY:11.10",
+        "preferredSourceLabel": "Activity 11.10",
+        "printedLabels": [
+          "Activity ____________11.10"
+        ],
+        "sourcePages": [
+          24
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 24,
+        "firstOccurrenceSnippet": "c energy in throwing off the arrow. Q Fig.11.6: An arrow and the stretched string on the bow. • What happened? • How did the slinky acquire energy when stretched? • Would the slinky acquire energy when it is compressed? Activity ____________11.10 • Take a toy car. Wind it using its key. • Place the car on the ground. • Did it move? • From where did it acquire energy? • Does the energy acquired depend on the number of windings? • How can you test this?© NCERT not"
+      },
+      {
+        "kind": "ACTIVITY",
+        "canonicalId": "ACTIVITY:11.11",
+        "preferredSourceLabel": "Activity 11.11",
+        "printedLabels": [
+          "Activity ___________ 11.11"
+        ],
+        "sourcePages": [
+          24
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 24,
+        "firstOccurrenceSnippet": "did it acquire energy when stretched? Activity _____________11.9 • Take a slinky as shown below. • Ask a friend to hold one of its ends. You hold the other end and move away from your friend. Now you release the slinky. Activity ___________ 11.11 • Lift an object through a certain height. The object can now do work. It begins to fall when released. • This implies that it has acquired some energy. If raised to a greater height it can do more work and hence posses"
+      },
+      {
+        "kind": "ACTIVITY",
+        "canonicalId": "ACTIVITY:11.12",
+        "preferredSourceLabel": "Activity 11.12",
+        "printedLabels": [
+          "Activity ____________11.12"
+        ],
+        "sourcePages": [
+          24
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 24,
+        "firstOccurrenceSnippet": "nding the key of a toy car. The energy transferred to the spring inside is stored as potential energy. The potential energy possessed by the object is the energy present in it by virtue of its position or configuration. Activity ____________11.12 • Take a bamboo stick and make a bow as shown in Fig. 11.6. • Place an arrow made of a light stick on it with one end supported by the stretched string. • Now stretch the string and release the arrow. • Notice the arrow"
+      },
+      {
+        "kind": "ACTIVITY",
+        "canonicalId": "ACTIVITY:11.8",
+        "preferredSourceLabel": "Activity 11.8",
+        "printedLabels": [
+          "Activity _____________ 11.8"
+        ],
+        "sourcePages": [
+          24
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 24,
+        "firstOccurrenceSnippet": "nergy when its velocity is doubled? What will be its kinetic energy when its velocity is increased three times? 11.2.311.2.311.2.311.2.311.2.3 PPPPPOTENTIALOTENTIALOTENTIALOTENTIALOTENTIAL ENERGYENERGYENERGYENERGYENERGY Activity _____________ 11.8 • Take a rubber band. • Hold it at one end and pull from the other. The band stretches. • Release the band at one of the ends. • What happens? • The band will tend to regain its original length. Obviously the band had a"
+      },
+      {
+        "kind": "ACTIVITY",
+        "canonicalId": "ACTIVITY:11.9",
+        "preferredSourceLabel": "Activity 11.9",
+        "printedLabels": [
+          "Activity _____________11.9"
+        ],
+        "sourcePages": [
+          24
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 24,
+        "firstOccurrenceSnippet": "s. • Release the band at one of the ends. • What happens? • The band will tend to regain its original length. Obviously the band had acquired energy in its stretched position. • How did it acquire energy when stretched? Activity _____________11.9 • Take a slinky as shown below. • Ask a friend to hold one of its ends. You hold the other end and move away from your friend. Now you release the slinky. Activity ___________ 11.11 • Lift an object through a certain he"
+      },
+      {
+        "kind": "ACTIVITY",
+        "canonicalId": "ACTIVITY:11.13",
+        "preferredSourceLabel": "Activity 11.13",
+        "printedLabels": [
+          "Activity ____________11.13"
+        ],
+        "sourcePages": [
+          26
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 26,
+        "firstOccurrenceSnippet": "RCONVERTIBLEINTERCONVERTIBLEINTERCONVERTIBLEINTERCONVERTIBLEINTERCONVERTIBLE????? Can we convert energy from one form to another? We find in nature a number of instances of conversion of energy from one form to another. Activity ____________11.13 • Sit in small groups. • Discuss the various ways of energy conversion in nature. • Discuss following questions in your group: (a) How do green plants produce food? (b) Where do they get their energy from? (c) Why does"
+      },
+      {
+        "kind": "ACTIVITY",
+        "canonicalId": "ACTIVITY:11.14",
+        "preferredSourceLabel": "Activity 11.14",
+        "printedLabels": [
+          "Activity ___________ 11.14"
+        ],
+        "sourcePages": [
+          26
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 26,
+        "firstOccurrenceSnippet": "s produce food? (b) Where do they get their energy from? (c) Why does the air move from place to place? (d) How are fuels, such as coal and petroleum formed? (e) What kinds of energy conversions sustain the water cycle? Activity ___________ 11.14 • Many of the human activities and the gadgets we use involve conversion of energy from one form to another. • Make a list of such activities and gadgets. • Identify in each activity/gadget the kind of energy conversion"
+      },
+      {
+        "kind": "ACTIVITY",
+        "canonicalId": "ACTIVITY:11.15",
+        "preferredSourceLabel": "Activity 11.15",
+        "printedLabels": [
+          "Activity ___________ 11.15"
+        ],
+        "sourcePages": [
+          27
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 27,
+        "firstOccurrenceSnippet": "d the other B. Girl A takes 20 s while B takes 50 s to accomplish this task. What is the power expended by each girl? Solution: (i) Power expended by girl A: Weight of the girl, mg = 400 N Displacement (height), h = 8 m Activity ___________ 11.15 • An object of mass 20 kg is dropped from a height of 4 m. Fill in the blanks in the following table by computing the potential energy and kinetic energy in each case. Height at Potential Kinetic Ep + Ek which object en"
+      },
+      {
+        "kind": "ACTIVITY",
+        "canonicalId": "ACTIVITY:11.16",
+        "preferredSourceLabel": "Activity 11.16",
+        "printedLabels": [
+          "Activity ___________ 11.16"
+        ],
+        "sourcePages": [
+          27
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 27,
+        "firstOccurrenceSnippet": "Rate of Doing Work Do all of us work at the same rate? Do machines consume or transfer energy at the same rate? Agents that transfer energy do work at different rates. Let us understand this from the following activity: Activity ___________ 11.16 • Consider two children, say A and B. Let us say they weigh the same. Both start climbing up a rope separately. Both reach a height of 8 m. Let us say A takes 15 s while B takes 20 s to accomplish the task. • What is th"
+      },
+      {
+        "kind": "ACTIVITY",
+        "canonicalId": "ACTIVITY:11.17",
+        "preferredSourceLabel": "Activity 11.17",
+        "printedLabels": [
+          "Activity ___________ 11.17"
+        ],
+        "sourcePages": [
+          29
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 29,
+        "firstOccurrenceSnippet": "WORK AND ENERGY 157 Activity ___________ 11.17 • Take a close look at the electric meter installed in your house. Observe its features closely. • Take the readings of the meter each day at 6.30 am and 6.30 pm. • How many ‘units’ are consumed during day time? • How m"
+      }
+    ],
+    "examples": [
+      {
+        "kind": "EXAMPLE",
+        "canonicalId": "EXAMPLE:11.1",
+        "preferredSourceLabel": "Example 11.1",
+        "printedLabels": [
+          "Example 11.1"
+        ],
+        "sourcePages": [
+          20
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 20,
+        "firstOccurrenceSnippet": "carefully. What is the work done when the force on the object is zero? What would be the work done when the displacement of the object is zero? Refer to the conditions that are to be satisfied to say that work is done. Example 11.1 A force of 5 N is acting on an object. The object is displaced through 2 m in the direction of the force (Fig. 11.2). If the force acts on the object all through the displacement, then work done is 5 N × 2 m =10 N m or"
+      },
+      {
+        "kind": "EXAMPLE",
+        "canonicalId": "EXAMPLE:11.2",
+        "preferredSourceLabel": "Example 11.2",
+        "printedLabels": [
+          "Example 11.2"
+        ],
+        "sourcePages": [
+          20
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 20,
+        "firstOccurrenceSnippet": "ve work? • Which one is doing negative work? • Give reasons. Work done is negative when the force acts opposite to the direction of displacement. Work done is positive when the force is in the direction of displacement. Example 11.2 A porter lifts a luggage of 15 kg from the ground and puts it on his head 1.5 m above the ground. Calculate the work done by him on the luggage. Solution: Mass of luggage, m = 15 kg and displacement, s = 1.5 m. Fig. 11."
+      },
+      {
+        "kind": "EXAMPLE",
+        "canonicalId": "EXAMPLE:11.3",
+        "preferredSourceLabel": "Example 11.3",
+        "printedLabels": [
+          "Example 11.3"
+        ],
+        "sourcePages": [
+          23
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 23,
+        "firstOccurrenceSnippet": "ne is equal to the change in the kinetic energy of an object. If u = 0, the work done will be 1 m v . Thus, the kinetic energy possessed by an object of mass, m and moving with a uniform velocity, v is kE = m v (11.5) Example 11.3 An object of mass 15 kg is moving with a uniform velocity of 4 m s–1. What is the kinetic energy possessed by the object? Solution: Mass of the object, m = 15 kg, velocity of the object, v = 4 m s–1. From Eq. (11.5), k"
+      },
+      {
+        "kind": "EXAMPLE",
+        "canonicalId": "EXAMPLE:11.4",
+        "preferredSourceLabel": "Example 11.4",
+        "printedLabels": [
+          "Example 11.4"
+        ],
+        "sourcePages": [
+          23
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 23,
+        "firstOccurrenceSnippet": "ergy possessed by the object? Solution: Mass of the object, m = 15 kg, velocity of the object, v = 4 m s–1. From Eq. (11.5), kE = m v = 1 2 × 15 kg × 4 m s–1 × 4 m s–1 = 120 J The kinetic energy of the object is 120 J. Example 11.4 What is the work to be done to increase the velocity of a car from 30 km h–1 to 60 km h–1 if the mass of the car is 1500 kg? Solution: Mass of the car, m =1500 kg, initial velocity of car, u = 30 km h–1 = 30 ×1000 m 60"
+      },
+      {
+        "kind": "EXAMPLE",
+        "canonicalId": "EXAMPLE:11.5",
+        "preferredSourceLabel": "Example 11.5",
+        "printedLabels": [
+          "Example 11.5"
+        ],
+        "sourcePages": [
+          25
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 25,
+        "firstOccurrenceSnippet": "g which the object is moved. Fig. 11.8 shows a case where a block is raised from position A to B by taking two different paths. Let the height AB = h. In both the situations the work done on the object is mgh. Fig. 11.8 Example 11.5 Find the energy possessed by an object of mass 10 kg when it is at a height of 6 m above the ground. Given, g = 9.8 m s–2. Solution: Mass of the object, m = 10 kg, displacement (height), h = 6 m, and acceleration due to"
+      },
+      {
+        "kind": "EXAMPLE",
+        "canonicalId": "EXAMPLE:11.6",
+        "preferredSourceLabel": "Example 11.6",
+        "printedLabels": [
+          "Example 11.6"
+        ],
+        "sourcePages": [
+          26
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 26,
+        "firstOccurrenceSnippet": "SCIENCE154 Example 11.6 An object of mass 12 kg is at a certain height above the ground. If the potential energy of the object is 480 J, find the height at which the object is with respect to the ground. Given, g = 10 m s–2. Solution: Mass of"
+      },
+      {
+        "kind": "EXAMPLE",
+        "canonicalId": "EXAMPLE:11.7",
+        "preferredSourceLabel": "Example 11.7",
+        "printedLabels": [
+          "Example 11.7"
+        ],
+        "sourcePages": [
+          27
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 27,
+        "firstOccurrenceSnippet": "hat the agent may be doing work at different rates at different intervals of time. Therefore the concept of average power is useful. We obtain average power by dividing the total energy consumed by the total time taken. Example 11.7 Two girls, each of weight 400 N climb up a rope through a height of 8 m. We name one of the girls A and the other B. Girl A takes 20 s while B takes 50 s to accomplish this task. What is the power expended by each girl?"
+      },
+      {
+        "kind": "EXAMPLE",
+        "canonicalId": "EXAMPLE:11.8",
+        "preferredSourceLabel": "Example 11.8",
+        "printedLabels": [
+          "Example 11.8"
+        ],
+        "sourcePages": [
+          28
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 28,
+        "firstOccurrenceSnippet": "wer expended by girl B: Weight of the girl, mg = 400 N Displacement (height), h = 8 m Time taken, t = 50 s Power, P = mgh t = 400 N × 8 m 50 s = 64 W. Power expended by girl A is 160 W. Power expended by girl B is 64 W. Example 11.8 A boy of mass 50 kg runs up a staircase of 45 steps in 9 s. If the height of each step is 15 cm, find his power. Take g = 10 m s–2. Solution: Weight of the boy, mg = 50 kg × 10 m s–2 = 500 N Height of the staircase, h ="
+      },
+      {
+        "kind": "EXAMPLE",
+        "canonicalId": "EXAMPLE:11.9",
+        "preferredSourceLabel": "Example 11.9",
+        "printedLabels": [
+          "Example 11.9"
+        ],
+        "sourcePages": [
+          28
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 28,
+        "firstOccurrenceSnippet": "in households, industries and commercial establishments are usually expressed in kilowatt hour. For example, electrical energy used during a month is expressed in terms of ‘units’. Here, 1 ‘unit’ means 1 kilowatt hour. Example 11.9 An electric bulb of 60 W is used for 6 h per day. Calculate the ‘units’ of energy consumed in one day by the bulb. Solution: Power of electric bulb = 60 W = 0.06 kW. Time used, t = 6 h Energy = power × time taken = 0.06"
+      }
+    ],
+    "figures": [
+      {
+        "kind": "FIGURE",
+        "canonicalId": "FIGURE:11.1",
+        "preferredSourceLabel": "Fig. 11.1",
+        "printedLabels": [
+          "Fig. 11.1"
+        ],
+        "sourcePages": [
+          19
+        ],
+        "occurrenceCount": 2,
+        "firstOccurrencePage": 19,
+        "firstOccurrenceSnippet": "his, we shall first consider the case when the force is acting in the direction of displacement. Let a constant force, F act on an object. Let the object be displaced through a distance, s in the direction of the force (Fig. 11.1). Let W be the work done. We define work to be equal to the product of the force and displacement. Work done = force × displacement W = F s (11.1) in day-to-day life. For each of these activities, ask the following ques"
+      },
+      {
+        "kind": "FIGURE",
+        "canonicalId": "FIGURE:11.2",
+        "preferredSourceLabel": "Fig. 11.2",
+        "printedLabels": [
+          "Fig. 11.2"
+        ],
+        "sourcePages": [
+          20
+        ],
+        "occurrenceCount": 2,
+        "firstOccurrencePage": 20,
+        "firstOccurrenceSnippet": "nt of the object is zero? Refer to the conditions that are to be satisfied to say that work is done. Example 11.1 A force of 5 N is acting on an object. The object is displaced through 2 m in the direction of the force (Fig. 11.2). If the force acts on the object all through the displacement, then work done is 5 N × 2 m =10 N m or 10 J. Fig. 11.4 Consider a situation in which an object is moving with a uniform velocity along a particular directi"
+      },
+      {
+        "kind": "FIGURE",
+        "canonicalId": "FIGURE:11.3",
+        "preferredSourceLabel": "Fig. 11.3",
+        "printedLabels": [
+          "Fig. 11.3"
+        ],
+        "sourcePages": [
+          20
+        ],
+        "occurrenceCount": 2,
+        "firstOccurrencePage": 20,
+        "firstOccurrenceSnippet": "the work done by him on the luggage. Solution: Mass of luggage, m = 15 kg and displacement, s = 1.5 m. Fig. 11.2 uestion 1. A force of 7 N acts on an object. The displacement is, say 8 m, in the direction of the force (Fig. 11.3). Let us take it that the force acts on the object through the displacement. What is the work done in this case? Fig. 11.3 Consider another situation in which the force and the displacement are in the same direction: a"
+      },
+      {
+        "kind": "FIGURE",
+        "canonicalId": "FIGURE:11.4",
+        "preferredSourceLabel": "Fig. 11.4",
+        "printedLabels": [
+          "Fig. 11.4"
+        ],
+        "sourcePages": [
+          20
+        ],
+        "occurrenceCount": 2,
+        "firstOccurrencePage": 20,
+        "firstOccurrenceSnippet": "ce of 5 N is acting on an object. The object is displaced through 2 m in the direction of the force (Fig. 11.2). If the force acts on the object all through the displacement, then work done is 5 N × 2 m =10 N m or 10 J. Fig. 11.4 Consider a situation in which an object is moving with a uniform velocity along a particular direction. Now a retarding force, F, is applied in the opposite direction. That is, the angle between the two directions is 18"
+      },
+      {
+        "kind": "FIGURE",
+        "canonicalId": "FIGURE:11.5",
+        "preferredSourceLabel": "Fig. 11.5",
+        "printedLabels": [
+          "Fig. 11.5"
+        ],
+        "sourcePages": [
+          22
+        ],
+        "occurrenceCount": 2,
+        "firstOccurrencePage": 22,
+        "firstOccurrenceSnippet": "SCIENCE150 Fig. 11.5 • The trolley moves forward and hits the wooden block. • Fix a stop on the table in such a manner that the trolley stops after hitting the block. The block gets displaced. • Note down the displacement of the block. This"
+      },
+      {
+        "kind": "FIGURE",
+        "canonicalId": "FIGURE:11.6",
+        "preferredSourceLabel": "Fig. 11.6",
+        "printedLabels": [
+          "Fig. 11.6",
+          "Fig.11.6"
+        ],
+        "sourcePages": [
+          24
+        ],
+        "occurrenceCount": 2,
+        "firstOccurrencePage": 24,
+        "firstOccurrenceSnippet": "tored as potential energy. The potential energy possessed by the object is the energy present in it by virtue of its position or configuration. Activity ____________11.12 • Take a bamboo stick and make a bow as shown in Fig. 11.6. • Place an arrow made of a light stick on it with one end supported by the stretched string. • Now stretch the string and release the arrow. • Notice the arrow flying off the bow. Notice the change in the shape of the"
+      },
+      {
+        "kind": "FIGURE",
+        "canonicalId": "FIGURE:11.7",
+        "preferredSourceLabel": "Fig. 11.7",
+        "printedLabels": [
+          "Fig. 11.7"
+        ],
+        "sourcePages": [
+          25
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 25,
+        "firstOccurrenceSnippet": "at a point above the ground is defined as the work done in raising it from the ground to that point against gravity. It is easy to arrive at an expression for the gravitational potential energy of an object at a height. Fig. 11.7 Consider an object of mass, m. Let it be raised through a height, h from the ground. A force is required to do this. The minimum force required to raise the object is equal to the weight of the object, mg. The object ga"
+      },
+      {
+        "kind": "FIGURE",
+        "canonicalId": "FIGURE:11.8",
+        "preferredSourceLabel": "Fig. 11.8",
+        "printedLabels": [
+          "Fig. 11.8"
+        ],
+        "sourcePages": [
+          25
+        ],
+        "occurrenceCount": 2,
+        "firstOccurrencePage": 25,
+        "firstOccurrenceSnippet": "ct to another level. It is useful to note that the work done by gravity depends on the difference in vertical heights of the initial and final positions of the object and not on the path along which the object is moved. Fig. 11.8 shows a case where a block is raised from position A to B by taking two different paths. Let the height AB = h. In both the situations the work done on the object is mgh. Fig. 11.8 Example 11.5 Find the energy possessed"
+      }
+    ],
+    "tables": []
+  },
+  "provenanceRules": {
+    "textbookActivity": [
+      "TEXTBOOK_ACTIVITY may only use a label listed in allowedTextbookLabels.activities.",
+      "Otherwise use CHALKBOX_ACTIVITY with sourceLabel=null."
+    ],
+    "textbookExample": [
+      "TEXTBOOK_EXAMPLE may only use a label listed in allowedTextbookLabels.examples.",
+      "Unlabelled source-derived teaching examples must use CHALKBOX_EXAMPLE with sourceLabel=null."
+    ],
+    "textbookVisual": [
+      "TEXTBOOK_VISUAL may only use a label listed in allowedTextbookLabels.figures or allowedTextbookLabels.tables.",
+      "Actual visual fidelity still requires PDF verification.",
+      "Adapted teacher redraws must use BOARD_VISUAL with sourceLabel=null."
+    ]
+  },
+  "visualSource": {
+    "available": true,
+    "outputFileName": "class-9-work-energy.pdf",
+    "outputSha256": "c103bf8fea6f92e465dececf1b643969eecf3bbfd2baa855c12969f93ed2013f",
+    "pageCount": 14,
+    "pageMappings": [
+      {
+        "chapterPage": 1,
+        "sourcePdfPage": 18,
+        "textbookPageLabel": 18
+      },
+      {
+        "chapterPage": 2,
+        "sourcePdfPage": 19,
+        "textbookPageLabel": 19
+      },
+      {
+        "chapterPage": 3,
+        "sourcePdfPage": 20,
+        "textbookPageLabel": 20
+      },
+      {
+        "chapterPage": 4,
+        "sourcePdfPage": 21,
+        "textbookPageLabel": 21
+      },
+      {
+        "chapterPage": 5,
+        "sourcePdfPage": 22,
+        "textbookPageLabel": 22
+      },
+      {
+        "chapterPage": 6,
+        "sourcePdfPage": 23,
+        "textbookPageLabel": 23
+      },
+      {
+        "chapterPage": 7,
+        "sourcePdfPage": 24,
+        "textbookPageLabel": 24
+      },
+      {
+        "chapterPage": 8,
+        "sourcePdfPage": 25,
+        "textbookPageLabel": 25
+      },
+      {
+        "chapterPage": 9,
+        "sourcePdfPage": 26,
+        "textbookPageLabel": 26
+      },
+      {
+        "chapterPage": 10,
+        "sourcePdfPage": 27,
+        "textbookPageLabel": 27
+      },
+      {
+        "chapterPage": 11,
+        "sourcePdfPage": 28,
+        "textbookPageLabel": 28
+      },
+      {
+        "chapterPage": 12,
+        "sourcePdfPage": 29,
+        "textbookPageLabel": 29
+      },
+      {
+        "chapterPage": 13,
+        "sourcePdfPage": 30,
+        "textbookPageLabel": 30
+      },
+      {
+        "chapterPage": 14,
+        "sourcePdfPage": 31,
+        "textbookPageLabel": 31
+      }
+    ]
+  },
+  "statistics": {
+    "activities": 17,
+    "examples": 9,
+    "figureLabels": 8,
+    "tableLabels": 0,
+    "totalLabelledSourceObjects": 34
+  },
+  "builtAt": "2026-08-25T18:37:38.765Z"
+}

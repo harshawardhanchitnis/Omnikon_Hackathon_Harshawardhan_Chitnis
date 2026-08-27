@@ -1,0 +1,268 @@
+{
+  "artifactVersion": 1,
+  "auditPolicyVersion": "chalkbox-final-repaired-audit-v2-gemini-35",
+  "status": "FINAL_AUDIT_COMPLETED",
+  "finalDecision": "PASS",
+  "lessonKey": "class-10-electricity",
+  "requestedDurationMinutes": 40,
+  "sourceArtifact": "data\\repaired-demo-lessons-v1\\class-10-electricity-40min.json",
+  "repairPassConsumed": true,
+  "secondRepairAllowed": false,
+  "judgeReady": true,
+  "deterministicPreAudit": {
+    "status": "PASS",
+    "errors": [],
+    "warnings": [],
+    "allFindings": []
+  },
+  "modelAudit": {
+    "schemaVersion": 1,
+    "auditPolicyVersion": "chalkbox-final-repaired-audit-v2-gemini-35",
+    "lessonKey": "class-10-electricity",
+    "decision": "PASS",
+    "scores": {
+      "scientificAccuracy": 10,
+      "sourceGrounding": 10,
+      "citationAccuracy": 10,
+      "coverage": 10,
+      "activityProvenance": 10,
+      "visualGrounding": 10,
+      "pedagogy": 10,
+      "internalConsistency": 10,
+      "timingReadiness": 10,
+      "overall": 10
+    },
+    "summary": "The lesson is exceptionally well-grounded in the canonical NCERT source text and visual diagrams. Every major topic of Class 10 Electricity is covered with high scientific rigor and educational clarity. The numerical calculations in the examples, practice problems, and conceptual questions are mathematically correct and perfectly aligned with the textbook's data. The activity and visual representations are safe, clear, and accurately referenced.",
+    "coverage": {
+      "status": "PASS",
+      "majorConcepts": [
+        {
+          "concept": "Electric current and charge",
+          "sourcePages": [
+            1,
+            2
+          ],
+          "status": "COVERED",
+          "lessonEvidenceFields": [
+            "fullLesson.define",
+            "fullLesson.explain",
+            "fullLesson.practice"
+          ],
+          "explanation": "Correctly defines current as rate of charge flow (I = Q/t) with SI units, explains conventional current direction, and calculates electrons in 1 Coulomb."
+        },
+        {
+          "concept": "Electric potential difference",
+          "sourcePages": [
+            3,
+            4
+          ],
+          "status": "COVERED",
+          "lessonEvidenceFields": [
+            "fullLesson.define",
+            "fullLesson.explain",
+            "fullLesson.practice"
+          ],
+          "explanation": "Correctly defines potential difference as work done per unit charge (V = W/Q) with Volt as the SI unit, and includes practice questions directly from the textbook's questions."
+        },
+        {
+          "concept": "Circuit symbols and measurement",
+          "sourcePages": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "status": "COVERED",
+          "lessonEvidenceFields": [
+            "fullLesson.define",
+            "fullLesson.visualize",
+            "fullLesson.checkUnderstanding"
+          ],
+          "explanation": "Clearly explains connections of ammeter (series) and voltmeter (parallel), and references standard symbol diagrams."
+        },
+        {
+          "concept": "Ohm's Law",
+          "sourcePages": [
+            5,
+            6
+          ],
+          "status": "COVERED",
+          "lessonEvidenceFields": [
+            "fullLesson.define",
+            "fullLesson.explain",
+            "fullLesson.visualize"
+          ],
+          "explanation": "Correctly states that potential difference is directly proportional to current under constant temperature, introducing the resistance constant R."
+        },
+        {
+          "concept": "Factors affecting resistance and electrical resistivity",
+          "sourcePages": [
+            7,
+            8,
+            9,
+            10
+          ],
+          "status": "COVERED",
+          "lessonEvidenceFields": [
+            "fullLesson.define",
+            "fullLesson.explain",
+            "fullLesson.activity",
+            "fullLesson.practice"
+          ],
+          "explanation": "Explicitly details factors affecting resistance (l, A, material) through Activity 11.3 and applies the resistivity formula in a fully-worked mathematical practice problem."
+        },
+        {
+          "concept": "Series and parallel combinations",
+          "sourcePages": [
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18
+          ],
+          "status": "COVERED",
+          "lessonEvidenceFields": [
+            "fullLesson.define",
+            "fullLesson.explain",
+            "fullLesson.checkUnderstanding"
+          ],
+          "explanation": "Derives and details Rs and Rp formulas, explaining the physical current/voltage behavior and real-world advantages of parallel wiring."
+        },
+        {
+          "concept": "Joule's Law of heating and applications",
+          "sourcePages": [
+            18,
+            19,
+            20
+          ],
+          "status": "COVERED",
+          "lessonEvidenceFields": [
+            "fullLesson.define",
+            "fullLesson.explain",
+            "fullLesson.howToTeach"
+          ],
+          "explanation": "States the mathematical law (H = I^2*R*t) and covers practical applications like fuses, bulbs, and electrical appliances."
+        },
+        {
+          "concept": "Electric Power and commercial electrical energy",
+          "sourcePages": [
+            21,
+            22
+          ],
+          "status": "COVERED",
+          "lessonEvidenceFields": [
+            "fullLesson.define",
+            "fullLesson.explain",
+            "fullLesson.practice"
+          ],
+          "explanation": "Covers power formulas (P = VI, I^2*R, V^2/R) and uses the commercial unit (1 kWh = 3.6 x 10^6 J) in a domestic cost calculation problem."
+        }
+      ]
+    },
+    "citationAudit": [
+      {
+        "field": "fullLesson.practice",
+        "claimedPages": [
+          2,
+          4,
+          10,
+          21,
+          22
+        ],
+        "status": "PASS",
+        "explanation": "All practice questions map exactly to source pages: charge/electron on page 2, work/energy on page 4, resistivity metal wire on page 10, and refrigerator cost on pages 21-22."
+      },
+      {
+        "field": "fullLesson.activity",
+        "claimedPages": [
+          7,
+          8
+        ],
+        "status": "PASS",
+        "explanation": "The activity procedure, materials, and safety measures faithfully match Activity 11.3 on pages 7 and 8."
+      }
+    ],
+    "activityAudit": [
+      {
+        "field": "fullLesson.activity",
+        "sourceType": "TEXTBOOK_ACTIVITY",
+        "sourceLabel": "Activity 11.3",
+        "sourcePages": [
+          7,
+          8
+        ],
+        "status": "PASS",
+        "explanation": "The activity genuinely exists under the label Activity 11.3 on pages 7 and 8, accurately preserving steps to analyze how length, area, and material composition affect resistance."
+      },
+      {
+        "field": "quickIdeas.lowResourceActivity",
+        "sourceType": "CHALKBOX_ACTIVITY",
+        "sourceLabel": null,
+        "sourcePages": [
+          4,
+          5
+        ],
+        "status": "PASS",
+        "explanation": "The low-resource peer flashcard activity is safe, cost-efficient, and grounded in the schematic symbols presented in Table 11.1 on pages 4 and 5."
+      }
+    ],
+    "visualAudit": [
+      {
+        "field": "fullLesson.visualize",
+        "sourceType": "BOARD_VISUAL",
+        "sourceLabel": null,
+        "sourcePages": [
+          5
+        ],
+        "status": "PASS",
+        "explanation": "The BOARD_VISUAL acts as a pedagogical redraw of the Ohm's law circuit on page 5 (Figure 11.2). The circuit topology, component connections, and ammeter/voltmeter polarities are entirely correct."
+      }
+    ],
+    "pedagogy": {
+      "status": "PASS",
+      "strengths": [
+        "Excellent hook that immediately bridges daily observation (turning on a torch) with fundamental physics concepts (charge flow, switch link).",
+        "Addresses the common misconception of electron consumption in circuits using the textbook's own guidance on page 21.",
+        "Clear, step-by-step breakdown of mathematical problems that facilitates high-quality classroom board work."
+      ],
+      "issues": []
+    },
+    "timingReadiness": {
+      "status": "PASS",
+      "explanation": "The essential, important, and optional priority tags are utilized systematically. This structured approach allows downstream deterministic scheduling algorithms to shrink the full-chapter scope smoothly to a 40-minute timeframe without omitting core concepts."
+    },
+    "issues": []
+  },
+  "auditGeneration": {
+    "provider": "google",
+    "model": "gemini-3.5-flash",
+    "thinkingLevel": "MEDIUM",
+    "attempt": 1,
+    "elapsedMs": 34846,
+    "finishReason": "STOP",
+    "finishMessage": null,
+    "maxOutputTokens": 20480,
+    "requestTimeoutMs": 180000,
+    "modelVersion": "gemini-3.5-flash",
+    "responseId": "AMONasb2MKjdg8UP_9mP-QY",
+    "usage": {
+      "promptTokens": 48232,
+      "outputTokens": 1851,
+      "thoughtTokens": 3447,
+      "totalTokens": 53530
+    }
+  },
+  "summaryMetrics": {
+    "deterministicErrors": 0,
+    "deterministicWarnings": 0,
+    "auditErrors": 0,
+    "auditWarnings": 0,
+    "conceptsCovered": 8,
+    "conceptsPartial": 0,
+    "conceptsMissing": 0
+  },
+  "auditedAt": "2026-08-25T16:30:25.455Z"
+}

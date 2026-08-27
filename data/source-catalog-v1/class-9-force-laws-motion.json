@@ -1,0 +1,648 @@
+{
+  "schemaVersion": 1,
+  "catalogPolicyVersion": "chalkbox-source-catalog-v1",
+  "lessonKey": "class-9-force-laws-motion",
+  "classLevel": 9,
+  "subject": "Science",
+  "title": "Force and Laws of Motion",
+  "sourceFileName": "NCERT-Class-9-Force-and-Laws-of-Motion-and-Work-and-Energy.pdf",
+  "canonicalSource": {
+    "pageStart": 1,
+    "pageEnd": 17,
+    "pageCount": 17,
+    "approxTokenCount": 10582,
+    "canonicalContentSha256": "897ccf860f9b8239adcf77e9c486a2aec125ed524a9f698c5f95ec7efd9f40b3"
+  },
+  "allowedTextbookLabels": {
+    "activities": [
+      "Activity 9.1",
+      "Activity 9.2",
+      "Activity 9.3",
+      "Activity 9.4",
+      "Activity 9.5",
+      "Activity 9.6"
+    ],
+    "examples": [
+      "Example 9.1",
+      "Example 9.2",
+      "Example 9.3",
+      "Example 9.4",
+      "Example 9.5",
+      "Example 9.6",
+      "Example 9.7",
+      "Example 9.8"
+    ],
+    "figures": [
+      "Fig. 9.1",
+      "Fig. 9.2",
+      "Fig. 9.3",
+      "Fig. 9.4",
+      "Fig. 9.5",
+      "Fig. 9.6",
+      "Fig. 9.7",
+      "Fig. 9.8",
+      "Fig. 9.9",
+      "Fig. 9.10",
+      "Fig. 9.11",
+      "Fig. 9.12",
+      "Fig. 9.13",
+      "Fig. 9.14",
+      "Fig. 9.15",
+      "Fig. 9.16",
+      "Fig. 9.17",
+      "Fig. 9.18",
+      "Fig. 9.19"
+    ],
+    "tables": []
+  },
+  "sourceObjects": {
+    "activities": [
+      {
+        "kind": "ACTIVITY",
+        "canonicalId": "ACTIVITY:9.1",
+        "preferredSourceLabel": "Activity 9.1",
+        "printedLabels": [
+          "Activity ______________ 9.1"
+        ],
+        "sourcePages": [
+          4
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 4,
+        "firstOccurrenceSnippet": "ion of the motorcar, we slip to one side of the seat due to the inertia of our body. The fact that a body will remain at rest unless acted upon by an unbalanced force can be illustrated through the following activities: Activity ______________ 9.1 • Make a pile of similar car om coins on a table, as shown in Fig. 9.6. • Attempt a sharp horizontal hit at the bottom of the pile using another carom coin or the striker. If the hit is strong enough, the bottom coin mo"
+      },
+      {
+        "kind": "ACTIVITY",
+        "canonicalId": "ACTIVITY:9.2",
+        "preferredSourceLabel": "Activity 9.2",
+        "printedLabels": [
+          "Activity ______________ 9.2",
+          "activity 9.2"
+        ],
+        "sourcePages": [
+          5
+        ],
+        "occurrenceCount": 2,
+        "firstOccurrencePage": 5,
+        "firstOccurrenceSnippet": "in the forward direction when a moving bus brakes to a stop and fall backwards when it accelerates from rest? 9.4 Second Law of Motion The first law of motion indicates that when an unbalanced external force acts on an Activity ______________ 9.2 • Set a five-rupee coin on a stiff card covering an empty glass tumbler standing on a table as shown in Fig. 9.7. • Give the card a sharp horizontal flick with a finger. If we do it fast then the card shoots away, allow"
+      },
+      {
+        "kind": "ACTIVITY",
+        "canonicalId": "ACTIVITY:9.3",
+        "preferredSourceLabel": "Activity 9.3",
+        "printedLabels": [
+          "Activity ______________ 9.3"
+        ],
+        "sourcePages": [
+          5
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 5,
+        "firstOccurrenceSnippet": "ss tumbler due to its inertia. • The inertia of the coin tries to maintain its state of rest even when the card flows off. Fig. 9.7: When the card is flicked with the finger the coin placed over it falls in the tumbler. Activity ______________ 9.3 • Place a water -filled tumbler on a tray. • Hold the tray and turn around as fast as you can. • We observe that the water spills. Why? Observe that a groove is provided in a saucer for placing the tea cup. It prevents"
+      },
+      {
+        "kind": "ACTIVITY",
+        "canonicalId": "ACTIVITY:9.4",
+        "preferredSourceLabel": "Activity 9.4",
+        "printedLabels": [
+          "Activity ______________ 9.4"
+        ],
+        "sourcePages": [
+          10
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 10,
+        "firstOccurrenceSnippet": "ch lasts for a time t, the ball A exerts a force FAB on ball B and the ball B exerts a force FBA on ball A. Suppose vA and vB are the velocities of the two balls A and B after the collision, respectively [Fig. 9.14(c)]. Activity ______________ 9.4 • Request two children to stand on two separate carts as shown in Fig. 9.13. • Give them a bag full of sand or some other heavy object. Ask them to play a game of catch with the bag. • Does each of them r eceive an inst"
+      },
+      {
+        "kind": "ACTIVITY",
+        "canonicalId": "ACTIVITY:9.5",
+        "preferredSourceLabel": "Activity 9.5",
+        "printedLabels": [
+          "Activity ______________ 9.5"
+        ],
+        "sourcePages": [
+          11
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 11,
+        "firstOccurrenceSnippet": "ernal unbalanced force acting on them. This is known as the law of conservation of momentum. This statement can alternatively be given as the total momentum of the two objects is unchanged or conserved by the collision. Activity ______________ 9.5 • Take a big rubber balloon and inflate it fully. Tie its neck using a thread. Also using adhesive tape, fix a straw on the surface of this balloon. • Pass a thread through the straw and hold one end of the thread in yo"
+      },
+      {
+        "kind": "ACTIVITY",
+        "canonicalId": "ACTIVITY:9.6",
+        "preferredSourceLabel": "Activity 9.6",
+        "printedLabels": [
+          "Activity ______________ 9.6"
+        ],
+        "sourcePages": [
+          11
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 11,
+        "firstOccurrenceSnippet": "SCIENCE124 Activity ______________ 9.6 • Take a test tube of good quality glass material and put a small amount of water in it. Place a stop cork at the mouth of it. • Now suspend the test tube horizontally by two strings or wires as shown in Fig. 9.16. • He"
+      }
+    ],
+    "examples": [
+      {
+        "kind": "EXAMPLE",
+        "canonicalId": "EXAMPLE:9.1",
+        "preferredSourceLabel": "Example 9.1",
+        "printedLabels": [
+          "Example 9.1"
+        ],
+        "sourcePages": [
+          7
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 7,
+        "firstOccurrenceSnippet": "= 0, v = u for whatever time, t is taken. This means that the object will continue moving with uniform velocity, u throughout the time, t. If u is zero then v will also be zero. That is, the object will remain at rest. Example 9.1 A constant force acts on an object of mass 5 kg for a duration of 2 s. It increases the object’s velocity from 3 m s–1 to 7 m s -1. Find the magnitude of the applied force. Now, if the force was applied for a duration o"
+      },
+      {
+        "kind": "EXAMPLE",
+        "canonicalId": "EXAMPLE:9.2",
+        "preferredSourceLabel": "Example 9.2",
+        "printedLabels": [
+          "Example 9.2"
+        ],
+        "sourcePages": [
+          8
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 8,
+        "firstOccurrenceSnippet": "FORCE AND LAWS OF MOTION 121 Example 9.2 Which would require a greater force –– accelerating a 2 kg mass at 5 m s–2 or a 4 kg mass at 2 m s-2 ? Solution: From Eq. (9.4), we have F = ma. Here we have m1 = 2 kg; a1 = 5 m s-2 and m2 = 4 kg; a2 = 2 m s-2. Thus, F1"
+      },
+      {
+        "kind": "EXAMPLE",
+        "canonicalId": "EXAMPLE:9.3",
+        "preferredSourceLabel": "Example 9.3",
+        "printedLabels": [
+          "Example 9.3"
+        ],
+        "sourcePages": [
+          8
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 8,
+        "firstOccurrenceSnippet": "ave m1 = 2 kg; a1 = 5 m s-2 and m2 = 4 kg; a2 = 2 m s-2. Thus, F1 = m1a1 = 2 kg × 5 m s-2 = 10 N; and F2 = m2a2 = 4 kg × 2 m s-2 = 8 N. ⇒ F1 > F2. Thus, accelerating a 2 kg mass at 5 m s-2 would require a greater force. Example 9.3 A motorcar is moving with a velocity of 108 km/h and it takes 4 s to stop after the brakes are applied. Calculate the force exerted by the brakes on the motorcar if its mass along with the passengers is 1000 kg. Solutio"
+      },
+      {
+        "kind": "EXAMPLE",
+        "canonicalId": "EXAMPLE:9.4",
+        "preferredSourceLabel": "Example 9.4",
+        "printedLabels": [
+          "Example 9.4"
+        ],
+        "sourcePages": [
+          8
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 8,
+        "firstOccurrenceSnippet": "On substituting the values, we get F = 1000 kg × (0 – 30) m s -1/4 s = – 7500 kg m s-2 or – 7500 N. The negative sign tells us that the force exerted by the brakes is opposite to the direction of motion of the motorcar. Example 9.4 A force of 5 N gives a mass m1, an acceleration of 10 m s –2 and a mass m2, an acceleration of 20 m s -2. What acceleration would it give if both the masses were tied together? Solution: From Eq. (9.4) we have m1 = F/a1"
+      },
+      {
+        "kind": "EXAMPLE",
+        "canonicalId": "EXAMPLE:9.5",
+        "preferredSourceLabel": "Example 9.5",
+        "printedLabels": [
+          "Example 9.5"
+        ],
+        "sourcePages": [
+          8
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 8,
+        "firstOccurrenceSnippet": "0.25 kg. If the two masses were tied together, the total mass, m would be m = 0.50 kg + 0.25 kg = 0.75 kg. The acceleration, a produced in the combined mass by the 5 N force would be, a = F/m = 5 N/0.75 kg = 6.67 m s-2. Example 9.5 The velocity-time graph of a ball of mass 20 g moving along a straight line on a long table is given in Fig. 9.9. Fig. 9.9 How much force does the table exert on the ball to bring it to rest? Solution: The initial veloc"
+      },
+      {
+        "kind": "EXAMPLE",
+        "canonicalId": "EXAMPLE:9.6",
+        "preferredSourceLabel": "Example 9.6",
+        "printedLabels": [
+          "Example 9.6"
+        ],
+        "sourcePages": [
+          11
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 11,
+        "firstOccurrenceSnippet": "m the mouth of the balloon. • Observe the direction in which the straw moves. Fig. 9.15 of the cork. Fig. 9.16 • Also, observe the difference in the velocity the cork appears to have and that of the recoiling test tube. Example 9.6 A bullet of mass 20 g is horizontally fired with a velocity 150 m s-1 from a pistol of mass 2 kg. What is the recoil velocity of the pistol? Solution: We have the mass of bullet, m1 = 20 g (= 0.02 kg) and the mass of th"
+      },
+      {
+        "kind": "EXAMPLE",
+        "canonicalId": "EXAMPLE:9.7",
+        "preferredSourceLabel": "Example 9.7",
+        "printedLabels": [
+          "Example 9.7"
+        ],
+        "sourcePages": [
+          12
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 12,
+        "firstOccurrenceSnippet": "tal momenta after the fire = Total momenta before the fire 3 + 2v = 0 ⇒ v = − 1.5 m s–1. Negative sign indicates that the direction in which the pistol would recoil is opposite to that of bullet, that is, right to left. Example 9.7 A girl of mass 40 kg jumps with a horizontal velocity of 5 m s-1 onto a stationary cart with frictionless wheels. The mass of the cart is 3 kg. What is her velocity as the cart starts moving? Assume that there is no ext"
+      },
+      {
+        "kind": "EXAMPLE",
+        "canonicalId": "EXAMPLE:9.8",
+        "preferredSourceLabel": "Example 9.8",
+        "printedLabels": [
+          "Example 9.8"
+        ],
+        "sourcePages": [
+          13
+        ],
+        "occurrenceCount": 1,
+        "firstOccurrencePage": 13,
+        "firstOccurrenceSnippet": "SCIENCE126 Example 9.8 Two hockey players of opposite teams, while trying to hit a hockey ball on the ground collide and immediately become entangled. One has a mass of 60 kg and was moving with a velocity 5.0 m s–1 while the other has a mass"
+      }
+    ],
+    "figures": [
+      {
+        "kind": "FIGURE",
+        "canonicalId": "FIGURE:9.1",
+        "preferredSourceLabel": "Fig. 9.1",
+        "printedLabels": [
+          "Fig. 9.1"
+        ],
+        "sourcePages": [
+          1
+        ],
+        "occurrenceCount": 2,
+        "firstOccurrencePage": 1,
+        "firstOccurrenceSnippet": "we always see or feel the effect of a force. It can only be explained by describing what happens when a force is applied to an object. Pushing, hitting and pulling of objects are all ways of bringing objects in motion (Fig. 9.1). They move because we make a force act on them. From your studies in earlier classes, you are also familiar with the fact that a force can be used to change the magnitude of velocity of an object (that is, to make the"
+      },
+      {
+        "kind": "FIGURE",
+        "canonicalId": "FIGURE:9.2",
+        "preferredSourceLabel": "Fig. 9.2",
+        "printedLabels": [
+          "Fig. 9.2"
+        ],
+        "sourcePages": [
+          1
+        ],
+        "occurrenceCount": 2,
+        "firstOccurrencePage": 1,
+        "firstOccurrenceSnippet": "can be used to change the magnitude of velocity of an object (that is, to make the object move faster or slower) or to change its direction of motion. We also know that a force can change the shape and size of objects (Fig. 9.2). (a) The trolley moves along the direction we push it. (c) The hockey stick hits the ball forward (b) The drawer is pulled. Fig. 9.1: Pushing, pulling, or hitting objects change their state of motion. (a) (b) Fig. 9.2:"
+      },
+      {
+        "kind": "FIGURE",
+        "canonicalId": "FIGURE:9.3",
+        "preferredSourceLabel": "Fig. 9.3",
+        "printedLabels": [
+          "Fig. 9.3"
+        ],
+        "sourcePages": [
+          2
+        ],
+        "occurrenceCount": 2,
+        "firstOccurrencePage": 2,
+        "firstOccurrenceSnippet": "ject, an unbalanced force is required. And the change in its speed (or in the direction of motion) would continue as long as this unbalanced force is applied. However, if this force is 9.1 Balanced and Unbalanced Forces Fig. 9.3 shows a wooden block on a horizontal table. Two strings X and Y are tied to the two opposite faces of the block as shown. If we apply a force by pulling the string X, the block begins to move to the right. Similarly, if"
+      },
+      {
+        "kind": "FIGURE",
+        "canonicalId": "FIGURE:9.4",
+        "preferredSourceLabel": "Fig. 9.4",
+        "printedLabels": [
+          "Fig. 9.4"
+        ],
+        "sourcePages": [
+          2
+        ],
+        "occurrenceCount": 4,
+        "firstOccurrencePage": 2,
+        "firstOccurrenceSnippet": "box with a small force, the box does not move because of friction acting in a direction opposite to the push [Fig. 9.4(a)]. This friction force arises between two surfaces in contact; in this case, between the bottom of the box and floor’s rough surface. It balances the pushing force and therefore the box does not move. In Fig. 9.4(b),"
+      },
+      {
+        "kind": "FIGURE",
+        "canonicalId": "FIGURE:9.5",
+        "preferredSourceLabel": "Fig. 9.5",
+        "printedLabels": [
+          "Fig. 9.5"
+        ],
+        "sourcePages": [
+          3
+        ],
+        "occurrenceCount": 4,
+        "firstOccurrencePage": 3,
+        "firstOccurrenceSnippet": "serving the motion of objects on an inclined plane Galileo deduced that objects move with a constant speed when no force acts on them. He observed that when a marble rolls down an inclined plane, its velocity increases [Fig. 9.5(a)]. In the next chapter, you will learn that the marble falls under the unbalanced force of gravity as it rolls down and attains a definite velocity by the time it reaches the bottom. Its velocity decreases when it cli"
+      },
+      {
+        "kind": "FIGURE",
+        "canonicalId": "FIGURE:9.6",
+        "preferredSourceLabel": "Fig. 9.6",
+        "printedLabels": [
+          "Fig. 9.6"
+        ],
+        "sourcePages": [
+          4
+        ],
+        "occurrenceCount": 2,
+        "firstOccurrencePage": 4,
+        "firstOccurrenceSnippet": "act that a body will remain at rest unless acted upon by an unbalanced force can be illustrated through the following activities: Activity ______________ 9.1 • Make a pile of similar car om coins on a table, as shown in Fig. 9.6. • Attempt a sharp horizontal hit at the bottom of the pile using another carom coin or the striker. If the hit is strong enough, the bottom coin moves out quickly. Once the lowest coin is removed, the inertia of the ot"
+      },
+      {
+        "kind": "FIGURE",
+        "canonicalId": "FIGURE:9.7",
+        "preferredSourceLabel": "Fig. 9.7",
+        "printedLabels": [
+          "Fig. 9.7"
+        ],
+        "sourcePages": [
+          5
+        ],
+        "occurrenceCount": 2,
+        "firstOccurrencePage": 5,
+        "firstOccurrenceSnippet": "ion The first law of motion indicates that when an unbalanced external force acts on an Activity ______________ 9.2 • Set a five-rupee coin on a stiff card covering an empty glass tumbler standing on a table as shown in Fig. 9.7. • Give the card a sharp horizontal flick with a finger. If we do it fast then the card shoots away, allowing the coin to fall vertically into the glass tumbler due to its inertia. • The inertia of the coin tries to mai"
+      },
+      {
+        "kind": "FIGURE",
+        "canonicalId": "FIGURE:9.8",
+        "preferredSourceLabel": "Fig. 9.8",
+        "printedLabels": [
+          "Fig. 9.8"
+        ],
+        "sourcePages": [
+          7
+        ],
+        "occurrenceCount": 2,
+        "firstOccurrencePage": 7,
+        "firstOccurrenceSnippet": "In doing so, the fielder increases the time during which the high velocity of the moving ball decreases to zero. Thus, the acceleration of the ball is decreased and therefore the impact of catching the fast moving ball (Fig. 9.8) is also reduced. If the ball is stopped suddenly then its high velocity decreases to zero in a very short interval of time. Thus, the rate of change of momentum of the ball will be large. Therefore, a large force would"
+      },
+      {
+        "kind": "FIGURE",
+        "canonicalId": "FIGURE:9.9",
+        "preferredSourceLabel": "Fig. 9.9",
+        "printedLabels": [
+          "Fig. 9.9"
+        ],
+        "sourcePages": [
+          8
+        ],
+        "occurrenceCount": 2,
+        "firstOccurrencePage": 8,
+        "firstOccurrenceSnippet": "eration, a produced in the combined mass by the 5 N force would be, a = F/m = 5 N/0.75 kg = 6.67 m s-2. Example 9.5 The velocity-time graph of a ball of mass 20 g moving along a straight line on a long table is given in Fig. 9.9. Fig. 9.9 How much force does the table exert on the ball to bring it to rest? Solution: The initial velocity of the ball is 20 cm s-1. Due to the friction force exerted by the table, the velocity of the ball decreases"
+      },
+      {
+        "kind": "FIGURE",
+        "canonicalId": "FIGURE:9.10",
+        "preferredSourceLabel": "Fig. 9.10",
+        "printedLabels": [
+          "Fig. 9.10"
+        ],
+        "sourcePages": [
+          9
+        ],
+        "occurrenceCount": 2,
+        "firstOccurrencePage": 9,
+        "firstOccurrenceSnippet": "ce to the other. In other words, there is a pair of forces and not just one force. The two opposing forces are also known as action and reaction forces. Let us consider two spring balances connected together as shown in Fig. 9.10. The fixed end of balance B is attached with a rigid support, like a wall. When a force is applied through the free end of spring balance A, it is observed that both the spring balances show the same readings on their s"
+      },
+      {
+        "kind": "FIGURE",
+        "canonicalId": "FIGURE:9.11",
+        "preferredSourceLabel": "Fig. 9.11",
+        "printedLabels": [
+          "Fig. 9.11"
+        ],
+        "sourcePages": [
+          9
+        ],
+        "occurrenceCount": 2,
+        "firstOccurrencePage": 9,
+        "firstOccurrenceSnippet": "a different object that may have a different mass. When a gun is fired, it exerts a forward force on the bullet. The bullet exerts an equal and opposite reaction force on the gun. This results in the recoil of the gun (Fig. 9.11). Since the gun has a much greater mass than the bullet, the acceleration of the gun is much less than the acceleration of the bullet. The third law of motion can also be illustrated when a sailor jumps out of a rowing"
+      },
+      {
+        "kind": "FIGURE",
+        "canonicalId": "FIGURE:9.12",
+        "preferredSourceLabel": "Fig. 9.12",
+        "printedLabels": [
+          "Fig. 9.12"
+        ],
+        "sourcePages": [
+          9,
+          10
+        ],
+        "occurrenceCount": 2,
+        "firstOccurrencePage": 9,
+        "firstOccurrenceSnippet": "the gun is much less than the acceleration of the bullet. The third law of motion can also be illustrated when a sailor jumps out of a rowing boat. As the sailor jumps forward, the force on the boat moves it backwards (Fig. 9.12). Fig. 9.11: A forward force on the bullet and recoil of the gun."
+      },
+      {
+        "kind": "FIGURE",
+        "canonicalId": "FIGURE:9.13",
+        "preferredSourceLabel": "Fig. 9.13",
+        "printedLabels": [
+          "Fig. 9.13"
+        ],
+        "sourcePages": [
+          10
+        ],
+        "occurrenceCount": 2,
+        "firstOccurrencePage": 10,
+        "firstOccurrenceSnippet": "BA on ball A. Suppose vA and vB are the velocities of the two balls A and B after the collision, respectively [Fig. 9.14(c)]. Activity ______________ 9.4 • Request two children to stand on two separate carts as shown in Fig. 9.13. • Give them a bag full of sand or some other heavy object. Ask them to play a game of catch with the bag. • Does each of them r eceive an instantaneous reaction as a result of throwing the sand bag (action)? • You can"
+      },
+      {
+        "kind": "FIGURE",
+        "canonicalId": "FIGURE:9.14",
+        "preferredSourceLabel": "Fig. 9.14",
+        "printedLabels": [
+          "Fig. 9.14"
+        ],
+        "sourcePages": [
+          10
+        ],
+        "occurrenceCount": 4,
+        "firstOccurrencePage": 10,
+        "firstOccurrenceSnippet": "ght-line motion. 9.6 Conservation of Momentum Suppose two objects (two balls A and B, say) of masses mA and m B are travelling in the same direction along a straight line at different velocities uA and uB, respectively [Fig. 9.14(a)]. And there are no other external unbalanced forces acting on them. Let uA > uB and the two balls collide with each other as shown in Fig. 9.14(b). During collision which lasts for a time t, the ball A exerts a force"
+      },
+      {
+        "kind": "FIGURE",
+        "canonicalId": "FIGURE:9.15",
+        "preferredSourceLabel": "Fig. 9.15",
+        "printedLabels": [
+          "Fig. 9.15"
+        ],
+        "sourcePages": [
+          11
+        ],
+        "occurrenceCount": 2,
+        "firstOccurrencePage": 11,
+        "firstOccurrenceSnippet": "Pass a thread through the straw and hold one end of the thread in your hand or fix it on the wall. • Ask your friend to hold the other end of the thread or fix it on a wall at some distance. This arrangement is shown in Fig. 9.15. • Now remove the thread tied on the neck of balloon. Let the air escape from the mouth of the balloon. • Observe the direction in which the straw moves. Fig. 9.15 of the cork. Fig. 9.16 • Also, observe the difference i"
+      },
+      {
+        "kind": "FIGURE",
+        "canonicalId": "FIGURE:9.16",
+        "preferredSourceLabel": "Fig. 9.16",
+        "printedLabels": [
+          "Fig. 9.16"
+        ],
+        "sourcePages": [
+          11
+        ],
+        "occurrenceCount": 2,
+        "firstOccurrencePage": 11,
+        "firstOccurrenceSnippet": "___________ 9.6 • Take a test tube of good quality glass material and put a small amount of water in it. Place a stop cork at the mouth of it. • Now suspend the test tube horizontally by two strings or wires as shown in Fig. 9.16. • Heat the test tube with a burner until water vaporises and the cork blows out. • Observe that the test tube recoils in the direction opposite to the direction and the force FBA exerted by the ball B on ball A (reacti"
+      },
+      {
+        "kind": "FIGURE",
+        "canonicalId": "FIGURE:9.17",
+        "preferredSourceLabel": "Fig. 9.17",
+        "printedLabels": [
+          "Fig. 9.17"
+        ],
+        "sourcePages": [
+          11,
+          12
+        ],
+        "occurrenceCount": 2,
+        "firstOccurrencePage": 11,
+        "firstOccurrenceSnippet": "stol, m2 = 2 kg; initial velocities of the bullet (u1) and pistol (u2) = 0, respectively. The final velocity of the bullet, v1 = + 150 m s-1. The direction of bullet is taken from left to right (positive, by convention, Fig. 9.17). Let v be the"
+      },
+      {
+        "kind": "FIGURE",
+        "canonicalId": "FIGURE:9.18",
+        "preferredSourceLabel": "Fig. 9.18",
+        "printedLabels": [
+          "Fig. 9.18"
+        ],
+        "sourcePages": [
+          12
+        ],
+        "occurrenceCount": 2,
+        "firstOccurrencePage": 12,
+        "firstOccurrenceSnippet": "of momentum, the total momentum is conserved during the interaction. That is, 43 v = 200 ⇒ v = 200/43 = + 4.65 m s–1. The girl on cart would move with a velocity of 4.65 m s–1 in the direction in which the girl jumped (Fig. 9.18).Fig. 9.17: Recoil of a pistol Fig. 9.18: The girl jumps onto the cart. (a) (b)"
+      },
+      {
+        "kind": "FIGURE",
+        "canonicalId": "FIGURE:9.19",
+        "preferredSourceLabel": "Fig. 9.19",
+        "printedLabels": [
+          "Fig. 9.19"
+        ],
+        "sourcePages": [
+          13
+        ],
+        "occurrenceCount": 2,
+        "firstOccurrencePage": 13,
+        "firstOccurrenceSnippet": "ation of momentum, we get v = – 30/115 = – 0.26 m s–1. Thus, the two entangled players would move with velocity 0.26 m s–1 from right to left, that is, in the direction the second player was moving before the collision. Fig. 9.19: A collision of two hockey players: (a) before collision and (b) after collision. Let the first player be moving from left to right. By convention left to right is taken as the positive direction and thus right to left"
+      }
+    ],
+    "tables": []
+  },
+  "provenanceRules": {
+    "textbookActivity": [
+      "TEXTBOOK_ACTIVITY may only use a label listed in allowedTextbookLabels.activities.",
+      "Otherwise use CHALKBOX_ACTIVITY with sourceLabel=null."
+    ],
+    "textbookExample": [
+      "TEXTBOOK_EXAMPLE may only use a label listed in allowedTextbookLabels.examples.",
+      "Unlabelled source-derived teaching examples must use CHALKBOX_EXAMPLE with sourceLabel=null."
+    ],
+    "textbookVisual": [
+      "TEXTBOOK_VISUAL may only use a label listed in allowedTextbookLabels.figures or allowedTextbookLabels.tables.",
+      "Actual visual fidelity still requires PDF verification.",
+      "Adapted teacher redraws must use BOARD_VISUAL with sourceLabel=null."
+    ]
+  },
+  "visualSource": {
+    "available": true,
+    "outputFileName": "class-9-force-laws-motion.pdf",
+    "outputSha256": "8180edf0a1171ead82a8f93f60f31f1017dc758e711ec5eef74785e295a5f526",
+    "pageCount": 17,
+    "pageMappings": [
+      {
+        "chapterPage": 1,
+        "sourcePdfPage": 1,
+        "textbookPageLabel": 1
+      },
+      {
+        "chapterPage": 2,
+        "sourcePdfPage": 2,
+        "textbookPageLabel": 2
+      },
+      {
+        "chapterPage": 3,
+        "sourcePdfPage": 3,
+        "textbookPageLabel": 3
+      },
+      {
+        "chapterPage": 4,
+        "sourcePdfPage": 4,
+        "textbookPageLabel": 4
+      },
+      {
+        "chapterPage": 5,
+        "sourcePdfPage": 5,
+        "textbookPageLabel": 5
+      },
+      {
+        "chapterPage": 6,
+        "sourcePdfPage": 6,
+        "textbookPageLabel": 6
+      },
+      {
+        "chapterPage": 7,
+        "sourcePdfPage": 7,
+        "textbookPageLabel": 7
+      },
+      {
+        "chapterPage": 8,
+        "sourcePdfPage": 8,
+        "textbookPageLabel": 8
+      },
+      {
+        "chapterPage": 9,
+        "sourcePdfPage": 9,
+        "textbookPageLabel": 9
+      },
+      {
+        "chapterPage": 10,
+        "sourcePdfPage": 10,
+        "textbookPageLabel": 10
+      },
+      {
+        "chapterPage": 11,
+        "sourcePdfPage": 11,
+        "textbookPageLabel": 11
+      },
+      {
+        "chapterPage": 12,
+        "sourcePdfPage": 12,
+        "textbookPageLabel": 12
+      },
+      {
+        "chapterPage": 13,
+        "sourcePdfPage": 13,
+        "textbookPageLabel": 13
+      },
+      {
+        "chapterPage": 14,
+        "sourcePdfPage": 14,
+        "textbookPageLabel": 14
+      },
+      {
+        "chapterPage": 15,
+        "sourcePdfPage": 15,
+        "textbookPageLabel": 15
+      },
+      {
+        "chapterPage": 16,
+        "sourcePdfPage": 16,
+        "textbookPageLabel": 16
+      },
+      {
+        "chapterPage": 17,
+        "sourcePdfPage": 17,
+        "textbookPageLabel": 17
+      }
+    ]
+  },
+  "statistics": {
+    "activities": 6,
+    "examples": 8,
+    "figureLabels": 19,
+    "tableLabels": 0,
+    "totalLabelledSourceObjects": 33
+  },
+  "builtAt": "2026-08-25T18:37:38.755Z"
+}

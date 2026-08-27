@@ -1,0 +1,622 @@
+{
+  "artifactVersion": 5,
+  "generationPolicyVersion": "chalkbox-lesson-v5-catalog-grounded-gemini-35",
+  "status": "PROVENANCE_VALIDATED",
+  "fullyAudited": false,
+  "judgeReady": false,
+  "lesson": {
+    "schemaVersion": 5,
+    "generationPolicyVersion": "chalkbox-lesson-v5-catalog-grounded-gemini-35",
+    "lessonKey": "class-8-chemical-effects-electric-current",
+    "title": "Chemical Effects of Electric Current",
+    "classLevel": 8,
+    "subject": "Science",
+    "requestedDurationMinutes": 40,
+    "chapterConceptLedger": [
+      {
+        "concept": "Electrical conductivity of liquids (Good vs. Poor conductors)",
+        "importance": "CORE",
+        "sourcePages": [
+          1,
+          2,
+          4
+        ],
+        "lessonEvidenceFields": [
+          "fullLesson.define",
+          "fullLesson.explain",
+          "fullLesson.howToTeach"
+        ]
+      },
+      {
+        "concept": "Detection of weak currents using LEDs and Magnetic testers",
+        "importance": "CORE",
+        "sourcePages": [
+          2,
+          3
+        ],
+        "lessonEvidenceFields": [
+          "fullLesson.explain",
+          "quickIdeas.lowResourceActivity",
+          "quickIdeas.quickChecks"
+        ]
+      },
+      {
+        "concept": "Conduction in aqueous solutions (distilled vs. tap water, acids, bases, salts)",
+        "importance": "CORE",
+        "sourcePages": [
+          4,
+          5
+        ],
+        "lessonEvidenceFields": [
+          "fullLesson.explain",
+          "fullLesson.practice",
+          "fullLesson.checkUnderstanding"
+        ]
+      },
+      {
+        "concept": "Chemical effects of electric current (electrolysis, Nicholson's experiment, potato terminal indicator)",
+        "importance": "CORE",
+        "sourcePages": [
+          5,
+          6,
+          7
+        ],
+        "lessonEvidenceFields": [
+          "fullLesson.define",
+          "fullLesson.explain",
+          "fullLesson.example"
+        ]
+      },
+      {
+        "concept": "Electroplating mechanism",
+        "importance": "CORE",
+        "sourcePages": [
+          7,
+          8
+        ],
+        "lessonEvidenceFields": [
+          "fullLesson.define",
+          "fullLesson.activity",
+          "fullLesson.visualize",
+          "fullLesson.boardPlan"
+        ]
+      },
+      {
+        "concept": "Practical applications and environmental concerns of electroplating",
+        "importance": "SUPPORTING",
+        "sourcePages": [
+          8
+        ],
+        "lessonEvidenceFields": [
+          "fullLesson.explain",
+          "fullLesson.practice",
+          "fullLesson.howToTeach"
+        ]
+      }
+    ],
+    "prerequisites": [
+      {
+        "concept": "Basic Electric Circuit (Tester, Cells, Bulbs, Conductors, Insulators)",
+        "importance": "REQUIRED",
+        "contentOrigin": "SOURCE_GROUNDED",
+        "sourcePages": [
+          1
+        ],
+        "sourceLimitations": []
+      },
+      {
+        "concept": "Heating and Magnetic Effects of Electric Current",
+        "importance": "HELPFUL",
+        "contentOrigin": "MIXED",
+        "sourcePages": [
+          2,
+          3
+        ],
+        "sourceLimitations": []
+      }
+    ],
+    "learningObjectives": [
+      "Differentiate between good and poor electrical conductors in liquid form, understanding why classification as 'good/poor conductors' is preferred over 'conductors/insulators'.",
+      "Explain how weak currents can be detected using LEDs (noting polarity and lead length) or magnetic compass testers.",
+      "Compare the electrical conductivity of distilled water, tap water, and various chemical solutions containing acids, bases, or salts.",
+      "Describe the chemical effects of electric current, including gas bubble formation (electrolysis) and color changes in organic materials like potato.",
+      "Explain the scientific mechanism of electroplating using a copper sulphate solution, and describe its key industrial applications and environmental waste concerns."
+    ],
+    "objectiveCoverage": [
+      {
+        "objectiveIndex": 0,
+        "lessonEvidenceFields": [
+          "fullLesson.define",
+          "fullLesson.explain",
+          "fullLesson.howToTeach"
+        ]
+      },
+      {
+        "objectiveIndex": 1,
+        "lessonEvidenceFields": [
+          "fullLesson.explain",
+          "quickIdeas.lowResourceActivity"
+        ]
+      },
+      {
+        "objectiveIndex": 2,
+        "lessonEvidenceFields": [
+          "fullLesson.explain",
+          "fullLesson.practice",
+          "fullLesson.checkUnderstanding"
+        ]
+      },
+      {
+        "objectiveIndex": 3,
+        "lessonEvidenceFields": [
+          "fullLesson.define",
+          "fullLesson.explain",
+          "fullLesson.example"
+        ]
+      },
+      {
+        "objectiveIndex": 4,
+        "lessonEvidenceFields": [
+          "fullLesson.define",
+          "fullLesson.activity",
+          "fullLesson.visualize",
+          "fullLesson.boardPlan"
+        ]
+      }
+    ],
+    "hook": {
+      "priority": "ESSENTIAL",
+      "contentOrigin": "MIXED",
+      "teacherPrompt": "Imagine you have a shiny new bicycle handlebar. It looks beautiful, bright, and mirror-like. But if you accidentally scratch it deeply, the shiny coating flakes off, revealing a dull, dark metal underneath. How did they get that super-thin, perfectly shiny metal layer stuck on top of a cheap, rough piece of iron? And why do our parents strictly warn us never to touch electrical switches with wet hands?",
+      "expectedStudentResponse": "Maybe they painted it with metal? Or melted it on top? Water has electricity in it, so we might get a shock if we have wet hands.",
+      "sourcePages": [
+        1,
+        7
+      ],
+      "sourceLimitations": []
+    },
+    "fullLesson": {
+      "define": {
+        "priority": "ESSENTIAL",
+        "contentOrigin": "SOURCE_GROUNDED",
+        "teacherScript": "Let us define the core scientific terms of today's chapter. First, we classify materials not as 'conductors' and 'insulators', but as Good Conductors and Poor Conductors, because under certain extreme conditions, almost any material can conduct electricity. Next, the passage of an electric current through a conducting solution causes chemical reactions; these are called the Chemical Effects of Electric Current. Finally, Electroplating is the process of depositing a layer of any desired metal on another material by means of electricity.",
+        "boardWork": [
+          "1. Good Conductors: Materials that allow electric current to pass through them easily.",
+          "2. Poor Conductors: Materials that do not allow electric current to pass through them easily.",
+          "3. Chemical Effects of Current: Chemical changes (like gas bubbles, color change, metal deposit) caused when current passes through a conducting solution.",
+          "4. Electroplating: The process of depositing a layer of a desired metal on another material using electricity."
+        ],
+        "keyPoints": [
+          "Classifying materials as 'good' or 'poor' conductors is scientifically more accurate than 'conductors/insulators'.",
+          "Solutions of acids, bases, and salts in water make the liquid conducting.",
+          "Electroplating is a key practical application of the chemical effects of current."
+        ],
+        "sourcePages": [
+          1,
+          4,
+          6,
+          8
+        ],
+        "sourceLimitations": []
+      },
+      "explain": {
+        "priority": "ESSENTIAL",
+        "contentOrigin": "SOURCE_GROUNDED",
+        "teacherScript": "Why do some conducting liquids fail to glow a standard tester bulb? It is because the current in the circuit is too weak. A standard bulb glows due to the heating effect of current, which requires a strong current to heat the filament to glowing temperatures. To detect weak currents, we can use an LED (Light Emitting Diode), which has a longer positive lead and a shorter negative lead, or a magnetic compass tester. \n\nNow let's examine the solutions themselves. Pure distilled water is a poor conductor because it lacks dissolved salts. However, when you dissolve common salt, acids, or bases in it, it turns into a strong conducting solution. \n\nWhat happens chemically when current flows through these solutions? In 1800, William Nicholson showed that passing current through water produces bubbles of oxygen at the positive electrode and hydrogen at the negative electrode. \n\nIn electroplating, when we pass current through a copper sulphate (CuSO4) solution, the copper sulphate dissociates into free copper and sulphate. The free copper gets drawn to the negative electrode and deposits on it. To restore this lost copper in the solution, an equal amount of copper dissolves from the copper plate connected to the positive terminal.",
+        "boardWork": [
+          "Weak Current Testers:",
+          "- LED: Long lead connected to (+) positive terminal, short lead to (-) negative terminal.",
+          "- Magnetic Tester: Uses deflection of a compass needle due to the magnetic effect of even tiny currents.",
+          "Conduction in Water:",
+          "- Distilled water = Poor conductor (No dissolved minerals/salts).",
+          "- Distilled water + Salt/Acid/Base = Good conductor.",
+          "Electrolysis of Water (William Nicholson, 1800):",
+          "- Electrode connected to Positive terminal -> Oxygen bubbles.",
+          "- Electrode connected to Negative terminal -> Hydrogen bubbles.",
+          "Electroplating Mechanism (Copper Sulphate):",
+          "- CuSO4 -> Copper (deposited on negative terminal electrode) + Sulphate.",
+          "- Positive copper plate (Anode) dissolves copper into the solution to keep the concentration constant."
+        ],
+        "keyPoints": [
+          "LEDs glow even with extremely weak currents.",
+          "The longer lead of an LED is positive; the shorter is negative.",
+          "Acids, bases, and salts make water conductive.",
+          "During electroplating, copper gets transferred from the positive electrode (anode) to the negative electrode (cathode)."
+        ],
+        "sourcePages": [
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "sourceLimitations": []
+      },
+      "visualize": {
+        "priority": "IMPORTANT",
+        "contentOrigin": "MIXED",
+        "sourceType": "BOARD_VISUAL",
+        "sourceLabel": null,
+        "teacherInstructions": "Draw a clear, step-by-step schematic diagram of an electroplating circuit on the blackboard. Ensure the students understand the polarity of the connections and the direction of copper transport.",
+        "boardDrawingSteps": [
+          "Draw a beaker filled halfway with liquid. Label it: 'Copper Sulphate Solution'.",
+          "Draw two rectangular plates hanging vertically inside the beaker. Label them both: 'Copper Plate'.",
+          "Draw connection wires from the top of both plates going upwards.",
+          "Draw a battery symbol (parallel long and short lines) at the top of the wires.",
+          "Label the connection to the positive terminal of the battery (+) and the negative terminal (-).",
+          "Draw arrows from the positive copper plate pointing into the solution, and from the solution pointing onto the negative copper plate to illustrate the transfer of copper."
+        ],
+        "whatStudentsShouldNotice": [
+          "Both plates are copper, but they are connected to different terminals of the battery.",
+          "Copper is actively lost from the plate connected to the positive terminal and deposited on the negative plate.",
+          "The blue color of the copper sulphate solution remains unchanged because the loss of copper is continuously restored."
+        ],
+        "sourcePages": [
+          7
+        ],
+        "sourceLimitations": [
+          "This is a simplified board representation of Fig. 14.7 designed for direct teacher drawing."
+        ]
+      },
+      "example": {
+        "priority": "ESSENTIAL",
+        "contentOrigin": "SOURCE_GROUNDED",
+        "sourceType": "CHALKBOX_EXAMPLE",
+        "sourceLabel": null,
+        "title": "Identifying Concealed Battery Terminals Using a Potato",
+        "explanation": "This example shows how Boojho accidentally discovered a chemical effect of electric current that can identify the positive terminal of a hidden battery using a simple vegetable.",
+        "steps": [
+          "Cut a fresh potato into two halves.",
+          "Insert the copper wires of a tester (connected to a battery) into one of the potato halves, about 1-2 cm apart.",
+          "Pass current through the potato by leaving the circuit connected for about half an hour.",
+          "Observe the potato surface around the inserted wires.",
+          "A distinct greenish-blue spot forms on the potato strictly around the wire connected to the positive terminal of the battery.",
+          "No spot forms around the wire connected to the negative terminal. This chemical reaction allows us to identify hidden battery terminals."
+        ],
+        "sourcePages": [
+          6,
+          7
+        ],
+        "sourceLimitations": [
+          "This is a worked illustration synthesized directly from Boojho's potato experiment described in the textbook text."
+        ]
+      },
+      "activity": {
+        "priority": "ESSENTIAL",
+        "contentOrigin": "SOURCE_GROUNDED",
+        "sourceType": "TEXTBOOK_ACTIVITY",
+        "sourceLabel": "Activity 14.7",
+        "title": "Electroplating a Copper Plate",
+        "concepts": [
+          "Dissociation of copper sulphate in solution",
+          "Deposition of metal on the negative terminal",
+          "Restoration of copper concentration from the positive terminal"
+        ],
+        "objective": "To deposit a layer of copper on a copper plate using electric current from a battery.",
+        "materials": [
+          "Two copper plates (size 10 cm x 4 cm)",
+          "Copper sulphate",
+          "250 mL distilled water",
+          "Dilute sulphuric acid (a few drops)",
+          "Clean, dry beaker",
+          "Sand paper",
+          "Battery and connecting wires"
+        ],
+        "steps": [
+          "Take 250 mL of distilled water in a clean beaker and dissolve two teaspoonfuls of copper sulphate in it.",
+          "Add a few drops of dilute sulphuric acid to the solution to make it more conducting.",
+          "Clean both copper plates with sand paper, rinse them with water, and dry them.",
+          "Connect the copper plates to the terminals of a battery and immerse them in the copper sulphate solution.",
+          "Allow the current to pass for about 15 minutes.",
+          "Remove the electrodes (plates) from the solution and look at them carefully to observe the fresh coating of copper on the plate connected to the negative terminal."
+        ],
+        "safetyNote": "Perform under strict teacher supervision as dilute sulphuric acid is involved in making the solution conducting.",
+        "sourcePages": [
+          7,
+          8
+        ],
+        "sourceLimitations": []
+      },
+      "howToTeach": {
+        "priority": "IMPORTANT",
+        "contentOrigin": "MIXED",
+        "teacherMoves": [
+          "Begin by asking why water safety is emphasized during electrical work.",
+          "Demonstrate the LED leads and point out the physical difference in length between positive and negative leads.",
+          "Draw the electroplating process step-by-step on the board to reinforce active chemical dissociation.",
+          "Explicitly address the environmental hazard of commercial electroplating waste disposal."
+        ],
+        "misconceptions": [
+          {
+            "misconception": "Rainwater is pure distilled water and therefore is a poor conductor of electricity.",
+            "correction": "Although rainwater is evaporated pure water, as it falls through the atmosphere it dissolves gases and impurities, turning it into a conducting solution that defiects a magnetic needle.",
+            "sourcePages": [
+              4,
+              10
+            ]
+          },
+          {
+            "misconception": "Liquids are either perfect conductors or absolute insulators.",
+            "correction": "Most liquids are 'poor conductors' rather than 'insulators' because under extreme voltages or conditions they can conduct electricity. We use the terms good and poor conductors.",
+            "sourcePages": [
+              4
+            ]
+          },
+          {
+            "misconception": "In electroplating, copper from the solution is used up until the solution turns clear.",
+            "correction": "The concentration of copper in the solution remains constant because copper ions deposited from the solution onto the negative plate are exactly replenished by copper dissolving from the positive plate.",
+            "sourcePages": [
+              7,
+              8
+            ]
+          }
+        ],
+        "questionsToAsk": [
+          "Why is it hazardous to touch an electrical appliance with wet hands?",
+          "If you only have one copper plate, what can you use as the negative terminal to still deposit copper?",
+          "Why are tin cans used for food storage instead of pure iron cans?"
+        ],
+        "sourcePages": [
+          1,
+          5,
+          8
+        ],
+        "sourceLimitations": []
+      },
+      "boardPlan": {
+        "priority": "ESSENTIAL",
+        "contentOrigin": "MIXED",
+        "text": "Topic: Chemical Effects of Electric Current\n\n1. Conductivity Classification:\n   - Good Conductors: Metals, Salt Solutions, Acids, Bases.\n   - Poor Conductors: Distilled Water, Rubber, Plastic, Wood, Vegetable oil, Honey.\n\n2. Weak Current Detection:\n   - LED: Long lead (+) Positive terminal, Short lead (-) Negative terminal.\n   - Magnetic Tester: Uses compass deflection around a current-carrying wire.\n\n3. Electrolysis ( Nicholson, 1800):\n   - Positive electrode (+) -> Oxygen gas bubbles\n   - Negative electrode (-) -> Hydrogen gas bubbles\n\n4. Electroplating (Copper Sulphate example):\n   - Cathode (Negative terminal plate) -> Copper gets deposited.\n   - Anode (Positive terminal plate) -> Copper dissolves into solution.\n   - Applications: Chromium plating (shiny, scratch-resistant), Zinc on iron (corrosion protection), Tin on iron (food cans).",
+        "sourcePages": [
+          1,
+          2,
+          3,
+          6,
+          7,
+          8
+        ],
+        "sourceLimitations": []
+      },
+      "practice": {
+        "priority": "IMPORTANT",
+        "questions": [
+          {
+            "question": "Most liquids that conduct electricity are solutions of __________, __________ and __________.",
+            "expectedAnswer": "acids, bases, salts",
+            "sourcePages": [
+              5,
+              9
+            ]
+          },
+          {
+            "question": "If you pass current through a copper sulphate solution, on which terminal plate does the copper get deposited, and why?",
+            "expectedAnswer": "Copper gets deposited on the plate connected to the negative terminal because copper ions are positively charged and are drawn to the negative electrode.",
+            "sourcePages": [
+              7,
+              9
+            ]
+          },
+          {
+            "question": "Why is iron used in bridges and automobiles coated with zinc?",
+            "expectedAnswer": "Iron is coated with zinc by electroplating to protect it from corrosion and the formation of rust.",
+            "sourcePages": [
+              8
+            ]
+          }
+        ]
+      },
+      "checkUnderstanding": {
+        "priority": "ESSENTIAL",
+        "questions": [
+          {
+            "question": "Why do firemen shut off the main electrical supply of an area before using water hoses during a fire?",
+            "expectedAnswer": "Tap water is a good conductor of electricity due to dissolved salts. If the electrical supply is not shut off, firemen risk getting severe electric shocks through the stream of water.",
+            "difficulty": "intermediate",
+            "sourcePages": [
+              5,
+              10
+            ]
+          },
+          {
+            "question": "How can you make pure distilled water conduct electricity?",
+            "expectedAnswer": "We can make distilled water conducting by dissolving a small amount of common salt, an acid (like lemon juice), or a base (like caustic soda) in it.",
+            "difficulty": "basic",
+            "sourcePages": [
+              4,
+              5,
+              10
+            ]
+          },
+          {
+            "question": "An electrician is asked to do outdoor electrical repairs during a heavy downpour. Is this safe? Explain.",
+            "expectedAnswer": "No, it is highly unsafe. Rainwater, containing dissolved gases and atmospheric impurities, conducts electricity. Working outdoors in a downpour increases the danger of electrocution.",
+            "difficulty": "application",
+            "sourcePages": [
+              10
+            ]
+          }
+        ]
+      },
+      "materials": [
+        "Distilled water",
+        "Copper sulphate",
+        "Copper plates (2)",
+        "Sand paper",
+        "Dilute sulphuric acid",
+        "Connecting wires & battery (cells)",
+        "Matchbox tray & magnetic compass needle",
+        "Fresh potato",
+        "LED with long/short leads"
+      ]
+    },
+    "quickIdeas": {
+      "analogy": {
+        "contentOrigin": "PEDAGOGICAL_ADDITION",
+        "text": "Think of electroplating like an electrical paint sprayer. The copper sulphate solution is the paint bucket. The copper particles are tiny balls of paint that only stick to objects when pulled by an electrical 'magnet' (the negative terminal). The positive copper plate is the supply pipe that refills the paint bucket so the paint never runs out.",
+        "sourcePages": [
+          7
+        ],
+        "sourceLimitations": []
+      },
+      "lowResourceActivity": {
+        "priority": "IMPORTANT",
+        "contentOrigin": "SOURCE_GROUNDED",
+        "sourceType": "TEXTBOOK_ACTIVITY",
+        "sourceLabel": "Activity 14.3",
+        "title": "Making a Magnetic Tester with a Matchbox",
+        "concepts": [
+          "Magnetic effect of weak currents",
+          "Compass needle deflection as a current detector"
+        ],
+        "objective": "To construct a highly sensitive tester using the magnetic effect of electric current to detect weak currents in liquids.",
+        "materials": [
+          "Discarded matchbox inner tray",
+          "Small compass needle",
+          "Connecting wire",
+          "Battery"
+        ],
+        "steps": [
+          "Take the empty tray from a discarded matchbox.",
+          "Place a small magnetic compass needle inside the tray.",
+          "Wrap an electric wire a few times around the matchbox tray.",
+          "Connect one free end of the wire to a terminal of a battery and leave the other end free.",
+          "Connect another wire to the other battery terminal, leaving its free end open to test various weak conducting solutions."
+        ],
+        "safetyNote": "Do not short-circuit the battery terminals directly for more than a few seconds to avoid draining the cell.",
+        "sourcePages": [
+          3
+        ],
+        "sourceLimitations": []
+      },
+      "quickChecks": [
+        {
+          "question": "What does a greenish-blue spot on a potato indicate in an electric tester setup?",
+          "expectedAnswer": "It identifies that the wire inserted at that spot is connected to the positive terminal of the battery.",
+          "sourcePages": [
+            6
+          ]
+        },
+        {
+          "question": "Which terminal of the battery must the longer lead of an LED be connected to?",
+          "expectedAnswer": "The positive terminal.",
+          "sourcePages": [
+            3
+          ]
+        },
+        {
+          "question": "What is the major environmental concern associated with electroplating factories?",
+          "expectedAnswer": "The disposal of toxic, polluting waste conducting solutions, which require specific environmental disposal guidelines.",
+          "sourcePages": [
+            8
+          ]
+        }
+      ]
+    },
+    "sourceCoverage": {
+      "pagesUsed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "keyConceptsCovered": [
+        "Electrical conductivity of liquids (Good vs. Poor conductors)",
+        "Detection of weak currents using LEDs and Magnetic testers",
+        "Conduction in aqueous solutions (distilled vs. tap water, acids, bases, salts)",
+        "Chemical effects of electric current (electrolysis, Nicholson's experiment, potato terminal indicator)",
+        "Electroplating mechanism",
+        "Practical applications and environmental concerns of electroplating"
+      ],
+      "visualPagesUsed": [
+        7
+      ],
+      "sourceLimitations": [
+        "Distilled water was represented as a poor conductor but can slightly conduct under high voltage; standard textbook constraints apply. Standard household batteries were mandated for safety instead of mains supply."
+      ]
+    }
+  },
+  "generation": {
+    "provider": "google",
+    "model": "gemini-3.5-flash",
+    "thinkingLevel": "MEDIUM",
+    "attempt": 2,
+    "elapsedMs": 60261,
+    "finishReason": "STOP",
+    "finishMessage": null,
+    "modelVersion": "gemini-3.5-flash",
+    "responseId": "au6NarudIZCkqfkP78-AsAU",
+    "maxOutputTokens": 32768,
+    "requestTimeoutMs": 180000,
+    "usage": {
+      "promptTokens": 23193,
+      "outputTokens": 4943,
+      "thoughtTokens": 4081,
+      "totalTokens": 32217
+    }
+  },
+  "source": {
+    "mode": "FULL_CHAPTER",
+    "lessonKey": "class-8-chemical-effects-electric-current",
+    "sourceFileName": "NCERT-Class-8-Chemical-Effects-of-Electric-Current-and-Materials-Metals-and-Non-Metals.pdf",
+    "canonicalPageStart": 1,
+    "canonicalPageEnd": 12,
+    "canonicalPageCount": 12,
+    "visualFileName": "class-8-chemical-effects-electric-current.pdf",
+    "visualPageCount": 12,
+    "visualMappingVerified": true,
+    "sourceCatalog": {
+      "policyVersion": "chalkbox-source-catalog-v1",
+      "canonicalContentSha256": "967d769bd211b5dd9364033ca27f86cea684bdbd970878f605c56887fdc7d814",
+      "sourceCatalogArtifactSha256": "878943558b2f9637b36d292cb8f20f23d300c10eae3c0f37cbc7c5e769aeb734",
+      "activities": 7,
+      "examples": 0,
+      "figures": 11,
+      "tables": 1,
+      "verifiedBeforeGeneration": true
+    }
+  },
+  "validation": {
+    "deterministicProvenance": "PASS",
+    "independentQualityAudit": "PENDING",
+    "errors": [],
+    "warnings": [
+      {
+        "severity": "WARNING",
+        "field": "fullLesson.visualize",
+        "issueType": "FINAL_BOARD_VISUAL_AUDIT_REQUIRED",
+        "message": "Board visual requires later scientific/topological verification.",
+        "sourcePages": [
+          7
+        ]
+      },
+      {
+        "severity": "WARNING",
+        "field": "fullLesson.activity",
+        "issueType": "FINAL_ACTIVITY_SEMANTIC_AUDIT_REQUIRED",
+        "message": "Textbook activity label/page provenance passed catalog validation; semantic relevance must still be independently audited.",
+        "sourcePages": [
+          7,
+          8
+        ]
+      },
+      {
+        "severity": "WARNING",
+        "field": "quickIdeas.lowResourceActivity",
+        "issueType": "FINAL_ACTIVITY_SEMANTIC_AUDIT_REQUIRED",
+        "message": "Textbook activity label/page provenance passed catalog validation; semantic relevance must still be independently audited.",
+        "sourcePages": [
+          3
+        ]
+      }
+    ]
+  },
+  "generatedAt": "2026-08-25T19:36:05.771Z"
+}

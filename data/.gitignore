@@ -1,0 +1,50 @@
+# ============================================================
+# ChalkBox data .gitignore
+#
+# IMPORTANT:
+# Judge/provenance artifacts and the deterministic source catalog
+# remain trackable.
+#
+# Rebuildable or source-derived heavyweight data stays local.
+# ============================================================
+
+# Raw textbook source files
+textbooks/
+
+# Full extracted textbook text / RAG corpus
+rag-index-v1/
+
+# Rebuildable embedding cache
+rag-embeddings-v1/
+
+# Full canonical chapter text
+full-chapter-context-v1/
+
+# Derived textbook visual PDFs
+visual-source-v1/
+
+# Generated database seed payloads
+supabase-seed/
+
+# Legacy / diagnostic pipelines
+ingestion-output/
+production-context-tests/
+production-context-tests-flash-lite-v1/
+provider-benchmarks-v1/
+retrieval-tests/
+
+# ------------------------------------------------------------
+# Deliberately NOT ignored:
+#
+# source-catalog-v1/
+# generation-preflight-v1/
+# generated-demo-lessons-v*/
+# repaired-demo-lessons-v1/
+# lesson-audits-v*/
+# final-lesson-audits-v*/
+# source-claim-audits-v1/
+# audit-source-claim-audits-v1/
+# judge-demo-lessons-v1/
+#
+# These form the deterministic provenance / judge-demo record.
+# ------------------------------------------------------------

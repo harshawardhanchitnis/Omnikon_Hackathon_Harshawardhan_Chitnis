@@ -1,0 +1,369 @@
+{
+  "artifactVersion": 5,
+  "auditPolicyVersion": "chalkbox-generated-audit-v5-catalog-grounded-gemini-35",
+  "status": "AUDIT_COMPLETED",
+  "lessonKey": "class-9-force-laws-motion",
+  "requestedDurationMinutes": 40,
+  "generationPolicyVersion": "chalkbox-lesson-v5-catalog-grounded-gemini-35",
+  "sourceCatalogPolicyVersion": "chalkbox-source-catalog-v1",
+  "sourceClaimAuditPolicyVersion": "chalkbox-source-claim-audit-v1",
+  "finalDecision": "PASS",
+  "judgeReady": true,
+  "deterministicNormalizations": 1,
+  "deterministicPreAudit": {
+    "status": "PASS",
+    "errors": [],
+    "warnings": []
+  },
+  "sourceClaimGate": {
+    "status": "PASS",
+    "auditFile": "data\\source-claim-audits-v1\\class-9-force-laws-motion-40min-source-claims.json",
+    "canonicalContentSha256": "897ccf860f9b8239adcf77e9c486a2aec125ed524a9f698c5f95ec7efd9f40b3",
+    "unsupportedClaims": 0
+  },
+  "modelAudit": {
+    "decision": "PASS",
+    "summary": "The generated lesson is scientifically rigorous, completely compliant with the full-chapter requirement, and meticulously grounded in the NCERT canonical text and visual PDF. No structural, mathematical, or pedagogical defects were found. All activities, examples, and board plans match the authoritative chapter pages perfectly.",
+    "scores": {
+      "scientificAccuracy": 10,
+      "sourceGrounding": 10,
+      "citationAccuracy": 10,
+      "conceptLedger": 10,
+      "objectiveConsistency": 10,
+      "coverage": 10,
+      "activityProvenance": 10,
+      "exampleFidelity": 10,
+      "visualGrounding": 10,
+      "pedagogy": 10,
+      "internalConsistency": 10,
+      "timingReadiness": 10,
+      "overall": 10
+    },
+    "independentConceptAudit": {
+      "status": "PASS",
+      "majorConcepts": [
+        {
+          "concept": "Force and its effects (change in speed, direction, shape)",
+          "sourcePages": [
+            1,
+            2
+          ],
+          "ledgerStatus": "PRESENT",
+          "lessonStatus": "COVERED",
+          "lessonEvidenceFields": [
+            "fullLesson.define",
+            "fullLesson.explain"
+          ],
+          "explanation": "Defined clearly on Page 1 and Page 2. Taught and summarized under core concepts in define, explain, and boardPlan."
+        },
+        {
+          "concept": "Balanced and Unbalanced Forces",
+          "sourcePages": [
+            2,
+            3
+          ],
+          "ledgerStatus": "PRESENT",
+          "lessonStatus": "COVERED",
+          "lessonEvidenceFields": [
+            "fullLesson.define",
+            "fullLesson.explain",
+            "fullLesson.boardPlan"
+          ],
+          "explanation": "Extracted accurately from the wooden block on table and the box being pushed on rough floor scenarios."
+        },
+        {
+          "concept": "Newton's First Law of Motion and Inertia",
+          "sourcePages": [
+            3,
+            4,
+            5
+          ],
+          "ledgerStatus": "PRESENT",
+          "lessonStatus": "COVERED",
+          "lessonEvidenceFields": [
+            "fullLesson.define",
+            "fullLesson.explain",
+            "fullLesson.activity"
+          ],
+          "explanation": "Covers Galileo's inclined plane experiments, first law definition, inertia-mass relationship, and includes Activity 9.2 (flicking card and coin)."
+        },
+        {
+          "concept": "Momentum (p = mv)",
+          "sourcePages": [
+            6
+          ],
+          "ledgerStatus": "PRESENT",
+          "lessonStatus": "COVERED",
+          "lessonEvidenceFields": [
+            "fullLesson.define",
+            "fullLesson.explain",
+            "fullLesson.practice"
+          ],
+          "explanation": "Properly defines momentum as a vector with SI units kg m s^-1."
+        },
+        {
+          "concept": "Newton's Second Law of Motion (F = ma)",
+          "sourcePages": [
+            6,
+            7,
+            8,
+            9
+          ],
+          "ledgerStatus": "PRESENT",
+          "lessonStatus": "COVERED",
+          "lessonEvidenceFields": [
+            "fullLesson.define",
+            "fullLesson.explain",
+            "fullLesson.example",
+            "fullLesson.practice",
+            "fullLesson.checkUnderstanding"
+          ],
+          "explanation": "Properly derives F=ma from momentum rate of change, defines Newton, and models Example 9.1."
+        },
+        {
+          "concept": "Newton's Third Law of Motion (Action and Reaction)",
+          "sourcePages": [
+            9,
+            10
+          ],
+          "ledgerStatus": "PRESENT",
+          "lessonStatus": "COVERED",
+          "lessonEvidenceFields": [
+            "fullLesson.define",
+            "fullLesson.explain",
+            "fullLesson.howToTeach",
+            "fullLesson.checkUnderstanding"
+          ],
+          "explanation": "Correctly states third law, highlighting that action and reaction act on different bodies instantaneously."
+        },
+        {
+          "concept": "Law of Conservation of Momentum",
+          "sourcePages": [
+            10,
+            11,
+            12,
+            13,
+            14
+          ],
+          "ledgerStatus": "PRESENT",
+          "lessonStatus": "COVERED",
+          "lessonEvidenceFields": [
+            "fullLesson.define",
+            "fullLesson.explain",
+            "fullLesson.visualize",
+            "fullLesson.practice"
+          ],
+          "explanation": "Properly derives and presents the mathematical and visual collision forms of momentum conservation."
+        }
+      ]
+    },
+    "objectiveAudit": [
+      {
+        "objectiveIndex": 0,
+        "status": "PASS",
+        "evidenceFields": [
+          "fullLesson.define",
+          "fullLesson.explain"
+        ],
+        "explanation": "Addresses balanced vs unbalanced forces successfully."
+      },
+      {
+        "objectiveIndex": 1,
+        "status": "PASS",
+        "evidenceFields": [
+          "fullLesson.define",
+          "fullLesson.explain",
+          "fullLesson.activity"
+        ],
+        "explanation": "Addresses Newton's First Law and inertia quantitatively measured by mass, using Activity 9.2."
+      },
+      {
+        "objectiveIndex": 2,
+        "status": "PASS",
+        "evidenceFields": [
+          "fullLesson.define",
+          "fullLesson.explain"
+        ],
+        "explanation": "Derived F = ma successfully from rate of change of momentum proportional to applied force."
+      },
+      {
+        "objectiveIndex": 3,
+        "status": "PASS",
+        "evidenceFields": [
+          "fullLesson.example",
+          "fullLesson.practice",
+          "fullLesson.checkUnderstanding"
+        ],
+        "explanation": "Calculates force, mass, and final velocity accurately in Example 9.1 and supplementary exercises."
+      },
+      {
+        "objectiveIndex": 4,
+        "status": "PASS",
+        "evidenceFields": [
+          "fullLesson.define",
+          "fullLesson.explain",
+          "fullLesson.howToTeach"
+        ],
+        "explanation": "Third Law of Motion covers action-reaction on different bodies without mutual cancelation."
+      },
+      {
+        "objectiveIndex": 5,
+        "status": "PASS",
+        "evidenceFields": [
+          "fullLesson.define",
+          "fullLesson.explain",
+          "fullLesson.visualize",
+          "fullLesson.practice"
+        ],
+        "explanation": "Covers isolated system conservation of momentum with algebraic collision modeling."
+      }
+    ],
+    "citationAudit": [
+      {
+        "field": "fullLesson.define",
+        "sourcePages": [
+          1,
+          2,
+          3,
+          5,
+          6,
+          9,
+          11
+        ],
+        "status": "PASS",
+        "explanation": "Definitions of force, balanced/unbalanced, inertia, mass, momentum, second/third laws, and conservation are perfectly supported by the listed pages."
+      },
+      {
+        "field": "fullLesson.explain",
+        "sourcePages": [
+          5,
+          6,
+          9,
+          10,
+          11
+        ],
+        "status": "PASS",
+        "explanation": "Derivations and mechanical properties are grounded in these pages."
+      },
+      {
+        "field": "fullLesson.visualize",
+        "sourcePages": [
+          10
+        ],
+        "status": "PASS",
+        "explanation": "Fig. 9.14 (conservation of momentum in collision of two balls) is indeed located on canonical Page 10."
+      },
+      {
+        "field": "fullLesson.example",
+        "sourcePages": [
+          7
+        ],
+        "status": "PASS",
+        "explanation": "Example 9.1 is located on Page 7."
+      },
+      {
+        "field": "fullLesson.activity",
+        "sourcePages": [
+          5
+        ],
+        "status": "PASS",
+        "explanation": "Activity 9.2 is located on Page 5."
+      }
+    ],
+    "activityAudit": [
+      {
+        "field": "fullLesson.activity",
+        "sourceType": "TEXTBOOK_ACTIVITY",
+        "sourceLabel": "activity 9.2",
+        "sourcePages": [
+          5
+        ],
+        "status": "PASS",
+        "explanation": "The procedure, materials (tumbler, stiff card, 5-rupee coin), observation, and conclusion match Activity 9.2 exactly."
+      },
+      {
+        "field": "quickIdeas.lowResourceActivity",
+        "sourceType": "CHALKBOX_ACTIVITY",
+        "sourceLabel": null,
+        "sourcePages": [
+          4
+        ],
+        "status": "PASS",
+        "explanation": "A safe and practical low-resource adaptation of the coin stack inertia experiment (Activity 9.1 on Page 4) using basic washers and rulers."
+      }
+    ],
+    "exampleAudit": [
+      {
+        "field": "fullLesson.example",
+        "sourceType": "TEXTBOOK_EXAMPLE",
+        "sourceLabel": "Example 9.1",
+        "sourcePages": [
+          7
+        ],
+        "status": "PASS",
+        "calculationVerified": true,
+        "explanation": "All numerical values match. Part 1 (F = 10 N) and Part 2 (v = 13 m s^-1) are mathematically correct and physically interpreted accurately."
+      }
+    ],
+    "visualAudit": [
+      {
+        "field": "fullLesson.visualize",
+        "sourceType": "BOARD_VISUAL",
+        "sourceLabel": null,
+        "sourcePages": [
+          10
+        ],
+        "status": "PASS",
+        "topologyCorrect": true,
+        "directionalityCorrect": true,
+        "explanation": "Successfully draws 2D ball collisions, mapping the forces FAB and FBA. Forces act on different bodies (FAB on B, FBA on A) in opposite directions, preserving precise spatial topology from Figure 9.14 on Page 10."
+      }
+    ],
+    "pedagogy": {
+      "status": "PASS",
+      "explanation": "Excellent board plan, clean misconceptions addressing how action/reaction forces act on different bodies, safe low-resource activity alternatives, and highly structured classroom questions."
+    },
+    "timingReadiness": {
+      "status": "PASS",
+      "explanation": "Priorities are structured correctly (ESSENTIAL vs IMPORTANT vs OPTIONAL) with no nested arithmetic, making the lesson ready for any deterministic timing solver to scale dynamic duration."
+    },
+    "issues": [],
+    "repairTargets": []
+  },
+  "auditGeneration": {
+    "provider": "google",
+    "model": "gemini-3.5-flash",
+    "thinkingLevel": "MEDIUM",
+    "attempt": 1,
+    "elapsedMs": 33102,
+    "finishReason": "STOP",
+    "modelVersion": "gemini-3.5-flash",
+    "responseId": "zd6NaqyaON2tg8UPypvvSA",
+    "maxOutputTokens": 24576,
+    "requestTimeoutMs": 180000,
+    "usage": {
+      "promptTokens": 39906,
+      "outputTokens": 2365,
+      "thoughtTokens": 3419,
+      "totalTokens": 45690
+    }
+  },
+  "source": {
+    "mode": "FULL_CHAPTER",
+    "sourceFileName": "NCERT-Class-9-Force-and-Laws-of-Motion-and-Work-and-Energy.pdf",
+    "canonicalPageStart": 1,
+    "canonicalPageEnd": 17,
+    "canonicalPageCount": 17,
+    "canonicalContentSha256": "897ccf860f9b8239adcf77e9c486a2aec125ed524a9f698c5f95ec7efd9f40b3",
+    "visualFileName": "class-9-force-laws-motion.pdf",
+    "visualPageCount": 17,
+    "visualMappingVerified": true,
+    "catalogStatistics": {
+      "activities": 1,
+      "examples": 8,
+      "figures": 19,
+      "tables": 0
+    }
+  },
+  "auditedAt": "2026-08-25T18:29:00.422Z"
+}

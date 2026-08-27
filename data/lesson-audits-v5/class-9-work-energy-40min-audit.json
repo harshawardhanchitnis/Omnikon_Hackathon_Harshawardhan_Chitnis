@@ -1,0 +1,359 @@
+{
+  "artifactVersion": 5,
+  "auditPolicyVersion": "chalkbox-generated-audit-v5-catalog-grounded-gemini-35",
+  "status": "AUDIT_COMPLETED",
+  "lessonKey": "class-9-work-energy",
+  "requestedDurationMinutes": 40,
+  "generationPolicyVersion": "chalkbox-lesson-v5-catalog-grounded-gemini-35",
+  "sourceCatalogPolicyVersion": "chalkbox-source-catalog-v1",
+  "sourceClaimAuditPolicyVersion": "chalkbox-source-claim-audit-v1",
+  "finalDecision": "PASS",
+  "judgeReady": true,
+  "deterministicNormalizations": 0,
+  "deterministicPreAudit": {
+    "status": "PASS",
+    "errors": [],
+    "warnings": []
+  },
+  "sourceClaimGate": {
+    "status": "PASS",
+    "auditFile": "data\\source-claim-audits-v1\\class-9-work-energy-40min-source-claims.json",
+    "canonicalContentSha256": "445421df0c0ebd2d708aa5a0ff153896764de81c06a10eda03f10be8312150dd",
+    "sourceCatalogArtifactSha256": "95b3e7172199d65ff7b54b3a3d93407adbe56977678e7a5c985134142d2bc685",
+    "unsupportedClaims": 0
+  },
+  "modelAudit": {
+    "decision": "PASS",
+    "summary": "The lesson is exceptionally faithful to the canonical textbook text, formulas, examples, and activities. The calculations are verified, and the board visual accurately reproduces the topology of Fig. 11.8 on Page 25 representing path independence. All chapter concepts are covered thoroughly and appropriately for a full-chapter 40-minute lesson.",
+    "scores": {
+      "scientificAccuracy": 10,
+      "sourceGrounding": 10,
+      "citationAccuracy": 10,
+      "conceptLedger": 10,
+      "objectiveConsistency": 10,
+      "coverage": 10,
+      "activityProvenance": 10,
+      "exampleFidelity": 10,
+      "visualGrounding": 10,
+      "pedagogy": 10,
+      "internalConsistency": 10,
+      "timingReadiness": 10,
+      "overall": 10
+    },
+    "independentConceptAudit": {
+      "status": "PASS",
+      "majorConcepts": [
+        {
+          "concept": "Scientific Conception of Work",
+          "sourcePages": [
+            18,
+            19
+          ],
+          "ledgerStatus": "PRESENT",
+          "lessonStatus": "COVERED",
+          "lessonEvidenceFields": [
+            "fullLesson.define",
+            "fullLesson.activity",
+            "fullLesson.howToTeach"
+          ],
+          "explanation": "Clearly explains that scientific work requires both a force and a non-zero displacement in the line of action, distinguishing it from day-to-day mental/strenuous labor."
+        },
+        {
+          "concept": "Work Done by a Constant Force",
+          "sourcePages": [
+            19,
+            20
+          ],
+          "ledgerStatus": "PRESENT",
+          "lessonStatus": "COVERED",
+          "lessonEvidenceFields": [
+            "fullLesson.define",
+            "fullLesson.explain",
+            "fullLesson.example",
+            "fullLesson.boardPlan"
+          ],
+          "explanation": "Presents W = F * s, defines 1 Joule of work, and uses Example 11.2 to perform realistic calculations of gravitational work."
+        },
+        {
+          "concept": "Positive, Negative, and Zero Work",
+          "sourcePages": [
+            20
+          ],
+          "ledgerStatus": "PRESENT",
+          "lessonStatus": "COVERED",
+          "lessonEvidenceFields": [
+            "fullLesson.explain",
+            "fullLesson.activity",
+            "fullLesson.practice",
+            "quickIdeas.quickChecks"
+          ],
+          "explanation": "Covers how the sign of work depends on the direction of displacement relative to the force, verified via Activity 11.4."
+        },
+        {
+          "concept": "Concept of Energy and its SI Unit",
+          "sourcePages": [
+            21
+          ],
+          "ledgerStatus": "PRESENT",
+          "lessonStatus": "COVERED",
+          "lessonEvidenceFields": [
+            "fullLesson.define",
+            "fullLesson.explain"
+          ],
+          "explanation": "Establishes energy as the capacity of doing work and grounds the Joule (and kJ) as its standard SI unit."
+        },
+        {
+          "concept": "Kinetic Energy",
+          "sourcePages": [
+            22,
+            23
+          ],
+          "ledgerStatus": "PRESENT",
+          "lessonStatus": "COVERED",
+          "lessonEvidenceFields": [
+            "fullLesson.define",
+            "fullLesson.explain",
+            "fullLesson.practice",
+            "quickIdeas.analogy"
+          ],
+          "explanation": "Provides the derivation/definition of Kinetic Energy Ek = 1/2 m v^2 with related calculation practice."
+        },
+        {
+          "concept": "Potential Energy and Gravitational PE",
+          "sourcePages": [
+            24,
+            25
+          ],
+          "ledgerStatus": "PRESENT",
+          "lessonStatus": "COVERED",
+          "lessonEvidenceFields": [
+            "fullLesson.define",
+            "fullLesson.explain",
+            "fullLesson.visualize",
+            "fullLesson.practice"
+          ],
+          "explanation": "Introduces Potential Energy due to position or configuration, specifically deriving Ep = mgh and illustrating its path-independent nature."
+        },
+        {
+          "concept": "Law of Conservation of Energy",
+          "sourcePages": [
+            26,
+            27
+          ],
+          "ledgerStatus": "PRESENT",
+          "lessonStatus": "COVERED",
+          "lessonEvidenceFields": [
+            "fullLesson.explain",
+            "fullLesson.boardPlan",
+            "fullLesson.checkUnderstanding"
+          ],
+          "explanation": "Explains that total mechanical energy (Ep + Ek) remains constant during transformations such as a free fall."
+        },
+        {
+          "concept": "Power as the Rate of Doing Work",
+          "sourcePages": [
+            27,
+            28
+          ],
+          "ledgerStatus": "PRESENT",
+          "lessonStatus": "COVERED",
+          "lessonEvidenceFields": [
+            "fullLesson.define",
+            "fullLesson.explain",
+            "fullLesson.checkUnderstanding"
+          ],
+          "explanation": "Defines Power (P = W/t) in Watts (W) representing the rate of doing work or transferring energy."
+        },
+        {
+          "concept": "Commercial Unit of Energy",
+          "sourcePages": [
+            28,
+            29
+          ],
+          "ledgerStatus": "PRESENT",
+          "lessonStatus": "COVERED",
+          "lessonEvidenceFields": [
+            "fullLesson.explain",
+            "fullLesson.practice",
+            "quickIdeas.lowResourceActivity"
+          ],
+          "explanation": "Explains the kilowatt-hour (kW h), performs standard conversions to Joules (3.6 x 10^6 J), and engages students with electricity bill applications."
+        }
+      ]
+    },
+    "objectiveAudit": [
+      {
+        "objectiveIndex": 0,
+        "status": "PASS",
+        "evidenceFields": [
+          "fullLesson.define",
+          "fullLesson.activity",
+          "fullLesson.howToTeach"
+        ],
+        "explanation": "The contrast between physical effort and scientific displacement is deeply integrated throughout the activities and explanations."
+      },
+      {
+        "objectiveIndex": 1,
+        "status": "PASS",
+        "evidenceFields": [
+          "fullLesson.define",
+          "fullLesson.explain",
+          "fullLesson.example",
+          "fullLesson.practice"
+        ],
+        "explanation": "Students use the formulas and identify work directions with positive/negative/zero conditions systematically."
+      },
+      {
+        "objectiveIndex": 2,
+        "status": "PASS",
+        "evidenceFields": [
+          "fullLesson.define",
+          "fullLesson.explain",
+          "fullLesson.visualize",
+          "fullLesson.practice"
+        ],
+        "explanation": "Both Kinetic Energy and Gravitational Potential energy are derived, visualised, and solved for with faithful textbook values."
+      },
+      {
+        "objectiveIndex": 3,
+        "status": "PASS",
+        "evidenceFields": [
+          "fullLesson.explain",
+          "fullLesson.boardPlan",
+          "fullLesson.checkUnderstanding"
+        ],
+        "explanation": "Covers mechanical energy conservation during free fall and assesses it in multiple scenarios."
+      },
+      {
+        "objectiveIndex": 4,
+        "status": "PASS",
+        "evidenceFields": [
+          "fullLesson.define",
+          "fullLesson.explain",
+          "fullLesson.practice",
+          "quickIdeas.lowResourceActivity"
+        ],
+        "explanation": "Power exercises and the commercial unit (kW h) to Joules conversion are fully present and calculated correctly."
+      }
+    ],
+    "citationAudit": [
+      {
+        "field": "fullLesson.define",
+        "sourcePages": [
+          19,
+          21,
+          23,
+          25,
+          27
+        ],
+        "status": "PASS",
+        "explanation": "Correctly cites work, energy, KE, PE, and power definitions in sequence across corresponding pages."
+      },
+      {
+        "field": "fullLesson.example",
+        "sourcePages": [
+          20
+        ],
+        "status": "PASS",
+        "explanation": "Correctly matches the page and context of Example 11.2 (porter lifting luggage)."
+      }
+    ],
+    "activityAudit": [
+      {
+        "field": "fullLesson.activity",
+        "sourceType": "TEXTBOOK_ACTIVITY",
+        "sourceLabel": "Activity 11.4",
+        "sourcePages": [
+          20
+        ],
+        "status": "PASS",
+        "explanation": "Accurately represents the procedure of lifting an object and identifying the positive work done by the hand vs the negative work done by gravity."
+      },
+      {
+        "field": "quickIdeas.lowResourceActivity",
+        "sourceType": "TEXTBOOK_ACTIVITY",
+        "sourceLabel": "Activity 11.17",
+        "sourcePages": [
+          29
+        ],
+        "status": "PASS",
+        "explanation": "Correctly utilizes the household meter/electricity bill calculation activity from Page 29."
+      }
+    ],
+    "exampleAudit": [
+      {
+        "field": "fullLesson.example",
+        "sourceType": "TEXTBOOK_EXAMPLE",
+        "sourceLabel": "Example 11.2",
+        "sourcePages": [
+          20
+        ],
+        "status": "PASS",
+        "calculationVerified": true,
+        "explanation": "Calculates W = m * g * s using m = 15 kg, s = 1.5 m, and g = 10 m/s^2 resulting in exactly 225 J as verified in the canonical text."
+      }
+    ],
+    "visualAudit": [
+      {
+        "field": "fullLesson.visualize",
+        "sourceType": "BOARD_VISUAL",
+        "sourceLabel": null,
+        "sourcePages": [
+          25
+        ],
+        "status": "PASS",
+        "topologyCorrect": true,
+        "directionalityCorrect": true,
+        "explanation": "Accurately recreates the scientific topology of Fig. 11.8 on Page 25, showing that work done by gravity is identical (mgh) whether the object is lifted directly or via a stair-step path."
+      }
+    ],
+    "pedagogy": {
+      "status": "PASS",
+      "explanation": "The pedagogical structure moves smoothly from concrete daily life experiences to physical rigor, addresses widespread misconceptions, and outlines a practical board layout."
+    },
+    "timingReadiness": {
+      "status": "PASS",
+      "explanation": "The priorities (ESSENTIAL, IMPORTANT, OPTIONAL) are perfectly assigned to allow dynamic compression of optional components if shorter timing is required, with no embedded hardcoded timing calculations."
+    },
+    "issues": [],
+    "repairTargets": []
+  },
+  "auditGeneration": {
+    "provider": "google",
+    "model": "gemini-3.5-flash",
+    "thinkingLevel": "MEDIUM",
+    "attempt": 1,
+    "elapsedMs": 31182,
+    "finishReason": "STOP",
+    "modelVersion": "gemini-3.5-flash",
+    "responseId": "dfCNapPRLPWwg8UPsILgoQU",
+    "maxOutputTokens": 24576,
+    "requestTimeoutMs": 180000,
+    "usage": {
+      "promptTokens": 36095,
+      "outputTokens": 2269,
+      "thoughtTokens": 3226,
+      "totalTokens": 41590
+    }
+  },
+  "source": {
+    "mode": "FULL_CHAPTER",
+    "sourceFileName": "NCERT-Class-9-Force-and-Laws-of-Motion-and-Work-and-Energy.pdf",
+    "canonicalPageStart": 18,
+    "canonicalPageEnd": 31,
+    "canonicalPageCount": 14,
+    "canonicalContentSha256": "445421df0c0ebd2d708aa5a0ff153896764de81c06a10eda03f10be8312150dd",
+    "sourceCatalogArtifactSha256": "95b3e7172199d65ff7b54b3a3d93407adbe56977678e7a5c985134142d2bc685",
+    "sourceCatalogFile": "data\\source-catalog-v1\\class-9-work-energy.json",
+    "visualFileName": "class-9-work-energy.pdf",
+    "visualPageCount": 14,
+    "visualMappingVerified": true,
+    "catalogStatistics": {
+      "activities": 17,
+      "examples": 9,
+      "figures": 8,
+      "tables": 0
+    }
+  },
+  "auditedAt": "2026-08-25T19:44:19.987Z"
+}

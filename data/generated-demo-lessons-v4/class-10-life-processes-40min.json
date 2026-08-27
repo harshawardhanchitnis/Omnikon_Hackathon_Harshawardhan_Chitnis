@@ -1,0 +1,673 @@
+{
+  "artifactVersion": 4,
+  "generationPolicyVersion": "chalkbox-lesson-v4-gemini-35",
+  "status": "PROVENANCE_VALIDATED",
+  "fullyAudited": false,
+  "judgeReady": false,
+  "lesson": {
+    "schemaVersion": 4,
+    "generationPolicyVersion": "chalkbox-lesson-v4-gemini-35",
+    "lessonKey": "class-10-life-processes",
+    "title": "Life Processes",
+    "classLevel": 10,
+    "subject": "Science",
+    "requestedDurationMinutes": 40,
+    "chapterConceptLedger": [
+      {
+        "concept": "Definition and Criteria of Life Processes",
+        "importance": "CORE",
+        "sourcePages": [
+          1,
+          2,
+          3
+        ],
+        "lessonEvidenceFields": [
+          "fullLesson.define",
+          "fullLesson.explain"
+        ]
+      },
+      {
+        "concept": "Autotrophic Nutrition and Photosynthesis Mechanism",
+        "importance": "CORE",
+        "sourcePages": [
+          3,
+          4,
+          5,
+          6
+        ],
+        "lessonEvidenceFields": [
+          "fullLesson.explain",
+          "fullLesson.boardPlan"
+        ]
+      },
+      {
+        "concept": "Heterotrophic Nutrition and Human Alimentary System",
+        "importance": "CORE",
+        "sourcePages": [
+          6,
+          7,
+          8
+        ],
+        "lessonEvidenceFields": [
+          "fullLesson.explain",
+          "fullLesson.example"
+        ]
+      },
+      {
+        "concept": "Respiration: Breakdown of Glucose Pathways",
+        "importance": "CORE",
+        "sourcePages": [
+          9,
+          10,
+          11
+        ],
+        "lessonEvidenceFields": [
+          "fullLesson.explain",
+          "fullLesson.visualize"
+        ]
+      },
+      {
+        "concept": "Gaseous Exchange and Human Respiratory System",
+        "importance": "CORE",
+        "sourcePages": [
+          11,
+          12,
+          13
+        ],
+        "lessonEvidenceFields": [
+          "fullLesson.explain",
+          "fullLesson.activity"
+        ]
+      },
+      {
+        "concept": "Human Circulatory System and Double Circulation",
+        "importance": "CORE",
+        "sourcePages": [
+          13,
+          14,
+          15,
+          16
+        ],
+        "lessonEvidenceFields": [
+          "fullLesson.explain",
+          "fullLesson.howToTeach"
+        ]
+      },
+      {
+        "concept": "Transport of Water and Food in Plants",
+        "importance": "CORE",
+        "sourcePages": [
+          16,
+          17,
+          18
+        ],
+        "lessonEvidenceFields": [
+          "fullLesson.explain",
+          "quickIdeas.lowResourceActivity"
+        ]
+      },
+      {
+        "concept": "Human Excretion: Nephron Structure and Function",
+        "importance": "CORE",
+        "sourcePages": [
+          18,
+          19,
+          20
+        ],
+        "lessonEvidenceFields": [
+          "fullLesson.explain",
+          "fullLesson.checkUnderstanding"
+        ]
+      },
+      {
+        "concept": "Excretion Strategies in Plants",
+        "importance": "SUPPORTING",
+        "sourcePages": [
+          20
+        ],
+        "lessonEvidenceFields": [
+          "fullLesson.explain",
+          "fullLesson.practice"
+        ]
+      }
+    ],
+    "prerequisites": [
+      {
+        "concept": "Cellular structure and basic functions of organelles (mitochondria, chloroplasts, vacuoles)",
+        "importance": "REQUIRED",
+        "contentOrigin": "PEDAGOGICAL_ADDITION",
+        "sourcePages": [],
+        "sourceLimitations": []
+      },
+      {
+        "concept": "Difference between autotrophs and heterotrophs studied in earlier classes",
+        "importance": "REQUIRED",
+        "contentOrigin": "SOURCE_GROUNDED",
+        "sourcePages": [
+          3
+        ],
+        "sourceLimitations": []
+      },
+      {
+        "concept": "Basic tissue structures (xylem, phloem) in plants from Class IX",
+        "importance": "HELPFUL",
+        "contentOrigin": "SOURCE_GROUNDED",
+        "sourcePages": [
+          16
+        ],
+        "sourceLimitations": []
+      }
+    ],
+    "learningObjectives": [
+      "Define life processes and explain why molecular maintenance and repair are essential for living organisms.",
+      "Detail the three main events of photosynthesis and explain how guard cells regulate stomatal opening and closing.",
+      "Trace the pathway of digestion in the human alimentary canal, highlighting the specific actions of saliva, gastric juices, bile, pancreatic juice, and intestinal enzymes.",
+      "Compare the three metabolic pathways of glucose breakdown (aerobic, anaerobic, and oxygen-deficient muscle pathways) with respect to location, products, and relative energy yield.",
+      "Explain how the structures of human alveoli, human heart chambers, and nephrons are systematically optimized to maximize surface area and prevent mixing.",
+      "Distinguish between xylem transport (driven by transpiration pull) and phloem translocation (utilizing active energy transport).",
+      "Describe the process of urine formation in the nephron, detailing selective reabsorption and regulation of water.",
+      "Compare the diverse excretory techniques employed by plants to eliminate metabolic waste."
+    ],
+    "objectiveCoverage": [
+      {
+        "objectiveIndex": 0,
+        "lessonEvidenceFields": [
+          "fullLesson.define"
+        ]
+      },
+      {
+        "objectiveIndex": 1,
+        "lessonEvidenceFields": [
+          "fullLesson.explain",
+          "fullLesson.boardPlan"
+        ]
+      },
+      {
+        "objectiveIndex": 2,
+        "lessonEvidenceFields": [
+          "fullLesson.explain",
+          "fullLesson.example"
+        ]
+      },
+      {
+        "objectiveIndex": 3,
+        "lessonEvidenceFields": [
+          "fullLesson.explain",
+          "fullLesson.visualize"
+        ]
+      },
+      {
+        "objectiveIndex": 4,
+        "lessonEvidenceFields": [
+          "fullLesson.explain",
+          "fullLesson.activity",
+          "fullLesson.howToTeach"
+        ]
+      },
+      {
+        "objectiveIndex": 5,
+        "lessonEvidenceFields": [
+          "fullLesson.explain",
+          "quickIdeas.lowResourceActivity"
+        ]
+      },
+      {
+        "objectiveIndex": 6,
+        "lessonEvidenceFields": [
+          "fullLesson.explain",
+          "fullLesson.checkUnderstanding"
+        ]
+      },
+      {
+        "objectiveIndex": 7,
+        "lessonEvidenceFields": [
+          "fullLesson.explain",
+          "fullLesson.practice"
+        ]
+      }
+    ],
+    "hook": {
+      "priority": "ESSENTIAL",
+      "contentOrigin": "SOURCE_GROUNDED",
+      "teacherPrompt": "Imagine a dog asleep, a plant with deep-purple leaves that never moves, and a virus sitting outside a cell. How do we scientifically decide which of these are actually alive? Is visible movement the ultimate criterion for life?",
+      "expectedStudentResponse": "Visible movement like breathing or growth is common. But a sleeping dog breathes, and a plant still lives even if we don't see it growing. Deep purple leaves photosynthesize too. A virus doesn't show molecular movement until it enters a host cell, showing that invisible molecular movements are the true basis of life.",
+      "sourcePages": [
+        1
+      ],
+      "sourceLimitations": []
+    },
+    "fullLesson": {
+      "define": {
+        "priority": "ESSENTIAL",
+        "contentOrigin": "SOURCE_GROUNDED",
+        "teacherScript": "Today we dive into 'Life Processes'. These are the maintenance functions of living organisms that must go on even when we are doing nothing active—even while we are fast asleep in class! Because our bodies are well-organized structures made of tissues and cells, environmental forces constantly try to break down this order. If this order breaks down, we die. Thus, life processes are the collective molecular movements and chemical changes needed to constantly repair, maintain, and sustain our living structures.",
+        "boardWork": [
+          "LIFE PROCESSES: The processes which together perform the maintenance job of living structures, preventing damage and breakdown.",
+          "Key Maintenance Processes:",
+          "1. Nutrition (energy intake & breakdown)",
+          "2. Respiration (acquiring oxygen for cellular breakdown of food)",
+          "3. Transportation (carrying food & oxygen to cells, and removing waste)",
+          "4. Excretion (removal of toxic metabolic by-products)"
+        ],
+        "keyPoints": [
+          "Living structures are highly organized but decay over time due to environmental interaction.",
+          "Constant repair requires molecular movement and energy.",
+          "Energy is sourced from outside the body (carbon-based food sources) and converted into a uniform chemical energy currency (ATP)."
+        ],
+        "sourcePages": [
+          1,
+          2
+        ],
+        "sourceLimitations": []
+      },
+      "explain": {
+        "priority": "ESSENTIAL",
+        "contentOrigin": "SOURCE_GROUNDED",
+        "teacherScript": "Let us examine how these processes play out across autotrophs, heterotrophs, and multicellular systems like humans.\n\n1. Nutrition:\nAutotrophs (like plants) use simple inorganic carbon dioxide and water to synthesize high-energy carbohydrates in the presence of sunlight and chlorophyll. The main events of photosynthesis are: (i) absorption of light by chlorophyll, (ii) conversion of light energy to chemical energy and splitting water into hydrogen and oxygen, and (iii) reduction of carbon dioxide to carbohydrates. Plants store unused carbohydrates as starch, while we store our excess energy reserves as glycogen. In contrast, heterotrophs (like humans) must ingest complex food, utilizing biological catalysts called enzymes to break it down. \nIn the human alimentary canal, starch digestion begins in the mouth via salivary amylase. Food moves down the esophagus by rhythmic contraction waves called peristalsis. The stomach releases acidic gastric juices with hydrochloric acid (creating an acidic medium for pepsin) and protective mucus. Digestion finishes in the small intestine, which receives bile from the liver (to emulsify large fat globules and neutralize stomach acid) and pancreatic juices (containing trypsin for proteins and lipase for emulsified fats). The highly folded inner surface of the small intestine has finger-like projections called villi, richly supplied with blood vessels to absorb nutrients.\n\n2. Respiration:\nRespiration breaks down glucose to release energy. The first step occurs in the cytoplasm, splitting glucose (6-carbon) into pyruvate (3-carbon). In the absence of oxygen (anaerobic, e.g., yeast during fermentation), pyruvate is converted into ethanol and carbon dioxide. In oxygen-deficient human muscles (under sudden activity), pyruvate is converted to lactic acid, causing cramps. In the presence of oxygen (aerobic), pyruvate is completely broken down inside the mitochondria into carbon dioxide, water, and a high yield of ATP. In humans, air enters nostrils, passes rings of cartilage in the throat (which prevent collapse), and enters the lungs. The lungs branch into tiny balloon-like structures called alveoli to maximize gas exchange surface area. Oxygen is bound by the respiratory pigment haemoglobin inside Red Blood Cells (RBCs), while more-soluble carbon dioxide travels dissolved in blood plasma.\n\n3. Transportation:\nIn humans, the heart acts as a muscular pump. Because birds and mammals are warm-blooded and have high energy demands to regulate body temperature, their hearts have 4 chambers (completely separating oxygenated and deoxygenated blood). Amphibians and reptiles can tolerate some mixing and have 3-chambered hearts, while fish have 2-chambered hearts with single circulation. Blood pressure is the force exerted against blood vessel walls—much higher in arteries (which have thick, elastic walls to handle high pressure) than in veins (which have thin walls and one-way valves to prevent backflow). Capillaries are thin, one-cell thick vessels facilitating nutrient exchange. Platelets plug leaks to prevent drop in pumping pressure, and lymph is a color-less tissue fluid that drains excess extracellular fluids and fats back into veins. \nIn plants, transport uses two independent vascular systems. Xylem moves water and minerals from the roots. Active absorption of ions at the root creates root pressure (important at night), but during the day, the evaporation of water from leaf stomata—called transpiration—creates a powerful transpiration pull that sucks water up the tall tree columns. Phloem translocates products of photosynthesis (sucrose, amino acids) from leaves to growth/storage sites. Unlike xylem, phloem translocation is active, using ATP to build osmotic pressure that moves fluids dynamically.\n\n4. Excretion:\nHumans filter out nitrogenous wastes (like urea and uric acid) in the kidneys. Each kidney houses millions of filtration units called nephrons. Blood is filtered in the glomerulus, a cluster of thin capillaries inside the cup-shaped Bowman's capsule. As this filtrate flows down the tubular part of the nephron, vital substances (glucose, amino acids, salts, and water) are selectively re-absorbed depending on body water levels. The remaining urine travels via ureters, is stored in the muscular urinary bladder (under nervous control), and exits through the urethra. \nPlants excrete using vastly different methods: releasing oxygen as a photosynthetic byproduct, storing waste in cellular vacuoles or in falling leaves, depositing old waste as resins and gums in dead xylem tissues, or excreting waste directly into the surrounding soil.",
+        "boardWork": [
+          "I. PHOTOSYNTHESIS STEPS (Pages 4-5):",
+          "  1. Absorption of light by Chlorophyll.",
+          "  2. Light energy -> Chemical energy; Splitting of H2O to H2 + O2.",
+          "  3. Reduction of CO2 to Carbohydrates.",
+          "II. RESPIRATORY ORGANS & PIGMENTS (Page 12):",
+          "  - Alveoli: Balloon-like structures, expand surface area (~80 m2).",
+          "  - Haemoglobin: Respiratory pigment with high oxygen affinity.",
+          "III. HUMAN HEART (4 Chambers) (Page 14):",
+          "  - Left side: Handles Oxygenated Blood (Atrium -> Ventricle -> Body).",
+          "  - Right side: Handles Deoxygenated Blood (Atrium -> Ventricle -> Lungs).",
+          "IV. TRANSPORT IN PLANTS (Page 16-17):",
+          "  - Xylem: Tracheids/Vessels (Passive physical forces - Transpiration Pull).",
+          "  - Phloem: Sieve tubes/Companion cells (Active transport using ATP energy).",
+          "V. NEPHRON FILTRATION (Page 19):",
+          "  - Glomerulus/Bowman's Capsule -> Filtration of urea.",
+          "  - Tubular segment -> Selective Reabsorption (Water, glucose, amino acids)."
+        ],
+        "keyPoints": [
+          "Herbivores have longer small intestines to digest cellulose; carnivores have shorter ones because meat is easier to digest.",
+          "Gaseous exchange in plants occurs across stomata, but can also occur across roots, stems, and leaves.",
+          "The Separation of the left and right side of the mammalian heart prevents mixing of oxygenated/deoxygenated blood to maintain high oxygen supply for temperature regulation.",
+          "Urine volume is regulated by selective tubular reabsorption of water, which depends on excess body water and dissolved wastes.",
+          "Plants utilize many dead cells and slow transport systems due to lower overall energy needs."
+        ],
+        "sourcePages": [
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20
+        ],
+        "sourceLimitations": []
+      },
+      "visualize": {
+        "priority": "ESSENTIAL",
+        "contentOrigin": "SOURCE_GROUNDED",
+        "sourceType": "BOARD_VISUAL",
+        "sourceLabel": null,
+        "teacherInstructions": "Draw the 'Break-down of glucose by various pathways' flowchart on the board. This is a vital conceptual map that helps students trace anaerobic vs. aerobic pathways in cellular respiration.",
+        "boardDrawingSteps": [
+          "Write 'Glucose (6-carbon molecule)' in a box at the left.",
+          "Draw an arrow labeled 'In Cytoplasm' pointing to 'Pyruvate (3-carbon molecule) + Energy'.",
+          "From this Pyruvate box, branch out into three separate arrow pathways.",
+          "Pathway 1 (Top): Label 'Absence of oxygen (in yeast)'. Draw it leading to 'Ethanol + Carbon dioxide + Energy (2-carbon molecule)'.",
+          "Pathway 2 (Middle): Label 'Lack of oxygen (in our muscle cells)'. Draw it leading to 'Lactic acid + Energy (3-carbon molecule)'. Note: this causes cramps.",
+          "Pathway 3 (Bottom): Label 'Presence of oxygen (in mitochondria)'. Draw it leading to 'Carbon dioxide + Water + Energy'."
+        ],
+        "whatStudentsShouldNotice": [
+          "Every single respiratory pathway begins with the exact same step: the conversion of 6-carbon glucose to 3-carbon pyruvate in the cytoplasm, yielding a small amount of energy.",
+          "The mitochondria is exclusively responsible for the aerobic pathway (completely breaking down pyruvate to carbon dioxide and water).",
+          "The accumulation of lactic acid (3-carbon) occurs only under conditions of oxygen deficiency in muscles, and causes muscle cramps."
+        ],
+        "sourcePages": [
+          10
+        ],
+        "sourceLimitations": [
+          "This is a simplified schematic layout adapted for chalkboards to trace carbon-atom conservation. It leaves out complex intermediate steps of glycolysis and the citric acid cycle which are not in the Class 10 textbook."
+        ]
+      },
+      "example": {
+        "priority": "ESSENTIAL",
+        "contentOrigin": "MIXED",
+        "sourceType": "CHALKBOX_EXAMPLE",
+        "sourceLabel": null,
+        "title": "Fat Digestion and Emulsification in the Small Intestine",
+        "explanation": "To understand how the body processes large insoluble macromolecules, look at how fats are processed in the small intestine. Because fats are insoluble in water, they naturally form large globules inside the watery environment of the gut. This severely limits the surface area available for lipase enzymes to digest them. The body uses a two-step physiological strategy to solve this.",
+        "steps": [
+          "Secreted bile salts from the liver attach to the large fat globules and mechanically break them down into much smaller droplets (micelles). This is called emulsification.",
+          "Emulsification increases the relative surface area of the lipid molecules.",
+          "The pancreatic enzyme lipase can now rapidly and efficiently break down the emulsified fats into absorbable fatty acids and glycerol."
+        ],
+        "sourcePages": [
+          8
+        ],
+        "sourceLimitations": [
+          "This is a ChalkBox-composed teaching example grounded in the NCERT discussion of fat digestion on canonical page 8. It is not a separately labelled textbook example."
+        ]
+      },
+      "activity": {
+        "priority": "IMPORTANT",
+        "contentOrigin": "SOURCE_GROUNDED",
+        "sourceType": "TEXTBOOK_ACTIVITY",
+        "sourceLabel": "Activity 5.4",
+        "title": "Comparing Carbon Dioxide Content in Exhaled vs. Atmospheric Air",
+        "concepts": [
+          "Respiration creates carbon dioxide as a direct byproduct.",
+          "Exhaled air contains a significantly higher concentration of carbon dioxide than regular atmospheric air."
+        ],
+        "objective": "Demonstrate the high presence of carbon dioxide in exhaled breath using a chemical indicator (limewater).",
+        "materials": [
+          "Two test tubes",
+          "Freshly prepared limewater (calcium hydroxide solution)",
+          "A glass/plastic straw or rubber tube for blowing air",
+          "A syringe or syringe pichkari"
+        ],
+        "steps": [
+          "Set up Test Tube A and Test Tube B, filling each with equal volumes of freshly prepared clear limewater.",
+          "Use a syringe or pichkari to vigorously pump atmospheric air through the limewater in Test Tube A. Record how long it takes for the solution to turn milky, or if it remains largely clear.",
+          "Use a straw to gently blow exhaled breath directly through the limewater in Test Tube B.",
+          "Observe and record how quickly the limewater in Test Tube B turns cloudy and milky.",
+          "Compare the times: Test Tube B turns milky almost instantly because exhaled air contains a much higher concentration of carbon dioxide which reacts to precipitate calcium carbonate."
+        ],
+        "safetyNote": "Instruct students to blow outward gently through the straw and avoid sucking the limewater into their mouths.",
+        "sourcePages": [
+          9
+        ],
+        "sourceLimitations": []
+      },
+      "howToTeach": {
+        "priority": "IMPORTANT",
+        "contentOrigin": "MIXED",
+        "teacherMoves": [
+          "Begin the section on circulation by asking students to feel their pulse or make a fist. Explain that the heart is roughly the size of their closed fist.",
+          "Contrast warm-blooded and cold-blooded metabolic requirements to justify why human hearts require complete separation of chambers (double circulation) whereas frogs and fish do not."
+        ],
+        "misconceptions": [
+          {
+            "misconception": "Plants do not breathe or respire, they only perform photosynthesis.",
+            "correction": "Plants respire constantly, 24 hours a day, taking in oxygen and releasing carbon dioxide. During the day, the CO2 they generate is instantly reused for photosynthesis, so no net CO2 is released. At night, with no photosynthesis, CO2 release is the dominant exchange event.",
+            "sourcePages": [
+              10,
+              11
+            ]
+          },
+          {
+            "misconception": "All arteries carry oxygenated blood, and all veins carry deoxygenated blood.",
+            "correction": "Arteries are defined by direction, carrying blood AWAY from the heart, and veins bring blood BACK to the heart. The pulmonary artery actually carries deoxygenated blood to the lungs, and pulmonary veins carry oxygenated blood to the heart.",
+            "sourcePages": [
+              14,
+              15
+            ]
+          }
+        ],
+        "questionsToAsk": [
+          "Why do birds and mammals have a four-chambered heart whereas amphibians survive with a three-chambered heart?",
+          "If root pressure can push water upward in plants, why do tall trees still require transpiration pull?"
+        ],
+        "sourcePages": [
+          11,
+          14,
+          15,
+          17
+        ],
+        "sourceLimitations": []
+      },
+      "boardPlan": {
+        "priority": "IMPORTANT",
+        "contentOrigin": "PEDAGOGICAL_ADDITION",
+        "text": "========================================================================\nCLASS 10 SCIENCE: LIFE PROCESSES\n========================================================================\n[Definitions]\n- Life Processes: Maintenance functions preventing breakdown of living order.\n- Metabolism requires external energy (food -> ATP via cellular respiration).\n\n[Pathways of Glucose Breakdown (Fig 5.8 adaptation)]\n                         /---> Yeast (Absence of O2) -> Ethanol + CO2 + 2 ATP\nGlucose (6C) -> Pyruvate |---> Muscles (Lack of O2) -> Lactic Acid (Cramps)\n(Cytoplasm)     (3C + Energy)\n                         \\---> Mitochondria (+O2) -> CO2 + H2O + High ATP\n\n[Human Circulatory System Structure]\nLungs <========= [Pulmonary Vein (O2)] ========> Left Atrium\n  ^                                                   v\n[Pulmonary Artery (De-O2)]                      Left Ventricle\n  ^                                                   v\nRight Ventricle <====== [Vena Cava] <========== Body Organs [Aorta (O2)]\nRight Atrium <========================================/\nDouble Circulation: Blood passes through the heart TWICE during each cycle.\n\n[Plant Transport Systems]\n- XYLEM: Passive transport of water/minerals driven by Transpiration Pull.\n- PHLOEM: Active translocation of sucrose utilizing energy from ATP.\n========================================================================",
+        "sourcePages": [
+          10,
+          14,
+          17
+        ],
+        "sourceLimitations": []
+      },
+      "practice": {
+        "priority": "ESSENTIAL",
+        "questions": [
+          {
+            "question": "What are the necessary conditions for autotrophic nutrition, and what are its chemical products?",
+            "expectedAnswer": "The necessary conditions are the availability of carbon dioxide, water, chlorophyll, and sunlight. The main product is glucose (carbohydrates), with oxygen and water formed as byproducts.",
+            "sourcePages": [
+              3,
+              4
+            ]
+          },
+          {
+            "question": "Why is diffusion insufficient to meet the oxygen requirements of multicellular organisms like humans?",
+            "expectedAnswer": "In large multicellular organisms, the bulk of the living cells are not in direct contact with the surrounding environment. Simple diffusion is too slow to cover the vast distances inside the body; indeed, it is estimated that without transport systems, it would take 3 years for an oxygen molecule to travel from our lungs to our toes.",
+            "sourcePages": [
+              2,
+              13
+            ]
+          },
+          {
+            "question": "What is the difference between transport mechanisms in xylem and phloem?",
+            "expectedAnswer": "Xylem transport of water is largely passive, driven by root pressure and transpiration pull. Phloem translocation of food is active, requiring energy in the form of ATP to create osmotic pressure that actively moves materials according to the plant's structural needs.",
+            "sourcePages": [
+              16,
+              17,
+              18
+            ]
+          }
+        ]
+      },
+      "checkUnderstanding": {
+        "priority": "ESSENTIAL",
+        "questions": [
+          {
+            "question": "What prevents the collapse of the human windpipe (trachea) when air is sucked out during deep breathing?",
+            "expectedAnswer": "Rings of cartilage present in the throat/trachea prevent the air-passage from collapsing.",
+            "difficulty": "basic",
+            "sourcePages": [
+              11
+            ]
+          },
+          {
+            "question": "An adult human filters approximately 180 Liters of initial filtrate daily in their kidneys, yet only voids 1 to 2 Liters of urine. Account for this vast difference.",
+            "expectedAnswer": "The remaining 178-179 Liters of initial filtrate is selectively reabsorbed as it flows along the renal tubules of the nephrons. The body reabsorbs almost all of the water, glucose, amino acids, and essential salts based on hydration needs.",
+            "difficulty": "intermediate",
+            "sourcePages": [
+              19
+            ]
+          },
+          {
+            "question": "Suggest why a cardiac defect that causes mixing of blood in the left and right ventricles is far more dangerous to a bird than to a frog.",
+            "expectedAnswer": "Birds are warm-blooded and use energy constantly to maintain their high body temperature. They require an uncompromised, highly efficient supply of oxygen delivered by complete separation of ventricles. Frogs are cold-blooded; their body temperature depends on the environment, meaning they have lower energy demands and can tolerate mixed blood in their single ventricle.",
+            "difficulty": "application",
+            "sourcePages": [
+              14
+            ]
+          }
+        ]
+      },
+      "materials": [
+        "Two test tubes",
+        "Limewater indicator",
+        "Syringe/pichkari",
+        "Plastic straws",
+        "Colored chalks (for tracing oxygenated vs deoxygenated pathways in heart diagrams)"
+      ]
+    },
+    "quickIdeas": {
+      "analogy": {
+        "contentOrigin": "PEDAGOGICAL_ADDITION",
+        "text": "Think of ATP as the specialized local currency of a cell, and glucose as a large international gold bar. You cannot spend a gold bar directly at a corner shop; you must first exchange it at a bank (the cell's cytoplasm and mitochondria) to get small, spendable currency notes (ATP) that easily run the cellular processes.",
+        "sourcePages": [
+          10
+        ],
+        "sourceLimitations": []
+      },
+      "lowResourceActivity": {
+        "priority": "OPTIONAL",
+        "contentOrigin": "CHALKBOX_ACTIVITY",
+        "sourceType": "CHALKBOX_ACTIVITY",
+        "sourceLabel": null,
+        "title": "Celery Dye Demonstration of Water Transport",
+        "concepts": [
+          "Water travels upward through vascular xylem vessels."
+        ],
+        "objective": "Visualize xylem transport paths without microscopes.",
+        "materials": [
+          "A fresh leafy celery stalk (or leafy soft stem)",
+          "A glass of water",
+          "A few drops of red/blue ink or food dye"
+        ],
+        "steps": [
+          "Cut the bottom of the celery stalk flat under water.",
+          "Add several drops of dark food dye/ink into a glass of water.",
+          "Place the stalk in the colored water in a sunny windowsill for 30 minutes.",
+          "Cut a thin cross-section of the stalk. Observe colored dots representing the dyed xylem bundles that transported the water upward via transpiration pull."
+        ],
+        "safetyNote": null,
+        "sourcePages": [
+          17
+        ],
+        "sourceLimitations": []
+      },
+      "quickChecks": [
+        {
+          "question": "What is the function of the sphincter muscle at the exit of the stomach?",
+          "expectedAnswer": "It regulates the release of food from the stomach into the small intestine in small, controlled amounts.",
+          "sourcePages": [
+            8
+          ]
+        },
+        {
+          "question": "Which chamber of the heart has the thickest muscular wall, and why?",
+          "expectedAnswer": "The left ventricle, because it has to pump oxygenated blood with high pressure to the entire rest of the body, unlike the atria or right ventricle which pump over shorter distances.",
+          "sourcePages": [
+            14
+          ]
+        }
+      ]
+    },
+    "sourceCoverage": {
+      "pagesUsed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20
+      ],
+      "keyConceptsCovered": [
+        "Definition and Criteria of Life Processes",
+        "Autotrophic Nutrition and Photosynthesis Mechanism",
+        "Heterotrophic Nutrition and Human Alimentary System",
+        "Respiration: Breakdown of Glucose Pathways",
+        "Gaseous Exchange and Human Respiratory System",
+        "Human Circulatory System and Double Circulation",
+        "Transport of Water and Food in Plants",
+        "Human Excretion: Nephron Structure and Function",
+        "Excretion Strategies in Plants"
+      ],
+      "visualPagesUsed": [
+        10
+      ],
+      "sourceLimitations": [
+        "Diagram structures such as the human heart, nephron, and alveoli are highly simplified in the textbook visual representations. Advanced biochemistry pathways, intermediate enzymes, and microanatomy details are excluded to align exactly with Class 10 NCERT limits."
+      ]
+    }
+  },
+  "generation": {
+    "provider": "google",
+    "model": "gemini-3.5-flash",
+    "thinkingLevel": "MEDIUM",
+    "attempt": 1,
+    "elapsedMs": 70816,
+    "finishReason": "STOP",
+    "finishMessage": null,
+    "modelVersion": "gemini-3.5-flash",
+    "responseId": "pMaNaqU4iKOp-Q_14-LBAQ",
+    "maxOutputTokens": 32768,
+    "requestTimeoutMs": 180000,
+    "usage": {
+      "promptTokens": 38526,
+      "outputTokens": 6974,
+      "thoughtTokens": 2878,
+      "totalTokens": 48378
+    }
+  },
+  "source": {
+    "mode": "FULL_CHAPTER",
+    "lessonKey": "class-10-life-processes",
+    "sourceFileName": "NCERT-Class-10-Life-Processes-official.pdf",
+    "canonicalPageStart": 1,
+    "canonicalPageEnd": 21,
+    "canonicalPageCount": 21,
+    "visualFileName": "class-10-life-processes.pdf",
+    "visualPageCount": 21,
+    "visualMappingVerified": true
+  },
+  "validation": {
+    "deterministicProvenance": "PASS",
+    "independentQualityAudit": "PENDING",
+    "errors": [],
+    "warnings": [
+      {
+        "severity": "WARNING",
+        "field": "fullLesson.visualize",
+        "issueType": "FINAL_BOARD_VISUAL_AUDIT_REQUIRED",
+        "message": "Board visual requires later scientific/topological verification.",
+        "sourcePages": [
+          10
+        ]
+      },
+      {
+        "severity": "WARNING",
+        "field": "fullLesson.activity",
+        "issueType": "FINAL_ACTIVITY_SEMANTIC_AUDIT_REQUIRED",
+        "message": "Textbook activity provenance passed mechanically; semantic relevance must still be audited.",
+        "sourcePages": [
+          9
+        ]
+      }
+    ]
+  },
+  "generatedAt": "2026-08-25T16:46:32.175Z",
+  "postGenerationNormalizations": [
+    {
+      "policyVersion": "chalkbox-example-provenance-normalization-v1",
+      "type": "UNLABELED_TEXTBOOK_EXAMPLE_TO_CHALKBOX_EXAMPLE",
+      "field": "fullLesson.example",
+      "originalSourceType": "TEXTBOOK_EXAMPLE",
+      "normalizedSourceType": "CHALKBOX_EXAMPLE",
+      "sourceLabel": null,
+      "sourcePages": [
+        8
+      ],
+      "semanticRepair": false,
+      "llmCalls": 0,
+      "contentChanged": false,
+      "reason": "The generated teaching example is grounded in canonical NCERT content but is not an explicitly labelled textbook example. Under the ChalkBox v4 provenance contract it must therefore be represented as CHALKBOX_EXAMPLE.",
+      "normalizedAt": "2026-08-25T16:52:09.503Z"
+    }
+  ]
+}

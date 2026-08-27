@@ -328,3 +328,92 @@
   color: #ffffff;
   background: var(--chalkbox-green-700);
 }
+
+/* CHALKBOX_PRODUCT_PRINT_V3 */
+@media print {
+  /* Screen-collapsed lesson blocks must always be present in exported lessons. */
+  [data-chalkbox-section-body] {
+    display: block !important;
+  }
+
+  /* Private/unseen textbook visuals must fit the printable page, never scroll or clip. */
+  [data-chalkbox-visual-frame] {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: visible !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  [data-chalkbox-visual-scroll] {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: visible !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  [data-chalkbox-visual-scroll] svg {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  [data-chalkbox-visual-scroll] svg text {
+    opacity: 1 !important;
+  }
+}
+/* CHALKBOX_PRODUCT_PRINT_VISUAL_SURGICAL_V4
+   Final surgical print fix:
+   - hides product-only action buttons from exported PDFs
+   - removes native horizontal scrollbars inside lesson figures
+   - forces diagram SVGs to shrink to the printable width
+*/
+@media print {
+  [data-chalkbox-print-hide] {
+    display: none !important;
+  }
+
+  figure {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Works even if component-specific data attributes drift: every ChalkBox
+     board visual uses an overflow-x-auto wrapper around its SVG on screen. */
+  figure .overflow-x-auto {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    overflow-x: hidden !important;
+    overflow-y: visible !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    box-sizing: border-box !important;
+    scrollbar-width: none !important;
+  }
+
+  figure .overflow-x-auto::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+  }
+
+  /* Neutralize screen-only Tailwind min-widths such as min-w-[720px]. */
+  figure .overflow-x-auto > svg,
+  figure .overflow-x-auto svg[viewBox] {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    box-sizing: border-box !important;
+  }
+}

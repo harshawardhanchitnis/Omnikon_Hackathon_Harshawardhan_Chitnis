@@ -1,0 +1,115 @@
+{
+  "artifactVersion": 1,
+  "validationPolicyVersion": "chalkbox-audit-source-claim-validation-v1",
+  "status": "PASS",
+  "lessonKey": "class-9-force-laws-motion",
+  "requestedDurationMinutes": 40,
+  "auditPolicyVersion": "chalkbox-generated-audit-v5-catalog-grounded-gemini-35",
+  "sourceCatalogPolicyVersion": "chalkbox-source-catalog-v1",
+  "canonicalContentSha256": "897ccf860f9b8239adcf77e9c486a2aec125ed524a9f698c5f95ec7efd9f40b3",
+  "sourceAuditFile": "data\\lesson-audits-v5\\class-9-force-laws-motion-40min-audit.json",
+  "metrics": {
+    "totalAuditClaims": 12,
+    "supportedAuditClaims": 12,
+    "unsupportedAuditClaims": 0
+  },
+  "claims": [
+    {
+      "field": "independentConceptAudit.majorConcepts[2].explanation",
+      "rawLabel": "Activity 9.2",
+      "kind": "ACTIVITY",
+      "number": "9.2",
+      "canonicalId": "ACTIVITY:9.2",
+      "supported": true
+    },
+    {
+      "field": "independentConceptAudit.majorConcepts[4].explanation",
+      "rawLabel": "Example 9.1",
+      "kind": "EXAMPLE",
+      "number": "9.1",
+      "canonicalId": "EXAMPLE:9.1",
+      "supported": true
+    },
+    {
+      "field": "objectiveAudit[1].explanation",
+      "rawLabel": "Activity 9.2",
+      "kind": "ACTIVITY",
+      "number": "9.2",
+      "canonicalId": "ACTIVITY:9.2",
+      "supported": true
+    },
+    {
+      "field": "objectiveAudit[3].explanation",
+      "rawLabel": "Example 9.1",
+      "kind": "EXAMPLE",
+      "number": "9.1",
+      "canonicalId": "EXAMPLE:9.1",
+      "supported": true
+    },
+    {
+      "field": "citationAudit[2].explanation",
+      "rawLabel": "Fig. 9.14",
+      "kind": "FIGURE",
+      "number": "9.14",
+      "canonicalId": "FIGURE:9.14",
+      "supported": true
+    },
+    {
+      "field": "citationAudit[3].explanation",
+      "rawLabel": "Example 9.1",
+      "kind": "EXAMPLE",
+      "number": "9.1",
+      "canonicalId": "EXAMPLE:9.1",
+      "supported": true
+    },
+    {
+      "field": "citationAudit[4].explanation",
+      "rawLabel": "Activity 9.2",
+      "kind": "ACTIVITY",
+      "number": "9.2",
+      "canonicalId": "ACTIVITY:9.2",
+      "supported": true
+    },
+    {
+      "field": "activityAudit[0].sourceLabel",
+      "rawLabel": "activity 9.2",
+      "kind": "ACTIVITY",
+      "number": "9.2",
+      "canonicalId": "ACTIVITY:9.2",
+      "supported": true
+    },
+    {
+      "field": "activityAudit[0].explanation",
+      "rawLabel": "Activity 9.2",
+      "kind": "ACTIVITY",
+      "number": "9.2",
+      "canonicalId": "ACTIVITY:9.2",
+      "supported": true
+    },
+    {
+      "field": "activityAudit[1].explanation",
+      "rawLabel": "Activity 9.1",
+      "kind": "ACTIVITY",
+      "number": "9.1",
+      "canonicalId": "ACTIVITY:9.1",
+      "supported": true
+    },
+    {
+      "field": "exampleAudit[0].sourceLabel",
+      "rawLabel": "Example 9.1",
+      "kind": "EXAMPLE",
+      "number": "9.1",
+      "canonicalId": "EXAMPLE:9.1",
+      "supported": true
+    },
+    {
+      "field": "visualAudit[0].explanation",
+      "rawLabel": "Figure 9.14",
+      "kind": "FIGURE",
+      "number": "9.14",
+      "canonicalId": "FIGURE:9.14",
+      "supported": true
+    }
+  ],
+  "validatedAt": "2026-08-25T18:38:15.152Z"
+}

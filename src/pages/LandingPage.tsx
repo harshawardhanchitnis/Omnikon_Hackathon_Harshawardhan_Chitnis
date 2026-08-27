@@ -9,8 +9,9 @@ import {
   WifiOff,
 } from 'lucide-react'
 
+import { Link } from 'react-router-dom'
+
 import Navbar from '@/components/layout/Navbar'
-import { Button } from '@/components/ui/button'
 
 const classroomPromises = [
   {
@@ -40,6 +41,7 @@ const planningModes = [
     title: 'Teach from my Textbook',
     description:
       'Choose the class, subject and chapter. ChalkBox uses curriculum-grounded textbook context to build a complete classroom-ready lesson.',
+    href: '/textbook',
     points: [
       'Grounded in textbook content',
       'Structured lesson plan',
@@ -52,6 +54,7 @@ const planningModes = [
     title: 'Help me Teach a Topic',
     description:
       'Tell ChalkBox what you want to teach, the class level and available time. ChalkBox creates the lesson structure and teaching approach for you.',
+    href: '/topic',
     points: [
       'Age-appropriate explanations',
       'Teacher-ready examples',
@@ -122,17 +125,20 @@ function LandingPage() {
             </p>
 
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-              <Button className="group h-11 rounded-xl bg-[#0f5132] px-5 text-[13px] font-semibold text-white shadow-[0_8px_22px_rgba(15,81,50,0.17)] transition-all hover:-translate-y-0.5 hover:bg-[#0b3d28] hover:shadow-[0_12px_28px_rgba(15,81,50,0.24)]">
-                Try Demo
-                <ArrowRight className="ml-1 size-3.5 transition-transform group-hover:translate-x-1" />
-              </Button>
-
-              <Button
-                variant="outline"
-                className="h-11 rounded-xl border-[#cbd8c9] bg-[#fffef9] px-5 text-[13px] font-semibold text-[#0f5132] shadow-sm transition-all hover:-translate-y-0.5 hover:bg-[#f0f6ed]"
+              <Link
+                to="/dashboard?demo=1"
+                className="group inline-flex h-11 items-center justify-center rounded-xl bg-[#0f5132] px-5 text-[13px] font-semibold text-white shadow-[0_8px_22px_rgba(15,81,50,0.17)] transition-all hover:-translate-y-0.5 hover:bg-[#0b3d28] hover:shadow-[0_12px_28px_rgba(15,81,50,0.24)]"
               >
-                Create Teacher Account
-              </Button>
+                Try Verified Demo
+                <ArrowRight className="ml-1 size-3.5 transition-transform group-hover:translate-x-1" />
+              </Link>
+
+              <Link
+                to="/login"
+                className="inline-flex h-11 items-center justify-center rounded-xl border border-[#cbd8c9] bg-[#fffef9] px-5 text-[13px] font-semibold text-[#0f5132] shadow-sm transition-all hover:-translate-y-0.5 hover:bg-[#f0f6ed]"
+              >
+                Teacher Sign In
+              </Link>
             </div>
 
             <p className="mt-3 flex items-center gap-2 text-[11px] font-medium text-[#667269]">
@@ -347,17 +353,17 @@ function LandingPage() {
                     ))}
                   </div>
 
-                  <Button
-                    variant={index === 0 ? 'default' : 'outline'}
-                    className={`group/button mt-7 h-10 rounded-xl px-5 text-[12px] font-bold ${
+                  <Link
+                    to={mode.href}
+                    className={`group/button mt-7 inline-flex h-10 items-center justify-center rounded-xl border px-5 text-[12px] font-bold transition-all ${
                       index === 0
-                        ? 'bg-[#0f5132] text-white hover:bg-[#0b3d28]'
+                        ? 'border-transparent bg-[#0f5132] text-white hover:bg-[#0b3d28]'
                         : 'border-[#cbd8c9] bg-white text-[#0f5132] hover:bg-[#edf4ea]'
                     }`}
                   >
                     Explore {mode.eyebrow}
                     <ArrowRight className="ml-1 size-3.5 transition-transform group-hover/button:translate-x-1" />
-                  </Button>
+                  </Link>
                 </div>
               </article>
             )
@@ -418,13 +424,37 @@ function LandingPage() {
           SMALL TRANSITION
       ====================================================== */}
 
+      <section className="mx-auto w-full max-w-[1560px] px-5 pb-6 pt-8 sm:px-8 lg:px-10 xl:px-12">
+        <div className="grid gap-3 rounded-[26px] border border-[#d8e3d5] bg-[#fffef9] p-5 shadow-[0_8px_26px_rgba(22,55,38,0.045)] sm:grid-cols-3 sm:p-6">
+          {[
+            ['Verified Textbook Demo', 'Six audited NCERT Science lessons open without a live AI call.'],
+            ['Live Topic Mode', 'Generate unseen Class 8–10 Science teaching help with an independent Science audit.'],
+            ['One Teaching Workspace', 'Move from planning into Start Class, Quick Teach, Flashcards, voice and print.'],
+          ].map(([title, description]) => (
+            <article key={title} className="rounded-2xl bg-[#f5f8f1] p-4">
+              <Check className="size-4 text-[#176b43]" />
+              <h3 className="mt-3 text-[12px] font-extrabold text-[#263229]">
+                {title}
+              </h3>
+              <p className="mt-2 text-[10px] font-medium leading-5 text-[#68736c]">
+                {description}
+              </p>
+            </article>
+          ))}
+        </div>
+      </section>
+
       <div className="mx-auto flex w-full max-w-[1560px] items-center gap-3 px-5 py-7 sm:px-8 lg:px-10 xl:px-12">
         <div className="h-px flex-1 bg-[#dfe5dc]" />
 
-        <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.14em] text-[#6d7970]">
+        <Link
+          to="/dashboard"
+          className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.14em] text-[#6d7970] hover:text-[#176b43]"
+        >
           <Lightbulb className="size-3.5 text-[#176b43]" />
-          Built to help teachers teach
-        </div>
+          Open the teacher workspace
+          <ArrowRight className="size-3.5" />
+        </Link>
 
         <div className="h-px flex-1 bg-[#dfe5dc]" />
       </div>

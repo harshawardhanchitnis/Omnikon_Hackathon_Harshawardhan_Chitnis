@@ -1,0 +1,42 @@
+{
+  "artifactVersion": 1,
+  "auditPolicyVersion": "chalkbox-source-claim-audit-v1",
+  "status": "PASS",
+  "lessonKey": "class-8-chemical-effects-electric-current",
+  "requestedDurationMinutes": 40,
+  "sourceArtifact": "data\\generated-demo-lessons-v5\\class-8-chemical-effects-electric-current-40min.json",
+  "catalogPolicyVersion": "chalkbox-source-catalog-v1",
+  "canonicalContentSha256": "967d769bd211b5dd9364033ca27f86cea684bdbd970878f605c56887fdc7d814",
+  "metrics": {
+    "totalClaims": 3,
+    "supportedClaims": 3,
+    "unsupportedClaims": 0
+  },
+  "claims": [
+    {
+      "field": "fullLesson.visualize.sourceLimitations[0]",
+      "rawLabel": "Fig. 14.7",
+      "kind": "FIGURE",
+      "number": "14.7",
+      "canonicalId": "FIGURE:14.7",
+      "supported": true
+    },
+    {
+      "field": "fullLesson.activity.sourceLabel",
+      "rawLabel": "Activity 14.7",
+      "kind": "ACTIVITY",
+      "number": "14.7",
+      "canonicalId": "ACTIVITY:14.7",
+      "supported": true
+    },
+    {
+      "field": "quickIdeas.lowResourceActivity.sourceLabel",
+      "rawLabel": "Activity 14.3",
+      "kind": "ACTIVITY",
+      "number": "14.3",
+      "canonicalId": "ACTIVITY:14.3",
+      "supported": true
+    }
+  ],
+  "auditedAt": "2026-08-25T19:41:46.727Z"
+}

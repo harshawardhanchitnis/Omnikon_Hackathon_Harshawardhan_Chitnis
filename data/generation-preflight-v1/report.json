@@ -1,0 +1,591 @@
+{
+  "schemaVersion": 1,
+  "purpose": "GENERATION_SOURCE_PREFLIGHT",
+  "status": "PASS",
+  "lessons": 6,
+  "totalPages": 100,
+  "canonicalPageSpace": "VERIFIED",
+  "visualPageSpace": "VERIFIED",
+  "mappings": "VERIFIED",
+  "generatedAt": "2026-08-25T13:51:10.967Z",
+  "results": [
+    {
+      "lessonKey": "class-8-chemical-effects-electric-current",
+      "title": "Chemical Effects of Electric Current",
+      "canonicalRange": "1-12",
+      "sourcePdfRange": "1-12",
+      "visualChapterRange": "1-12",
+      "pageCount": 12,
+      "mapping": [
+        {
+          "chapterPage": 1,
+          "sourcePdfPage": 1,
+          "textbookPageLabel": 1
+        },
+        {
+          "chapterPage": 2,
+          "sourcePdfPage": 2,
+          "textbookPageLabel": 2
+        },
+        {
+          "chapterPage": 3,
+          "sourcePdfPage": 3,
+          "textbookPageLabel": 3
+        },
+        {
+          "chapterPage": 4,
+          "sourcePdfPage": 4,
+          "textbookPageLabel": 4
+        },
+        {
+          "chapterPage": 5,
+          "sourcePdfPage": 5,
+          "textbookPageLabel": 5
+        },
+        {
+          "chapterPage": 6,
+          "sourcePdfPage": 6,
+          "textbookPageLabel": 6
+        },
+        {
+          "chapterPage": 7,
+          "sourcePdfPage": 7,
+          "textbookPageLabel": 7
+        },
+        {
+          "chapterPage": 8,
+          "sourcePdfPage": 8,
+          "textbookPageLabel": 8
+        },
+        {
+          "chapterPage": 9,
+          "sourcePdfPage": 9,
+          "textbookPageLabel": 9
+        },
+        {
+          "chapterPage": 10,
+          "sourcePdfPage": 10,
+          "textbookPageLabel": 10
+        },
+        {
+          "chapterPage": 11,
+          "sourcePdfPage": 11,
+          "textbookPageLabel": 11
+        },
+        {
+          "chapterPage": 12,
+          "sourcePdfPage": 12,
+          "textbookPageLabel": 12
+        }
+      ],
+      "visualFile": "class-8-chemical-effects-electric-current.pdf",
+      "visualSha256": "c1d1f99d0c4bf2768a6beb390ee7edf7a35937571381005607754596096baa0a",
+      "status": "PASS"
+    },
+    {
+      "lessonKey": "class-8-materials-metals-non-metals",
+      "title": "Materials: Metals and Non-Metals",
+      "canonicalRange": "13-24",
+      "sourcePdfRange": "13-24",
+      "visualChapterRange": "1-12",
+      "pageCount": 12,
+      "mapping": [
+        {
+          "chapterPage": 1,
+          "sourcePdfPage": 13,
+          "textbookPageLabel": 13
+        },
+        {
+          "chapterPage": 2,
+          "sourcePdfPage": 14,
+          "textbookPageLabel": 14
+        },
+        {
+          "chapterPage": 3,
+          "sourcePdfPage": 15,
+          "textbookPageLabel": 15
+        },
+        {
+          "chapterPage": 4,
+          "sourcePdfPage": 16,
+          "textbookPageLabel": 16
+        },
+        {
+          "chapterPage": 5,
+          "sourcePdfPage": 17,
+          "textbookPageLabel": 17
+        },
+        {
+          "chapterPage": 6,
+          "sourcePdfPage": 18,
+          "textbookPageLabel": 18
+        },
+        {
+          "chapterPage": 7,
+          "sourcePdfPage": 19,
+          "textbookPageLabel": 19
+        },
+        {
+          "chapterPage": 8,
+          "sourcePdfPage": 20,
+          "textbookPageLabel": 20
+        },
+        {
+          "chapterPage": 9,
+          "sourcePdfPage": 21,
+          "textbookPageLabel": 21
+        },
+        {
+          "chapterPage": 10,
+          "sourcePdfPage": 22,
+          "textbookPageLabel": 22
+        },
+        {
+          "chapterPage": 11,
+          "sourcePdfPage": 23,
+          "textbookPageLabel": 23
+        },
+        {
+          "chapterPage": 12,
+          "sourcePdfPage": 24,
+          "textbookPageLabel": 24
+        }
+      ],
+      "visualFile": "class-8-materials-metals-non-metals.pdf",
+      "visualSha256": "5d0bcb466712ee4d5bf5b52772b0468552d7d5a0cefe20a0173778ddab108150",
+      "status": "PASS"
+    },
+    {
+      "lessonKey": "class-9-force-laws-motion",
+      "title": "Force and Laws of Motion",
+      "canonicalRange": "1-17",
+      "sourcePdfRange": "1-17",
+      "visualChapterRange": "1-17",
+      "pageCount": 17,
+      "mapping": [
+        {
+          "chapterPage": 1,
+          "sourcePdfPage": 1,
+          "textbookPageLabel": 1
+        },
+        {
+          "chapterPage": 2,
+          "sourcePdfPage": 2,
+          "textbookPageLabel": 2
+        },
+        {
+          "chapterPage": 3,
+          "sourcePdfPage": 3,
+          "textbookPageLabel": 3
+        },
+        {
+          "chapterPage": 4,
+          "sourcePdfPage": 4,
+          "textbookPageLabel": 4
+        },
+        {
+          "chapterPage": 5,
+          "sourcePdfPage": 5,
+          "textbookPageLabel": 5
+        },
+        {
+          "chapterPage": 6,
+          "sourcePdfPage": 6,
+          "textbookPageLabel": 6
+        },
+        {
+          "chapterPage": 7,
+          "sourcePdfPage": 7,
+          "textbookPageLabel": 7
+        },
+        {
+          "chapterPage": 8,
+          "sourcePdfPage": 8,
+          "textbookPageLabel": 8
+        },
+        {
+          "chapterPage": 9,
+          "sourcePdfPage": 9,
+          "textbookPageLabel": 9
+        },
+        {
+          "chapterPage": 10,
+          "sourcePdfPage": 10,
+          "textbookPageLabel": 10
+        },
+        {
+          "chapterPage": 11,
+          "sourcePdfPage": 11,
+          "textbookPageLabel": 11
+        },
+        {
+          "chapterPage": 12,
+          "sourcePdfPage": 12,
+          "textbookPageLabel": 12
+        },
+        {
+          "chapterPage": 13,
+          "sourcePdfPage": 13,
+          "textbookPageLabel": 13
+        },
+        {
+          "chapterPage": 14,
+          "sourcePdfPage": 14,
+          "textbookPageLabel": 14
+        },
+        {
+          "chapterPage": 15,
+          "sourcePdfPage": 15,
+          "textbookPageLabel": 15
+        },
+        {
+          "chapterPage": 16,
+          "sourcePdfPage": 16,
+          "textbookPageLabel": 16
+        },
+        {
+          "chapterPage": 17,
+          "sourcePdfPage": 17,
+          "textbookPageLabel": 17
+        }
+      ],
+      "visualFile": "class-9-force-laws-motion.pdf",
+      "visualSha256": "8180edf0a1171ead82a8f93f60f31f1017dc758e711ec5eef74785e295a5f526",
+      "status": "PASS"
+    },
+    {
+      "lessonKey": "class-9-work-energy",
+      "title": "Work and Energy",
+      "canonicalRange": "18-31",
+      "sourcePdfRange": "18-31",
+      "visualChapterRange": "1-14",
+      "pageCount": 14,
+      "mapping": [
+        {
+          "chapterPage": 1,
+          "sourcePdfPage": 18,
+          "textbookPageLabel": 18
+        },
+        {
+          "chapterPage": 2,
+          "sourcePdfPage": 19,
+          "textbookPageLabel": 19
+        },
+        {
+          "chapterPage": 3,
+          "sourcePdfPage": 20,
+          "textbookPageLabel": 20
+        },
+        {
+          "chapterPage": 4,
+          "sourcePdfPage": 21,
+          "textbookPageLabel": 21
+        },
+        {
+          "chapterPage": 5,
+          "sourcePdfPage": 22,
+          "textbookPageLabel": 22
+        },
+        {
+          "chapterPage": 6,
+          "sourcePdfPage": 23,
+          "textbookPageLabel": 23
+        },
+        {
+          "chapterPage": 7,
+          "sourcePdfPage": 24,
+          "textbookPageLabel": 24
+        },
+        {
+          "chapterPage": 8,
+          "sourcePdfPage": 25,
+          "textbookPageLabel": 25
+        },
+        {
+          "chapterPage": 9,
+          "sourcePdfPage": 26,
+          "textbookPageLabel": 26
+        },
+        {
+          "chapterPage": 10,
+          "sourcePdfPage": 27,
+          "textbookPageLabel": 27
+        },
+        {
+          "chapterPage": 11,
+          "sourcePdfPage": 28,
+          "textbookPageLabel": 28
+        },
+        {
+          "chapterPage": 12,
+          "sourcePdfPage": 29,
+          "textbookPageLabel": 29
+        },
+        {
+          "chapterPage": 13,
+          "sourcePdfPage": 30,
+          "textbookPageLabel": 30
+        },
+        {
+          "chapterPage": 14,
+          "sourcePdfPage": 31,
+          "textbookPageLabel": 31
+        }
+      ],
+      "visualFile": "class-9-work-energy.pdf",
+      "visualSha256": "c103bf8fea6f92e465dececf1b643969eecf3bbfd2baa855c12969f93ed2013f",
+      "status": "PASS"
+    },
+    {
+      "lessonKey": "class-10-life-processes",
+      "title": "Life Processes",
+      "canonicalRange": "1-21",
+      "sourcePdfRange": "1-21",
+      "visualChapterRange": "1-21",
+      "pageCount": 21,
+      "mapping": [
+        {
+          "chapterPage": 1,
+          "sourcePdfPage": 1,
+          "textbookPageLabel": 1
+        },
+        {
+          "chapterPage": 2,
+          "sourcePdfPage": 2,
+          "textbookPageLabel": 2
+        },
+        {
+          "chapterPage": 3,
+          "sourcePdfPage": 3,
+          "textbookPageLabel": 3
+        },
+        {
+          "chapterPage": 4,
+          "sourcePdfPage": 4,
+          "textbookPageLabel": 4
+        },
+        {
+          "chapterPage": 5,
+          "sourcePdfPage": 5,
+          "textbookPageLabel": 5
+        },
+        {
+          "chapterPage": 6,
+          "sourcePdfPage": 6,
+          "textbookPageLabel": 6
+        },
+        {
+          "chapterPage": 7,
+          "sourcePdfPage": 7,
+          "textbookPageLabel": 7
+        },
+        {
+          "chapterPage": 8,
+          "sourcePdfPage": 8,
+          "textbookPageLabel": 8
+        },
+        {
+          "chapterPage": 9,
+          "sourcePdfPage": 9,
+          "textbookPageLabel": 9
+        },
+        {
+          "chapterPage": 10,
+          "sourcePdfPage": 10,
+          "textbookPageLabel": 10
+        },
+        {
+          "chapterPage": 11,
+          "sourcePdfPage": 11,
+          "textbookPageLabel": 11
+        },
+        {
+          "chapterPage": 12,
+          "sourcePdfPage": 12,
+          "textbookPageLabel": 12
+        },
+        {
+          "chapterPage": 13,
+          "sourcePdfPage": 13,
+          "textbookPageLabel": 13
+        },
+        {
+          "chapterPage": 14,
+          "sourcePdfPage": 14,
+          "textbookPageLabel": 14
+        },
+        {
+          "chapterPage": 15,
+          "sourcePdfPage": 15,
+          "textbookPageLabel": 15
+        },
+        {
+          "chapterPage": 16,
+          "sourcePdfPage": 16,
+          "textbookPageLabel": 16
+        },
+        {
+          "chapterPage": 17,
+          "sourcePdfPage": 17,
+          "textbookPageLabel": 17
+        },
+        {
+          "chapterPage": 18,
+          "sourcePdfPage": 18,
+          "textbookPageLabel": 18
+        },
+        {
+          "chapterPage": 19,
+          "sourcePdfPage": 19,
+          "textbookPageLabel": 19
+        },
+        {
+          "chapterPage": 20,
+          "sourcePdfPage": 20,
+          "textbookPageLabel": 20
+        },
+        {
+          "chapterPage": 21,
+          "sourcePdfPage": 21,
+          "textbookPageLabel": 21
+        }
+      ],
+      "visualFile": "class-10-life-processes.pdf",
+      "visualSha256": "f5a532acc0f5213d92f76c9a467e7534d4c14e6744f180d7103149b891b8f760",
+      "status": "PASS"
+    },
+    {
+      "lessonKey": "class-10-electricity",
+      "title": "Electricity",
+      "canonicalRange": "1-24",
+      "sourcePdfRange": "1-24",
+      "visualChapterRange": "1-24",
+      "pageCount": 24,
+      "mapping": [
+        {
+          "chapterPage": 1,
+          "sourcePdfPage": 1,
+          "textbookPageLabel": 1
+        },
+        {
+          "chapterPage": 2,
+          "sourcePdfPage": 2,
+          "textbookPageLabel": 2
+        },
+        {
+          "chapterPage": 3,
+          "sourcePdfPage": 3,
+          "textbookPageLabel": 3
+        },
+        {
+          "chapterPage": 4,
+          "sourcePdfPage": 4,
+          "textbookPageLabel": 4
+        },
+        {
+          "chapterPage": 5,
+          "sourcePdfPage": 5,
+          "textbookPageLabel": 5
+        },
+        {
+          "chapterPage": 6,
+          "sourcePdfPage": 6,
+          "textbookPageLabel": 6
+        },
+        {
+          "chapterPage": 7,
+          "sourcePdfPage": 7,
+          "textbookPageLabel": 7
+        },
+        {
+          "chapterPage": 8,
+          "sourcePdfPage": 8,
+          "textbookPageLabel": 8
+        },
+        {
+          "chapterPage": 9,
+          "sourcePdfPage": 9,
+          "textbookPageLabel": 9
+        },
+        {
+          "chapterPage": 10,
+          "sourcePdfPage": 10,
+          "textbookPageLabel": 10
+        },
+        {
+          "chapterPage": 11,
+          "sourcePdfPage": 11,
+          "textbookPageLabel": 11
+        },
+        {
+          "chapterPage": 12,
+          "sourcePdfPage": 12,
+          "textbookPageLabel": 12
+        },
+        {
+          "chapterPage": 13,
+          "sourcePdfPage": 13,
+          "textbookPageLabel": 13
+        },
+        {
+          "chapterPage": 14,
+          "sourcePdfPage": 14,
+          "textbookPageLabel": 14
+        },
+        {
+          "chapterPage": 15,
+          "sourcePdfPage": 15,
+          "textbookPageLabel": 15
+        },
+        {
+          "chapterPage": 16,
+          "sourcePdfPage": 16,
+          "textbookPageLabel": 16
+        },
+        {
+          "chapterPage": 17,
+          "sourcePdfPage": 17,
+          "textbookPageLabel": 17
+        },
+        {
+          "chapterPage": 18,
+          "sourcePdfPage": 18,
+          "textbookPageLabel": 18
+        },
+        {
+          "chapterPage": 19,
+          "sourcePdfPage": 19,
+          "textbookPageLabel": 19
+        },
+        {
+          "chapterPage": 20,
+          "sourcePdfPage": 20,
+          "textbookPageLabel": 20
+        },
+        {
+          "chapterPage": 21,
+          "sourcePdfPage": 21,
+          "textbookPageLabel": 21
+        },
+        {
+          "chapterPage": 22,
+          "sourcePdfPage": 22,
+          "textbookPageLabel": 22
+        },
+        {
+          "chapterPage": 23,
+          "sourcePdfPage": 23,
+          "textbookPageLabel": 23
+        },
+        {
+          "chapterPage": 24,
+          "sourcePdfPage": 24,
+          "textbookPageLabel": 24
+        }
+      ],
+      "visualFile": "class-10-electricity.pdf",
+      "visualSha256": "9343caceae98286ac68f6fe686661ea86280b6c152eb329a1f6fa73650955464",
+      "status": "PASS"
+    }
+  ]
+}

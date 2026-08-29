@@ -1,5 +1,6 @@
 import {
   BrowserRouter,
+  Navigate,
   Route,
   Routes,
 } from 'react-router-dom'
@@ -99,6 +100,7 @@ function App() {
         <Route path="/app/library" element={<ProtectedProductRoute><ProductLibraryPage /></ProtectedProductRoute>} />
         <Route path="/app/textbooks" element={<ProtectedProductRoute><MyTextbooksPage /></ProtectedProductRoute>} />
         <Route path="/app/textbooks/:documentId/generate" element={<ProtectedProductRoute><PrivateTextbookGeneratePage /></ProtectedProductRoute>} />
+        <Route path="/app/topic" element={<ProtectedProductRoute><Navigate to="/topic?product=1" replace /></ProtectedProductRoute>} />
         <Route path="/app/lesson/:planId" element={<ProtectedProductRoute><ProductLessonPage /></ProtectedProductRoute>} />
 
         <Route

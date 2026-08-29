@@ -20,12 +20,14 @@ import {
   useMemo,
   useState,
 } from 'react'
+import type { ReactNode } from 'react'
 import {
   Link,
   useNavigate,
   useSearchParams,
 } from 'react-router-dom'
 
+import ProductShell from '@/components/product/ProductShell'
 import { Button } from '@/components/ui/button'
 import { upsertCloudPlan } from '@/lib/productCloud'
 import {
@@ -42,6 +44,7 @@ import {
 import type {
   LessonLanguage,
 } from '@/lib/lessonExperience'
+import { prepareHindiTranslator } from '@/lib/lessonLanguage'
 import type {
   ResourceLevel,
 } from '@/lib/lessonPresentation'
@@ -71,6 +74,20 @@ const focusedDurations = [
   30,
   40,
 ]
+
+function TopicModeFrame({
+  productMode,
+  children,
+}: {
+  productMode: boolean
+  children: ReactNode
+}) {
+  if (productMode) {
+    return <ProductShell>{children}</ProductShell>
+  }
+
+  return <main className="min-h-screen bg-[#f7f7f1] text-[#17211b]">{children}</main>
+}
 
 function TopicModePage() {
   const navigate = useNavigate()
@@ -122,7 +139,7 @@ function TopicModePage() {
     setResourceLevel,
   ] =
     useState<ResourceLevel>(
-      draft?.resourceLevel ?? 'low',
+      draft?.resourceLevel === 'well' ? 'well' : 'low',
     )
 
   const [
@@ -196,6 +213,12 @@ function TopicModePage() {
     setError(null)
 
     try {
+      if (language === 'hindi') {
+        // Start Chrome's local Hindi model from the same user gesture that
+        // starts generation so the resulting lesson can translate immediately.
+        await prepareHindiTranslator()
+      }
+
       const bundle =
         await generateTopicLesson({
           classLevel,
@@ -209,7 +232,9 @@ function TopicModePage() {
           classroomContext:
             classroomContext
               .trim(),
-        })
+        }, productMode
+          ? 'product'
+          : 'demo')
 
       if (productMode) {
         const rows = await upsertCloudPlan({
@@ -280,8 +305,8 @@ function TopicModePage() {
   }
 
   return (
-    <main className="min-h-screen bg-[#f7f7f1] text-[#17211b]">
-      <header className="sticky top-0 z-50 border-b border-[#dde4da] bg-[#fffef9]/95 backdrop-blur-xl">
+    <TopicModeFrame productMode={productMode}>
+      {!productMode && <header className="sticky top-0 z-50 border-b border-[#dde4da] bg-[#fffef9]/95 backdrop-blur-xl">
         <div className="mx-auto flex h-[70px] w-full max-w-[1560px] items-center gap-4 px-5 sm:px-8 lg:px-10 xl:px-12">
           <Link
             to={productMode ? "/app" : "/"}
@@ -308,7 +333,7 @@ function TopicModePage() {
             </span>
           </div>
         </div>
-      </header>
+      </header>}
 
       <section className="relative overflow-hidden bg-[#0f5132] text-white">
         <div className="absolute -left-20 -top-32 size-80 rounded-full border border-white/10" />
@@ -429,8 +454,8 @@ function TopicModePage() {
                 Focused teaching help
               </h3>
               <p className="mt-2 text-[11px] font-medium leading-5 text-[#657168]">
-                Solve one teaching problem deeply: a concept, misconception,
-                explanation, demonstration or classroom question.
+                Solve one teaching problem deeply with a compact explanation,
+                board plan, visual, misconception check and reteaching moves — not a full lesson.
               </p>
             </button>
           </div>
@@ -574,9 +599,6 @@ function TopicModePage() {
                 <option value="low">
                   Low-resource classroom
                 </option>
-                <option value="standard">
-                  Standard classroom
-                </option>
                 <option value="well">
                   Well-equipped classroom
                 </option>
@@ -653,11 +675,11 @@ function TopicModePage() {
           )}
 
           <div className="mt-7 flex flex-col gap-3 border-t border-[#e3e8e1] pt-6 sm:flex-row sm:items-center sm:justify-between">
-            <p className="max-w-[580px] text-[9px] font-semibold leading-5 text-[#7d8980]">
-              Topic Mode is live AI generation. If the provider, free quota or
-              audit fails, ChalkBox shows the failure instead of silently
-              substituting a prepared textbook lesson.
-            </p>
+            <div className="max-w-[650px] rounded-xl border border-[#d5bd65] bg-[#fff5cf] px-4 py-3 text-[#5d4a0b]">
+              <p className="text-[10px] font-extrabold uppercase leading-5 tracking-[0.04em]">
+                TOPIC MODE USES LIVE AI FOR LESSON / TOPIC GENERATION. HIGH-QUALITY CONTENT MAY TAKE UP TO 2–3 MINUTES.
+              </p>
+            </div>
 
             <Button
               type="button"
@@ -668,11 +690,11 @@ function TopicModePage() {
               {generating ? (
                 <>
                   <LoaderCircle className="mr-2 size-4 animate-spin" />
-                  Building & checking…
+                  {requestMode === 'focused' ? 'Building focused help…' : 'Building complete lesson…'}
                 </>
               ) : (
                 <>
-                  Generate teaching plan
+                  {requestMode === 'focused' ? 'Generate focused help' : 'Generate complete lesson'}
                   <ArrowRight className="ml-2 size-3.5" />
                 </>
               )}
@@ -791,7 +813,7 @@ function TopicModePage() {
           </div>
         </aside>
       </div>
-    </main>
+    </TopicModeFrame>
   )
 }
 

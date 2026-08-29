@@ -19,6 +19,7 @@ import {
 } from 'react-router-dom'
 
 import { Button } from '@/components/ui/button'
+import { prepareHindiTranslator } from '@/lib/lessonLanguage'
 import {
   getLessonsForClass,
   getTextbookLesson,
@@ -74,7 +75,7 @@ function TextbookModePage() {
     }
   }
 
-  function openLessonWorkspace() {
+  async function openLessonWorkspace() {
     const durationMinutes =
       Number.parseInt(
         duration,
@@ -85,15 +86,28 @@ function TextbookModePage() {
       resourceLevel ===
       'Well-equipped classroom'
         ? 'well'
-        : resourceLevel ===
-            'Standard classroom'
-          ? 'standard'
-          : 'low'
+        : 'low'
 
     const openingLanguage =
       language === 'Hindi'
         ? 'hindi'
         : 'english'
+
+    if (openingLanguage === 'hindi') {
+      try {
+        // Translator.create() needs to originate from a user action. Preparing
+        // it before navigation prevents the workspace from sitting on English
+        // content with a perpetual "Hindi is being prepared" state.
+        await prepareHindiTranslator()
+      } catch (caught) {
+        window.alert(
+          caught instanceof Error
+            ? caught.message
+            : 'Hindi translation could not be initialized. Use current Chrome desktop or choose English.',
+        )
+        return
+      }
+    }
 
     const query =
       new URLSearchParams({
@@ -578,7 +592,6 @@ function TextbookModePage() {
                     className="h-11 w-full rounded-xl border border-[#d5dfd2] bg-white px-3 text-[12px] font-semibold outline-none focus:border-[#79aa88] focus:ring-4 focus:ring-[#e4efe2]"
                   >
                     <option>Low-resource</option>
-                    <option>Standard classroom</option>
                     <option>Well-equipped classroom</option>
                   </select>
                 </div>
@@ -601,7 +614,6 @@ function TextbookModePage() {
                   >
                     <option>English</option>
                     <option>Hindi</option>
-                    <option>English + Hindi support</option>
                   </select>
                 </div>
               </div>

@@ -30,6 +30,7 @@ import QuickTeachView from '@/components/lesson/QuickTeachView'
 import TeachMode from '@/components/lesson/TeachMode'
 import { Button } from '@/components/ui/button'
 import { useLessonCustomizations } from '@/hooks/useLessonCustomizations'
+import { useLessonTranslation } from '@/hooks/useLessonTranslation'
 import {
   getJudgeLessonArtifact,
 } from '@/data/judgeLessonCatalog'
@@ -126,6 +127,21 @@ function LessonWorkspacePage() {
       Set<string>
     >(new Set())
 
+  const rawTitle =
+    asString(lesson.title) ??
+    'Lesson Plan'
+  const rawSubject =
+    asString(lesson.subject) ??
+    'Science'
+  const {
+    texts: translatedHeaderTexts,
+  } = useLessonTranslation(
+    artifact
+      ? [rawTitle, rawSubject]
+      : [],
+    language,
+  )
+
   if (!artifact) {
     return (
       <main className="flex min-h-screen items-center justify-center bg-[#f4f6f1] px-5">
@@ -156,10 +172,8 @@ function LessonWorkspacePage() {
   }
 
   const title =
-    asString(
-      lesson.title,
-    ) ??
-    'Lesson Plan'
+    translatedHeaderTexts[0] ??
+    rawTitle
 
   const classLevel =
     asNumber(
@@ -167,10 +181,8 @@ function LessonWorkspacePage() {
     )
 
   const subject =
-    asString(
-      lesson.subject,
-    ) ??
-    'Science'
+    translatedHeaderTexts[1] ??
+    rawSubject
 
   const artifactDuration =
     asNumber(
@@ -275,21 +287,23 @@ function LessonWorkspacePage() {
               }
             />
 
-            <Button
-              type="button"
-              variant="outline"
-              onClick={() =>
-                window.print()
-              }
-              className="h-9 rounded-xl border-[#d2ddd0] bg-white px-3 text-[10px] font-bold"
-            >
-              <Printer className="mr-1 size-3.5" />
+            {mode === 'full' && (
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() =>
+                  window.print()
+                }
+                className="h-9 rounded-xl border-[#d2ddd0] bg-white px-3 text-[10px] font-bold"
+              >
+                <Printer className="mr-1 size-3.5" />
 
-              {language ===
-              'hindi'
-                ? 'प्रिंट'
-                : 'Print'}
-            </Button>
+                {language ===
+                'hindi'
+                  ? 'प्रिंट'
+                  : 'Print'}
+              </Button>
+            )}
           </div>
         </div>
 

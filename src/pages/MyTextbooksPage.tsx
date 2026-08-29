@@ -103,11 +103,13 @@ export default function MyTextbooksPage() {
             <p className="mt-2 max-w-[760px] text-sm font-medium leading-6 text-[#68746c]">Upload an unseen PDF. ChalkBox extracts readable pages locally, stores the original privately, builds your account-scoped vector index and uses only retrieved pages for grounded generation.</p>
           </div>
 
-          <label className={`inline-flex h-11 cursor-pointer items-center justify-center gap-2 rounded-xl bg-[#0f5132] px-5 text-xs font-extrabold text-white ${busy ? 'pointer-events-none opacity-60' : ''}`}>
-            {busy ? <LoaderCircle className="size-4 animate-spin" /> : <Upload className="size-4" />}
-            Upload PDF
-            <input ref={inputRef} type="file" accept="application/pdf,.pdf" className="hidden" onChange={(event) => { const file = event.target.files?.[0]; if (file) void upload(file) }} />
-          </label>
+          {documents.length > 0 && (
+            <label className={`inline-flex h-11 cursor-pointer items-center justify-center gap-2 rounded-xl bg-[#0f5132] px-5 text-xs font-extrabold text-white ${busy ? 'pointer-events-none opacity-60' : ''}`}>
+              {busy ? <LoaderCircle className="size-4 animate-spin" /> : <Upload className="size-4" />}
+              Upload another PDF
+              <input ref={inputRef} type="file" accept="application/pdf,.pdf" className="hidden" onChange={(event) => { const file = event.target.files?.[0]; if (file) void upload(file) }} />
+            </label>
+          )}
         </div>
 
         <div className="mt-5 rounded-2xl border border-[#d6e1d3] bg-[#edf5e9] px-4 py-3 text-[11px] font-semibold leading-5 text-[#4f6356]">Current product limits: PDF only, up to 25 MB and 350 pages. Digital text layers are preferred. Image-only/scanned PDFs use the private server-side fallback when needed (currently up to 12 MB and 48 pages per scan).</div>
@@ -122,8 +124,12 @@ export default function MyTextbooksPage() {
         {documents.length === 0 && (
           <div className="mt-5 rounded-[28px] border border-dashed border-[#cbd8c9] bg-[#fffef9] p-10 text-center">
             <BookOpen className="mx-auto size-8 text-[#176b43]" />
-            <h2 className="mt-3 text-xl font-extrabold">Upload your first textbook.</h2>
-            <p className="mt-2 text-xs font-medium text-[#718078]">This is the real product path; the six prepared NCERT lessons remain only in Demo Mode.</p>
+            <h2 className="mt-3 text-xl font-extrabold">Upload your textbook here</h2>
+            <label className={`mt-5 inline-flex h-11 cursor-pointer items-center justify-center gap-2 rounded-xl bg-[#0f5132] px-5 text-xs font-extrabold text-white ${busy ? 'pointer-events-none opacity-60' : ''}`}>
+              {busy ? <LoaderCircle className="size-4 animate-spin" /> : <Upload className="size-4" />}
+              Upload PDF
+              <input ref={inputRef} type="file" accept="application/pdf,.pdf" className="hidden" onChange={(event) => { const file = event.target.files?.[0]; if (file) void upload(file) }} />
+            </label>
           </div>
         )}
 

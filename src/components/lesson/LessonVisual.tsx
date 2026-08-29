@@ -4,13 +4,15 @@ import ElectricityCircuitDiagram from '@/components/lesson/ElectricityCircuitDia
 import PrivateTextbookLessonVisual from '@/components/lesson/PrivateTextbookLessonVisual'
 import TopicLessonVisual from '@/components/lesson/TopicLessonVisual'
 
-import type { JsonRecord } from '@/lib/lessonExperience'
+import type { JsonRecord, LessonLanguage } from '@/lib/lessonExperience'
 import type { LessonSourceMode } from '@/lib/lessonPresentation'
 
 type Props = {
   lessonKey: string
   lesson?: JsonRecord
   sourceMode?: LessonSourceMode
+  presentation?: boolean
+  language?: LessonLanguage
 }
 
 type FrameProps = {
@@ -321,9 +323,11 @@ function LessonVisual({
   lessonKey,
   lesson,
   sourceMode = 'textbook',
+  presentation = false,
+  language = 'english',
 }: Props) {
   if (sourceMode === 'topic' && lesson) {
-    return <TopicLessonVisual lesson={lesson} />
+    return <TopicLessonVisual lesson={lesson} presentation={presentation} language={language} />
   }
 
   switch (lessonKey) {
@@ -349,7 +353,7 @@ function LessonVisual({
 
     default:
       return lesson
-        ? <PrivateTextbookLessonVisual lesson={lesson} />
+        ? <PrivateTextbookLessonVisual lesson={lesson} presentation={presentation} language={language} />
         : null
   }
 }

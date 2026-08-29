@@ -5,6 +5,7 @@ import {
   type JsonRecord,
   type LessonLanguage,
 } from '@/lib/lessonExperience'
+import { getFreshTeacherSession } from '@/lib/productAuth'
 import type {
   ResourceLevel,
 } from '@/lib/lessonPresentation'
@@ -535,15 +536,259 @@ function getTopicEndpoint() {
   return `${supabaseUrl.replace(/\/$/, '')}/functions/v1/generate-topic-lesson`
 }
 
+function getTopicAuditEndpoint() {
+  const explicit =
+    import.meta.env
+      .VITE_TOPIC_AUDIT_ENDPOINT
+      ?.trim()
+
+  if (explicit) {
+    return explicit
+  }
+
+  const supabaseUrl =
+    import.meta.env
+      .VITE_SUPABASE_URL
+      ?.trim()
+
+  if (!supabaseUrl) {
+    return null
+  }
+
+  return `${supabaseUrl.replace(/\/$/, '')}/functions/v1/audit-topic-lesson`
+}
+
+export type TopicGenerationAuthMode =
+  | 'demo'
+  | 'product'
+
+const topicGenerationModels = [
+  'gemini-3.7-flash',
+  'gemini-3.6-flash',
+  'gemini-3.5-flash',
+  'gemini-3.5-flash-lite',
+] as const
+
+type TopicStageResult = {
+  response: Response
+  record: JsonRecord | null
+}
+
+type TopicGenerationDraft = {
+  request: TopicGenerationRequest
+  lesson: JsonRecord
+  formulaCards: FormulaLike[]
+  generationModel: string
+  generationAttempts: number
+}
+
+function wait(
+  milliseconds: number,
+) {
+  return new Promise<void>(
+    (resolve) => {
+      window.setTimeout(
+        resolve,
+        milliseconds,
+      )
+    },
+  )
+}
+
+async function postTopicStage(
+  endpoint: string,
+  headers: Record<string, string>,
+  body: unknown,
+  retryTransient = true,
+): Promise<TopicStageResult> {
+  let lastNetworkError:
+    unknown = null
+  const maxAttempts =
+    retryTransient ? 2 : 1
+
+  for (
+    let attempt = 0;
+    attempt < maxAttempts;
+    attempt += 1
+  ) {
+    let response: Response
+
+    try {
+      response = await fetch(
+        endpoint,
+        {
+          method: 'POST',
+          headers,
+          body: JSON.stringify(
+            body,
+          ),
+        },
+      )
+    } catch (caught) {
+      lastNetworkError = caught
+
+      if (attempt + 1 < maxAttempts) {
+        await wait(400)
+        continue
+      }
+
+      throw new Error(
+        'ChalkBox could not reach the Topic Mode service. Check your connection and try again.',
+      )
+    }
+
+    let payload: unknown
+
+    try {
+      payload =
+        await response.json()
+    } catch {
+      payload = null
+    }
+
+    const record =
+      asRecord(payload)
+
+    // A Supabase 546 means the current worker was terminated by the
+    // hosted runtime. Retry once so a fresh isolate can continue rather
+    // than immediately surfacing infrastructure details to the teacher.
+    if (
+      response.status === 546 &&
+      attempt + 1 < maxAttempts
+    ) {
+      await wait(500)
+      continue
+    }
+
+    return {
+      response,
+      record,
+    }
+  }
+
+  throw new Error(
+    lastNetworkError
+      ? 'ChalkBox could not reach the Topic Mode service. Check your connection and try again.'
+      : 'ChalkBox could not complete this Topic Mode request. Please retry.',
+  )
+}
+
+function topicStageError(
+  response: Response,
+  record: JsonRecord | null,
+) {
+  const message =
+    asString(record?.message) ??
+    (response.status === 429
+      ? 'The free AI quota is temporarily unavailable. Please try again after the quota resets.'
+      : response.status === 546
+        ? 'ChalkBox could not complete this generation on the current server worker. Please retry; no prepared content was substituted.'
+        : response.status >= 500
+          ? 'The AI service is temporarily unavailable. Your request was not replaced with prepared content.'
+          : 'Topic Mode could not generate this lesson.')
+
+  const details =
+    Array.isArray(
+      record?.details,
+    )
+      ? record.details.filter(
+          (
+            item,
+          ): item is string =>
+            typeof item ===
+            'string',
+        )
+      : []
+
+  return new Error(
+    details.length > 0
+      ? `${message}\n${details.join('\n')}`
+      : message,
+  )
+}
+
+function isRetryableGenerationStage(
+  response: Response,
+  record: JsonRecord | null,
+) {
+  const code =
+    asString(record?.code)
+
+  return (
+    response.status === 408 ||
+    response.status === 429 ||
+    response.status === 500 ||
+    response.status === 502 ||
+    response.status === 503 ||
+    response.status === 504 ||
+    response.status === 546 ||
+    code === 'PROVIDER_UNAVAILABLE' ||
+    code === 'PROVIDER_ERROR'
+  )
+}
+
+function parseGenerationDraft(
+  record: JsonRecord | null,
+): TopicGenerationDraft | null {
+  if (
+    !record ||
+    record.ok !== true
+  ) {
+    return null
+  }
+
+  const draft =
+    asRecord(record.draft)
+  const request =
+    asRecord(draft?.request)
+  const lesson =
+    asRecord(draft?.lesson)
+
+  if (
+    !draft ||
+    !request ||
+    !lesson
+  ) {
+    return null
+  }
+
+  const formulaCards =
+    Array.isArray(
+      draft.formulaCards,
+    )
+      ? draft.formulaCards.filter(
+          isFormulaLike,
+        )
+      : []
+
+  return {
+    request:
+      request as unknown as TopicGenerationRequest,
+    lesson,
+    formulaCards,
+    generationModel:
+      asString(
+        draft.generationModel,
+      ) ?? '',
+    generationAttempts:
+      asFiniteNumber(
+        draft.generationAttempts,
+      ) ?? 0,
+  }
+}
+
 export async function generateTopicLesson(
   request: TopicGenerationRequest,
+  authMode: TopicGenerationAuthMode = 'demo',
 ): Promise<TopicLessonBundle> {
   const endpoint =
     getTopicEndpoint()
+  const auditEndpoint =
+    getTopicAuditEndpoint()
 
-  if (!endpoint) {
+  if (!endpoint || !auditEndpoint) {
     throw new Error(
-      'Live Topic Mode is not configured yet. Set VITE_SUPABASE_URL (or VITE_TOPIC_GENERATION_ENDPOINT) after the Edge Function is deployed.',
+      'Live Topic Mode is not configured yet. Set VITE_SUPABASE_URL after the Topic generation and audit Edge Functions are deployed.',
     )
   }
 
@@ -552,81 +797,212 @@ export async function generateTopicLesson(
       .VITE_SUPABASE_ANON_KEY
       ?.trim()
 
+  const publicKey =
+    anonKey ??
+    import.meta.env
+      .VITE_SUPABASE_PUBLISHABLE_KEY
+      ?.trim()
+
+  if (!publicKey) {
+    throw new Error(
+      'Live Topic Mode is missing the public Supabase key.',
+    )
+  }
+
+  // Demo and Product use the same Topic service and model pipeline.
+  // When a teacher is already signed in, Demo also reuses that fresh
+  // authenticated session so its request reaches Supabase exactly like
+  // Product Mode. Public Demo still falls back to the anon credential.
+  const session =
+    await getFreshTeacherSession()
+      .catch(() => null)
+
   const headers:
     Record<string, string> = {
       'Content-Type':
         'application/json',
+      apikey: publicKey,
     }
 
-  if (anonKey) {
+  if (authMode === 'product') {
+    if (!session?.access_token) {
+      throw new Error(
+        'Your teacher session has expired. Sign in again before generating a Product lesson.',
+      )
+    }
+
+    headers.Authorization =
+      `Bearer ${session.access_token}`
+  } else if (session?.access_token) {
+    headers.Authorization =
+      `Bearer ${session.access_token}`
+  } else if (anonKey) {
     headers.Authorization =
       `Bearer ${anonKey}`
-    headers.apikey = anonKey
   }
 
-  let response: Response
+  let repairErrors:
+    string[] = []
+  let draft:
+    TopicGenerationDraft | null = null
 
-  try {
-    response = await fetch(
-      endpoint,
+  // Keep each AI generation/repair in its own Edge Function invocation.
+  // Also keep each provider model in its own invocation. A slow Gemini
+  // model can otherwise hold a Supabase worker until the platform's hard
+  // idle limit is reached, preventing the server-side fallback chain from
+  // ever getting a chance to run. We do not impose an application timeout:
+  // if Supabase itself ends one worker, ChalkBox silently continues with
+  // the next configured model while the teacher remains in the generating UI.
+  let lastGenerationError:
+    Error | null = null
+
+  for (
+    let structureAttempt = 0;
+    structureAttempt < 2;
+    structureAttempt += 1
+  ) {
+    let needsStructureRetry = false
+
+    for (const generationModel of topicGenerationModels) {
+      let stage: TopicStageResult
+
+      try {
+        stage =
+          await postTopicStage(
+            endpoint,
+            headers,
+            {
+              ...request,
+              deferAudit: true,
+              generationModel,
+              ...(repairErrors.length > 0
+                ? {
+                    repairErrors,
+                  }
+                : {}),
+            },
+            false,
+          )
+      } catch (caught) {
+        lastGenerationError =
+          caught instanceof Error
+            ? caught
+            : new Error(
+                'The live AI provider did not complete this attempt.',
+              )
+        continue
+      }
+
+      const code =
+        asString(
+          stage.record?.code,
+        )
+
+      if (
+        stage.response.status === 409 &&
+        code ===
+          'STRUCTURE_RETRY_REQUIRED' &&
+        structureAttempt === 0
+      ) {
+        repairErrors =
+          Array.isArray(
+            stage.record?.details,
+          )
+            ? stage.record.details.filter(
+                (
+                  item,
+                ): item is string =>
+                  typeof item ===
+                  'string',
+              )
+            : []
+        needsStructureRetry = true
+        break
+      }
+
+      if (!stage.response.ok) {
+        const stageError =
+          topicStageError(
+            stage.response,
+            stage.record,
+          )
+
+        if (
+          isRetryableGenerationStage(
+            stage.response,
+            stage.record,
+          )
+        ) {
+          lastGenerationError =
+            stageError
+          continue
+        }
+
+        throw stageError
+      }
+
+      draft =
+        parseGenerationDraft(
+          stage.record,
+        )
+
+      if (!draft) {
+        lastGenerationError =
+          new Error(
+            'Topic Mode returned an invalid generated lesson. Nothing was saved.',
+          )
+        continue
+      }
+
+      break
+    }
+
+    if (draft) {
+      break
+    }
+
+    if (needsStructureRetry) {
+      continue
+    }
+
+    if (lastGenerationError) {
+      throw lastGenerationError
+    }
+  }
+
+  if (!draft) {
+    throw new Error(
+      'Topic Mode could not produce a valid lesson structure. Nothing was saved.',
+    )
+  }
+
+  // Run the independent Science audit in a separate Edge Function so the
+  // generation and audit do not compete for one hosted worker budget.
+  const auditStage =
+    await postTopicStage(
+      auditEndpoint,
+      headers,
       {
-        method: 'POST',
-        headers,
-        body: JSON.stringify(
-          request,
-        ),
+        request,
+        lesson: draft.lesson,
+        formulaCards:
+          draft.formulaCards,
+        generationModel:
+          draft.generationModel,
+        generationAttempts:
+          draft.generationAttempts,
       },
     )
-  } catch {
-    throw new Error(
-      'ChalkBox could not reach the Topic Mode generation service. Check your connection and Edge Function configuration.',
-    )
-  }
 
-  let payload: unknown
-
-  try {
-    payload =
-      await response.json()
-  } catch {
-    payload = null
-  }
-
-  const record = asRecord(
-    payload,
-  )
-
-  if (!response.ok) {
-    const message =
-      asString(record?.message) ??
-      (response.status === 429
-        ? 'The free AI quota is temporarily unavailable. Please try again after the quota resets.'
-        : response.status >= 500
-          ? 'The AI provider is temporarily unavailable. Your request was not replaced with prepared content.'
-          : 'Topic Mode could not generate this lesson.')
-
-    const details =
-      Array.isArray(
-        record?.details,
-      )
-        ? record.details.filter(
-            (
-              item,
-            ): item is string =>
-              typeof item ===
-              'string',
-          )
-        : []
-
-    throw new Error(
-      details.length > 0
-        ? `${message}\n${details.join('\n')}`
-        : message,
+  if (!auditStage.response.ok) {
+    throw topicStageError(
+      auditStage.response,
+      auditStage.record,
     )
   }
 
   const success =
-    record as
+    auditStage.record as
       | TopicGenerationSuccess
       | TopicGenerationFailure
       | null
@@ -639,7 +1015,7 @@ export async function generateTopicLesson(
     )
   ) {
     throw new Error(
-      'Topic Mode returned an invalid lesson payload. Nothing was saved.',
+      'Topic Mode returned an invalid audited lesson payload. Nothing was saved.',
     )
   }
 

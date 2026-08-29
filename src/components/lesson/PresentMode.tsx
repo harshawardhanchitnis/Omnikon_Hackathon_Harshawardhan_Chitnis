@@ -117,6 +117,8 @@ function PresentMode({
 }: Props) {
   const rootRef =
     useRef<HTMLDivElement>(null)
+  const mainRef =
+    useRef<HTMLElement>(null)
   const [activeIndex, setActiveIndex] =
     useState(0)
   const [answerVisible, setAnswerVisible] =
@@ -222,6 +224,15 @@ function PresentMode({
     translationInput,
     language,
   )
+  const {
+    texts: translatedTitleTexts,
+  } = useLessonTranslation(
+    [title],
+    language,
+  )
+  const translatedTitle =
+    translatedTitleTexts[0] ??
+    title
 
   let translationCursor = 0
   const translatedLabel =
@@ -307,6 +318,10 @@ function PresentMode({
 
   useEffect(() => {
     setAnswerVisible(false)
+    mainRef.current?.scrollTo({
+      top: 0,
+      behavior: 'auto',
+    })
   }, [safeIndex])
 
   function previousSlide() {
@@ -345,7 +360,7 @@ function PresentMode({
       ref={rootRef}
       className="fixed inset-0 z-[100] flex min-h-screen flex-col overflow-hidden bg-[#0b2f21] text-white"
     >
-      <header className="flex flex-wrap items-center gap-3 border-b border-white/10 bg-[#09291d] px-4 py-3 sm:px-6">
+      <header className="flex shrink-0 flex-wrap items-center gap-3 border-b border-white/10 bg-[#09291d] px-4 py-3 sm:px-6">
         <button
           type="button"
           onClick={onClose}
@@ -361,8 +376,8 @@ function PresentMode({
               ? 'कक्षा प्रस्तुति'
               : 'Classroom presentation'}
           </p>
-          <p className="mt-0.5 truncate text-sm font-extrabold sm:text-base">
-            {title}
+          <p className="mt-0.5 line-clamp-2 text-sm font-extrabold leading-tight sm:text-base">
+            {translatedTitle}
           </p>
         </div>
 
@@ -439,8 +454,8 @@ function PresentMode({
         />
       </div>
 
-      <main className="flex min-h-0 flex-1 items-center justify-center overflow-y-auto px-4 py-6 sm:px-8 sm:py-8 lg:px-12">
-        <section className="w-full max-w-[1320px]">
+      <main ref={mainRef} className="flex min-h-0 flex-1 items-start justify-center overflow-y-auto px-4 py-6 sm:px-8 sm:py-8 lg:px-12">
+        <section className="my-auto w-full max-w-[1320px]">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div>
               <p className="text-[9px] font-extrabold uppercase tracking-[0.16em] text-[#9dc7a9]">
@@ -488,6 +503,8 @@ function PresentMode({
                   lessonKey={lessonKey}
                   lesson={lesson}
                   sourceMode={sourceMode}
+                  language={language}
+                  presentation
                 />
               </div>
 
@@ -595,7 +612,7 @@ function PresentMode({
         </section>
       </main>
 
-      <footer className="border-t border-white/10 bg-[#09291d] px-4 py-3 sm:px-6">
+      <footer className="shrink-0 border-t border-white/10 bg-[#09291d] px-4 py-3 sm:px-6">
         <div className="mx-auto flex max-w-[1320px] items-center justify-between gap-3">
           <button
             type="button"

@@ -153,16 +153,11 @@ export async function translateToHindi(
     return cached
   }
 
-  if (
-    !hindiTranslatorPromise
-  ) {
-    throw new Error(
-      'Hindi translator has not been prepared. Choose Hindi from the language selector first.',
-    )
-  }
-
+  // prepareHindiTranslator() reuses the cached promise when it already exists.
+  // Returning that promise directly also gives TypeScript a non-null local
+  // translator instead of relying on mutation of the nullable module variable.
   const translator =
-    await hindiTranslatorPromise
+    await prepareHindiTranslator()
 
   const translated =
     await translator.translate(

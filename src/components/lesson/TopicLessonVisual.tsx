@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 
+import { useLessonTranslation } from '@/hooks/useLessonTranslation'
 import {
   asNumber,
   asRecord,
@@ -7,15 +8,19 @@ import {
   asString,
   asStringArray,
   type JsonRecord,
+  type LessonLanguage,
 } from '@/lib/lessonExperience'
 
 type Props = {
   lesson: JsonRecord
+  presentation?: boolean
+  language?: LessonLanguage
 }
 
 type FrameProps = {
   title: string
   badge: string
+  language: LessonLanguage
   children: ReactNode
 }
 
@@ -61,11 +66,13 @@ type BoardPrimitive = {
   w: number
   h: number
   label: string
+  semanticLabel?: string
   emphasis: PrimitiveEmphasis
 }
 
 type BoardPanel = {
   title: string
+  semanticTitle?: string
   elements: BoardPrimitive[]
 }
 
@@ -106,6 +113,7 @@ function clamp(
 function DiagramFrame({
   title,
   badge,
+  language,
   children,
 }: FrameProps) {
   return (
@@ -113,7 +121,7 @@ function DiagramFrame({
       <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/10 px-5 py-4 text-white">
         <div>
           <p className="text-[8px] font-extrabold uppercase tracking-[0.14em] text-[#a8cbb1]">
-            Generated board visual
+            {language === 'hindi' ? 'बोर्ड दृश्य' : 'Generated board visual'}
           </p>
           <h3 className="mt-1 text-sm font-extrabold">
             {title}
@@ -342,8 +350,12 @@ function buildVisualModel(
 ): VisualModel {
   const fullLesson =
     asRecord(lesson.fullLesson) ?? {}
+  const focusedHelp =
+    asRecord(lesson.focusedHelp) ?? {}
+  const focusedVisual =
+    asRecord(focusedHelp.visual) ?? {}
   const visualize =
-    asRecord(fullLesson.visualize) ?? {}
+    asRecord(fullLesson.visualize) ?? focusedVisual
   const diagramSpec =
     asRecord(visualize.diagramSpec) ?? {}
 
@@ -448,11 +460,15 @@ function normalizedPrimitiveLabel(
     .toLowerCase()
 }
 
+function semanticPrimitiveLabel(primitive: BoardPrimitive) {
+  return primitive.semanticLabel ?? primitive.label
+}
+
 function isCoilPrimitive(
   primitive: BoardPrimitive,
 ) {
   return /\b(coil|solenoid)\b/i.test(
-    primitive.label,
+    semanticPrimitiveLabel(primitive),
   )
 }
 
@@ -460,23 +476,24 @@ function isMagnetPrimitive(
   primitive: BoardPrimitive,
 ) {
   return /\bmagnet\b/i.test(
-    primitive.label,
+    semanticPrimitiveLabel(primitive),
   )
 }
 
 function isMeterPrimitive(
   primitive: BoardPrimitive,
 ) {
+  const label = semanticPrimitiveLabel(primitive)
   return /galvanometer|needle|ammeter|voltmeter/i.test(
-    primitive.label,
-  ) || /^g\b/i.test(primitive.label.trim())
+    label,
+  ) || /^g\b/i.test(label.trim())
 }
 
 function isHeatPrimitive(
   primitive: BoardPrimitive,
 ) {
   return /heat source|flame|burner/i.test(
-    primitive.label,
+    semanticPrimitiveLabel(primitive),
   )
 }
 
@@ -501,9 +518,9 @@ function panelStateText(
   panel: BoardPanel,
 ) {
   const haystack = [
-    panel.title,
+    panel.semanticTitle ?? panel.title,
     ...panel.elements.map(
-      (item) => item.label,
+      (item) => semanticPrimitiveLabel(item),
     ),
   ].join(' ')
 
@@ -998,7 +1015,7 @@ function renderSemanticPrimitive(
     )
     const deflected =
       /deflect|tilt|right|left/i.test(
-        primitive.label,
+        semanticPrimitiveLabel(primitive),
       )
     const needleX =
       cx + (deflected ? radius * 0.45 : 0)
@@ -1990,13 +2007,33 @@ function ConceptDiagram({
 }: {
   visual: VisualModel
 }) {
-  const nodes =
+  const fallbackItems =
+    visual.notices.length >= 2
+      ? visual.notices
+      : visual.drawingSteps.length > 0
+        ? visual.drawingSteps
+        : visual.callouts
+  const diagramNodes: DiagramNode[] =
     visual.nodes.length > 0
-      ? buildPositions(
-          visual.layout,
-          visual.nodes,
-        )
-      : []
+      ? visual.nodes
+      : fallbackItems.slice(0, 5).map((label, index) => ({
+          id: `fallback-${index + 1}`,
+          label,
+          annotation: '',
+          shape: 'rect',
+        }))
+  const diagramArrows: DiagramArrow[] =
+    visual.nodes.length > 0
+      ? visual.arrows
+      : diagramNodes.slice(0, -1).map((node, index) => ({
+          from: node.id,
+          to: diagramNodes[index + 1].id,
+          label: '',
+        }))
+  const nodes = buildPositions(
+    visual.layout,
+    diagramNodes,
+  )
   const positions =
     new Map(
       nodes.map((node) => [
@@ -2009,7 +2046,7 @@ function ConceptDiagram({
     return (
       <div className="rounded-[22px] border border-white/10 bg-[#143527] p-5 text-[#e6efe4]">
         <p className="text-[11px] font-semibold leading-6">
-          Use the board-drawing steps below as the visual plan. The generated lesson did not return a structured diagram scene for this request.
+          This lesson has board-drawing guidance, but no diagram labels were available to render.
         </p>
       </div>
     )
@@ -2070,7 +2107,7 @@ function ConceptDiagram({
         </>
       )}
 
-      {visual.arrows.map(
+      {diagramArrows.map(
         (arrow, index) =>
           renderArrow(
             arrow,
@@ -2142,28 +2179,94 @@ function Callouts({
   )
 }
 
+function visualTranslationSource(visual: VisualModel) {
+  return [
+    visual.title,
+    ...visual.nodes.flatMap((node) => [node.label, node.annotation]),
+    ...visual.arrows.map((arrow) => arrow.label),
+    ...visual.panels.flatMap((panel) => [
+      panel.title,
+      ...panel.elements.map((element) => element.label),
+    ]),
+    ...visual.callouts,
+    ...visual.drawingSteps,
+    ...visual.notices,
+  ]
+}
+
+function translatedVisualModel(visual: VisualModel, translated: string[]): VisualModel {
+  let cursor = 0
+  const next = (fallback: string) => translated[cursor++] ?? fallback
+
+  return {
+    ...visual,
+    title: next(visual.title),
+    nodes: visual.nodes.map((node) => ({
+      ...node,
+      label: next(node.label),
+      annotation: next(node.annotation),
+    })),
+    arrows: visual.arrows.map((arrow) => ({
+      ...arrow,
+      label: next(arrow.label),
+    })),
+    panels: visual.panels.map((panel) => ({
+      ...panel,
+      semanticTitle: panel.semanticTitle ?? panel.title,
+      title: next(panel.title),
+      elements: panel.elements.map((element) => ({
+        ...element,
+        semanticLabel: element.semanticLabel ?? element.label,
+        label: next(element.label),
+      })),
+    })),
+    callouts: visual.callouts.map((item) => next(item)),
+    drawingSteps: visual.drawingSteps.map((item) => next(item)),
+    notices: visual.notices.map((item) => next(item)),
+  }
+}
+
 function TopicLessonVisual({
   lesson,
+  presentation = false,
+  language = 'english',
 }: Props) {
-  const visual =
+  const rawVisual =
     buildVisualModel(lesson)
+  const translationSource =
+    visualTranslationSource(rawVisual)
+  const { texts: translated } =
+    useLessonTranslation(translationSource, language)
+  const visual =
+    translatedVisualModel(rawVisual, translated)
   const hasScene =
     visual.panels.length > 0
-  const badge = hasScene
-    ? visual.panels.length === 2
-      ? 'Board sketch · comparison'
-      : 'Board sketch'
-    : visual.layout === 'comparison'
-      ? 'Comparison diagram'
-      : visual.layout === 'cycle'
-        ? 'Cycle diagram'
-        : 'Process diagram'
+  const badge = language === 'hindi'
+    ? hasScene
+      ? visual.panels.length === 2
+        ? 'बोर्ड स्केच · तुलना'
+        : 'बोर्ड स्केच'
+      : visual.layout === 'comparison'
+        ? 'तुलना आरेख'
+        : visual.layout === 'cycle'
+          ? 'चक्र आरेख'
+          : 'प्रक्रिया आरेख'
+    : hasScene
+      ? visual.panels.length === 2
+        ? 'Board sketch · comparison'
+        : 'Board sketch'
+      : visual.layout === 'comparison'
+        ? 'Comparison diagram'
+        : visual.layout === 'cycle'
+          ? 'Cycle diagram'
+          : 'Process diagram'
 
   return (
-    <div className="space-y-4">
+    <div className={presentation ? 'mx-auto w-full max-w-[1080px]' : 'space-y-4'}>
       <DiagramFrame
         title={visual.title}
         badge={badge}
+        language={language}
       >
         {hasScene ? (
           <SceneDiagram visual={visual} />
@@ -2172,21 +2275,25 @@ function TopicLessonVisual({
         )}
       </DiagramFrame>
 
-      <Callouts
-        items={visual.callouts}
-      />
+      {!presentation && (
+        <>
+          <Callouts
+            items={visual.callouts}
+          />
 
-      <div className="grid gap-4 lg:grid-cols-2 print:grid-cols-2">
-        <NotesPanel
-          title="How to draw it on the board"
-          items={visual.drawingSteps}
-        />
+          <div className="grid gap-4 lg:grid-cols-2 print:grid-cols-2">
+            <NotesPanel
+              title={language === 'hindi' ? 'बोर्ड पर कैसे बनाएँ' : 'How to draw it on the board'}
+              items={visual.drawingSteps}
+            />
 
-        <NotesPanel
-          title="What students should notice"
-          items={visual.notices}
-        />
-      </div>
+            <NotesPanel
+              title={language === 'hindi' ? 'छात्रों को क्या ध्यान देना चाहिए' : 'What students should notice'}
+              items={visual.notices}
+            />
+          </div>
+        </>
+      )}
     </div>
   )
 }

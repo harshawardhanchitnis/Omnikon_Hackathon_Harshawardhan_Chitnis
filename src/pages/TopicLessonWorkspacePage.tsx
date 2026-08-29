@@ -30,6 +30,7 @@ import TeachMode from '@/components/lesson/TeachMode'
 import TopicWorkspaceTools from '@/components/lesson/TopicWorkspaceTools'
 import { Button } from '@/components/ui/button'
 import { useLessonCustomizations } from '@/hooks/useLessonCustomizations'
+import { useLessonTranslation } from '@/hooks/useLessonTranslation'
 import {
   asNumber,
   asString,
@@ -60,6 +61,8 @@ function TopicLessonWorkspacePage() {
       loadTopicLessonBundle(),
     [],
   )
+  const focusedMode =
+    bundle?.request.requestMode === 'focused'
   const originalLesson =
     bundle?.lesson ?? emptyLesson
   const lessonIdentity =
@@ -111,6 +114,21 @@ function TopicLessonWorkspacePage() {
     new Set(),
   )
 
+  const rawTitle =
+    asString(lesson.title) ??
+    'Topic teaching plan'
+  const rawSubject =
+    asString(lesson.subject) ??
+    'Science'
+  const {
+    texts: translatedHeaderTexts,
+  } = useLessonTranslation(
+    bundle
+      ? [rawTitle, rawSubject]
+      : [],
+    language,
+  )
+
   if (!bundle) {
     return (
       <main className="flex min-h-screen items-center justify-center bg-[#f4f6f1] px-5">
@@ -135,16 +153,16 @@ function TopicLessonWorkspacePage() {
   }
 
   const title =
-    asString(lesson.title) ??
-    'Topic teaching plan'
+    translatedHeaderTexts[0] ??
+    rawTitle
   const classLevel =
     asNumber(
       lesson.classLevel,
     ) ??
     bundle.request.classLevel
   const subject =
-    asString(lesson.subject) ??
-    'Science'
+    translatedHeaderTexts[1] ??
+    rawSubject
   const duration =
     asNumber(
       lesson.requestedDurationMinutes,
@@ -212,20 +230,23 @@ function TopicLessonWorkspacePage() {
               }
             />
 
-            <Button
-              type="button"
-              variant="outline"
-              onClick={() =>
-                window.print()
-              }
-              className="h-9 rounded-xl border-[#d2ddd0] bg-white px-3 text-[10px] font-bold"
-            >
-              <Printer className="mr-1 size-3.5" />
-              {language ===
-              'hindi'
-                ? 'प्रिंट'
-                : 'Print'}
-            </Button>
+            {(mode === 'full' || mode === 'focused') && (
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() =>
+                  window.print()
+                }
+                className="h-9 rounded-xl border-[#d2ddd0] bg-white px-3 text-[10px] font-bold"
+              >
+                <Printer className="mr-1 size-3.5" />
+
+                {language ===
+                'hindi'
+                  ? 'प्रिंट'
+                  : 'Print'}
+              </Button>
+            )}
           </div>
         </div>
       </header>
@@ -322,130 +343,90 @@ function TopicLessonWorkspacePage() {
 
       <nav className="sticky top-[69px] z-40 border-b border-[#dce4da] bg-[#fffef9]/95 backdrop-blur-xl print:hidden">
         <div className="mx-auto flex max-w-[1600px] gap-2 overflow-x-auto px-4 py-3 pr-7 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:px-6 sm:pr-6 lg:px-8">
-          {bundle.request.requestMode === 'focused' && (
-            <button
-              type="button"
-              onClick={() =>
-                setMode('focused')
-              }
-              className={`flex shrink-0 items-center gap-2 rounded-xl px-4 py-2.5 text-[10px] font-extrabold transition-all ${
-                mode === 'focused'
-                  ? 'bg-[#0f5132] text-white shadow-sm'
-                  : 'bg-[#f0f4ee] text-[#5e6b62] hover:bg-[#e5eee2]'
-              }`}
-            >
+          {focusedMode ? (
+            <span className="flex shrink-0 items-center gap-2 rounded-xl bg-[#0f5132] px-4 py-2.5 text-[10px] font-extrabold text-white shadow-sm">
               <MessageSquareText className="size-3.5" />
-              {language === 'hindi'
-                ? 'केंद्रित सहायता'
-                : 'Focused Help'}
-            </button>
+              {language === 'hindi' ? 'केंद्रित शिक्षण सहायता' : 'Focused Teaching Help'}
+            </span>
+          ) : (
+            <>
+              <button
+                type="button"
+                onClick={() => setMode('full')}
+                className={`flex shrink-0 items-center gap-2 rounded-xl px-4 py-2.5 text-[10px] font-extrabold transition-all ${
+                  mode === 'full'
+                    ? 'bg-[#0f5132] text-white shadow-sm'
+                    : 'bg-[#f0f4ee] text-[#5e6b62] hover:bg-[#e5eee2]'
+                }`}
+              >
+                <Sparkles className="size-3.5" />
+                {language === 'hindi' ? 'पूरा प्लान' : 'Full Plan'}
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setMode('teach')}
+                className={`flex shrink-0 items-center gap-2 rounded-xl px-4 py-2.5 text-[10px] font-extrabold transition-all ${
+                  mode === 'teach'
+                    ? 'bg-[#0f5132] text-white shadow-sm'
+                    : 'bg-[#f0f4ee] text-[#5e6b62] hover:bg-[#e5eee2]'
+                }`}
+              >
+                <GraduationCap className="size-3.5" />
+                {language === 'hindi' ? 'कक्षा शुरू करें' : 'Start Class'}
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setMode('quick')}
+                className={`flex shrink-0 items-center gap-2 rounded-xl px-4 py-2.5 text-[10px] font-extrabold transition-all ${
+                  mode === 'quick'
+                    ? 'bg-[#0f5132] text-white shadow-sm'
+                    : 'bg-[#f0f4ee] text-[#5e6b62] hover:bg-[#e5eee2]'
+                }`}
+              >
+                <Zap className="size-3.5" />
+                {language === 'hindi' ? 'त्वरित पढ़ाएँ' : 'Quick Teach'}
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setMode('flashcards')}
+                className={`flex shrink-0 items-center gap-2 rounded-xl px-4 py-2.5 text-[10px] font-extrabold transition-all ${
+                  mode === 'flashcards'
+                    ? 'bg-[#0f5132] text-white shadow-sm'
+                    : 'bg-[#f0f4ee] text-[#5e6b62] hover:bg-[#e5eee2]'
+                }`}
+              >
+                <Lightbulb className="size-3.5" />
+                {language === 'hindi' ? 'फ्लैशकार्ड' : 'Flashcards'}
+              </button>
+
+              <span className="mx-1 hidden h-8 w-px shrink-0 bg-[#dce4da] sm:block" />
+
+              <button
+                type="button"
+                onClick={() => setMode('customize')}
+                className={`flex shrink-0 items-center gap-2 rounded-xl px-4 py-2.5 text-[10px] font-extrabold transition-all ${
+                  mode === 'customize'
+                    ? 'bg-[#0f5132] text-white shadow-sm'
+                    : 'border border-[#d9e2d7] bg-white text-[#536159] hover:bg-[#eef5eb]'
+                }`}
+              >
+                <PencilLine className="size-3.5" />
+                {language === 'hindi' ? 'कस्टमाइज़' : 'Customize'}
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setPresenting(true)}
+                className="flex shrink-0 items-center gap-2 rounded-xl bg-[#f0ca5b] px-4 py-2.5 text-[10px] font-extrabold text-[#173525] hover:bg-[#e4bb45]"
+              >
+                <Presentation className="size-3.5" />
+                {language === 'hindi' ? 'प्रस्तुत करें' : 'Present'}
+              </button>
+            </>
           )}
-          <button
-            type="button"
-            onClick={() =>
-              setMode('full')
-            }
-            className={`flex shrink-0 items-center gap-2 rounded-xl px-4 py-2.5 text-[10px] font-extrabold transition-all ${
-              mode === 'full'
-                ? 'bg-[#0f5132] text-white shadow-sm'
-                : 'bg-[#f0f4ee] text-[#5e6b62] hover:bg-[#e5eee2]'
-            }`}
-          >
-            <Sparkles className="size-3.5" />
-            {language ===
-            'hindi'
-              ? bundle.request.requestMode === 'focused'
-                ? 'विस्तृत प्लान'
-                : 'पूरा प्लान'
-              : bundle.request.requestMode === 'focused'
-                ? 'Detailed Plan'
-                : 'Full Plan'}
-          </button>
-
-          <button
-            type="button"
-            onClick={() =>
-              setMode('teach')
-            }
-            className={`flex shrink-0 items-center gap-2 rounded-xl px-4 py-2.5 text-[10px] font-extrabold transition-all ${
-              mode === 'teach'
-                ? 'bg-[#0f5132] text-white shadow-sm'
-                : 'bg-[#f0f4ee] text-[#5e6b62] hover:bg-[#e5eee2]'
-            }`}
-          >
-            <GraduationCap className="size-3.5" />
-            {language ===
-            'hindi'
-              ? 'कक्षा शुरू करें'
-              : 'Start Class'}
-          </button>
-
-          <button
-            type="button"
-            onClick={() =>
-              setMode('quick')
-            }
-            className={`flex shrink-0 items-center gap-2 rounded-xl px-4 py-2.5 text-[10px] font-extrabold transition-all ${
-              mode === 'quick'
-                ? 'bg-[#0f5132] text-white shadow-sm'
-                : 'bg-[#f0f4ee] text-[#5e6b62] hover:bg-[#e5eee2]'
-            }`}
-          >
-            <Zap className="size-3.5" />
-            {language ===
-            'hindi'
-              ? 'त्वरित पढ़ाएँ'
-              : 'Quick Teach'}
-          </button>
-
-          <button
-            type="button"
-            onClick={() =>
-              setMode(
-                'flashcards',
-              )
-            }
-            className={`flex shrink-0 items-center gap-2 rounded-xl px-4 py-2.5 text-[10px] font-extrabold transition-all ${
-              mode ===
-              'flashcards'
-                ? 'bg-[#0f5132] text-white shadow-sm'
-                : 'bg-[#f0f4ee] text-[#5e6b62] hover:bg-[#e5eee2]'
-            }`}
-          >
-            <Lightbulb className="size-3.5" />
-            {language ===
-            'hindi'
-              ? 'फ्लैशकार्ड'
-              : 'Flashcards'}
-          </button>
-
-          <span className="mx-1 hidden h-8 w-px shrink-0 bg-[#dce4da] sm:block" />
-
-          <button
-            type="button"
-            onClick={() => setMode('customize')}
-            className={`flex shrink-0 items-center gap-2 rounded-xl px-4 py-2.5 text-[10px] font-extrabold transition-all ${
-              mode === 'customize'
-                ? 'bg-[#0f5132] text-white shadow-sm'
-                : 'border border-[#d9e2d7] bg-white text-[#536159] hover:bg-[#eef5eb]'
-            }`}
-          >
-            <PencilLine className="size-3.5" />
-            {language === 'hindi'
-              ? 'कस्टमाइज़'
-              : 'Customize'}
-          </button>
-
-          <button
-            type="button"
-            onClick={() => setPresenting(true)}
-            className="flex shrink-0 items-center gap-2 rounded-xl bg-[#f0ca5b] px-4 py-2.5 text-[10px] font-extrabold text-[#173525] hover:bg-[#e4bb45]"
-          >
-            <Presentation className="size-3.5" />
-            {language === 'hindi'
-              ? 'प्रस्तुत करें'
-              : 'Present'}
-          </button>
         </div>
       </nav>
 
@@ -455,7 +436,7 @@ function TopicLessonWorkspacePage() {
         language={language}
       />
 
-      {mode === 'customize' && (
+      {!focusedMode && mode === 'customize' && (
         <CustomizePlanPanel
           originalLesson={originalLesson}
           customizations={customizations}
@@ -483,7 +464,7 @@ function TopicLessonWorkspacePage() {
         />
       )}
 
-      {mode === 'full' && (
+      {!focusedMode && mode === 'full' && (
         <LessonReferenceView
           lesson={lesson}
           lessonKey={lessonKey}
@@ -507,7 +488,7 @@ function TopicLessonWorkspacePage() {
         />
       )}
 
-      {mode === 'teach' && (
+      {!focusedMode && mode === 'teach' && (
         <TeachMode
           lesson={lesson}
           lessonKey={lessonKey}
@@ -522,7 +503,7 @@ function TopicLessonWorkspacePage() {
         />
       )}
 
-      {mode === 'quick' && (
+      {!focusedMode && mode === 'quick' && (
         <QuickTeachView
           lesson={lesson}
           resourceLevel={
@@ -533,7 +514,7 @@ function TopicLessonWorkspacePage() {
         />
       )}
 
-      {mode ===
+      {!focusedMode && mode ===
         'flashcards' && (
         <div className="mx-auto max-w-[1100px] px-4 py-8 sm:px-6">
           <LessonFlashcards
@@ -546,7 +527,7 @@ function TopicLessonWorkspacePage() {
         </div>
       )}
 
-      {presenting && (
+      {!focusedMode && presenting && (
         <PresentMode
           lesson={lesson}
           lessonKey={lessonKey}

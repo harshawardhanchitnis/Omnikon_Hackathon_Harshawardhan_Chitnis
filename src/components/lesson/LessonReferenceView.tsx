@@ -6,7 +6,8 @@ import {
   LoaderCircle,
   Sparkles,
 } from 'lucide-react'
-import {
+import {
+
   useMemo,
   useState,
 } from 'react'
@@ -248,6 +249,9 @@ function QuestionCards({
             asString(
               item
                 .expectedAnswer,
+            ) ??
+            asString(
+              item.answer,
             ) ?? '',
           ],
         ),
@@ -316,6 +320,9 @@ function QuestionCards({
             asString(
               item
                 .expectedAnswer,
+            ) ??
+            asString(
+              item.answer,
             )
 
           if (!question) {
@@ -381,9 +388,108 @@ function QuestionCards({
   )
 }
 
-function SectionCard({
+function ArraySectionCard({
   sectionKey,
-  value,
+  items,
+  language,
+}: {
+  sectionKey: string
+  items: string[]
+  language: LessonLanguage
+}) {
+  const {
+    texts: translatedItems,
+    translating,
+    error: translationError,
+  } = useLessonTranslation(
+    items,
+    language,
+  )
+
+  return (
+    <section
+      id={`lesson-${sectionKey}`}
+      className="scroll-mt-32 rounded-[24px] border border-[#dce4da] bg-[#fffef9] p-5"
+    >
+      <h2 className="text-lg font-extrabold">
+        {getSectionLabel(
+          sectionKey,
+          language,
+        )}
+      </h2>
+
+      {language === 'hindi' && translating && (
+        <div className="mt-4 flex items-center gap-2 rounded-xl bg-[#fff4dd] px-3 py-2 text-[9px] font-bold text-[#8d652c]">
+          <LoaderCircle className="size-3.5 animate-spin" />
+          यह खंड हिंदी में तैयार हो रहा है…
+        </div>
+      )}
+
+      {translationError && (
+        <div className="mt-4 rounded-xl border border-[#ead5d0] bg-[#fff8f6] p-3 text-[9px] font-semibold text-[#92564b]">
+          {translationError}
+        </div>
+      )}
+
+      <BulletList
+        title={
+          language === 'hindi'
+            ? 'विवरण'
+            : 'Items'
+        }
+        items={translatedItems}
+      />
+    </section>
+  )
+}
+
+function SectionCard(props: {
+  sectionKey: string
+  value: unknown
+  lessonKey: string
+  lesson: JsonRecord
+  sourceMode?: LessonSourceMode
+  language: LessonLanguage
+  completed: boolean
+  onToggleComplete: () => void
+}) {
+  if (Array.isArray(props.value)) {
+    const items = asStringArray(props.value)
+    if (items.length === 0) {
+      return null
+    }
+
+    return (
+      <ArraySectionCard
+        sectionKey={props.sectionKey}
+        items={items}
+        language={props.language}
+      />
+    )
+  }
+
+  const section = asRecord(props.value)
+  if (!section) {
+    return null
+  }
+
+  return (
+    <RecordSectionCard
+      sectionKey={props.sectionKey}
+      section={section}
+      lessonKey={props.lessonKey}
+      lesson={props.lesson}
+      sourceMode={props.sourceMode}
+      language={props.language}
+      completed={props.completed}
+      onToggleComplete={props.onToggleComplete}
+    />
+  )
+}
+
+function RecordSectionCard({
+  sectionKey,
+  section,
   lessonKey,
   lesson,
   sourceMode = 'textbook',
@@ -392,15 +498,13 @@ function SectionCard({
   onToggleComplete,
 }: {
   sectionKey: string
-  value: unknown
+  section: JsonRecord
   lessonKey: string
   lesson: JsonRecord
   sourceMode?: LessonSourceMode
-  language:
-    LessonLanguage
+  language: LessonLanguage
   completed: boolean
-  onToggleComplete:
-    () => void
+  onToggleComplete: () => void
 }) {
   const [
     expanded,
@@ -414,52 +518,6 @@ function SectionCard({
         sectionKey ===
           'visualize',
     )
-
-
-
-  if (
-    Array.isArray(value)
-  ) {
-    const items =
-      asStringArray(value)
-
-    if (
-      items.length === 0
-    ) {
-      return null
-    }
-
-    return (
-      <section
-        id={`lesson-${sectionKey}`}
-        className="scroll-mt-32 rounded-[24px] border border-[#dce4da] bg-[#fffef9] p-5"
-      >
-        <h2 className="text-lg font-extrabold">
-          {getSectionLabel(
-            sectionKey,
-            language,
-          )}
-        </h2>
-
-        <BulletList
-          title={
-            language ===
-            'hindi'
-              ? 'विवरण'
-              : 'Items'
-          }
-          items={items}
-        />
-      </section>
-    )
-  }
-
-  const section =
-    asRecord(value)
-
-  if (!section) {
-    return null
-  }
 
   const teacherCustomized =
     section.__teacherCustomized === true
@@ -603,12 +661,11 @@ function SectionCard({
     )
 
   /*
-   * Lazy translation:
-   * collapsed cards request no
-   * translation at all.
+   * English keeps collapsed cards lazy. Hindi preloads every section
+   * so print/export does not reveal untranslated content.
    */
   const sourceTexts =
-    expanded
+    expanded || language === 'hindi'
       ? [
           teacherPrompt,
           expectedResponse,
@@ -616,6 +673,7 @@ function SectionCard({
           instructions,
           explanation,
           objective,
+          text,
           safety,
           ...boardWork,
           ...keyPoints,
@@ -667,6 +725,10 @@ function SectionCard({
   const tObjective =
     translated[cursor++] ??
     objective
+
+  const tText =
+    translated[cursor++] ??
+    text
 
   const tSafety =
     translated[cursor++] ??
@@ -876,6 +938,7 @@ function SectionCard({
                 }
                 lesson={lesson}
                 sourceMode={sourceMode}
+                language={language}
               />
             </div>
           )}
@@ -956,9 +1019,9 @@ function SectionCard({
             </div>
           )}
 
-          {text && (
+          {tText && (
             <pre className="mt-5 overflow-x-auto whitespace-pre-wrap rounded-2xl bg-[#132b20] p-5 font-mono text-[11px] leading-6 text-[#edf6eb]">
-              {text}
+              {tText}
             </pre>
           )}
 
@@ -1168,6 +1231,41 @@ function LessonReferenceView({
       lessonKey,
     )
 
+  const formulaTranslationInput =
+    useMemo(
+      () =>
+        formulas.flatMap(
+          (formula) => [
+            formula.label,
+            formula.note,
+          ],
+        ),
+      [formulas],
+    )
+
+  const {
+    texts: translatedFormulaTexts,
+  } = useLessonTranslation(
+    formulaTranslationInput,
+    language,
+  )
+
+  let formulaTranslationCursor = 0
+  const translatedFormulas =
+    formulas.map(
+      (formula) => ({
+        ...formula,
+        label:
+          translatedFormulaTexts[
+            formulaTranslationCursor++
+          ] ?? formula.label,
+        note:
+          translatedFormulaTexts[
+            formulaTranslationCursor++
+          ] ?? formula.note,
+      }),
+    )
+
   const entries =
     getOrderedLessonSections(
       lesson,
@@ -1189,15 +1287,35 @@ function LessonReferenceView({
   function scrollTo(
     key: string,
   ) {
-    document
-      .getElementById(
+    const target =
+      document.getElementById(
         `lesson-${key}`,
       )
-      ?.scrollIntoView({
-        behavior:
-          'smooth',
-        block: 'start',
-      })
+
+    if (!target) {
+      return
+    }
+
+    const stickyHeader =
+      document.querySelector<HTMLElement>(
+        'header.sticky',
+      )
+    const headerHeight =
+      stickyHeader?.getBoundingClientRect().height ?? 0
+    const top = Math.max(
+      0,
+      target.getBoundingClientRect().top +
+        window.scrollY -
+        headerHeight -
+        16,
+    )
+
+    // The previous smooth scroll could fight the sticky product shell/grid and
+    // briefly paint a blank layout. A deterministic offset scroll is stable.
+    window.scrollTo({
+      top,
+      behavior: 'auto',
+    })
   }
 
   return (
@@ -1403,7 +1521,7 @@ function LessonReferenceView({
             </h2>
 
             <div className="mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-5">
-              {formulas.map(
+              {translatedFormulas.map(
                 (
                   formula,
                 ) => (

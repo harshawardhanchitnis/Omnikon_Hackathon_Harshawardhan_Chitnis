@@ -299,11 +299,130 @@ function focusedHelpContract(
     }`
 }
 
+function focusedGenerationPrompt(
+  request: TopicRequest,
+  structuralErrors:
+    string[] = [],
+) {
+  const retryNote =
+    structuralErrors.length > 0
+      ? `\nA previous attempt failed deterministic structure checks. Correct ALL of these issues:\n- ${structuralErrors.join('\n- ')}\n`
+      : ''
+
+  return `You are ChalkBox's Focused Teaching Help generator for Indian teachers.
+
+PURPOSE
+- Solve ONE specific Class ${request.classLevel} Science teaching problem from the teacher's request.
+- This is NOT a complete lesson, chapter summary or shortened full lesson.
+- Produce a compact intervention the teacher can use immediately in ${request.durationMinutes} minutes.
+- Stay tightly on the requested concept, misconception, explanation, demonstration or classroom question.
+- Do NOT add generic chapter coverage merely to fill space.
+
+TEACHER INPUT
+Class: ${request.classLevel}
+Subject: Science
+Available time: ${request.durationMinutes} minutes
+Resources: ${resourceGuidance(request.resourceLevel)}
+Classroom context: ${request.classroomContext || 'Not supplied'}
+Teacher request: ${request.teacherRequest}
+Display language selected by teacher: ${request.language}. Generate canonical content in ENGLISH only; ChalkBox translates presentation locally when Hindi is selected.
+
+QUALITY RULES
+- Science must be accurate and age-appropriate for Class ${request.classLevel}.
+- The teachingGoal must directly answer the teacher's exact problem.
+- Give one compact board plan, one simple explanation, one visual/analogy, one example, and one feasible micro-activity or demonstration.
+- Identify the most likely misconception and give a teacher-ready correction.
+- Include one diagnostic quick check and 2-4 concrete reteaching moves.
+- The visual must be board-usable. Include boardDrawingSteps and, when useful, a safe diagramSpec using normalized 0-100 coordinates. Never return SVG/HTML.
+- Activities must fit the selected resource level and be safe for school use.
+- Do not recommend hazardous chemicals, mains electricity, flames, ingestion, pressurised containers, dangerous projectiles or unsafe biological exposure.
+- Never fabricate measurements/readings.
+- Do not include student names, emails, phone numbers or persistent learner identifiers.
+- Do NOT use textbook RAG. Do NOT invent textbook page numbers, citations, URLs, quotations, NCERT provenance or "source verified" language.
+- Do not calculate a minute-by-minute schedule. ChalkBox owns timing.
+${retryNote}
+RETURN JSON ONLY with this compact shape:
+{
+  "status": "OK" | "OUT_OF_SCOPE",
+  "message": "short status explanation",
+  "lesson": {
+    "title": "specific focused-help title",
+    "classLevel": ${request.classLevel},
+    "subject": "Science",
+    "requestMode": "focused",
+    "requestedDurationMinutes": ${request.durationMinutes},
+    "learningObjectives": ["2-3 precise observable outcomes"],
+    "prerequisites": ["0-3 prerequisites"],
+    "focusedHelp": {
+      "teachingGoal": "one precise outcome for the teacher's exact problem",
+      "boardPlan": "compact board layout for this one concept",
+      "explainSimply": "short teacher-ready explanation focused only on the requested issue",
+      "visualOrAnalogy": "one strong visual or analogy and how to use it",
+      "visual": {
+        "teacherInstructions": "how to build the focused board visual",
+        "boardDrawingSteps": ["2-5 concise drawing steps"],
+        "whatStudentsShouldNotice": ["1-3 noticing prompts"],
+        "diagramSpec": {
+          "title": "short diagram title",
+          "layout": "scene or comparison or process or cycle",
+          "panels": [
+            {
+              "title": "optional panel title",
+              "elements": [
+                {
+                  "kind": "container or fluid or hull or rect or circle or line or arrow or wave or label",
+                  "x": 0,
+                  "y": 0,
+                  "w": 0,
+                  "h": 0,
+                  "label": "short label or empty string",
+                  "emphasis": "normal or accent or muted"
+                }
+              ]
+            }
+          ],
+          "nodes": [
+            {"id":"n1","label":"short node label","annotation":"short note","shape":"rect or pill or circle"}
+          ],
+          "arrows": [
+            {"from":"n1","to":"n2","label":"optional connector"}
+          ],
+          "callouts": ["0-3 concise callouts"]
+        }
+      },
+      "example": "one concise example tied to the exact concept",
+      "activity": "one feasible micro-activity or demonstration",
+      "commonMisconception": {
+        "misconception": "the most likely wrong idea",
+        "correction": "how the teacher should correct it"
+      },
+      "quickCheck": {
+        "question": "one diagnostic question",
+        "expectedAnswer": "concise expected answer"
+      },
+      "reteachSteps": ["2-4 alternative teacher moves if students still do not understand"]
+    },
+    "formulaCards": [
+      {"label":"formula name","formula":"equation","note":"meaning/condition"}
+    ]
+  }
+}
+
+formulaCards may be [] when no useful formula exists. lesson must be omitted when status is OUT_OF_SCOPE.`
+}
+
 function generationPrompt(
   request: TopicRequest,
   structuralErrors:
     string[] = [],
 ) {
+  if (request.requestMode === 'focused') {
+    return focusedGenerationPrompt(
+      request,
+      structuralErrors,
+    )
+  }
+
   const retryNote =
     structuralErrors.length > 0
       ? `\nA previous attempt failed deterministic structure checks. Correct ALL of these issues:\n- ${structuralErrors.join('\n- ')}\n`
@@ -900,6 +1019,92 @@ function validateLesson(
     errors.push(
       'At least two learningObjectives are required.',
     )
+  }
+
+  if (request.requestMode === 'focused') {
+    const focusedHelp =
+      isRecord(lesson.focusedHelp)
+        ? lesson.focusedHelp
+        : null
+
+    if (!focusedHelp) {
+      errors.push(
+        'focusedHelp is required in focused mode.',
+      )
+    } else {
+      const requiredFocusedStrings = [
+        'teachingGoal',
+        'boardPlan',
+        'explainSimply',
+        'visualOrAnalogy',
+        'example',
+        'activity',
+      ]
+
+      for (const key of requiredFocusedStrings) {
+        if (!hasNonEmptyString(focusedHelp, key)) {
+          errors.push(`focusedHelp.${key} is required.`)
+        }
+      }
+
+      const misconception =
+        isRecord(focusedHelp.commonMisconception)
+          ? focusedHelp.commonMisconception
+          : null
+      if (
+        !misconception ||
+        !hasNonEmptyString(misconception, 'misconception') ||
+        !hasNonEmptyString(misconception, 'correction')
+      ) {
+        errors.push(
+          'focusedHelp.commonMisconception needs a misconception and correction.',
+        )
+      }
+
+      const quickCheck =
+        isRecord(focusedHelp.quickCheck)
+          ? focusedHelp.quickCheck
+          : null
+      if (
+        !quickCheck ||
+        !hasNonEmptyString(quickCheck, 'question') ||
+        !hasNonEmptyString(quickCheck, 'expectedAnswer')
+      ) {
+        errors.push(
+          'focusedHelp.quickCheck needs a question and expectedAnswer.',
+        )
+      }
+
+      if (asStringArray(focusedHelp.reteachSteps).length < 2) {
+        errors.push(
+          'focusedHelp.reteachSteps needs at least two steps.',
+        )
+      }
+    }
+
+    if (containsForbiddenSourceKey(lesson)) {
+      errors.push(
+        'Topic Mode lesson must not contain sourcePages/citation fields.',
+      )
+    }
+
+    const serialized = JSON.stringify(lesson).toLowerCase()
+    if (
+      serialized.includes('source_verified') ||
+      serialized.includes('source verified') ||
+      serialized.includes('textbook_activity') ||
+      serialized.includes('textbook_example') ||
+      serialized.includes('source_grounded') ||
+      serialized.includes('according to ncert') ||
+      serialized.includes('ncert page') ||
+      serialized.includes('textbook page')
+    ) {
+      errors.push(
+        'Topic Mode lesson contains forbidden textbook-provenance wording.',
+      )
+    }
+
+    return errors
   }
 
   const hook =
@@ -1527,6 +1732,41 @@ Deno.serve(async (request) => {
     )
   }
 
+  const requestRecord =
+    isRecord(body) ? body : null
+  const deferAudit =
+    requestRecord?.deferAudit === true
+  const requestedRepairErrors =
+    asStringArray(
+      requestRecord?.repairErrors,
+    ).slice(0, 8)
+  const requestedGenerationModel =
+    asString(
+      requestRecord?.generationModel,
+    )
+  const generationModels =
+    requestedGenerationModel &&
+    generatorModels.includes(
+      requestedGenerationModel as
+        (typeof generatorModels)[number],
+    )
+      ? [requestedGenerationModel]
+      : requestedGenerationModel
+        ? null
+        : generatorModels
+
+  if (!generationModels) {
+    return json(
+      {
+        ok: false,
+        code: 'INVALID_MODEL',
+        message:
+          'The requested Topic generation model is not supported.',
+      },
+      400,
+    )
+  }
+
   if (
     containsObviousPii(
       `${topicRequest.teacherRequest} ${topicRequest.classroomContext}`,
@@ -1551,10 +1791,11 @@ Deno.serve(async (request) => {
   try {
     const generationResult =
       await callGeminiWithFallback(
-        generatorModels,
+        generationModels,
         apiKey,
         generationPrompt(
           topicRequest,
+          requestedRepairErrors,
         ),
         topicRequest.requestMode ===
           'complete'
@@ -1618,16 +1859,50 @@ Deno.serve(async (request) => {
     )
 
   if (
+    structuralErrors.length > 0 &&
+    deferAudit
+  ) {
+    if (requestedRepairErrors.length === 0) {
+      return json(
+        {
+          ok: false,
+          code: 'STRUCTURE_RETRY_REQUIRED',
+          message:
+            'ChalkBox is refining the generated structure before the Science check.',
+          details:
+            structuralErrors.slice(0, 8),
+        },
+        409,
+      )
+    }
+
+    return json(
+      {
+        ok: false,
+        code:
+          'STRUCTURE_VALIDATION_FAILED',
+        message:
+          'The generated lesson did not pass ChalkBox structural validation. Nothing was saved.',
+        details:
+          structuralErrors.slice(0, 8),
+      },
+      422,
+    )
+  }
+
+  if (
     structuralErrors.length >
     0
   ) {
     try {
       const repairResult =
         await callGeminiWithFallback(
-          remainingModelsFrom(
-            generatorModels,
-            generationModelUsed,
-          ),
+          requestedGenerationModel
+            ? generationModels
+            : remainingModelsFrom(
+                generatorModels,
+                generationModelUsed,
+              ),
           apiKey,
           generationPrompt(
             topicRequest,
@@ -1687,6 +1962,28 @@ Deno.serve(async (request) => {
       },
       422,
     )
+  }
+
+  if (deferAudit) {
+    const formulaCards =
+      normalizeFormulaCards(
+        lesson,
+      )
+
+    delete lesson.formulaCards
+
+    return json({
+      ok: true,
+      draft: {
+        version: 1,
+        request: topicRequest,
+        lesson,
+        formulaCards,
+        generationModel:
+          generationModelUsed,
+        generationAttempts,
+      },
+    })
   }
 
   let audit: AuditResult | null =

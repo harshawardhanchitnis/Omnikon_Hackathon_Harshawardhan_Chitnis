@@ -291,6 +291,7 @@ function FocusedTeachingView({
           lessonKey={lessonKey}
           lesson={lesson}
           sourceMode="topic"
+          language={language}
         />
       </section>
 
@@ -383,8 +384,8 @@ function FocusedTeachingView({
       <div className="flex items-center gap-2 rounded-xl bg-[#edf5e9] px-4 py-3 text-[9px] font-bold text-[#176b43]">
         <CheckCircle2 className="size-4" />
         {language === 'hindi'
-          ? 'केंद्रित सहायता पूरी — जरूरत हो तो विस्तृत प्लान या Start Class खोलें।'
-          : 'Focused help ready — open Detailed Plan or Start Class only if you need more depth.'}
+          ? 'केंद्रित सहायता तैयार — यह जानबूझकर एक ही शिक्षण समस्या पर केंद्रित है।'
+          : 'Focused help ready — intentionally limited to the one teaching problem you asked about.'}
       </div>
     </div>
   )

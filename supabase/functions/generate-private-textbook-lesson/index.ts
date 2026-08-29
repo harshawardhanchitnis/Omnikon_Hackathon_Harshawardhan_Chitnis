@@ -29,25 +29,30 @@ type RequestBody = {
 
 type Chunk = { chunk_id: number; page_start: number; page_end: number; content: string; similarity?: number }
 
+const FULL_LESSON_REQUEST = 'Generate one complete source-grounded classroom lesson covering the main teachable concepts, definitions, equations, examples, activity, practice and understanding checks supported by this chapter or selected page range.'
+
 function normalize(body: JsonRecord | null): RequestBody | null {
   const classLevel = asNumber(body?.classLevel)
   const duration = asNumber(body?.durationMinutes)
   const resource = asString(body?.resourceLevel)
   const language = asString(body?.language)
-  const request = asString(body?.teacherRequest)?.trim()
   const documentId = asString(body?.documentId)
-  if (!documentId || !request || request.length < 12 || request.length > 1200) return null
+  const pageStart = asNumber(body?.pageStart)
+  const pageEnd = asNumber(body?.pageEnd)
+  if (!documentId) return null
   if (![8,9,10].includes(classLevel ?? -1) || ![30,40,45,60].includes(duration ?? -1)) return null
   if (!['low','standard','well'].includes(resource ?? '') || !['english','hindi'].includes(language ?? '')) return null
+  if ((pageStart === null) !== (pageEnd === null)) return null
+  if (pageStart !== null && (pageStart < 1 || pageEnd === null || pageEnd < pageStart)) return null
   return {
     documentId,
-    teacherRequest: request,
+    teacherRequest: FULL_LESSON_REQUEST,
     classLevel: classLevel as 8|9|10,
     durationMinutes: duration as 30|40|45|60,
     resourceLevel: resource as RequestBody['resourceLevel'],
     language: language as RequestBody['language'],
-    pageStart: asNumber(body?.pageStart),
-    pageEnd: asNumber(body?.pageEnd),
+    pageStart,
+    pageEnd,
   }
 }
 
@@ -72,7 +77,7 @@ async function retrieve(body: RequestBody, auth: string): Promise<Chunk[]> {
   const response = await userRest('/rest/v1/rpc/match_private_textbook_chunks', auth, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ query_embedding: vectorLiteral(embedding), match_document: body.documentId, match_count: 14 }),
+    body: JSON.stringify({ query_embedding: vectorLiteral(embedding), match_document: body.documentId, match_count: 24 }),
   })
   return readJson<Chunk[]>(response, 'Could not retrieve textbook context')
 }
@@ -86,7 +91,8 @@ function resourceRule(level: RequestBody['resourceLevel']) {
 function generationPrompt(body: RequestBody, fileName: string, context: string, allowedPages: number[]) {
   return `You are ChalkBox, generating a source-grounded Class ${body.classLevel} Science lesson from a PRIVATE teacher-uploaded PDF.
 
-TEACHER REQUEST: ${body.teacherRequest}
+LESSON MODE: COMPLETE FULL LESSON ONLY. Do not narrow this into focused help or a single micro-topic.
+LESSON GOAL: ${body.teacherRequest}
 DURATION: ${body.durationMinutes} minutes. Do not calculate section minutes; ChalkBox deterministic UI owns timing.
 RESOURCES: ${resourceRule(body.resourceLevel)}
 CANONICAL OUTPUT LANGUAGE: English. Hindi is a presentation layer.
@@ -99,6 +105,11 @@ STRICT SOURCE RULES:
 - Every substantive teaching section must include sourcePages using only ALLOWED SOURCE PAGES.
 - If the supplied context cannot support the teacher request, return {"status":"INSUFFICIENT_SOURCE","message":"..."} instead of filling gaps from memory.
 - Keep formulas/units exactly aligned with the source context.
+- Build one coherent COMPLETE LESSON from the strongest teachable material in the retrieved chapter/page context.
+- The visualize section must be genuinely renderable: include concrete boardDrawingSteps AND a diagramSpec whenever the source supports a visual.
+- Prefer diagramSpec.panels for apparatus, physical scenes, spatial relationships and comparisons. Use only the safe primitives listed in the schema and normalized 0-100 coordinates; never return SVG or HTML.
+- For panel elements, x/y are start or top-left coordinates. Shapes should use positive visible w/h values; line/arrow w/h are deltas from the start point. Keep labels short.
+- Use diagramSpec.nodes/arrows for processes, concept relationships and cycles. Keep node labels short and classroom-readable.
 
 Return JSON only with this shape:
 {
@@ -111,12 +122,12 @@ Return JSON only with this shape:
    "hook":{"teacherScript":"...","keyPoints":["..."],"sourcePages":[1]},
    "define":{"teacherScript":"...","keyPoints":["..."],"boardWork":["..."],"sourcePages":[1]},
    "explain":{"teacherScript":"...","keyPoints":["..."],"boardWork":["..."],"sourcePages":[1]},
-   "visualize":{"teacherInstructions":"...","boardDrawingSteps":["..."],"whatStudentsShouldNotice":["..."],"sourcePages":[1]},
+   "visualize":{"teacherInstructions":"...","boardDrawingSteps":["..."],"whatStudentsShouldNotice":["..."],"diagramSpec":{"title":"short diagram title","layout":"scene or comparison or process or cycle","panels":[{"title":"optional panel title","elements":[{"kind":"container or fluid or hull or rect or circle or line or arrow or wave or label","x":0,"y":0,"w":0,"h":0,"label":"short label or empty string","emphasis":"normal or accent or muted"}]}],"nodes":[{"id":"n1","label":"short node label","annotation":"short note","shape":"rect or pill or circle"}],"arrows":[{"from":"n1","to":"n2","label":"optional connector"}],"callouts":["0-4 short callouts"]},"sourcePages":[1]},
    "example":{"title":"...","explanation":"...","steps":["..."],"answer":"...","sourcePages":[1]},
    "activity":{"title":"...","objective":"...","materials":["..."],"steps":["..."],"sourcePages":[1]},
    "howToTeach":{"teacherCues":["..."],"misconceptions":[{"misconception":"...","correction":"..."}],"sourcePages":[1]},
-   "practice":{"questions":[{"question":"...","answer":"...","sourcePages":[1]}],"sourcePages":[1]},
-   "checkUnderstanding":{"questions":[{"question":"...","answer":"...","sourcePages":[1]}],"sourcePages":[1]},
+   "practice":{"questions":[{"question":"...","expectedAnswer":"...","sourcePages":[1]}],"sourcePages":[1]},
+   "checkUnderstanding":{"questions":[{"question":"...","expectedAnswer":"...","sourcePages":[1]}],"sourcePages":[1]},
    "materials":{"items":["..."]}
   },
   "quickIdeas":{"analogy":"...","lowResourceActivity":"...","quickChecks":["..."]},
@@ -167,14 +178,14 @@ Deno.serve(async (req) => {
 
     const document = await loadDocument(user.id, body.documentId)
     const chunks = await retrieve(body, user.auth)
-    if (chunks.length === 0) return json({ ok: false, message: 'No source context matched this request. Try a page range or a more specific teaching request.' }, 422)
+    if (chunks.length === 0) return json({ ok: false, message: 'No source context was available for a complete lesson. Try selecting the chapter page range.' }, 422)
 
     const allowedPages = [...new Set(chunks.flatMap((chunk) => {
       const pages: number[] = []
       for (let page = chunk.page_start; page <= chunk.page_end; page += 1) pages.push(page)
       return pages
     }))].sort((a,b) => a-b)
-    const context = chunks.map((chunk, index) => `[SOURCE ${index + 1} | pages ${chunk.page_start}-${chunk.page_end}]\n${chunk.content}`).join('\n\n').slice(0, 50000)
+    const context = chunks.map((chunk, index) => `[SOURCE ${index + 1} | pages ${chunk.page_start}-${chunk.page_end}]\n${chunk.content}`).join('\n\n').slice(0, 60000)
 
     const generated = await geminiJsonFallback([{ text: generationPrompt(body, asString(document.file_name) ?? 'Uploaded textbook', context, allowedPages) }], ['gemini-3.7-flash','gemini-3.6-flash','gemini-3.5-flash','gemini-3.5-flash-lite'])
     if (asString(generated.value.status) === 'INSUFFICIENT_SOURCE') {
@@ -202,6 +213,7 @@ Deno.serve(async (req) => {
       sourceDocument: { id: body.documentId, fileName: asString(document.file_name), allowedPages },
       modelRouting: { generationModel: generated.model, auditModel: auditResult.model },
       timingPolicy: 'deterministic-ui-v1',
+      lessonMode: 'complete',
     }
 
     const planResponse = await adminRest('/rest/v1/teacher_plans', {

@@ -415,10 +415,12 @@ function buildVisualModel(
     asStringArray(
       visualize.whatStudentsShouldNotice,
     ).slice(0, 5)
-  const callouts =
-    asStringArray(
-      diagramSpec.callouts,
-    ).slice(0, 4)
+  const safetyNote =
+    asString(visualize.safetyNote)?.trim() || ''
+  const callouts = [
+    ...asStringArray(diagramSpec.callouts),
+    ...(safetyNote ? [`Safety: ${safetyNote}`] : []),
+  ].slice(0, 4)
 
   return {
     title,
@@ -1836,14 +1838,14 @@ function getNodeBox(
 
   if (node.shape === 'pill') {
     return {
-      width: 260,
+      width: 220,
       height: 92,
       radius: 46,
     }
   }
 
   return {
-    width: 250,
+    width: 210,
     height: 104,
     radius: 20,
   }
@@ -1977,6 +1979,10 @@ function renderArrow(
     (startX + endX) / 2
   const midY =
     (startY + endY) / 2
+  const mostlyHorizontal = Math.abs(dx) > Math.abs(dy) * 1.5
+  const labelY = mostlyHorizontal
+    ? midY - 62 - (index % 2) * 20
+    : midY - 14
 
   return (
     <g key={`arrow-${index}`}>
@@ -1992,7 +1998,7 @@ function renderArrow(
       {arrow.label && (
         <DiagramLabel
           x={midX}
-          y={midY - 10}
+          y={labelY}
           value={arrow.label}
           color={muted}
           maxChars={20}

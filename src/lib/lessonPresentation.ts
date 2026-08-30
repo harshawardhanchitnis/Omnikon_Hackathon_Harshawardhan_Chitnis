@@ -422,14 +422,27 @@ export function getOrderedLessonSections(
       resourceLevel,
     )
 
+  const sectionOrder = [
+    'define',
+    'explain',
+    'visualize',
+    'activity',
+    'example',
+    'howToTeach',
+    'practice',
+    'checkUnderstanding',
+    'materials',
+  ]
+
   const remaining =
     Object.entries(fullLesson)
       .filter(
         ([key]) =>
-          key !== 'boardPlan',
+          key !== 'boardPlan' &&
+          key !== 'hook',
       )
       .map(
-        ([key, value]) => {
+        ([key, value]): [string, unknown] => {
           if (
             key === 'activity'
           ) {
@@ -464,7 +477,22 @@ export function getOrderedLessonSections(
 
           return [key, value]
         },
-      ) as [string, unknown][]
+      )
+      .sort(([left], [right]) => {
+        const leftIndex =
+          sectionOrder.indexOf(left)
+        const rightIndex =
+          sectionOrder.indexOf(right)
+
+        return (
+          (leftIndex < 0
+            ? Number.MAX_SAFE_INTEGER
+            : leftIndex) -
+          (rightIndex < 0
+            ? Number.MAX_SAFE_INTEGER
+            : rightIndex)
+        )
+      }) as [string, unknown][]
 
   return [
     [
@@ -473,7 +501,8 @@ export function getOrderedLessonSections(
     ],
     [
       'hook',
-      lesson.hook,
+      lesson.hook ??
+        fullLesson.hook,
     ],
     ...remaining,
   ].filter(

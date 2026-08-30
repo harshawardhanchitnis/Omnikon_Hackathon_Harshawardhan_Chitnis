@@ -103,8 +103,11 @@ STRICT SOURCE RULES:
 - Use ONLY facts supported by SOURCE CONTEXT below, except ordinary classroom transitions/instructions.
 - Never invent a page number, quotation, URL, NCERT label or provenance.
 - Every substantive teaching section must include sourcePages using only ALLOWED SOURCE PAGES.
-- If the supplied context cannot support the teacher request, return {"status":"INSUFFICIENT_SOURCE","message":"..."} instead of filling gaps from memory.
+- ChalkBox Textbook Mode currently supports Class 8-10 Science source material only. If SOURCE CONTEXT is primarily Mathematics, History/Social Science, English/language/literature or another non-Science subject, return {"status":"OUT_OF_SCOPE","message":"ChalkBox Textbook Mode currently supports Class 8-10 Science textbooks only."} and omit lesson.
+- If the supplied Science context cannot support the teacher request, return {"status":"INSUFFICIENT_SOURCE","message":"..."} instead of filling gaps from memory.
 - Keep formulas/units exactly aligned with the source context.
+- Preserve qualifiers and scope exactly. Never strengthen a source statement into an origin, location, certainty or causal claim that the source does not make.
+- Preserve every source safety/caution instruction that applies to an activity, apparatus, chemical, flame, sharp object or biological material.
 - Build one coherent COMPLETE LESSON from the strongest teachable material in the retrieved chapter/page context.
 - The visualize section must be genuinely renderable: include concrete boardDrawingSteps AND a diagramSpec whenever the source supports a visual.
 - Prefer diagramSpec.panels for apparatus, physical scenes, spatial relationships and comparisons. Use only the safe primitives listed in the schema and normalized 0-100 coordinates; never return SVG or HTML.
@@ -113,7 +116,8 @@ STRICT SOURCE RULES:
 
 Return JSON only with this shape:
 {
- "status":"OK",
+ "status":"OK" | "OUT_OF_SCOPE" | "INSUFFICIENT_SOURCE",
+ "message":"required when status is not OK",
  "lesson":{
   "schemaVersion":1,"title":"...","classLevel":${body.classLevel},"subject":"Science","requestedDurationMinutes":${body.durationMinutes},
   "prerequisites":["..."],"learningObjectives":["..."],
@@ -122,9 +126,9 @@ Return JSON only with this shape:
    "hook":{"teacherScript":"...","keyPoints":["..."],"sourcePages":[1]},
    "define":{"teacherScript":"...","keyPoints":["..."],"boardWork":["..."],"sourcePages":[1]},
    "explain":{"teacherScript":"...","keyPoints":["..."],"boardWork":["..."],"sourcePages":[1]},
-   "visualize":{"teacherInstructions":"...","boardDrawingSteps":["..."],"whatStudentsShouldNotice":["..."],"diagramSpec":{"title":"short diagram title","layout":"scene or comparison or process or cycle","panels":[{"title":"optional panel title","elements":[{"kind":"container or fluid or hull or rect or circle or line or arrow or wave or label","x":0,"y":0,"w":0,"h":0,"label":"short label or empty string","emphasis":"normal or accent or muted"}]}],"nodes":[{"id":"n1","label":"short node label","annotation":"short note","shape":"rect or pill or circle"}],"arrows":[{"from":"n1","to":"n2","label":"optional connector"}],"callouts":["0-4 short callouts"]},"sourcePages":[1]},
+   "visualize":{"teacherInstructions":"...","boardDrawingSteps":["..."],"whatStudentsShouldNotice":["..."],"safetyNote":"... when relevant","diagramSpec":{"title":"short diagram title","layout":"scene or comparison or process or cycle","panels":[{"title":"optional panel title","elements":[{"kind":"container or fluid or hull or rect or circle or line or arrow or wave or label","x":0,"y":0,"w":0,"h":0,"label":"short label or empty string","emphasis":"normal or accent or muted"}]}],"nodes":[{"id":"n1","label":"short node label","annotation":"short note","shape":"rect or pill or circle"}],"arrows":[{"from":"n1","to":"n2","label":"optional connector"}],"callouts":["0-4 short callouts"]},"sourcePages":[1]},
    "example":{"title":"...","explanation":"...","steps":["..."],"answer":"...","sourcePages":[1]},
-   "activity":{"title":"...","objective":"...","materials":["..."],"steps":["..."],"sourcePages":[1]},
+   "activity":{"title":"...","objective":"...","materials":["..."],"steps":["..."],"safetyNote":"... when relevant","sourcePages":[1]},
    "howToTeach":{"teacherCues":["..."],"misconceptions":[{"misconception":"...","correction":"..."}],"sourcePages":[1]},
    "practice":{"questions":[{"question":"...","expectedAnswer":"...","sourcePages":[1]}],"sourcePages":[1]},
    "checkUnderstanding":{"questions":[{"question":"...","expectedAnswer":"...","sourcePages":[1]}],"sourcePages":[1]},
@@ -155,6 +159,83 @@ function sanitizeSourcePages(value: unknown, allowed: Set<number>): unknown {
   return next
 }
 
+function mergeSafetyNote(existing: string | null, addition: string) {
+  if (!existing) return addition
+  if (existing.toLowerCase().includes(addition.toLowerCase())) return existing
+  return `${existing} ${addition}`
+}
+
+function safetyGuidance(text: string) {
+  const notes: string[] = []
+  const chemistry = /\b(hcl|h2so4|naoh|koh|cao|calcium oxide|quicklime|acid|alkali|base solution|phenolphthalein|zinc|hydrogen gas|chemical|reagent)\b/i.test(text)
+  const flame = /\b(flame|burning candle|burner|ignite|pop sound|hydrogen gas)\b/i.test(text)
+  const sharp = /\b(knife|blade|scalpel|cut(?:ting)? with)\b/i.test(text)
+  const hotGlass = /\b(hot glass|heated glass|boiling|test tube|glassware|beaker|flask|reaction vessel)\b/i.test(text)
+
+  if (chemistry) {
+    notes.push('Teacher supervision required. Use small/dilute quantities and eye protection; keep chemicals away from skin and eyes, follow the school spill/disposal procedure, and do not let students handle acids, alkalis or reagents unsupervised.')
+  }
+  if (flame) {
+    notes.push('Any flame or hydrogen test must be a teacher demonstration using only a very small gas quantity. Keep faces, hair and flammables away, wear eye protection, and extinguish the flame immediately after the observation.')
+  }
+  if (sharp) {
+    notes.push('Any knife or blade must be handled by the teacher only on a stable surface; students should observe rather than cut.')
+  }
+  if (hotGlass) {
+    notes.push('Check glassware for damage and keep hot or reactive glassware under teacher control until it is safe to handle.')
+  }
+
+  return notes.join(' ')
+}
+
+function makeTemperatureObservationSafe(text: string) {
+  const touchesVessel =
+    /\b(touch|feel)\b.*\b(beaker|flask|test tube|glassware|vessel)\b/i.test(text) ||
+    /\b(beaker|flask|test tube|glassware|vessel)\b.*\b(touch|feel)\b/i.test(text)
+  const temperatureContext =
+    /\b(temperature|warm|hot|heat|exothermic)\b/i.test(text)
+
+  if (!touchesVessel || !temperatureContext) return text
+
+  return 'Use a thermometer to observe the temperature change. If no thermometer is available, the teacher may verify warmth only after confirming the vessel is safe to handle; students should not touch reactive or recently heated glassware.'
+}
+
+function applySafetyGuardrails(lesson: JsonRecord) {
+  const fullLesson = asRecord(lesson.fullLesson)
+  if (!fullLesson) return lesson
+
+  const activity = asRecord(fullLesson.activity)
+  if (activity && Array.isArray(activity.steps)) {
+    activity.steps = activity.steps.map((item) =>
+      typeof item === 'string'
+        ? makeTemperatureObservationSafe(item)
+        : item,
+    )
+  }
+
+  const lessonWideSafety = safetyGuidance(JSON.stringify(fullLesson))
+  if (!lessonWideSafety) return lesson
+
+  for (const key of ['activity', 'visualize'] as const) {
+    const section = asRecord(fullLesson[key])
+    if (!section) continue
+    const sectionSafety = safetyGuidance(JSON.stringify(section)) || lessonWideSafety
+    section.safetyNote = mergeSafetyNote(asString(section.safetyNote), sectionSafety)
+  }
+
+  const howToTeach = asRecord(fullLesson.howToTeach)
+  if (howToTeach) {
+    const cues = Array.isArray(howToTeach.teacherCues)
+      ? howToTeach.teacherCues.filter((item): item is string => typeof item === 'string')
+      : []
+    if (!cues.some((item) => /safety|supervision|goggle|teacher.*only/i.test(item))) {
+      howToTeach.teacherCues = [...cues, `Safety: ${lessonWideSafety}`]
+    }
+  }
+
+  return lesson
+}
+
 function generationFailure(error: unknown) {
   const raw = String(error instanceof Error ? error.message : error).replace(/^Error:\s*/, '')
   if (/GEMINI_(408|429|500|502|503|504)|EMBED_(408|429|500|502|503|504)|AbortError|fetch/i.test(raw)) {
@@ -177,6 +258,22 @@ Deno.serve(async (req) => {
     if (!body) return json({ ok: false, message: 'Invalid lesson-generation request.' }, 400)
 
     const document = await loadDocument(user.id, body.documentId)
+    const totalPages = asNumber(document.total_pages)
+    if (
+      body.pageStart !== null &&
+      body.pageEnd !== null &&
+      totalPages !== null &&
+      (body.pageStart > totalPages || body.pageEnd > totalPages)
+    ) {
+      return json(
+        {
+          ok: false,
+          message: `This PDF has ${totalPages} pages. Choose a page range between 1 and ${totalPages}.`,
+        },
+        400,
+      )
+    }
+
     const chunks = await retrieve(body, user.auth)
     if (chunks.length === 0) return json({ ok: false, message: 'No source context was available for a complete lesson. Try selecting the chapter page range.' }, 422)
 
@@ -188,14 +285,19 @@ Deno.serve(async (req) => {
     const context = chunks.map((chunk, index) => `[SOURCE ${index + 1} | pages ${chunk.page_start}-${chunk.page_end}]\n${chunk.content}`).join('\n\n').slice(0, 60000)
 
     const generated = await geminiJsonFallback([{ text: generationPrompt(body, asString(document.file_name) ?? 'Uploaded textbook', context, allowedPages) }], ['gemini-3.7-flash','gemini-3.6-flash','gemini-3.5-flash','gemini-3.5-flash-lite'])
+    if (asString(generated.value.status) === 'OUT_OF_SCOPE') {
+      return json({ ok: false, message: asString(generated.value.message) ?? 'ChalkBox Textbook Mode currently supports Class 8-10 Science textbooks only.' }, 422)
+    }
     if (asString(generated.value.status) === 'INSUFFICIENT_SOURCE') {
       return json({ ok: false, message: asString(generated.value.message) ?? 'The retrieved pages do not support this lesson request.' }, 422)
     }
     const lesson = asRecord(generated.value.lesson)
     if (!lesson) throw new Error('Generator returned an invalid lesson structure.')
 
-    const sanitizedLesson = sanitizeSourcePages(lesson, new Set(allowedPages)) as JsonRecord
-    const auditPrompt = `Audit this Class ${body.classLevel} Science lesson ONLY against the supplied source context. Return JSON {"pass":true,"scienceAccuracy":0-10,"sourceFaithfulness":0-10,"ageAppropriateness":0-10,"classroomFeasibility":0-10,"issues":["..."]}. Fail if it invents source claims/pages, materially contradicts the source, uses unsafe activities, or is not teacher-ready.\nSOURCE:\n${context}\nLESSON:\n${JSON.stringify(sanitizedLesson)}`
+    const sanitizedLesson = applySafetyGuardrails(
+      sanitizeSourcePages(lesson, new Set(allowedPages)) as JsonRecord,
+    )
+    const auditPrompt = `Audit this Class ${body.classLevel} Science lesson ONLY against the supplied source context. Return JSON {"pass":true,"scienceAccuracy":0-10,"sourceFaithfulness":0-10,"ageAppropriateness":0-10,"classroomFeasibility":0-10,"issues":["..."]}. Fail if the source is primarily a non-Science subject, if the lesson invents source claims/pages, strengthens a source statement beyond its qualifiers or scope, materially contradicts the source, omits applicable source cautions, gives chemical/flame/sharp-object guidance without explicit teacher supervision and suitable precautions, asks students to touch/feel a reaction vessel to judge temperature instead of using a thermometer or safe teacher-only observation, or is not teacher-ready.\nSOURCE:\n${context}\nLESSON:\n${JSON.stringify(sanitizedLesson)}`
     const auditResult = await geminiJsonFallback([{ text: auditPrompt }], ['gemini-3.5-flash-lite','gemini-3.5-flash','gemini-3.6-flash','gemini-3.7-flash'])
     const audit = auditResult.value
     if (audit.pass !== true) return json({ ok: false, message: 'Independent source/science audit rejected this lesson.', issues: Array.isArray(audit.issues) ? audit.issues : [] }, 422)

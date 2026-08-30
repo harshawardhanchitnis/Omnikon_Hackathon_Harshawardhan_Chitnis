@@ -415,6 +415,13 @@ Audit strictly for:
 5. safety — no unsafe school experiment guidance and any meaningful precautions are stated.
 
 Also fail if the lesson invents textbook provenance, page citations or claims to be source verified.
+Also fail a lesson that:
+- treats a clearly Mathematics, History/Social Science, English/language/literature or other non-Science request as a Science lesson instead of rejecting it as out of scope;
+- says the standard coating cleaned from magnesium ribbon is magnesium carbonate rather than magnesium oxide (unless the teacher explicitly supplied a source/context requiring otherwise);
+- turns the school-level trend about metal/non-metal oxides into an absolute rule that all metal oxides are basic or all non-metal oxides are acidic;
+- describes Mg(OH)2 formed from MgO + H2O as a freely soluble clear solution instead of recognizing its limited solubility while preserving the alkaline litmus conclusion;
+- claims that most metal oxides react with water to form basic solutions, instead of distinguishing the broader basic/amphoteric trend from the smaller set of metal oxides that react readily with water;
+- describes Rutherford's gold foil as only a few atoms thick, or says undeflected alpha particles encountered literally zero matter/zero force rather than using the age-appropriate conclusion that atoms are mostly empty space and nuclear charge/mass is concentrated in a tiny nucleus.
 Do not rewrite or repair the lesson. Return JSON only:
 {
   "pass": true,

@@ -19,7 +19,6 @@ import {
 } from 'react-router-dom'
 
 import { Button } from '@/components/ui/button'
-import { prepareHindiTranslator } from '@/lib/lessonLanguage'
 import {
   getLessonsForClass,
   getTextbookLesson,
@@ -92,22 +91,6 @@ function TextbookModePage() {
       language === 'Hindi'
         ? 'hindi'
         : 'english'
-
-    if (openingLanguage === 'hindi') {
-      try {
-        // Translator.create() needs to originate from a user action. Preparing
-        // it before navigation prevents the workspace from sitting on English
-        // content with a perpetual "Hindi is being prepared" state.
-        await prepareHindiTranslator()
-      } catch (caught) {
-        window.alert(
-          caught instanceof Error
-            ? caught.message
-            : 'Hindi translation could not be initialized. Use current Chrome desktop or choose English.',
-        )
-        return
-      }
-    }
 
     const query =
       new URLSearchParams({
@@ -634,7 +617,7 @@ function TextbookModePage() {
                       <strong>{selectedLesson.title}</strong> and build a{' '}
                       <strong>{duration}</strong> lesson optimized for a{' '}
                       <strong>
-                        {resourceLevel.toLowerCase()}
+                        {resourceLevel.toLowerCase().replace(/ classroom$/, '')}
                       </strong>{' '}
                       classroom.
                     </p>

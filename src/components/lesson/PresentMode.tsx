@@ -103,6 +103,15 @@ function formatTime(seconds: number) {
   return `${String(minutes).padStart(2, '0')}:${String(remaining).padStart(2, '0')}`
 }
 
+function localizedTimeLabel(
+  value: string,
+  language: LessonLanguage,
+) {
+  return language === 'hindi'
+    ? value.replace(/\bmin\b/gi, 'मिनट')
+    : value
+}
+
 function PresentMode({
   lesson,
   lessonKey,
@@ -165,21 +174,17 @@ function PresentMode({
       })
 
       if (formulas.length > 0) {
-        const insertAt = Math.min(
-          2,
-          teachingSlides.length,
-        )
-        teachingSlides.splice(insertAt, 0, {
-          key: 'formulas',
-          label: 'Key Formulas',
-          timeLabel: '',
-          primaryText: '',
-          bullets: [],
-          question: null,
-          answer: null,
-          visual: false,
-          formulas,
-        })
+        // Formula cards support the Define stage; they are not a ninth
+        // classroom stage. Keeping them on the canonical Define slide makes
+        // Full Lesson, Start Class and Present agree on the same 8-step flow.
+        const formulaSlide =
+          teachingSlides.find(
+            (item) => item.key === 'define',
+          ) ?? teachingSlides[0]
+
+        if (formulaSlide) {
+          formulaSlide.formulas = formulas
+        }
       }
 
       return teachingSlides
@@ -462,7 +467,7 @@ function PresentMode({
                 {isHindi ? 'चरण' : 'Step'} {safeIndex + 1}{' '}
                 {isHindi ? '/' : 'of'} {slides.length}
                 {slide.timeLabel
-                  ? ` · ${slide.timeLabel}`
+                  ? ` · ${localizedTimeLabel(slide.timeLabel, language)}`
                   : ''}
               </p>
               <h1 className="mt-2 text-3xl font-extrabold tracking-[-0.04em] text-[#fffdf5] sm:text-4xl lg:text-5xl">

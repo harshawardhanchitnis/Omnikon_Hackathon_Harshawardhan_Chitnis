@@ -1,5 +1,5 @@
 import { ArrowLeft, BookOpen, Clock3, LoaderCircle, ShieldCheck } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 
 import ProductShell from '@/components/product/ProductShell'
@@ -8,7 +8,6 @@ import {
   getSourceDocument,
   type SourceDocument,
 } from '@/lib/productCloud'
-import { prepareHindiTranslator } from '@/lib/lessonLanguage'
 
 type GenerationResponse = { ok: true; planId: string } | { ok: false; message: string }
 type PrivateResourceLevel = 'low' | 'well'
@@ -27,29 +26,42 @@ export default function PrivateTextbookGeneratePage() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
+  const pageCount = document?.total_pages ?? null
+  const pageRangeError = useMemo(() => {
+    const hasStart = pageStart.trim().length > 0
+    const hasEnd = pageEnd.trim().length > 0
+    if (!hasStart && !hasEnd) return null
+    if (hasStart !== hasEnd) {
+      return 'Enter both start and end page, or leave both blank for a complete lesson.'
+    }
+
+    const start = Number(pageStart)
+    const end = Number(pageEnd)
+    if (!Number.isInteger(start) || !Number.isInteger(end) || start < 1 || end < 1) {
+      return 'Page numbers must be whole numbers starting from 1.'
+    }
+    if (start > end) return 'Start page cannot be greater than end page.'
+    if (pageCount && (start > pageCount || end > pageCount)) {
+      return `This PDF has ${pageCount} pages. Choose pages between 1 and ${pageCount}.`
+    }
+    return null
+  }, [pageCount, pageEnd, pageStart])
+
   useEffect(() => {
     getSourceDocument(documentId).then(setDocument).catch((caught) => setError(caught instanceof Error ? caught.message : 'Could not load textbook.'))
   }, [documentId])
 
   async function generate(event: React.FormEvent) {
     event.preventDefault()
+    if (pageRangeError) {
+      setError(pageRangeError)
+      return
+    }
+
     setLoading(true)
     setError(null)
 
     try {
-      const hasPageStart = pageStart.trim().length > 0
-      const hasPageEnd = pageEnd.trim().length > 0
-      if (hasPageStart !== hasPageEnd) {
-        throw new Error('Enter both start and end page, or leave both blank for a complete lesson.')
-      }
-      if (hasPageStart && Number(pageEnd) < Number(pageStart)) {
-        throw new Error('End page must be the same as or after start page.')
-      }
-
-      if (language === 'hindi') {
-        await prepareHindiTranslator()
-      }
-
       const response = await callProductFunction<GenerationResponse>('generate-private-textbook-lesson', {
         documentId,
         // Backward-compatible internal request: the UI is full-lesson-only, but
@@ -123,14 +135,17 @@ export default function PrivateTextbookGeneratePage() {
               <p className="text-xs font-extrabold">Optional page range</p>
               <p className="mt-1 text-[10px] font-medium leading-5 text-[#748078]">Leave blank to generate a complete lesson from the retrieved chapter/document context. For a full textbook, select the chapter pages you want taught as one complete lesson.</p>
               <div className="mt-2 grid grid-cols-2 gap-3">
-                <input type="number" min={1} value={pageStart} onChange={(event) => setPageStart(event.target.value)} placeholder="Start page" className="h-11 rounded-xl border border-[#d6dfd4] bg-white px-3 text-sm" />
-                <input type="number" min={1} value={pageEnd} onChange={(event) => setPageEnd(event.target.value)} placeholder="End page" className="h-11 rounded-xl border border-[#d6dfd4] bg-white px-3 text-sm" />
+                <label htmlFor="private-page-start" className="sr-only">Start page</label>
+                <input id="private-page-start" aria-label="Start page" type="number" min={1} max={pageCount ?? undefined} value={pageStart} onChange={(event) => { setPageStart(event.target.value); setError(null) }} placeholder="Start page" className="h-11 rounded-xl border border-[#d6dfd4] bg-white px-3 text-sm" />
+                <label htmlFor="private-page-end" className="sr-only">End page</label>
+                <input id="private-page-end" aria-label="End page" type="number" min={1} max={pageCount ?? undefined} value={pageEnd} onChange={(event) => { setPageEnd(event.target.value); setError(null) }} placeholder="End page" className="h-11 rounded-xl border border-[#d6dfd4] bg-white px-3 text-sm" />
               </div>
+              {pageRangeError && <p className="mt-2 text-[10px] font-bold text-[#9a3d34]" role="alert">{pageRangeError}</p>}
             </div>
 
             <div className="flex gap-2 rounded-xl border border-[#cfe0cc] bg-[#edf5e9] px-4 py-3 text-[11px] font-semibold leading-5 text-[#52665a]"><ShieldCheck className="mt-0.5 size-4 shrink-0 text-[#176b43]" />Source citations are constrained to pages retrieved from your uploaded document. The generator is not allowed to invent textbook provenance.</div>
             {error && <div className="rounded-xl border border-[#e7b5ae] bg-[#fff3f0] px-4 py-3 text-xs font-semibold text-[#8c3027]">{error}</div>}
-            <button disabled={loading || document?.status !== 'ready'} className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-[#0f5132] text-sm font-extrabold text-white disabled:opacity-55">{loading && <LoaderCircle className="size-4 animate-spin" />}{loading ? 'Generating & auditing full lesson...' : 'Generate full source-grounded lesson'}</button>
+            <button disabled={loading || document?.status !== 'ready' || Boolean(pageRangeError)} className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-[#0f5132] text-sm font-extrabold text-white disabled:opacity-55">{loading && <LoaderCircle className="size-4 animate-spin" />}{loading ? 'Generating & auditing full lesson...' : 'Generate full source-grounded lesson'}</button>
           </form>
         </div>
       </section>

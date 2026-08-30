@@ -23,11 +23,13 @@ import {
 import type { ReactNode } from 'react'
 import {
   Link,
+  Navigate,
   useNavigate,
   useSearchParams,
 } from 'react-router-dom'
 
 import ProductShell from '@/components/product/ProductShell'
+import { useProductSession } from '@/hooks/useProductSession'
 import { Button } from '@/components/ui/button'
 import { upsertCloudPlan } from '@/lib/productCloud'
 import {
@@ -44,7 +46,6 @@ import {
 import type {
   LessonLanguage,
 } from '@/lib/lessonExperience'
-import { prepareHindiTranslator } from '@/lib/lessonLanguage'
 import type {
   ResourceLevel,
 } from '@/lib/lessonPresentation'
@@ -93,6 +94,7 @@ function TopicModePage() {
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
   const productMode = searchParams.get('product') === '1'
+  const { session, loading: sessionLoading } = useProductSession()
   const draft = useMemo(
     () => productMode ? null : loadTopicDraft(),
     [productMode],
@@ -213,12 +215,6 @@ function TopicModePage() {
     setError(null)
 
     try {
-      if (language === 'hindi') {
-        // Start Chrome's local Hindi model from the same user gesture that
-        // starts generation so the resulting lesson can translate immediately.
-        await prepareHindiTranslator()
-      }
-
       const bundle =
         await generateTopicLesson({
           classLevel,
@@ -302,6 +298,18 @@ function TopicModePage() {
   function clearHistory() {
     clearTopicLessonHistory()
     setHistory([])
+  }
+
+  if (productMode && sessionLoading) {
+    return (
+      <main className="grid min-h-screen place-items-center bg-[#f7f7f1] text-[#365044]">
+        <p className="text-sm font-bold">Opening your ChalkBox workspace...</p>
+      </main>
+    )
+  }
+
+  if (productMode && !session) {
+    return <Navigate to="/login" replace state={{ from: '/topic?product=1' }} />
   }
 
   return (

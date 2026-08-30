@@ -66,8 +66,10 @@ function LessonWorkspacePage() {
     lessonKey = '',
   } = useParams()
 
-  const [searchParams] =
-    useSearchParams()
+  const [
+    searchParams,
+    setSearchParams,
+  ] = useSearchParams()
 
   const artifact =
     getJudgeLessonArtifact(
@@ -91,12 +93,17 @@ function LessonWorkspacePage() {
     useState(false)
 
   useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'auto' })
+  }, [lessonKey])
+
+  useEffect(() => {
     if (artifact && lessonKey) {
       recordTextbookLessonVisit(
         lessonKey,
+        searchParams.toString(),
       )
     }
-  }, [artifact, lessonKey])
+  }, [artifact, lessonKey, searchParams])
 
   const [
     mode,
@@ -242,6 +249,19 @@ function LessonWorkspacePage() {
   ) {
     setLanguage(
       nextLanguage,
+    )
+
+    const nextParams =
+      new URLSearchParams(
+        searchParams,
+      )
+    nextParams.set(
+      'language',
+      nextLanguage,
+    )
+    setSearchParams(
+      nextParams,
+      { replace: true },
     )
   }
 

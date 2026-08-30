@@ -700,6 +700,13 @@ function topicStageError(
         )
       : []
 
+  const code = asString(record?.code)
+  if (code === 'SCIENCE_AUDIT_FAILED') {
+    return new Error(
+      'ChalkBox could not approve that draft for classroom use. Your request and settings are preserved; please retry.',
+    )
+  }
+
   return new Error(
     details.length > 0
       ? `${message}\n${details.join('\n')}`
@@ -977,22 +984,72 @@ export async function generateTopicLesson(
   }
 
   // Run the independent Science audit in a separate Edge Function so the
-  // generation and audit do not compete for one hosted worker budget.
-  const auditStage =
-    await postTopicStage(
+  // generation and audit do not compete for one hosted worker budget. If a
+  // scientifically plausible draft fails the audit, automatically regenerate
+  // once using the audit issues as repair constraints, then audit the repaired
+  // draft on a fresh worker. The teacher never sees internal audit reasoning.
+  async function auditDraft(candidate: TopicGenerationDraft) {
+    return postTopicStage(
       auditEndpoint,
       headers,
       {
         request,
-        lesson: draft.lesson,
-        formulaCards:
-          draft.formulaCards,
-        generationModel:
-          draft.generationModel,
-        generationAttempts:
-          draft.generationAttempts,
+        lesson: candidate.lesson,
+        formulaCards: candidate.formulaCards,
+        generationModel: candidate.generationModel,
+        generationAttempts: candidate.generationAttempts,
       },
     )
+  }
+
+  let auditStage = await auditDraft(draft)
+
+  if (
+    !auditStage.response.ok &&
+    auditStage.response.status === 422 &&
+    asString(auditStage.record?.code) === 'SCIENCE_AUDIT_FAILED'
+  ) {
+    const auditIssues = Array.isArray(auditStage.record?.details)
+      ? auditStage.record.details.filter(
+          (item): item is string => typeof item === 'string',
+        ).slice(0, 8)
+      : []
+
+    const repairErrors = [
+      'The independent Science check rejected the previous draft. Correct every issue below while preserving the teacher request and selected resource level.',
+      ...auditIssues,
+      'Make every demonstration safe for a school classroom. Prefer a safer alternative if the original demonstration cannot be made safe.',
+    ]
+
+    let repairedDraft: TopicGenerationDraft | null = null
+
+    for (const generationModel of topicGenerationModels) {
+      try {
+        const repairStage = await postTopicStage(
+          endpoint,
+          headers,
+          {
+            ...request,
+            deferAudit: true,
+            generationModel,
+            repairErrors,
+          },
+          false,
+        )
+
+        if (!repairStage.response.ok) continue
+        repairedDraft = parseGenerationDraft(repairStage.record)
+        if (repairedDraft) break
+      } catch {
+        // Try the next model on a fresh worker.
+      }
+    }
+
+    if (repairedDraft) {
+      draft = repairedDraft
+      auditStage = await auditDraft(repairedDraft)
+    }
+  }
 
   if (!auditStage.response.ok) {
     throw topicStageError(

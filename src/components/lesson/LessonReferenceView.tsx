@@ -60,6 +60,7 @@ type Props = {
   onToggleComplete: (
     key: string,
   ) => void
+  expandAllByDefault?: boolean
 }
 
 const hindiSectionLabels:
@@ -134,6 +135,24 @@ function getSectionLabel(
     ] ??
     titleCase(key)
   )
+}
+
+function localizedMetaTag(
+  value: string,
+  language: LessonLanguage,
+) {
+  if (language !== 'hindi') return titleCase(value)
+
+  const normalized = value.trim().toLowerCase().replaceAll('_', ' ')
+  const labels: Record<string, string> = {
+    essential: 'आवश्यक',
+    mixed: 'मिश्रित',
+    'source grounded': 'स्रोत-आधारित',
+    generated: 'एआई-निर्मित',
+    teacher: 'शिक्षक',
+  }
+
+  return labels[normalized] ?? titleCase(value)
 }
 
 function SourcePages({
@@ -452,6 +471,7 @@ function SectionCard(props: {
   language: LessonLanguage
   completed: boolean
   onToggleComplete: () => void
+  expandAllByDefault?: boolean
 }) {
   if (Array.isArray(props.value)) {
     const items = asStringArray(props.value)
@@ -483,6 +503,7 @@ function SectionCard(props: {
       language={props.language}
       completed={props.completed}
       onToggleComplete={props.onToggleComplete}
+      expandAllByDefault={props.expandAllByDefault}
     />
   )
 }
@@ -496,6 +517,7 @@ function RecordSectionCard({
   language,
   completed,
   onToggleComplete,
+  expandAllByDefault = false,
 }: {
   sectionKey: string
   section: JsonRecord
@@ -505,14 +527,16 @@ function RecordSectionCard({
   language: LessonLanguage
   completed: boolean
   onToggleComplete: () => void
+  expandAllByDefault?: boolean
 }) {
   const [
     expanded,
     setExpanded,
   ] =
     useState(
-      sectionKey ===
-        'boardPlan' ||
+      expandAllByDefault ||
+        sectionKey ===
+          'boardPlan' ||
         sectionKey ===
           'hook' ||
         sectionKey ===
@@ -568,6 +592,11 @@ function RecordSectionCard({
       section.objective,
     ) ?? ''
 
+  const sectionTitle =
+    asString(
+      section.title,
+    ) ?? ''
+
   const text =
     asString(
       section.text,
@@ -598,9 +627,10 @@ function RecordSectionCard({
 
   const materials =
     asStringArray(
-      section
-        .materials,
-    )
+      section.materials,
+    ).length > 0
+      ? asStringArray(section.materials)
+      : asStringArray(section.items)
 
   const steps =
     asStringArray(
@@ -620,10 +650,9 @@ function RecordSectionCard({
     )
 
   const teacherMoves =
-    asStringArray(
-      section
-        .teacherMoves,
-    )
+    asStringArray(section.teacherMoves).length > 0
+      ? asStringArray(section.teacherMoves)
+      : asStringArray(section.teacherCues)
 
   const questionsToAsk =
     asStringArray(
@@ -673,6 +702,7 @@ function RecordSectionCard({
           instructions,
           explanation,
           objective,
+          sectionTitle,
           text,
           safety,
           ...boardWork,
@@ -725,6 +755,10 @@ function RecordSectionCard({
   const tObjective =
     translated[cursor++] ??
     objective
+
+  const tSectionTitle =
+    translated[cursor++] ??
+    sectionTitle
 
   const tText =
     translated[cursor++] ??
@@ -874,15 +908,13 @@ function RecordSectionCard({
 
             {priority && (
               <span className="rounded-full bg-[#edf5e9] px-2 py-1 text-[8px] font-extrabold text-[#176b43]">
-                {priority}
+                {localizedMetaTag(priority, language)}
               </span>
             )}
 
             {origin && (
               <span className="rounded-full border border-[#dce4da] px-2 py-1 text-[8px] font-extrabold text-[#718077]">
-                {titleCase(
-                  origin,
-                )}
+                {localizedMetaTag(origin, language)}
               </span>
             )}
 
@@ -995,6 +1027,12 @@ function RecordSectionCard({
           {tInstructions && (
             <p className="mt-5 rounded-xl bg-[#f5f8f2] p-4 text-[12px] font-medium leading-6">
               {tInstructions}
+            </p>
+          )}
+
+          {tSectionTitle && (
+            <p className="mt-5 text-[12px] font-extrabold leading-6 text-[#263229]">
+              {tSectionTitle}
             </p>
           )}
 
@@ -1224,6 +1262,7 @@ function LessonReferenceView({
   formulas: providedFormulas,
   completedSections,
   onToggleComplete,
+  expandAllByDefault = false,
 }: Props) {
   const formulas =
     providedFormulas ??
@@ -1402,7 +1441,7 @@ function LessonReferenceView({
             <span className="inline-flex items-center gap-1.5 rounded-xl bg-[#edf5e9] px-3 py-2 text-[9px] font-extrabold text-[#176b43]">
               <Clock3 className="size-3.5" />
 
-              {durationMinutes} min
+              {durationMinutes} {language === 'hindi' ? 'मिनट' : 'min'}
             </span>
           </div>
 
@@ -1584,6 +1623,7 @@ function LessonReferenceView({
                   key,
                 )
               }
+              expandAllByDefault={expandAllByDefault}
             />
           ),
         )}

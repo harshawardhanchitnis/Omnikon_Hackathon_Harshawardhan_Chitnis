@@ -25,6 +25,7 @@ export type LessonLibraryItem = {
 type TextbookVisit = {
   lessonKey: string
   visitedAt: string
+  query?: string
 }
 
 const textbookRecentKey =
@@ -63,11 +64,13 @@ function loadTextbookVisits(): TextbookVisit[] {
 
 export function recordTextbookLessonVisit(
   lessonKey: string,
+  query = '',
 ) {
   const next: TextbookVisit[] = [
     {
       lessonKey,
       visitedAt: new Date().toISOString(),
+      query,
     },
     ...loadTextbookVisits().filter(
       (item) => item.lessonKey !== lessonKey,
@@ -80,12 +83,23 @@ export function recordTextbookLessonVisit(
   )
 }
 
-function getTextbookVisitTime(lessonKey: string) {
+function getTextbookVisit(lessonKey: string) {
   return (
     loadTextbookVisits().find(
       (item) => item.lessonKey === lessonKey,
-    )?.visitedAt ?? null
+    ) ?? null
   )
+}
+
+function getTextbookVisitTime(lessonKey: string) {
+  return getTextbookVisit(lessonKey)?.visitedAt ?? null
+}
+
+function getTextbookHref(lessonKey: string) {
+  const query = getTextbookVisit(lessonKey)?.query?.trim()
+  return query
+    ? `/lesson/${lessonKey}?${query}`
+    : `/lesson/${lessonKey}`
 }
 
 function topicTitle(bundle: TopicLessonBundle) {
@@ -106,7 +120,7 @@ export function getLessonLibraryItems(): LessonLibraryItem[] {
       subject: lesson.subject,
       meta: `Class ${lesson.classLevel} · ${lesson.subject}`,
       updatedAt: getTextbookVisitTime(lesson.key),
-      href: `/lesson/${lesson.key}`,
+      href: getTextbookHref(lesson.key),
       badge: 'Textbook verified',
       searchableText:
         `${lesson.title} class ${lesson.classLevel} ${lesson.subject} textbook verified`.toLowerCase(),

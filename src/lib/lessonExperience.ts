@@ -728,6 +728,17 @@ function createTeachStep(
             .boardDrawingSteps,
         ).slice(0, 4)
     }
+
+    const safetyNote =
+      asString(
+        section.safetyNote,
+      )
+
+    if (safetyNote) {
+      bullets.push(
+        `Safety: ${safetyNote}`,
+      )
+    }
   }
 
   if (
@@ -857,7 +868,7 @@ export function buildTeachSteps(
     [
       'hook',
       'Hook',
-      lesson.hook,
+      lesson.hook ?? fullLesson.hook,
     ],
     [
       'define',

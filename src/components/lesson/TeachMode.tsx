@@ -81,6 +81,15 @@ function formatTime(
   )}`
 }
 
+function localizedTimeLabel(
+  value: string,
+  language: LessonLanguage,
+) {
+  return language === 'hindi'
+    ? value.replace(/\bmin\b/gi, 'मिनट')
+    : value
+}
+
 function TeachMode({
   lesson,
   lessonKey,
@@ -435,9 +444,7 @@ function TeachMode({
                 </h2>
 
                 <span className="rounded-full bg-[#e5efe2] px-3 py-1.5 text-[9px] font-extrabold text-[#176b43]">
-                  {
-                    step.timeLabel
-                  }
+                  {localizedTimeLabel(step.timeLabel, language)}
                 </span>
               </div>
             </div>
@@ -502,9 +509,7 @@ function TeachMode({
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div>
                 <p className="text-[9px] font-extrabold uppercase tracking-[0.15em] text-[#208653]">
-                  {
-                    step.timeLabel
-                  }
+                  {localizedTimeLabel(step.timeLabel, language)}
                 </p>
 
                 <h1 className="mt-2 text-3xl font-extrabold tracking-[-0.04em] sm:text-4xl">

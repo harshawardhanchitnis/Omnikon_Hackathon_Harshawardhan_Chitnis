@@ -19,15 +19,19 @@ import {
 export default function MyTextbooksPage() {
   const inputRef = useRef<HTMLInputElement>(null)
   const [documents, setDocuments] = useState<SourceDocument[]>([])
+  const [loadingDocuments, setLoadingDocuments] = useState(true)
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [message, setMessage] = useState<string | null>(null)
 
   async function load() {
+    setLoadingDocuments(true)
     try {
       setDocuments(await listSourceDocuments())
     } catch (caught) {
       setError(caught instanceof Error ? caught.message : 'Could not load your textbooks.')
+    } finally {
+      setLoadingDocuments(false)
     }
   }
 
@@ -96,6 +100,18 @@ export default function MyTextbooksPage() {
   return (
     <ProductShell>
       <section className="mx-auto w-full max-w-[1260px] px-5 py-8 sm:px-8 lg:px-10">
+        <input
+          ref={inputRef}
+          type="file"
+          accept="application/pdf,.pdf"
+          className="hidden"
+          tabIndex={-1}
+          aria-hidden="true"
+          onChange={(event) => {
+            const file = event.target.files?.[0]
+            if (file) void upload(file)
+          }}
+        />
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p className="text-[10px] font-extrabold uppercase tracking-[0.15em] text-[#208653]">Private source library</p>
@@ -103,12 +119,16 @@ export default function MyTextbooksPage() {
             <p className="mt-2 max-w-[760px] text-sm font-medium leading-6 text-[#68746c]">Upload an unseen PDF. ChalkBox extracts readable pages locally, stores the original privately, builds your account-scoped vector index and uses only retrieved pages for grounded generation.</p>
           </div>
 
-          {documents.length > 0 && (
-            <label className={`inline-flex h-11 cursor-pointer items-center justify-center gap-2 rounded-xl bg-[#0f5132] px-5 text-xs font-extrabold text-white ${busy ? 'pointer-events-none opacity-60' : ''}`}>
+          {!loadingDocuments && documents.length > 0 && (
+            <button
+              type="button"
+              disabled={busy}
+              onClick={() => inputRef.current?.click()}
+              className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-[#0f5132] px-5 text-xs font-extrabold text-white disabled:cursor-not-allowed disabled:opacity-60"
+            >
               {busy ? <LoaderCircle className="size-4 animate-spin" /> : <Upload className="size-4" />}
               Upload another PDF
-              <input ref={inputRef} type="file" accept="application/pdf,.pdf" className="hidden" onChange={(event) => { const file = event.target.files?.[0]; if (file) void upload(file) }} />
-            </label>
+            </button>
           )}
         </div>
 
@@ -121,15 +141,28 @@ export default function MyTextbooksPage() {
           <button onClick={() => void load()} className="inline-flex items-center gap-2 text-xs font-extrabold text-[#176b43]"><RefreshCcw className="size-4" /> Refresh</button>
         </div>
 
-        {documents.length === 0 && (
+        {loadingDocuments && (
+          <div className="mt-5 flex min-h-[180px] items-center justify-center rounded-[28px] border border-[#dbe3d8] bg-[#fffef9]" role="status">
+            <div className="flex items-center gap-3 text-xs font-bold text-[#68746c]">
+              <LoaderCircle className="size-4 animate-spin text-[#176b43]" />
+              Loading your private textbooks…
+            </div>
+          </div>
+        )}
+
+        {!loadingDocuments && documents.length === 0 && (
           <div className="mt-5 rounded-[28px] border border-dashed border-[#cbd8c9] bg-[#fffef9] p-10 text-center">
             <BookOpen className="mx-auto size-8 text-[#176b43]" />
             <h2 className="mt-3 text-xl font-extrabold">Upload your textbook here</h2>
-            <label className={`mt-5 inline-flex h-11 cursor-pointer items-center justify-center gap-2 rounded-xl bg-[#0f5132] px-5 text-xs font-extrabold text-white ${busy ? 'pointer-events-none opacity-60' : ''}`}>
+            <button
+              type="button"
+              disabled={busy}
+              onClick={() => inputRef.current?.click()}
+              className="mt-5 inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-[#0f5132] px-5 text-xs font-extrabold text-white disabled:cursor-not-allowed disabled:opacity-60"
+            >
               {busy ? <LoaderCircle className="size-4 animate-spin" /> : <Upload className="size-4" />}
               Upload PDF
-              <input ref={inputRef} type="file" accept="application/pdf,.pdf" className="hidden" onChange={(event) => { const file = event.target.files?.[0]; if (file) void upload(file) }} />
-            </label>
+            </button>
           </div>
         )}
 

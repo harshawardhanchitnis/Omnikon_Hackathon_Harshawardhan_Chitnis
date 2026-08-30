@@ -329,6 +329,12 @@ Display language selected by teacher: ${request.language}. Generate canonical co
 
 QUALITY RULES
 - Science must be accurate and age-appropriate for Class ${request.classLevel}.
+- Mathematics, History/Social Science, English/language/literature and other non-Science teaching requests are OUT_OF_SCOPE even when they are educational.
+- For standard school magnesium-ribbon questions, the coating cleaned from the ribbon is magnesium oxide (MgO); do not call it magnesium carbonate unless the teacher explicitly supplies a source/context that says so.
+- Do not state that ALL metal oxides are basic or ALL non-metal oxides are acidic. Use careful wording such as most/many and avoid turning a classroom trend into a universal rule.
+- When MgO reacts with water, do not describe Mg(OH)2 as a freely soluble, clear solution; magnesium hydroxide is only sparingly soluble, while the resulting mixture is alkaline enough to turn red litmus blue.
+- Do not claim that most metal oxides react with water to form basic solutions. A safer school-level rule is that many metal oxides are basic, while only some sufficiently reactive metal oxides react readily with water to form hydroxides.
+- For Rutherford scattering, describe the gold foil as extremely thin; do not call it merely a few atoms thick. Explain that most alpha particles passed through with little or no deflection because atoms are mostly empty space, but do not claim they encountered literally zero matter or zero force.
 - The teachingGoal must directly answer the teacher's exact problem.
 - Give one compact board plan, one simple explanation, one visual/analogy, one example, and one feasible micro-activity or demonstration.
 - Identify the most likely misconception and give a teacher-ready correction.
@@ -454,6 +460,12 @@ ${requestModeGuidance(request)}
 
 QUALITY RULES
 - Science must be accurate and age-appropriate for Class ${request.classLevel}.
+- Mathematics, History/Social Science, English/language/literature and other non-Science teaching requests are OUT_OF_SCOPE even when they are educational.
+- For standard school magnesium-ribbon questions, the coating cleaned from the ribbon is magnesium oxide (MgO); do not call it magnesium carbonate unless the teacher explicitly supplies a source/context that says so.
+- Do not state that ALL metal oxides are basic or ALL non-metal oxides are acidic. Use careful wording such as most/many and avoid turning a classroom trend into a universal rule.
+- When MgO reacts with water, do not describe Mg(OH)2 as a freely soluble, clear solution; magnesium hydroxide is only sparingly soluble, while the resulting mixture is alkaline enough to turn red litmus blue.
+- Do not claim that most metal oxides react with water to form basic solutions. A safer school-level rule is that many metal oxides are basic, while only some sufficiently reactive metal oxides react readily with water to form hydroxides.
+- For Rutherford scattering, describe the gold foil as extremely thin; do not call it merely a few atoms thick. Explain that most alpha particles passed through with little or no deflection because atoms are mostly empty space, but do not claim they encountered literally zero matter or zero force.
 - Directly answer what the teacher asked; do not drift into generic textbook prose.
 - Teacher scripts should sound natural enough to say aloud.
 - Board work must be concise and useful.

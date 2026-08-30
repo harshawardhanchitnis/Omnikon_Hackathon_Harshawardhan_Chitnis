@@ -326,7 +326,10 @@ function LessonVisual({
   presentation = false,
   language = 'english',
 }: Props) {
-  if (sourceMode === 'topic' && lesson) {
+  if ((sourceMode === 'topic' || (sourceMode === 'textbook' && language === 'hindi')) && lesson) {
+    // Prepared English lessons keep their bespoke verified diagrams. Hindi uses
+    // the same lesson's structured/drawing guidance through the translated
+    // board renderer so static English SVG labels never leak into Hindi mode.
     return <TopicLessonVisual lesson={lesson} presentation={presentation} language={language} />
   }
 

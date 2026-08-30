@@ -4,7 +4,7 @@ import {
 } from 'react'
 
 import {
-  translateToHindi,
+  translateTextsToHindi,
   type LessonLanguage,
 } from '@/lib/lessonLanguage'
 
@@ -15,122 +15,40 @@ type TranslationResult = {
 }
 
 export function useLessonTranslation(
-  sourceTexts:
-    string[],
-  language:
-    LessonLanguage,
+  sourceTexts: string[],
+  language: LessonLanguage,
 ): TranslationResult {
-  const serialized =
-    JSON.stringify(
-      sourceTexts,
-    )
+  const serialized = JSON.stringify(sourceTexts)
 
-  const [
-    result,
-    setResult,
-  ] =
-    useState<TranslationResult>(
-      {
-        texts:
-          sourceTexts,
-        translating:
-          false,
-        error: null,
-      },
-    )
+  const [result, setResult] = useState<TranslationResult>({
+    texts: sourceTexts,
+    translating: false,
+    error: null,
+  })
 
   useEffect(() => {
-    const texts =
-      JSON.parse(
-        serialized,
-      ) as string[]
+    const texts = JSON.parse(serialized) as string[]
 
-    if (
-      language ===
-      'english'
-    ) {
-      setResult({
-        texts,
-        translating:
-          false,
-        error: null,
-      })
-
+    if (language === 'english') {
+      setResult({ texts, translating: false, error: null })
       return
     }
 
-    let cancelled =
-      false
-
-    setResult({
-      texts,
-      translating:
-        true,
-      error: null,
-    })
+    let cancelled = false
+    setResult({ texts, translating: true, error: null })
 
     async function run() {
       try {
-        const translated:
-          string[] = []
-
-        /*
-         * Chrome processes Translator
-         * requests sequentially anyway.
-         * Doing it explicitly keeps
-         * progress predictable.
-         */
-        for (
-          const text of
-          texts
-        ) {
-          if (
-            !text.trim()
-          ) {
-            translated.push(
-              text,
-            )
-
-            continue
-          }
-
-          translated.push(
-            await translateToHindi(
-              text,
-            ),
-          )
-        }
-
-        if (
-          cancelled
-        ) {
-          return
-        }
-
-        setResult({
-          texts:
-            translated,
-          translating:
-            false,
-          error: null,
-        })
-      } catch (
-        error:
-          unknown
-      ) {
-        if (
-          cancelled
-        ) {
-          return
-        }
-
+        const translated = await translateTextsToHindi(texts)
+        if (cancelled) return
+        setResult({ texts: translated, translating: false, error: null })
+      } catch (error: unknown) {
+        if (cancelled) return
         setResult({
           texts,
-          translating:
-            false,
+          translating: false,
           error:
-            error instanceof
-            Error
+            error instanceof Error
               ? error.message
               : 'Hindi translation failed.',
         })
@@ -138,14 +56,10 @@ export function useLessonTranslation(
     }
 
     void run()
-
     return () => {
       cancelled = true
     }
-  }, [
-    language,
-    serialized,
-  ])
+  }, [language, serialized])
 
   return result
 }

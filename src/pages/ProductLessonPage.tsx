@@ -45,6 +45,10 @@ export default function ProductLessonPage() {
 
   useEffect(() => { getCloudPlan(planId).then(setPlan).catch((caught) => setError(caught instanceof Error ? caught.message : 'Could not load lesson.')) }, [planId])
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'auto' })
+  }, [planId])
+
   const originalLesson = useMemo(() => asRecord(plan?.payload.lesson) ?? empty, [plan])
   const formulas = useMemo(() => arrayFormulas(plan?.payload.formulaCards), [plan])
   const request = useMemo(() => asRecord(plan?.payload.request) ?? {}, [plan])
@@ -125,7 +129,7 @@ export default function ProductLessonPage() {
 
       {focusedMode && <FocusedTeachingView lesson={lesson} lessonKey={lessonKey} language={language} />}
       {!focusedMode && mode === 'customize' && <div className="mx-auto max-w-[1100px] px-4 py-7 sm:px-6"><CustomizePlanPanel originalLesson={originalLesson} customizations={customizations} language={language} onSave={saveSection} onReset={resetSection} onResetAll={resetAll} onDone={() => setMode('full')} sourceMode={sourceMode} /></div>}
-      {!focusedMode && mode === 'full' && <LessonReferenceView lesson={lesson} lessonKey={lessonKey} language={language} durationMinutes={duration} resourceLevel={resourceLevel} sourceMode={sourceMode} formulas={formulas} completedSections={completedSections} onToggleComplete={toggleCompleted} />}
+      {!focusedMode && mode === 'full' && <LessonReferenceView lesson={lesson} lessonKey={lessonKey} language={language} durationMinutes={duration} resourceLevel={resourceLevel} sourceMode={sourceMode} formulas={formulas} completedSections={completedSections} onToggleComplete={toggleCompleted} expandAllByDefault={plan.source_mode === 'private_textbook'} />}
       {!focusedMode && mode === 'teach' && <TeachMode lesson={lesson} lessonKey={lessonKey} durationMinutes={duration} resourceLevel={resourceLevel} sourceMode={sourceMode} language={language} />}
       {!focusedMode && mode === 'quick' && <QuickTeachView lesson={lesson} resourceLevel={resourceLevel} sourceMode={sourceMode} language={language} />}
       {!focusedMode && mode === 'flashcards' && <div className="mx-auto max-w-[1100px] px-4 py-8 sm:px-6"><LessonFlashcards lesson={lesson} formulas={formulas} language={language} /></div>}

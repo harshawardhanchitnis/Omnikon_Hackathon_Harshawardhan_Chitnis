@@ -72,6 +72,24 @@ async function loadDocument(ownerId: string, documentId: string) {
   return rows[0]
 }
 
+async function loadStoredPages(ownerId: string, documentId: string): Promise<Page[]> {
+  const response = await adminRest(
+    `/rest/v1/source_pages?document_id=eq.${encodeURIComponent(documentId)}&owner_id=eq.${encodeURIComponent(ownerId)}&select=page_number,content,readability,extraction_method&order=page_number.asc`,
+  )
+  if (!response.ok) return []
+  const rows = (await response.json().catch(() => [])) as unknown[]
+  return rows
+    .map((value) => asRecord(value))
+    .filter((value): value is JsonRecord => Boolean(value))
+    .map((value) => ({
+      pageNumber: asNumber(value.page_number) ?? 0,
+      text: clean(asString(value.content) ?? ''),
+      readability: asNumber(value.readability) ?? 0.8,
+      extractionMethod: asString(value.extraction_method) ?? 'stored_retry',
+    }))
+    .filter((page) => page.pageNumber > 0 && page.text.length >= 80)
+}
+
 async function mark(documentId: string, ownerId: string, body: JsonRecord) {
   await adminRest(
     `/rest/v1/source_documents?id=eq.${encodeURIComponent(documentId)}&owner_id=eq.${encodeURIComponent(ownerId)}`,
@@ -233,6 +251,11 @@ Deno.serve(async (req) => {
     let extractionMode = pages.length > 0 ? 'local_text_layer' : 'gemini_scanned_pdf'
     let scanModels: string[] = []
 
+    if (pages.length === 0 && body?.retryStoredPages === true) {
+      pages = await loadStoredPages(ownerId, documentId)
+      if (pages.length > 0) extractionMode = 'stored_text_retry'
+    }
+
     if (pages.length === 0 && body?.allowGeminiFallback === true) {
       const scanned = await extractScannedPdf(document, totalPages)
       pages = scanned.pages
@@ -240,6 +263,9 @@ Deno.serve(async (req) => {
     }
 
     if (pages.length === 0) {
+      if (body?.retryStoredPages === true) {
+        return json({ ok: false, message: 'No stored readable pages were available for automatic retry. Re-upload this PDF so ChalkBox can extract it again.' }, 422)
+      }
       throw new Error('ChalkBox could not extract reliable text from this PDF.')
     }
 

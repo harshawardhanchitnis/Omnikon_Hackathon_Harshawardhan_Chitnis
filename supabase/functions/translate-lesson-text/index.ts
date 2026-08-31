@@ -41,6 +41,14 @@ const hindiCleanupRules: Array<[RegExp, string]> = [
   [/उन्होंनेन्हों(?:\s*ने)?/g, 'उन्होंने'],
   [/ईंटईं/g, 'ईंट'],
   [/दा\s+गकर/g, 'दागकर'],
+  [/क्यों\?\s*क्यों\s+क्योंकि(?:क्यों)?/g, 'क्यों? क्योंकि'],
+  [/अल्\s*pha/gi, 'अल्फा'],
+  [/ना\s+भिक/g, 'नाभिक'],
+  [/स्थिरवैद्यु\s+त/g, 'स्थिरवैद्युत'],
+  [/इलेक्ट्रॉ\s+नों/g, 'इलेक्ट्रॉनों'],
+  [/इलेक्ट्रॉ\s+न/g, 'इलेक्ट्रॉन'],
+  [/शि\s+क्ष\s+ण/g, 'शिक्षण'],
+  [/थॉमस(?=\s+(?:मॉडल|के|का|की))/g, 'थॉमसन'],
 ]
 
 function cleanHindiTranslation(text: string) {
@@ -60,7 +68,7 @@ function hasKnownMalformedHindi(text: string) {
   // Keep this detector deliberately conservative. The previous grapheme-level
   // heuristic treated valid Hindi words that naturally repeat a matra/grapheme
   // as malformed and caused whole lesson sections to fail translation.
-  return /क्योंकिक्यों|चकाचौंधचौं|प्रकीर्णनर्ण|परमाणुओंणु|गेंदेंगेंदें|खींचेंखीं|खींचिखीं|पेंसिपें|नहीं!हीं|उन्होंनेन्हों|ईंटईं|दा\s+गकर/g.test(text)
+  return /क्योंकिक्यों|क्यों\?\s*क्यों|चकाचौंधचौं|प्रकीर्णनर्ण|परमाणुओंणु|गेंदेंगेंदें|खींचेंखीं|खींचिखीं|पेंसिपें|नहीं!हीं|उन्होंनेन्हों|ईंटईं|दा\s+गकर|अल्\s*pha|ना\s+भिक|स्थिरवैद्यु\s+त|इलेक्ट्रॉ\s+न|थॉमस(?=\s+(?:मॉडल|के|का|की))/gi.test(text)
 }
 
 function hasForeignScriptContamination(text: string) {
@@ -93,6 +101,59 @@ function readTranslations(value: unknown, expected: number) {
   return translations
 }
 
+function translationPrompt(texts: string[]) {
+  return `Translate each item in the JSON array from English into clear, natural Hindi suitable for an Indian Class 8-10 Science teacher. Return JSON only: {"translations":["..."]}.
+
+STRICT RULES:
+- Return exactly ${texts.length} translations in the same order.
+- Preserve scientific meaning and age-appropriate teaching language.
+- Preserve mathematical formulas, variable symbols, chemical formulae/equations, units, numbers, URLs and page numbers EXACTLY.
+- Hindi prose must use Devanagari. Never introduce Arabic/Persian-script letters into Hindi words.
+- Preserve scientist names correctly: J. J. Thomson / Thomson model must be जे. जे. थॉमसन / थॉमसन मॉडल, never थॉमस.
+- Proofread every item; do not duplicate words, syllables or fragments and do not insert spaces inside ordinary Hindi science words.
+- Do not add explanations or commentary.
+
+INPUT:
+${JSON.stringify(texts)}`
+}
+
+async function translateWithSalvage(texts: string[]) {
+  try {
+    const result = await geminiJsonFallback([{ text: translationPrompt(texts) }], models)
+    const exact = readTranslations(result.value.translations, texts.length)
+    if (exact) return exact
+  } catch {
+    // A large batch may fail even when smaller translations are healthy.
+  }
+
+  const output: string[] = []
+  for (let offset = 0; offset < texts.length; offset += 6) {
+    const chunk = texts.slice(offset, offset + 6)
+    try {
+      const chunkResult = await geminiJsonFallback([{ text: translationPrompt(chunk) }], models)
+      const translatedChunk = readTranslations(chunkResult.value.translations, chunk.length)
+      if (translatedChunk) {
+        output.push(...translatedChunk)
+        continue
+      }
+    } catch {
+      // Fall through to per-item salvage.
+    }
+
+    for (const source of chunk) {
+      try {
+        const itemResult = await geminiJsonFallback([{ text: translationPrompt([source]) }], models)
+        const translatedItem = readTranslations(itemResult.value.translations, 1)
+        output.push(translatedItem?.[0] ?? source)
+      } catch {
+        output.push(source)
+      }
+    }
+  }
+
+  return output
+}
+
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') return new Response('ok', { headers: corsHeaders })
   if (req.method !== 'POST') return json({ ok: false, message: 'POST required.' }, 405)
@@ -104,143 +165,35 @@ Deno.serve(async (req) => {
       return json({ ok: false, message: 'Invalid Hindi translation request.' }, 400)
     }
 
-    const prompt = `Translate each item in the JSON array from English into clear, natural Hindi suitable for an Indian Class 8-10 Science teacher. Return JSON only: {"translations":["..."]}.
-
-STRICT RULES:
-- Return exactly ${texts.length} translations in the same order.
-- Preserve scientific meaning and age-appropriate teaching language.
-- Preserve mathematical formulas, variable symbols, chemical formulae/equations, units, numbers, URLs and page numbers EXACTLY. Never transliterate variables such as F, m, a, V, I, R, HCl, NaOH, H2SO4, CO2, O2, mm, µm, N, J, W, V, A or Ω.
-- Translate instructional prose, diagram labels and classroom wording naturally; do not translate a short English teaching-stage label into an unrelated literal word.
-- Proofread every Hindi item before returning it. Do not duplicate words/syllables (for example क्योंकिक्यों), and do not insert spaces inside ordinary Hindi science words such as हाइड्रॉक्साइड, हाइड्रोजन, नाइट्रोजन or विद्युत.
-- Hindi prose must use Devanagari. Never introduce Arabic/Persian-script letters into Hindi words.
-- Do not add explanations or commentary.
-
-INPUT:
-${JSON.stringify(texts)}`
-
-    const result = await geminiJsonFallback([{ text: prompt }], models)
-    let translations = readTranslations(
-      result.value.translations,
-      texts.length,
-    )
-
-    if (!translations) {
-      return json({ ok: false, message: 'Hindi translation returned an incomplete result.' }, 502)
-    }
+    let translations = await translateWithSalvage(texts)
 
     if (translations.some(needsHindiProofread)) {
-      const proofreadPrompt = `Proofread the following Hindi translations for an Indian Class 8-10 Science teacher. Return JSON only: {"translations":["..."]}.
+      translations = translations.map(cleanHindiTranslation)
+      const badIndexes = translations
+        .map((item, index) => (needsHindiProofread(item) ? index : -1))
+        .filter((index) => index >= 0)
 
-STRICT RULES:
-- Return exactly ${texts.length} items in the same order.
-- Fix malformed or duplicated Devanagari words/syllables, accidental word fragments, spacing corruption, and any accidental Arabic/Persian-script characters inside Hindi prose.
-- Hindi prose must use Devanagari. If a mixed-script word appears, rewrite that word in correct natural Hindi.
-- Preserve the original scientific meaning. Do not add new facts or explanations.
-- Preserve mathematical formulas, variable symbols, chemical formulae/equations, units, numbers, URLs and page numbers EXACTLY.
-- Do not convert a scientifically cautious statement into a stronger or absolute claim.
-
-HINDI TO PROOFREAD:
-${JSON.stringify(translations)}`
-
-      const proofread = await geminiJsonFallback(
-        [{ text: proofreadPrompt }],
-        models,
-      )
-      translations = readTranslations(
-        proofread.value.translations,
-        texts.length,
-      )
-
-      if (
-        !translations ||
-        translations.some(needsHindiProofread)
-      ) {
-        const retryPrompt = `Translate the ORIGINAL English items again into clean, natural Hindi for an Indian Class 8-10 Science teacher. Return JSON only: {"translations":["..."]}.
-
-STRICT QUALITY GATE:
-- Return exactly ${texts.length} items in the same order.
-- Use Devanagari Hindi for Hindi prose. Do not use Arabic/Persian-script letters.
-- Do not duplicate syllables, graphemes or word fragments.
-- Preserve formulas, variables, chemical equations, units, numbers, URLs and page numbers EXACTLY.
-- Preserve scientific meaning and cautious wording. Do not add facts.
-
-ORIGINAL ENGLISH:
-${JSON.stringify(texts)}`
-
-        const retried = await geminiJsonFallback(
-          [{ text: retryPrompt }],
-          models,
-        )
-        translations = readTranslations(
-          retried.value.translations,
-          texts.length,
-        )
-
-        if (!translations) {
-          return json(
-            {
-              ok: false,
-              message:
-                'Hindi translation returned an incomplete result. Please retry.',
-            },
-            502,
+      for (const originalIndex of badIndexes) {
+        const source = texts[originalIndex]
+        try {
+          const repairedResult = await geminiJsonFallback(
+            [{ text: translationPrompt([source]) }],
+            models,
           )
-        }
+          const repaired = readTranslations(
+            repairedResult.value.translations,
+            1,
+          )?.[0]
 
-        // Never fail an entire lesson because one item in a large translation
-        // batch is malformed. Repair only the remaining bad items and preserve
-        // every translation that already passed the quality gate.
-        translations = translations.map(cleanHindiTranslation)
-        const badIndexes = translations
-          .map((item, index) => (needsHindiProofread(item) ? index : -1))
-          .filter((index) => index >= 0)
-
-        if (badIndexes.length > 0) {
-          const repairTexts = badIndexes.map((index) => texts[index])
-          const itemRepairPrompt = `Translate these ORIGINAL English items into clean, natural Hindi for an Indian Class 8-10 Science teacher. Return JSON only: {"translations":["..."]}.
-
-STRICT QUALITY GATE:
-- Return exactly ${badIndexes.length} items in the same order.
-- Hindi prose must use Devanagari only. Never use Arabic/Persian-script letters.
-- Do not duplicate syllables, word fragments or graphemes.
-- Preserve formulas, variables, chemical equations, units, numbers, URLs and page numbers EXACTLY.
-- Preserve scientific meaning and cautious wording. Do not add facts.
-
-ORIGINAL ENGLISH ITEMS:
-${JSON.stringify(repairTexts)}`
-
-          try {
-            const itemRepair = await geminiJsonFallback(
-              [{ text: itemRepairPrompt }],
-              models,
-            )
-            const repairedItems = readTranslations(
-              itemRepair.value.translations,
-              badIndexes.length,
-            )
-
-            if (repairedItems) {
-              badIndexes.forEach((originalIndex, repairIndex) => {
-                const repaired = cleanHindiTranslation(
-                  repairedItems[repairIndex] ?? '',
-                )
-                if (repaired.trim() && !needsHindiProofread(repaired)) {
-                  translations![originalIndex] = repaired
-                }
-              })
-            }
-          } catch {
-            // Keep the already-good items. Residual bad items are handled below.
+          if (repaired && !needsHindiProofread(repaired)) {
+            translations[originalIndex] = repaired
+            continue
           }
+        } catch {
+          // Fall back only this item; never collapse the entire lesson batch.
         }
 
-        // A single stubborn translation must never collapse Board Plan, Hook,
-        // Visualize and every other item that shared its batch. If an item still
-        // fails after targeted repair, fall back only that item to the canonical
-        // English source while the rest of the Hindi lesson remains usable.
-        translations = translations.map((item, index) =>
-          needsHindiProofread(item) ? texts[index] : item,
-        )
+        translations[originalIndex] = source
       }
     }
 

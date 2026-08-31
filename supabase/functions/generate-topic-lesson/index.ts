@@ -105,6 +105,73 @@ function asStringArray(
   )
 }
 
+function normalizeKnownScienceWordingText(
+  value: string,
+) {
+  const correctionContext =
+    /(?:do not|don't|incorrect|wrong|misconception|not true|avoid saying|should not)/i.test(
+      value,
+    )
+
+  if (correctionContext) {
+    return value
+  }
+
+  let normalized = value
+
+  normalized = normalized.replace(
+    /\b(?:many|most)\s+metal\s+oxides\s+(?:can\s+)?react\s+with\s+water(?:\s+to\s+form\s+(?:basic\s+solutions?|hydroxides?))?\.?/gi,
+    'Many metal oxides are basic, but only some sufficiently reactive metal oxides react readily with water to form hydroxides.',
+  )
+
+  normalized = normalized.replace(
+    /Mg\(OH\)2[^.]{0,120}reacts?\s+with\s+water[^.]*\.?/gi,
+    'Mg(OH)2 is sparingly soluble; the dissolved portion dissociates to provide OH- ions, making the mixture alkaline.',
+  )
+
+  return normalized
+}
+
+function normalizeKnownScienceWording(
+  value: unknown,
+  path: string[] = [],
+): unknown {
+  if (typeof value === 'string') {
+    if (path[path.length - 1] === 'misconception') {
+      return value
+    }
+
+    return normalizeKnownScienceWordingText(
+      value,
+    )
+  }
+
+  if (Array.isArray(value)) {
+    return value.map((item, index) =>
+      normalizeKnownScienceWording(
+        item,
+        [...path, String(index)],
+      ),
+    )
+  }
+
+  if (isRecord(value)) {
+    return Object.fromEntries(
+      Object.entries(value).map(
+        ([key, item]) => [
+          key,
+          normalizeKnownScienceWording(
+            item,
+            [...path, key],
+          ),
+        ],
+      ),
+    )
+  }
+
+  return value
+}
+
 function normalizeRequest(
   value: unknown,
 ): TopicRequest | null {
@@ -205,6 +272,34 @@ function normalizeRequest(
       language as LessonLanguage,
     classroomContext,
   }
+}
+
+function deterministicPreflight(request: TopicRequest) {
+  const value = request.teacherRequest.toLowerCase().replace(/\s+/g, ' ').trim()
+
+  const mathematics = /\b(quadratic|linear equation|polynomial|trigonometry|algebra|geometry|factorise|factorize)\b/.test(value)
+  const history = /\b(revolt of 1857|social science|mughal|maurya|independence movement|world war|civilization)\b/.test(value)
+  const english = /\b(active and passive voice|grammar|noun|pronoun|adjective|poem|literature|tense)\b/.test(value)
+
+  if (mathematics || history || english) {
+    return {
+      code: 'OUT_OF_SCOPE',
+      message: 'ChalkBox Topic Mode currently supports Class 8–10 Science teaching requests only.',
+    }
+  }
+
+  const homeContext = /\b(at home|home experiment|student.*home|project at home|drinking glass)\b/.test(value)
+  const procedural = /\b(step[- ]?by[- ]?step|how to make|make hydrogen|generate hydrogen|prepare hydrogen|heat it quickly|procedure)\b/.test(value)
+  const severeHazard = /\b(concentrated acid|strong acid|sulfuric acid|sulphuric acid|hydrochloric acid|open flame|stove flame|gas stove|mains electricity)\b/.test(value)
+
+  if (homeContext && procedural && severeHazard) {
+    return {
+      code: 'SAFETY_REFUSAL',
+      message: 'This request asks for an unsafe home experiment. ChalkBox will not provide operational instructions involving strong acids, open flames, unsafe heating or improvised glassware. Ask for a safe classroom demonstration of the Science concept instead.',
+    }
+  }
+
+  return null
 }
 
 function containsObviousPii(
@@ -333,6 +428,10 @@ QUALITY RULES
 - For standard school magnesium-ribbon questions, the coating cleaned from the ribbon is magnesium oxide (MgO); do not call it magnesium carbonate unless the teacher explicitly supplies a source/context that says so.
 - Do not state that ALL metal oxides are basic or ALL non-metal oxides are acidic. Use careful wording such as most/many and avoid turning a classroom trend into a universal rule.
 - When MgO reacts with water, do not describe Mg(OH)2 as a freely soluble, clear solution; magnesium hydroxide is only sparingly soluble, while the resulting mixture is alkaline enough to turn red litmus blue.
+- Describe Mg(OH)2 as sparingly dissolving/dissociating to provide OH- ions; do not say Mg(OH)2 chemically "reacts with water to form hydroxide ions".
+- Do not use chalk suspension as a model that reliably turns red litmus blue.
+- For floating/sinking, static floating equilibrium requires buoyant force Fu = weight W. Fu > W means upward acceleration until a new equilibrium; do not teach Fu >= W as the condition for a static float.
+- Avoid density analogies in which a crowd or medium "lets" an object pass because that falsely suggests intention or a direct mechanism. Prefer displaced-fluid/volume reasoning.
 - Do not claim that most metal oxides react with water to form basic solutions. A safer school-level rule is that many metal oxides are basic, while only some sufficiently reactive metal oxides react readily with water to form hydroxides.
 - For Rutherford scattering, describe the gold foil as extremely thin; do not call it merely a few atoms thick. Explain that most alpha particles passed through with little or no deflection because atoms are mostly empty space, but do not claim they encountered literally zero matter or zero force.
 - The teachingGoal must directly answer the teacher's exact problem.
@@ -464,6 +563,10 @@ QUALITY RULES
 - For standard school magnesium-ribbon questions, the coating cleaned from the ribbon is magnesium oxide (MgO); do not call it magnesium carbonate unless the teacher explicitly supplies a source/context that says so.
 - Do not state that ALL metal oxides are basic or ALL non-metal oxides are acidic. Use careful wording such as most/many and avoid turning a classroom trend into a universal rule.
 - When MgO reacts with water, do not describe Mg(OH)2 as a freely soluble, clear solution; magnesium hydroxide is only sparingly soluble, while the resulting mixture is alkaline enough to turn red litmus blue.
+- Describe Mg(OH)2 as sparingly dissolving/dissociating to provide OH- ions; do not say Mg(OH)2 chemically "reacts with water to form hydroxide ions".
+- Do not use chalk suspension as a model that reliably turns red litmus blue.
+- For floating/sinking, static floating equilibrium requires buoyant force Fu = weight W. Fu > W means upward acceleration until a new equilibrium; do not teach Fu >= W as the condition for a static float.
+- Avoid density analogies in which a crowd or medium "lets" an object pass because that falsely suggests intention or a direct mechanism. Prefer displaced-fluid/volume reasoning.
 - Do not claim that most metal oxides react with water to form basic solutions. A safer school-level rule is that many metal oxides are basic, while only some sufficiently reactive metal oxides react readily with water to form hydroxides.
 - For Rutherford scattering, describe the gold foil as extremely thin; do not call it merely a few atoms thick. Explain that most alpha particles passed through with little or no deflection because atoms are mostly empty space, but do not claim they encountered literally zero matter or zero force.
 - Directly answer what the teacher asked; do not drift into generic textbook prose.
@@ -1262,6 +1365,20 @@ function validateLesson(
     )
   }
 
+  const example = isRecord(fullLesson.example) ? fullLesson.example : null
+  if (example && !hasNonEmptyString(example, 'explanation') && asStringArray(example.steps).length === 0) {
+    errors.push('fullLesson.example needs an explanation or worked steps.')
+  }
+
+  const howToTeach = isRecord(fullLesson.howToTeach) ? fullLesson.howToTeach : null
+  if (
+    howToTeach &&
+    asStringArray(howToTeach.teacherMoves).length === 0 &&
+    asStringArray(howToTeach.questionsToAsk).length === 0
+  ) {
+    errors.push('fullLesson.howToTeach needs teacherMoves or questionsToAsk.')
+  }
+
   const practice =
     fullLesson.practice
   const check =
@@ -1744,6 +1861,14 @@ Deno.serve(async (request) => {
     )
   }
 
+  const preflight = deterministicPreflight(topicRequest)
+  if (preflight) {
+    return json(
+      { ok: false, code: preflight.code, message: preflight.message },
+      422,
+    )
+  }
+
   const requestRecord =
     isRecord(body) ? body : null
   const deferAudit =
@@ -1863,7 +1988,9 @@ Deno.serve(async (request) => {
   }
 
   let lesson =
-    generated.lesson
+    normalizeKnownScienceWording(
+      generated.lesson,
+    )
   let structuralErrors =
     validateLesson(
       lesson,
@@ -1940,7 +2067,10 @@ Deno.serve(async (request) => {
           repaired.status,
         ) === 'OK'
       ) {
-        lesson = repaired.lesson
+        lesson =
+          normalizeKnownScienceWording(
+            repaired.lesson,
+          )
         structuralErrors =
           validateLesson(
             lesson,

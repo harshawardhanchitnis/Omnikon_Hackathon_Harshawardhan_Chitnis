@@ -427,7 +427,7 @@ function LandingPage() {
       <section className="mx-auto w-full max-w-[1560px] px-5 pb-6 pt-8 sm:px-8 lg:px-10 xl:px-12">
         <div className="grid gap-3 rounded-[26px] border border-[#d8e3d5] bg-[#fffef9] p-5 shadow-[0_8px_26px_rgba(22,55,38,0.045)] sm:grid-cols-3 sm:p-6">
           {[
-            ['Verified Textbook Demo', 'Six audited NCERT Science lessons open without a live AI call.'],
+            ['Verified Textbook Demo', 'Six audited textbook-based Science lessons open without a live AI call.'],
             ['Live Topic Mode', 'Generate unseen Class 8–10 Science teaching help with an independent Science audit.'],
             ['One Teaching Workspace', 'Move from planning into Start Class, Quick Teach, Flashcards, voice and print.'],
           ].map(([title, description]) => (

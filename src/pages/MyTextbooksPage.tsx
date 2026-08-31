@@ -97,6 +97,27 @@ export default function MyTextbooksPage() {
     }
   }
 
+  async function retryProcessing(document: SourceDocument) {
+    setBusy(true)
+    setError(null)
+    setMessage(`Retrying ${document.file_name} from its stored readable pages...`)
+
+    try {
+      await callProductFunction('ingest-private-textbook', {
+        documentId: document.id,
+        totalPages: document.total_pages ?? undefined,
+        retryStoredPages: true,
+      })
+      setMessage('Textbook processing completed. You can generate a source-grounded lesson now.')
+      await load()
+    } catch (caught) {
+      setError(caught instanceof Error ? caught.message : 'Could not retry this textbook.')
+      await load()
+    } finally {
+      setBusy(false)
+    }
+  }
+
   return (
     <ProductShell>
       <section className="mx-auto w-full max-w-[1260px] px-5 py-8 sm:px-8 lg:px-10">
@@ -180,6 +201,17 @@ export default function MyTextbooksPage() {
               </div>
               {document.error_message && <p className="mt-3 text-[10px] font-semibold leading-5 text-[#9a3d34]">{document.error_message}</p>}
               {document.status === 'ready' && <Link to={`/app/textbooks/${document.id}/generate`} className="mt-5 inline-flex rounded-xl bg-[#0f5132] px-4 py-2.5 text-xs font-extrabold text-white">Generate lesson</Link>}
+              {document.status === 'failed' && (
+                <button
+                  type="button"
+                  disabled={busy}
+                  onClick={() => void retryProcessing(document)}
+                  className="mt-5 inline-flex items-center gap-2 rounded-xl border border-[#d8c48e] bg-[#fff8e8] px-4 py-2.5 text-xs font-extrabold text-[#76571e] disabled:opacity-50"
+                >
+                  <RefreshCcw className="size-3.5" />
+                  Retry Processing
+                </button>
+              )}
             </article>
           ))}
         </div>

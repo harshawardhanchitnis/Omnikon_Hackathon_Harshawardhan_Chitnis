@@ -35,7 +35,8 @@ export function useLessonTranslation(
     }
 
     let cancelled = false
-    setResult({ texts, translating: true, error: null })
+    const pendingTexts = texts.map(() => '')
+    setResult({ texts: pendingTexts, translating: true, error: null })
 
     async function run() {
       try {
@@ -45,7 +46,7 @@ export function useLessonTranslation(
       } catch (error: unknown) {
         if (cancelled) return
         setResult({
-          texts,
+          texts: pendingTexts,
           translating: false,
           error:
             error instanceof Error

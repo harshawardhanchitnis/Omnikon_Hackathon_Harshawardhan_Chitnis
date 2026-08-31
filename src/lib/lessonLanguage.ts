@@ -74,6 +74,12 @@ const fixedHindiLabels: Record<string, string> = {
   'Generated board visual': 'बोर्ड दृश्य',
 }
 
+function looksLikeHindiProse(text: string) {
+  const devanagari = (text.match(/[\u0900-\u097F]/g) ?? []).length
+  const letters = (text.match(/[A-Za-z\u0900-\u097F]/g) ?? []).length
+  return devanagari >= 3 && devanagari / Math.max(letters, 1) >= 0.45
+}
+
 function fixedHindiTranslation(text: string) {
   const direct = fixedHindiLabels[text]
   if (direct) return direct
@@ -194,9 +200,9 @@ async function flushRemoteQueue() {
   const batch: QueueItem[] = []
   let characters = 0
 
-  while (remoteQueue.length > 0 && batch.length < 80) {
+  while (remoteQueue.length > 0 && batch.length < 16) {
     const next = remoteQueue[0]
-    if (batch.length > 0 && characters + next.text.length > 30000) break
+    if (batch.length > 0 && characters + next.text.length > 8000) break
     remoteQueue.shift()
     batch.push(next)
     characters += next.text.length
@@ -222,6 +228,10 @@ async function flushRemoteQueue() {
 }
 
 function queueHindiTranslation(text: string) {
+  if (looksLikeHindiProse(text)) {
+    return Promise.resolve(text)
+  }
+
   const fixed = fixedHindiTranslation(text)
   if (fixed) {
     translationCache.set(text, fixed)

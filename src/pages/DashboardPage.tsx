@@ -196,7 +196,7 @@ function DashboardPage() {
                 Textbook Mode
               </p>
               <h2 className="mt-2 text-2xl font-extrabold tracking-[-0.03em]">
-                Teach from verified NCERT context
+                Teach from verified textbook context
               </h2>
               <p className="mt-3 max-w-xl text-[12px] font-medium leading-6 text-[#566259]">
                 For the demo, choose one of the available Class 8, 9, or 10 Science lessons and open a source-grounded plan with verified textbook context.

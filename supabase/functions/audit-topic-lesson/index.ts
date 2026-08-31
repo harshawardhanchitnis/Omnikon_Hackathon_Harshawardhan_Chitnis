@@ -420,8 +420,13 @@ Also fail a lesson that:
 - says the standard coating cleaned from magnesium ribbon is magnesium carbonate rather than magnesium oxide (unless the teacher explicitly supplied a source/context requiring otherwise);
 - turns the school-level trend about metal/non-metal oxides into an absolute rule that all metal oxides are basic or all non-metal oxides are acidic;
 - describes Mg(OH)2 formed from MgO + H2O as a freely soluble clear solution instead of recognizing its limited solubility while preserving the alkaline litmus conclusion;
+- says Mg(OH)2 chemically reacts with water to form hydroxide ions instead of sparingly dissolving/dissociating;
+- uses chalk suspension as a supposedly reliable red-litmus-to-blue model;
+- teaches Fu >= W as the condition for static floating rather than Fu = W at equilibrium and Fu > W as transient upward acceleration;
+- uses a mechanistic density analogy where a crowd or medium intentionally "lets" an object pass;
 - claims that most metal oxides react with water to form basic solutions, instead of distinguishing the broader basic/amphoteric trend from the smaller set of metal oxides that react readily with water;
 - describes Rutherford's gold foil as only a few atoms thick, or says undeflected alpha particles encountered literally zero matter/zero force rather than using the age-appropriate conclusion that atoms are mostly empty space and nuclear charge/mass is concentrated in a tiny nucleus.
+- asks students to intentionally ignite/burn classroom material, release a hard projectile such as a stone, or handle a knife/blade without a teacher-only safer substitute.
 Do not rewrite or repair the lesson. Return JSON only:
 {
   "pass": true,
@@ -499,6 +504,82 @@ function normalizeAudit(
     issues,
   }
 }
+
+function lessonStringEntries(
+  value: unknown,
+  path: string[] = [],
+): Array<{ path: string[]; text: string }> {
+  if (typeof value === 'string') {
+    return [{ path, text: value }]
+  }
+
+  if (Array.isArray(value)) {
+    return value.flatMap((item, index) =>
+      lessonStringEntries(item, [...path, String(index)]),
+    )
+  }
+
+  if (isRecord(value)) {
+    return Object.entries(value).flatMap(([key, item]) =>
+      lessonStringEntries(item, [...path, key]),
+    )
+  }
+
+  return []
+}
+
+function isQuotedMisconception(path: string[]) {
+  return path[path.length - 1] === 'misconception'
+}
+
+function containsCorrectionLanguage(text: string) {
+  return /(?:do not|don't|incorrect|wrong|misconception|not true|avoid saying|should not|instead|correct(?:ion)?)/i.test(text)
+}
+
+function deterministicLessonIssues(lesson: JsonRecord) {
+  const entries = lessonStringEntries(lesson)
+  const fullText = entries.map((entry) => entry.text).join(' ').replace(/\s+/g, ' ')
+  const issues: string[] = []
+
+  const badMetalOxideClaim = entries.some(({ path, text }) =>
+    !isQuotedMisconception(path) &&
+    !containsCorrectionLanguage(text) &&
+    /\b(?:many|most)\s+metal\s+oxides\s+(?:can\s+)?react\s+with\s+water\b/i.test(text),
+  )
+  if (badMetalOxideClaim) {
+    issues.push('Do not teach that many/most metal oxides react with water. Many metal oxides are basic, but only some sufficiently reactive oxides react readily with water to form hydroxides.')
+  }
+
+  const badMagnesiumHydroxideClaim = entries.some(({ path, text }) =>
+    !isQuotedMisconception(path) &&
+    !containsCorrectionLanguage(text) &&
+    (/\bmg\(oh\)2\b.{0,120}\breacts?\s+with\s+water\b/i.test(text) ||
+      /\breacts?\s+with\s+water\b.{0,120}\b(?:hydroxide ions|oh-)\b/i.test(text)),
+  )
+  if (badMagnesiumHydroxideClaim) {
+    issues.push('Mg(OH)2 should be described as sparingly dissolving/dissociating to provide hydroxide ions, not reacting with water to create them.')
+  }
+
+  const unsafeSolarFocus = entries.some(({ text }) => {
+    if (!/\b(sun|sunlight)\b/i.test(text) || !/\b(lens|mirror|focus|focal|bright spot)\b/i.test(text) || !/\b(paper|card|sheet)\b/i.test(text)) {
+      return false
+    }
+    if (/\b(do not|don't|never|avoid|without)\b/i.test(text)) {
+      return false
+    }
+    return /\b(focus|direct|point|hold|concentrat(?:e|ing))\b/i.test(text)
+  })
+  if (unsafeSolarFocus) {
+    issues.push('Do not focus direct sunlight onto paper/card in a classroom activity. Use a non-solar light source or a board demonstration instead.')
+  }
+
+  if (/\bhydrogen(?: gas)?\b/i.test(fullText) && /\b(generate|evolve|collect|production|acid \+ metal)\b/i.test(fullText) && !/\baway from (?:open )?flames?|no open flame|keep .* flames|sparks|hot surfaces\b/i.test(fullText)) {
+    issues.push('Hydrogen generation/collection requires an explicit no-flame/no-spark/hot-surface safety warning and teacher control.')
+  }
+
+  return issues
+}
+
 
 function providerErrorResponse(
   caught: unknown,
@@ -643,6 +724,11 @@ Deno.serve(async (request) => {
       },
       400,
     )
+  }
+
+  const deterministicIssues = deterministicLessonIssues(lesson)
+  if (deterministicIssues.length > 0) {
+    return json({ ok: false, code: 'SCIENCE_AUDIT_FAILED', message: 'The generated lesson did not pass ChalkBox’s deterministic Science/safety checks. It was not approved for the classroom workspace.', details: deterministicIssues.slice(0, 8) }, 422)
   }
 
   let auditResult: {

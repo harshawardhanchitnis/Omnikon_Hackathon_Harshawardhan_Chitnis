@@ -485,6 +485,7 @@ function TopicLessonWorkspacePage() {
           onToggleComplete={
             toggleCompleted
           }
+          expandAllByDefault
         />
       )}
 

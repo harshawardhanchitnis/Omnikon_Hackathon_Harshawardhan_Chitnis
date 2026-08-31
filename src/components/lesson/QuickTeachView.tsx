@@ -155,10 +155,16 @@ function QuickTeachView({
               ?.objective,
           ) ?? '',
 
+        activitySafety:
+          asString(
+            activity
+              ?.safetyNote,
+          ) ?? '',
+
         activitySteps: [
           ...asStringArray(
             activity?.steps,
-          ).slice(0, 4),
+          ),
           ...resourceStrategy.tips
             .slice(0, 1)
             .map(
@@ -183,6 +189,7 @@ function QuickTeachView({
         content.analogy,
         content.activityTitle,
         content.activityObjective,
+        content.activitySafety,
         ...content.activitySteps,
         ...content.checks.flatMap(
           (item) => [
@@ -224,7 +231,11 @@ function QuickTeachView({
     texts[4] ??
     content.activityObjective
 
-  const stepsStart = 5
+  const activitySafety =
+    texts[5] ??
+    content.activitySafety
+
+  const stepsStart = 6
 
   const translatedSteps =
     texts.slice(
@@ -425,6 +436,13 @@ function QuickTeachView({
             </p>
           )}
 
+          {activitySafety && (
+            <div className="mt-3 rounded-xl border border-[#e6caa0] bg-[#fff8e8] p-3 text-[10px] font-bold leading-5 text-[#7a5720]">
+              {language === 'hindi' ? 'सुरक्षा: ' : 'Safety: '}
+              {activitySafety}
+            </div>
+          )}
+
           <div className="mt-4 grid gap-3 sm:grid-cols-2">
             {translatedSteps.map(
               (
@@ -452,6 +470,7 @@ function QuickTeachView({
               text={[
                 activityTitle,
                 activityObjective,
+                activitySafety,
                 ...translatedSteps,
               ].join('. ')}
               language={

@@ -59,6 +59,10 @@ type PresentationSlide = {
   answer: string | null
   visual: boolean
   formulas: FormulaLike[]
+  stageIndex: number
+  stageCount: number
+  continuationIndex: number
+  continuationCount: number
 }
 
 
@@ -112,6 +116,92 @@ function localizedTimeLabel(
     : value
 }
 
+function hardWrapText(text: string, maxChars: number) {
+  const words = text.trim().split(/\s+/).filter(Boolean)
+  if (words.length <= 1) {
+    const chunks: string[] = []
+    for (let offset = 0; offset < text.length; offset += maxChars) {
+      chunks.push(text.slice(offset, offset + maxChars))
+    }
+    return chunks
+  }
+
+  const chunks: string[] = []
+  let current = ''
+  for (const word of words) {
+    if (!current) {
+      current = word
+      continue
+    }
+    if (`${current} ${word}`.length > maxChars) {
+      chunks.push(current)
+      current = word
+    } else {
+      current = `${current} ${word}`
+    }
+  }
+  if (current) chunks.push(current)
+  return chunks
+}
+
+function chunkText(text: string, maxChars = 340) {
+  const trimmed = text.trim()
+  if (!trimmed || trimmed.length <= maxChars) return trimmed ? [trimmed] : ['']
+
+  const sentences = trimmed.split(/(?<=[.!?।])\s+/).filter(Boolean)
+  const chunks: string[] = []
+  let current = ''
+
+  for (const sentence of sentences) {
+    if (sentence.length > maxChars) {
+      if (current) {
+        chunks.push(current)
+        current = ''
+      }
+      chunks.push(...hardWrapText(sentence, maxChars))
+      continue
+    }
+
+    if (current && `${current} ${sentence}`.length > maxChars) {
+      chunks.push(current)
+      current = sentence
+    } else {
+      current = current ? `${current} ${sentence}` : sentence
+    }
+  }
+
+  if (current) chunks.push(current)
+  return chunks.length > 0 ? chunks : hardWrapText(trimmed, maxChars)
+}
+
+function paginateSlide(base: Omit<PresentationSlide, 'stageIndex' | 'stageCount' | 'continuationIndex' | 'continuationCount'>, stageIndex: number, stageCount: number) {
+  const primaryChunks = chunkText(base.primaryText)
+  const bulletChunks: string[][] = []
+  for (let offset = 0; offset < base.bullets.length; offset += 3) {
+    bulletChunks.push(base.bullets.slice(offset, offset + 3))
+  }
+  const formulaChunks: FormulaLike[][] = []
+  for (let offset = 0; offset < base.formulas.length; offset += 4) {
+    formulaChunks.push(base.formulas.slice(offset, offset + 4))
+  }
+
+  const continuationCount = Math.max(primaryChunks.length, bulletChunks.length || 1, formulaChunks.length || 1)
+  return Array.from({ length: continuationCount }, (_, index): PresentationSlide => ({
+    ...base,
+    key: continuationCount > 1 ? `${base.key}-${index + 1}` : base.key,
+    primaryText: primaryChunks[index] ?? '',
+    bullets: bulletChunks[index] ?? [],
+    formulas: formulaChunks[index] ?? [],
+    question: index === continuationCount - 1 ? base.question : null,
+    answer: index === continuationCount - 1 ? base.answer : null,
+    visual: base.visual && index === 0,
+    stageIndex,
+    stageCount,
+    continuationIndex: index + 1,
+    continuationCount,
+  }))
+}
+
 function PresentMode({
   lesson,
   lessonKey,
@@ -143,13 +233,15 @@ function PresentMode({
 
   const slides = useMemo<PresentationSlide[]>(
     () => {
-      const teachingSlides: PresentationSlide[] = adaptTeachSteps(
+      const teachSteps = adaptTeachSteps(
         buildTeachSteps(lesson),
         lesson,
         durationMinutes,
         resourceLevel,
         sourceMode,
-      ).map((step) => {
+      )
+      const stageCount = teachSteps.length
+      const teachingSlides = teachSteps.flatMap((step, stageOffset) => {
         const structured = structurePresentationText(step.primaryText)
         const filteredBullets = step.bullets.filter(
           (item) =>
@@ -157,35 +249,20 @@ function PresentMode({
             !/^resource adaptation:/i.test(item),
         )
 
-        return {
+        const base: Omit<PresentationSlide, 'stageIndex' | 'stageCount' | 'continuationIndex' | 'continuationCount'> = {
           key: step.key,
-          label:
-            step.key === 'checkUnderstanding'
-              ? 'Quick Check'
-              : step.label,
+          label: step.label,
           timeLabel: step.timeLabel,
           primaryText: structured.lead,
           bullets: [...structured.points, ...filteredBullets],
           question: step.question,
           answer: step.answer,
           visual: step.key === 'visualize',
-          formulas: [],
+          formulas: step.key === 'define' ? formulas : [],
         }
+
+        return paginateSlide(base, stageOffset + 1, stageCount)
       })
-
-      if (formulas.length > 0) {
-        // Formula cards support the Define stage; they are not a ninth
-        // classroom stage. Keeping them on the canonical Define slide makes
-        // Full Lesson, Start Class and Present agree on the same 8-step flow.
-        const formulaSlide =
-          teachingSlides.find(
-            (item) => item.key === 'define',
-          ) ?? teachingSlides[0]
-
-        if (formulaSlide) {
-          formulaSlide.formulas = formulas
-        }
-      }
 
       return teachingSlides
     }, [
@@ -225,7 +302,7 @@ function PresentMode({
     }, [slide],
   )
 
-  const { texts } = useLessonTranslation(
+  const { texts, translating } = useLessonTranslation(
     translationInput,
     language,
   )
@@ -370,7 +447,7 @@ function PresentMode({
           type="button"
           onClick={onClose}
           className="flex size-10 items-center justify-center rounded-xl border border-white/15 bg-white/[0.06] hover:bg-white/[0.12]"
-          aria-label="Exit presentation"
+          aria-label={isHindi ? 'प्रस्तुति बंद करें' : 'Exit presentation'}
         >
           <X className="size-4" />
         </button>
@@ -409,7 +486,9 @@ function PresentMode({
             }
             className="flex size-10 items-center justify-center rounded-xl bg-[#f0ca5b] text-[#173525]"
             aria-label={
-              running ? 'Pause timer' : 'Start timer'
+              running
+                ? isHindi ? 'टाइमर रोकें' : 'Pause timer'
+                : isHindi ? 'टाइमर शुरू करें' : 'Start timer'
             }
           >
             {running ? (
@@ -426,7 +505,7 @@ function PresentMode({
               setElapsedSeconds(0)
             }}
             className="flex size-10 items-center justify-center rounded-xl border border-white/15 bg-white/[0.06]"
-            aria-label="Reset timer"
+            aria-label={isHindi ? 'टाइमर रीसेट करें' : 'Reset timer'}
           >
             <RotateCcw className="size-4" />
           </button>
@@ -437,8 +516,8 @@ function PresentMode({
             className="flex size-10 items-center justify-center rounded-xl border border-white/15 bg-white/[0.06]"
             aria-label={
               fullscreen
-                ? 'Exit fullscreen'
-                : 'Enter fullscreen'
+                ? isHindi ? 'फुलस्क्रीन से बाहर निकलें' : 'Exit fullscreen'
+                : isHindi ? 'फुलस्क्रीन खोलें' : 'Enter fullscreen'
             }
           >
             {fullscreen ? (
@@ -454,18 +533,29 @@ function PresentMode({
         <div
           className="h-full bg-[#f0ca5b] transition-all"
           style={{
-            width: `${((safeIndex + 1) / slides.length) * 100}%`,
+            width: `${(slide.stageIndex / slide.stageCount) * 100}%`,
           }}
         />
       </div>
 
-      <main ref={mainRef} className="flex min-h-0 flex-1 items-start justify-center overflow-y-auto px-4 py-6 sm:px-8 sm:py-8 lg:px-12">
+      <main ref={mainRef} className="flex min-h-0 flex-1 items-start justify-center overflow-y-auto px-4 pb-10 pt-5 sm:px-8 sm:pb-12 sm:pt-6 lg:px-12">
         <section className="my-auto w-full max-w-[1320px]">
+          {isHindi && translating ? (
+            <div className="grid min-h-[360px] place-items-center text-center">
+              <div>
+                <p className="text-sm font-extrabold text-[#f5d978]">हिंदी तैयार हो रही है…</p>
+                <p className="mt-2 text-xs font-semibold text-white/60">यह स्लाइड अनुवाद पूरा होने पर दिखाई जाएगी।</p>
+              </div>
+            </div>
+          ) : (<>
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div>
               <p className="text-[9px] font-extrabold uppercase tracking-[0.16em] text-[#9dc7a9]">
-                {isHindi ? 'चरण' : 'Step'} {safeIndex + 1}{' '}
-                {isHindi ? '/' : 'of'} {slides.length}
+                {isHindi ? 'चरण' : 'Step'} {slide.stageIndex}{' '}
+                {isHindi ? '/' : 'of'} {slide.stageCount}
+                {slide.continuationCount > 1
+                  ? ` · ${isHindi ? 'भाग' : 'part'} ${slide.continuationIndex}/${slide.continuationCount}`
+                  : ''}
                 {slide.timeLabel
                   ? ` · ${localizedTimeLabel(slide.timeLabel, language)}`
                   : ''}
@@ -614,6 +704,7 @@ function PresentMode({
               )}
             </div>
           )}
+          </>)}
         </section>
       </main>
 

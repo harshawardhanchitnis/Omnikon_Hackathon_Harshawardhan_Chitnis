@@ -100,7 +100,7 @@ export default function PrivateTextbookGeneratePage() {
 
           <div className="mt-6 flex items-start gap-3 rounded-2xl border border-[#d5bd65] bg-[#fff5cf] px-4 py-4 text-[#5d4a0b]">
             <Clock3 className="mt-0.5 size-5 shrink-0" />
-            <p className="text-xs font-extrabold uppercase leading-5 tracking-[0.04em]">LESSON GENERATION MAY TAKE UP TO 2–3 MINUTES FOR HIGH-QUALITY CONTENT.</p>
+            <p className="text-xs font-extrabold uppercase leading-5 tracking-[0.04em]">HIGH-QUALITY LESSON GENERATION USUALLY TAKES 2–3 MINUTES; LARGE OR COMPLEX SOURCES MAY TAKE LONGER.</p>
           </div>
 
           <form onSubmit={generate} className="mt-7 space-y-5">

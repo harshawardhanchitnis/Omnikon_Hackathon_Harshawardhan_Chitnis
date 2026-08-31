@@ -119,7 +119,7 @@ export const lessonFlowItems:
     },
     {
       key: 'checkUnderstanding',
-      label: 'Exit Check',
+      label: 'Check Understanding',
       minutes: '37–40 min',
       description:
         'Confirm understanding before the class ends.',
@@ -902,7 +902,7 @@ export function buildTeachSteps(
     ],
     [
       'checkUnderstanding',
-      'Exit Check',
+      'Check Understanding',
       fullLesson
         .checkUnderstanding,
     ],

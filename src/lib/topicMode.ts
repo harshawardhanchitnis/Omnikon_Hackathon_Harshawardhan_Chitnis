@@ -64,6 +64,38 @@ export type TopicDraft = {
   classroomContext: string
 }
 
+export type TopicPreflightResult =
+  | { ok: true }
+  | { ok: false; message: string }
+
+export function preflightTopicRequest(text: string): TopicPreflightResult {
+  const value = text.toLowerCase().replace(/\s+/g, ' ').trim()
+
+  const mathematics = /\b(quadratic|linear equation|polynomial|trigonometry|algebra|geometry|factorise|factorize)\b/.test(value)
+  const history = /\b(revolt of 1857|social science|mughal|maurya|independence movement|world war|civilization)\b/.test(value)
+  const english = /\b(active and passive voice|grammar|noun|pronoun|adjective|poem|literature|tense)\b/.test(value)
+
+  if (mathematics || history || english) {
+    return {
+      ok: false,
+      message: 'ChalkBox Topic Mode currently supports Class 8–10 Science teaching requests only.',
+    }
+  }
+
+  const homeContext = /\b(at home|home experiment|student.*home|project at home|drinking glass)\b/.test(value)
+  const procedural = /\b(step[- ]?by[- ]?step|how to make|make hydrogen|generate hydrogen|prepare hydrogen|heat it quickly|procedure)\b/.test(value)
+  const severeHazard = /\b(concentrated acid|strong acid|sulfuric acid|sulphuric acid|hydrochloric acid|open flame|stove flame|gas stove|mains electricity)\b/.test(value)
+
+  if (homeContext && procedural && severeHazard) {
+    return {
+      ok: false,
+      message: 'This request asks for an unsafe home experiment. ChalkBox will not provide operational instructions involving strong acids, open flames, unsafe heating or improvised glassware. Ask for a safe classroom demonstration of the same Science concept instead.',
+    }
+  }
+
+  return { ok: true }
+}
+
 type TopicGenerationSuccess = {
   ok: true
   bundle: TopicLessonBundle
@@ -600,6 +632,7 @@ async function postTopicStage(
   headers: Record<string, string>,
   body: unknown,
   retryTransient = true,
+  signal?: AbortSignal,
 ): Promise<TopicStageResult> {
   let lastNetworkError:
     unknown = null
@@ -622,10 +655,15 @@ async function postTopicStage(
           body: JSON.stringify(
             body,
           ),
+          signal,
         },
       )
     } catch (caught) {
       lastNetworkError = caught
+
+      if (signal?.aborted) {
+        throw new Error('Topic generation was cancelled. You can edit the request and try again.')
+      }
 
       if (attempt + 1 < maxAttempts) {
         await wait(400)
@@ -787,6 +825,7 @@ function parseGenerationDraft(
 export async function generateTopicLesson(
   request: TopicGenerationRequest,
   authMode: TopicGenerationAuthMode = 'demo',
+  signal?: AbortSignal,
 ): Promise<TopicLessonBundle> {
   const endpoint =
     getTopicEndpoint()
@@ -889,6 +928,7 @@ export async function generateTopicLesson(
                 : {}),
             },
             false,
+            signal,
           )
       } catch (caught) {
         lastGenerationError =
@@ -999,6 +1039,8 @@ export async function generateTopicLesson(
         generationModel: candidate.generationModel,
         generationAttempts: candidate.generationAttempts,
       },
+      true,
+      signal,
     )
   }
 
@@ -1035,12 +1077,16 @@ export async function generateTopicLesson(
             repairErrors,
           },
           false,
+          signal,
         )
 
         if (!repairStage.response.ok) continue
         repairedDraft = parseGenerationDraft(repairStage.record)
         if (repairedDraft) break
       } catch {
+        if (signal?.aborted) {
+          throw new Error('Topic generation was cancelled. You can edit the request and try again.')
+        }
         // Try the next model on a fresh worker.
       }
     }

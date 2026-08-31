@@ -18,6 +18,7 @@ import {
 } from 'lucide-react'
 import {
   useMemo,
+  useRef,
   useState,
 } from 'react'
 import type { ReactNode } from 'react'
@@ -40,6 +41,7 @@ import {
   generateTopicLesson,
   loadTopicDraft,
   loadTopicLessonHistory,
+  preflightTopicRequest,
   saveTopicLessonBundle,
   type TopicRequestMode,
 } from '@/lib/topicMode'
@@ -171,6 +173,9 @@ function TopicModePage() {
     null,
   )
 
+  const generationAbortRef =
+    useRef<AbortController | null>(null)
+
   const durations = useMemo(
     () =>
       requestMode ===
@@ -211,6 +216,14 @@ function TopicModePage() {
       return
     }
 
+    const preflight = preflightTopicRequest(request)
+    if (!preflight.ok) {
+      setError(preflight.message)
+      return
+    }
+
+    const controller = new AbortController()
+    generationAbortRef.current = controller
     setGenerating(true)
     setError(null)
 
@@ -230,7 +243,7 @@ function TopicModePage() {
               .trim(),
         }, productMode
           ? 'product'
-          : 'demo')
+          : 'demo', controller.signal)
 
       if (productMode) {
         const rows = await upsertCloudPlan({
@@ -263,6 +276,9 @@ function TopicModePage() {
           : 'Topic Mode could not generate this lesson.',
       )
     } finally {
+      if (generationAbortRef.current === controller) {
+        generationAbortRef.current = null
+      }
       setGenerating(false)
     }
   }
@@ -685,11 +701,21 @@ function TopicModePage() {
           <div className="mt-7 flex flex-col gap-3 border-t border-[#e3e8e1] pt-6 sm:flex-row sm:items-center sm:justify-between">
             <div className="max-w-[650px] rounded-xl border border-[#d5bd65] bg-[#fff5cf] px-4 py-3 text-[#5d4a0b]">
               <p className="text-[10px] font-extrabold uppercase leading-5 tracking-[0.04em]">
-                TOPIC MODE USES LIVE AI FOR LESSON / TOPIC GENERATION. HIGH-QUALITY CONTENT MAY TAKE UP TO 2–3 MINUTES.
+                TOPIC MODE USES LIVE AI FOR LESSON / TOPIC GENERATION. HIGH-QUALITY CONTENT USUALLY TAKES 2–3 MINUTES; COMPLEX REQUESTS MAY TAKE LONGER.
               </p>
             </div>
 
-            <Button
+            <div className="flex shrink-0 items-center gap-2">
+              {generating && (
+                <button
+                  type="button"
+                  onClick={() => generationAbortRef.current?.abort()}
+                  className="h-11 rounded-xl border border-[#c9d5c7] bg-white px-4 text-[10px] font-extrabold text-[#6a4d43] hover:bg-[#fff7f4]"
+                >
+                  Cancel
+                </button>
+              )}
+              <Button
               type="button"
               onClick={generate}
               disabled={generating}
@@ -706,7 +732,8 @@ function TopicModePage() {
                   <ArrowRight className="ml-2 size-3.5" />
                 </>
               )}
-            </Button>
+              </Button>
+            </div>
           </div>
         </section>
 
@@ -815,7 +842,7 @@ function TopicModePage() {
             <p className="mt-3 text-[10px] font-semibold leading-5 text-[#6f6657]">
               Topic Mode creates general curriculum support from the teacher’s
               request. It must not display “Source verified”, textbook pages or
-              NCERT provenance unless a verified source is explicitly added in
+              textbook provenance unless a verified source is explicitly added in
               a future version.
             </p>
           </div>

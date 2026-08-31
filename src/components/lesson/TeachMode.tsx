@@ -473,6 +473,7 @@ function TeachMode({
                   )
                 }
                 className="flex size-9 items-center justify-center rounded-xl bg-[#176b43] text-white"
+                aria-label={running ? (language === 'hindi' ? 'टाइमर रोकें' : 'Pause timer') : (language === 'hindi' ? 'टाइमर शुरू करें' : 'Start timer')}
               >
                 {running ? (
                   <Pause className="size-4" />
@@ -487,6 +488,7 @@ function TeachMode({
                   resetTimer
                 }
                 className="flex size-9 items-center justify-center rounded-xl border border-[#d7e1d4] bg-white text-[#657168]"
+                aria-label={language === 'hindi' ? 'टाइमर रीसेट करें' : 'Reset timer'}
               >
                 <RotateCcw className="size-4" />
               </button>

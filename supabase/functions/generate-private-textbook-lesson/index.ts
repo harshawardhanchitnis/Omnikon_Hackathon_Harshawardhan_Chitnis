@@ -168,7 +168,8 @@ function mergeSafetyNote(existing: string | null, addition: string) {
 function safetyGuidance(text: string) {
   const notes: string[] = []
   const chemistry = /\b(hcl|h2so4|naoh|koh|cao|calcium oxide|quicklime|acid|alkali|base solution|phenolphthalein|zinc|hydrogen gas|chemical|reagent)\b/i.test(text)
-  const flame = /\b(flame|burning candle|burner|ignite|pop sound|hydrogen gas)\b/i.test(text)
+  const flame = /\b(flame|burning candle|burner|ignite|pop sound)\b/i.test(text)
+  const hydrogen = /\b(hydrogen gas|hydrogen|h2\b)\b/i.test(text)
   const sharp = /\b(knife|blade|scalpel|cut(?:ting)? with)\b/i.test(text)
   const hotGlass = /\b(hot glass|heated glass|boiling|test tube|glassware|beaker|flask|reaction vessel)\b/i.test(text)
 
@@ -176,7 +177,10 @@ function safetyGuidance(text: string) {
     notes.push('Teacher supervision required. Use small/dilute quantities and eye protection; keep chemicals away from skin and eyes, follow the school spill/disposal procedure, and do not let students handle acids, alkalis or reagents unsupervised.')
   }
   if (flame) {
-    notes.push('Any flame or hydrogen test must be a teacher demonstration using only a very small gas quantity. Keep faces, hair and flammables away, wear eye protection, and extinguish the flame immediately after the observation.')
+    notes.push('Any flame activity must be teacher-controlled. Keep faces, hair and flammables away, wear eye protection, and extinguish the flame immediately after the observation.')
+  }
+  if (hydrogen) {
+    notes.push('Keep hydrogen generation and collection away from open flames, sparks and hot surfaces. Do not use an ignition or pop test as a student activity; any teacher-only demonstration must use a tiny quantity with eye protection and clear separation from learners.')
   }
   if (sharp) {
     notes.push('Any knife or blade must be handled by the teacher only on a stable surface; students should observe rather than cut.')
@@ -211,6 +215,60 @@ function applySafetyGuardrails(lesson: JsonRecord) {
         ? makeTemperatureObservationSafe(item)
         : item,
     )
+
+    const activityText = JSON.stringify(activity)
+    const unsafeSolarFocus =
+      /\b(sun|sunlight)\b/i.test(activityText) &&
+      /\b(lens|mirror|focus|focal|bright spot)\b/i.test(activityText) &&
+      /\b(paper|card|sheet|screen)\b/i.test(activityText)
+
+    if (unsafeSolarFocus) {
+      activity.title = 'Finding Approximate Focal Length Safely'
+      activity.objective = 'Observe convergence and estimate focal length without concentrating direct sunlight on combustible material.'
+      activity.materials = ['Convex lens or concave mirror', 'White card or screen', 'Classroom lamp or distant non-solar object', 'Measuring scale']
+      activity.steps = [
+        'Use a classroom lamp or a distant non-solar object; do not point the lens or mirror at the Sun.',
+        'Move a white card or screen until the sharpest safe image or brightest patch is obtained.',
+        'Mark the approximate focus and measure the distance using a scale.',
+        'Compare how the image changes as the card moves; heating, smoke and ignition are not part of this classroom activity.',
+      ]
+      activity.safetyNote = mergeSafetyNote(asString(activity.safetyNote), 'Teacher-controlled demonstration only. Never look at the Sun directly or through a lens/mirror, and never focus direct sunlight onto paper, card or any combustible surface.')
+    }
+
+    const releasedHardProjectile =
+      /\b(stone|rock|hard ball)\b/i.test(activityText) &&
+      /\b(string|thread|cord|circular)\b/i.test(activityText) &&
+      /\b(release|let .* go|throw)\b/i.test(activityText)
+
+    if (releasedHardProjectile) {
+      activity.steps = [
+        'Use a soft foam ball attached securely to a string; the teacher performs the demonstration in a clear area.',
+        'Move the foam ball slowly in a circular path without releasing it.',
+        'Pause at several positions and ask students to draw the tangent direction the ball would follow if the string were removed.',
+        'Compare the tangent arrows and connect them to the changing direction of velocity in circular motion.',
+      ]
+      activity.safetyNote = mergeSafetyNote(
+        asString(activity.safetyNote),
+        'Do not release stones or other hard projectiles in class. Use a soft tethered object under teacher control.',
+      )
+    }
+
+    const hydrogenGeneration = /\b(hydrogen gas|hydrogen|h2\b)\b/i.test(activityText) && /\b(acid|metal|zinc|magnesium|electrolysis|generate|evolve|collect)\b/i.test(activityText)
+    if (hydrogenGeneration) {
+      activity.safetyNote = mergeSafetyNote(asString(activity.safetyNote), 'Keep hydrogen generation and collection away from open flames, sparks and hot surfaces. Do not use an ignition or pop test as a student activity; any teacher-only demonstration must use a tiny quantity with eye protection and clear separation from learners.')
+    }
+
+    if (/\b(knife|blade|scalpel|cut a .*potato|cut .* into .*halves)\b/i.test(activityText)) {
+      activity.steps = (activity.steps as unknown[]).map((item) =>
+        typeof item === 'string' && /\bcut\b/i.test(item)
+          ? 'Use material that has been pre-cut by the teacher before class; students should not handle a knife or blade.'
+          : item,
+      )
+      activity.safetyNote = mergeSafetyNote(
+        asString(activity.safetyNote),
+        'Any cutting must be completed by the teacher or another responsible adult before students handle the material.',
+      )
+    }
   }
 
   const lessonWideSafety = safetyGuidance(JSON.stringify(fullLesson))
@@ -297,7 +355,7 @@ Deno.serve(async (req) => {
     const sanitizedLesson = applySafetyGuardrails(
       sanitizeSourcePages(lesson, new Set(allowedPages)) as JsonRecord,
     )
-    const auditPrompt = `Audit this Class ${body.classLevel} Science lesson ONLY against the supplied source context. Return JSON {"pass":true,"scienceAccuracy":0-10,"sourceFaithfulness":0-10,"ageAppropriateness":0-10,"classroomFeasibility":0-10,"issues":["..."]}. Fail if the source is primarily a non-Science subject, if the lesson invents source claims/pages, strengthens a source statement beyond its qualifiers or scope, materially contradicts the source, omits applicable source cautions, gives chemical/flame/sharp-object guidance without explicit teacher supervision and suitable precautions, asks students to touch/feel a reaction vessel to judge temperature instead of using a thermometer or safe teacher-only observation, or is not teacher-ready.\nSOURCE:\n${context}\nLESSON:\n${JSON.stringify(sanitizedLesson)}`
+    const auditPrompt = `Audit this Class ${body.classLevel} Science lesson ONLY against the supplied source context. Return JSON {"pass":true,"scienceAccuracy":0-10,"sourceFaithfulness":0-10,"ageAppropriateness":0-10,"classroomFeasibility":0-10,"issues":["..."]}. Fail if the source is primarily a non-Science subject, if the lesson invents source claims/pages, strengthens a source statement beyond its qualifiers or scope, materially contradicts the source, omits applicable source cautions, gives chemical/flame/sharp-object guidance without explicit teacher supervision and suitable precautions, focuses direct sunlight onto paper/card or another combustible surface, generates/collects hydrogen without explicitly keeping it away from flames/sparks/hot surfaces, asks students to touch/feel a reaction vessel to judge temperature instead of using a thermometer or safe teacher-only observation, or is not teacher-ready.\nSOURCE:\n${context}\nLESSON:\n${JSON.stringify(sanitizedLesson)}`
     const auditResult = await geminiJsonFallback([{ text: auditPrompt }], ['gemini-3.5-flash-lite','gemini-3.5-flash','gemini-3.6-flash','gemini-3.7-flash'])
     const audit = auditResult.value
     if (audit.pass !== true) return json({ ok: false, message: 'Independent source/science audit rejected this lesson.', issues: Array.isArray(audit.issues) ? audit.issues : [] }, 422)

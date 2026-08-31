@@ -440,6 +440,32 @@ function buildVisualModel(
   }
 }
 
+function sanitizeVisualSafetyWording(text: string) {
+  return text
+    .replace(/Circular Motion and Tangential Release/gi, 'Circular Motion and Hypothetical Tangent Path')
+    .replace(/Released Stone Motion/gi, 'Hypothetical Tangent Path')
+    .replace(/Stone on a Circular Path/gi, 'Tethered Object on a Circular Path')
+    .replace(/stone moves along tangent on release/gi, 'hypothetical tangent path if the tether were removed')
+    .replace(/Released object moves tangentially/gi, 'Hypothetical path is tangential if the tether were removed')
+    .replace(/show a stone tied to a thread released tangentially/gi, 'show a soft tethered object and draw the tangent path it would follow if the tether were removed')
+    .replace(/When a stone in circular motion is released, it flies off along a straight line tangential to the circular path because its direction of motion at that instant is tangential\.?/gi, 'If the tether were removed, the object would continue along the straight tangent because that is its instantaneous direction of motion.')
+    .replace(/thread and stone demonstrations/gi, 'tethered-object demonstrations')
+    .replace(/released stone/gi, 'hypothetical untethered path')
+}
+
+function sanitizeVisualModelWording(visual: VisualModel): VisualModel {
+  return {
+    ...visual,
+    title: sanitizeVisualSafetyWording(visual.title),
+    nodes: visual.nodes.map((node) => ({ ...node, label: sanitizeVisualSafetyWording(node.label), annotation: sanitizeVisualSafetyWording(node.annotation) })),
+    arrows: visual.arrows.map((arrow) => ({ ...arrow, label: sanitizeVisualSafetyWording(arrow.label) })),
+    panels: visual.panels.map((panel) => ({ ...panel, title: sanitizeVisualSafetyWording(panel.title), elements: panel.elements.map((element) => ({ ...element, label: sanitizeVisualSafetyWording(element.label) })) })),
+    callouts: visual.callouts.map(sanitizeVisualSafetyWording),
+    drawingSteps: visual.drawingSteps.map(sanitizeVisualSafetyWording),
+    notices: visual.notices.map(sanitizeVisualSafetyWording),
+  }
+}
+
 function primitiveStroke(
   emphasis: PrimitiveEmphasis,
 ) {
@@ -2238,7 +2264,7 @@ function TopicLessonVisual({
   language = 'english',
 }: Props) {
   const rawVisual =
-    buildVisualModel(lesson)
+    sanitizeVisualModelWording(buildVisualModel(lesson))
   const translationSource =
     visualTranslationSource(rawVisual)
   const { texts: translated } =

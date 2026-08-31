@@ -73,7 +73,7 @@ const baseFlow: Array<
   },
   {
     key: 'checkUnderstanding',
-    label: 'Exit Check',
+    label: 'Check Understanding',
     baseMinutes: 3,
     description:
       'Confirm understanding before the class ends.',
@@ -269,6 +269,82 @@ export function buildLessonFlowItems(
   )
 }
 
+function mergeSafetyText(
+  existing: string | null,
+  addition: string,
+) {
+  if (!existing) return addition
+  if (existing.toLowerCase().includes(addition.toLowerCase())) return existing
+  return `${existing} ${addition}`
+}
+
+function sanitizeClassroomActivity(
+  activity: JsonRecord | null,
+) {
+  if (!activity) return null
+
+  const next: JsonRecord = { ...activity }
+  const steps = asStringArray(activity.steps)
+  const serialized = JSON.stringify(activity)
+
+  const unsafeSolarFocus =
+    /\b(sun|sunlight)\b/i.test(serialized) &&
+    /\b(lens|mirror|focus|focal|bright spot)\b/i.test(serialized) &&
+    /\b(paper|card|sheet|screen)\b/i.test(serialized)
+
+  if (unsafeSolarFocus) {
+    next.title = 'Finding Approximate Focal Length Safely'
+    next.objective = 'Observe convergence and estimate focal length without concentrating direct sunlight on combustible material.'
+    next.materials = ['Convex lens or concave mirror', 'White card or screen', 'Classroom lamp or distant non-solar object', 'Measuring scale']
+    next.steps = [
+      'Use a classroom lamp or a distant non-solar object as the light source; do not point the lens or mirror at the Sun.',
+      'Move a white card or screen until the sharpest safe image or brightest patch is obtained.',
+      'Mark the approximate focus position and measure the distance using a scale.',
+      'Compare how the image changes as the card moves; heating, smoke and ignition are not part of this classroom activity.',
+    ]
+    next.safetyNote = mergeSafetyText(asString(activity.safetyNote), 'Teacher-controlled demonstration only. Do not look at the Sun directly or through a lens/mirror, and do not focus direct sunlight onto paper, card or any combustible surface.')
+    return next
+  }
+
+  const releasedHardProjectile =
+    /\b(stone|rock|hard ball)\b/i.test(serialized) &&
+    /\b(string|thread|cord|circular)\b/i.test(serialized) &&
+    /\b(release|let .* go|throw)\b/i.test(serialized)
+
+  if (releasedHardProjectile) {
+    next.steps = [
+      'Use a soft foam ball attached securely to a string; the teacher performs the demonstration in a clear area.',
+      'Move the foam ball slowly in a circular path without releasing it.',
+      'Pause at several positions and ask students to draw the tangent direction the ball would follow if the string were removed.',
+      'Compare the tangent arrows and connect them to the changing direction of velocity in circular motion.',
+    ]
+    next.safetyNote = mergeSafetyText(
+      asString(activity.safetyNote),
+      'Do not release stones or other hard projectiles in class. Use a soft tethered object under teacher control and keep learners outside the demonstration area.',
+    )
+    return next
+  }
+
+  const hydrogenGeneration = /\b(hydrogen|h2\b)\b/i.test(serialized) && /\b(acid|metal|zinc|magnesium|electrolysis|generate|evolve|collect)\b/i.test(serialized)
+  if (hydrogenGeneration) {
+    next.safetyNote = mergeSafetyText(asString(next.safetyNote), 'Keep hydrogen generation and collection away from open flames, sparks and hot surfaces. Do not use an ignition or pop test as a student activity; any teacher-only demonstration must use a tiny quantity with eye protection and clear separation from learners.')
+  }
+
+  if (/\b(knife|blade|scalpel|cut a .*potato|cut .* into .*halves)\b/i.test(serialized)) {
+    next.steps = steps.map((step) =>
+      /\bcut\b/i.test(step) && /\b(knife|blade|potato|halves?)\b/i.test(step)
+        ? 'Use material that has been pre-cut by the teacher before class; students should not handle a knife or blade.'
+        : step,
+    )
+    next.safetyNote = mergeSafetyText(
+      asString(activity.safetyNote),
+      'Any cutting must be completed by the teacher or another responsible adult before students handle the material.',
+    )
+  }
+
+  return next
+}
+
 export function getClassroomActivity(
   lesson: JsonRecord,
   resourceLevel: ResourceLevel,
@@ -294,17 +370,12 @@ export function getClassroomActivity(
         ?.lowResourceActivity,
     )
 
-  if (resourceLevel === 'low') {
-    return (
-      lowResourceActivity ??
-      textbookActivity
-    )
-  }
+  const selected =
+    resourceLevel === 'low'
+      ? lowResourceActivity ?? textbookActivity
+      : textbookActivity ?? lowResourceActivity
 
-  return (
-    textbookActivity ??
-    lowResourceActivity
-  )
+  return sanitizeClassroomActivity(selected)
 }
 
 export function getResourceStrategy(

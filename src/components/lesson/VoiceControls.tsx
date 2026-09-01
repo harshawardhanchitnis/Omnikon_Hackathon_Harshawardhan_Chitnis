@@ -256,7 +256,7 @@ function VoiceControls({
           )
         }
         className="h-8 rounded-lg border border-[#dce4da] bg-white px-2 text-[9px] font-bold text-[#657168] outline-none"
-        aria-label="Voice speed"
+        aria-label={language === 'hindi' ? 'आवाज़ की गति' : 'Voice speed'}
       >
         <option value={0.85}>
           0.85×

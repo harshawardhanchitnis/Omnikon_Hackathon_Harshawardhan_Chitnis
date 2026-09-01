@@ -144,7 +144,7 @@ function hardWrapText(text: string, maxChars: number) {
   return chunks
 }
 
-function chunkText(text: string, maxChars = 340) {
+function chunkText(text: string, maxChars = 280) {
   const trimmed = text.trim()
   if (!trimmed || trimmed.length <= maxChars) return trimmed ? [trimmed] : ['']
 
@@ -177,12 +177,12 @@ function chunkText(text: string, maxChars = 340) {
 function paginateSlide(base: Omit<PresentationSlide, 'stageIndex' | 'stageCount' | 'continuationIndex' | 'continuationCount'>, stageIndex: number, stageCount: number) {
   const primaryChunks = chunkText(base.primaryText)
   const bulletChunks: string[][] = []
-  for (let offset = 0; offset < base.bullets.length; offset += 3) {
-    bulletChunks.push(base.bullets.slice(offset, offset + 3))
+  for (let offset = 0; offset < base.bullets.length; offset += 2) {
+    bulletChunks.push(base.bullets.slice(offset, offset + 2))
   }
   const formulaChunks: FormulaLike[][] = []
-  for (let offset = 0; offset < base.formulas.length; offset += 4) {
-    formulaChunks.push(base.formulas.slice(offset, offset + 4))
+  for (let offset = 0; offset < base.formulas.length; offset += 3) {
+    formulaChunks.push(base.formulas.slice(offset, offset + 3))
   }
 
   const continuationCount = Math.max(primaryChunks.length, bulletChunks.length || 1, formulaChunks.length || 1)
@@ -440,7 +440,7 @@ function PresentMode({
   return (
     <div
       ref={rootRef}
-      className="fixed inset-0 z-[100] flex min-h-screen flex-col overflow-hidden bg-[#0b2f21] text-white"
+      className="fixed inset-0 z-[100] flex h-[100dvh] min-h-0 flex-col overflow-hidden bg-[#0b2f21] text-white"
     >
       <header className="flex shrink-0 flex-wrap items-center gap-3 border-b border-white/10 bg-[#09291d] px-4 py-3 sm:px-6">
         <button
@@ -538,7 +538,7 @@ function PresentMode({
         />
       </div>
 
-      <main ref={mainRef} className="flex min-h-0 flex-1 items-start justify-center overflow-y-auto px-4 pb-10 pt-5 sm:px-8 sm:pb-12 sm:pt-6 lg:px-12">
+      <main ref={mainRef} className="flex min-h-0 flex-1 items-start justify-center overflow-y-auto px-4 pb-10 pt-5 sm:px-8 sm:pb-12 sm:pt-6 lg:overflow-hidden lg:px-12">
         <section className="my-auto w-full max-w-[1320px]">
           {isHindi && translating ? (
             <div className="grid min-h-[360px] place-items-center text-center">

@@ -83,13 +83,35 @@ export function preflightTopicRequest(text: string): TopicPreflightResult {
   }
 
   const homeContext = /\b(at home|home experiment|student.*home|project at home|drinking glass)\b/.test(value)
-  const procedural = /\b(step[- ]?by[- ]?step|how to make|make hydrogen|generate hydrogen|prepare hydrogen|heat it quickly|procedure)\b/.test(value)
+  const procedural = /\b(step[- ]?by[- ]?step|how to make|make hydrogen|generate hydrogen|prepare hydrogen|heat it quickly|procedure|activity|experiment|demonstration|create)\b/.test(value)
   const severeHazard = /\b(concentrated acid|strong acid|sulfuric acid|sulphuric acid|hydrochloric acid|open flame|stove flame|gas stove|mains electricity)\b/.test(value)
+  const unsafeSolarFocus =
+    /\b(sun|sunlight)\b/.test(value) &&
+    /\b(lens|mirror|magnifying glass|focus|focal|bright spot)\b/.test(value) &&
+    /\b(paper|card|sheet|combustible|burn|ignite|heat)\b/.test(value)
+  const unsafeProjectileRelease =
+    /\b(stone|rock|hard ball)\b/.test(value) &&
+    /\b(string|thread|cord|circular|circle)\b/.test(value) &&
+    /\b(release|let .* go|throw|fly off)\b/.test(value)
 
   if (homeContext && procedural && severeHazard) {
     return {
       ok: false,
       message: 'This request asks for an unsafe home experiment. ChalkBox will not provide operational instructions involving strong acids, open flames, unsafe heating or improvised glassware. Ask for a safe classroom demonstration of the same Science concept instead.',
+    }
+  }
+
+  if (unsafeSolarFocus) {
+    return {
+      ok: false,
+      message: 'ChalkBox will not provide an activity that concentrates direct sunlight onto paper, card or another combustible surface. Use a classroom lamp or distant non-solar object with a white screen to demonstrate focal length safely.',
+    }
+  }
+
+  if (unsafeProjectileRelease) {
+    return {
+      ok: false,
+      message: 'ChalkBox will not instruct learners to release stones or other hard projectiles. Use a soft tethered object without releasing it and draw the hypothetical tangent path instead.',
     }
   }
 

@@ -198,6 +198,14 @@ function SourcePages({
   )
 }
 
+function sanitizeVisibleSafetyInstruction(text: string) {
+  if (/^cut a fresh potato into two halves\.?$/i.test(text.trim())) {
+    return 'Use two fresh potato halves pre-cut by the teacher or another responsible adult before class; students should not handle a knife or blade.'
+  }
+
+  return text
+}
+
 function BulletList({
   title,
   items,
@@ -230,7 +238,7 @@ function BulletList({
               <span className="mt-[9px] size-1.5 shrink-0 rounded-full bg-[#4c9366]" />
 
               <span>
-                {item}
+                {sanitizeVisibleSafetyInstruction(item)}
               </span>
             </div>
           ),

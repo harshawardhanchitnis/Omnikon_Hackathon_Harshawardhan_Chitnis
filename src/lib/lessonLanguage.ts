@@ -74,6 +74,20 @@ const fixedHindiLabels: Record<string, string> = {
   'Generated board visual': 'बोर्ड दृश्य',
 }
 
+function normalizeHindiOutput(text: string) {
+  return text
+    .replace(/गिफ्थ/g, 'पथ')
+    .replace(/क्यों\?क्यों\s*क्योंकिक्यों/g, 'क्यों? क्योंकि')
+    .replace(/नहीं।हीं/g, 'नहीं।')
+    .replace(/अल्\s*pha/gi, 'अल्फा')
+    .replace(/ना\s+भिक/g, 'नाभिक')
+    .replace(/स्थिरवैद्यु\s+त/g, 'स्थिरवैद्युत')
+    .replace(/इलेक्ट्रॉ\s+न/g, 'इलेक्ट्रॉन')
+    .replace(/थॉमस मॉडल/g, 'थॉमसन मॉडल')
+    .replace(/\bLiters?\b/gi, 'लीटर')
+    .replace(/\bml\b/gi, 'मिलीलीटर')
+}
+
 function looksLikeHindiProse(text: string) {
   const devanagari = (text.match(/[\u0900-\u097F]/g) ?? []).length
   const letters = (text.match(/[A-Za-z\u0900-\u097F]/g) ?? []).length
@@ -211,7 +225,9 @@ async function flushRemoteQueue() {
   try {
     const translations = await translateRemoteBatch(batch.map((item) => item.text))
     batch.forEach((item, index) => {
-      const translated = translations[index]?.trim() || item.text
+      const translated = normalizeHindiOutput(
+        translations[index]?.trim() || item.text,
+      )
       translationCache.set(item.text, translated)
       item.resolve(translated)
     })
@@ -229,7 +245,7 @@ async function flushRemoteQueue() {
 
 function queueHindiTranslation(text: string) {
   if (looksLikeHindiProse(text)) {
-    return Promise.resolve(text)
+    return Promise.resolve(normalizeHindiOutput(text))
   }
 
   const fixed = fixedHindiTranslation(text)

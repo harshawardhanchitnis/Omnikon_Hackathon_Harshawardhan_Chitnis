@@ -46,6 +46,20 @@ type CheckItem = {
   answer: string
 }
 
+function fallbackActivitySafety(activity: JsonRecord | null) {
+  if (!activity) return ''
+
+  const text = JSON.stringify(activity)
+  const usesFoil = /\b(foil|aluminium foil|aluminum foil)\b/i.test(text)
+  const usesWater = /\b(water|basin|bowl|tub)\b/i.test(text)
+
+  if (usesFoil && usesWater) {
+    return 'Fold or smooth any sharp foil edges before students handle the material, and wipe water spills promptly to prevent slips.'
+  }
+
+  return ''
+}
+
 function QuickTeachView({
   lesson,
   resourceLevel,
@@ -159,7 +173,8 @@ function QuickTeachView({
           asString(
             activity
               ?.safetyNote,
-          ) ?? '',
+          )?.trim() ||
+          fallbackActivitySafety(activity),
 
         activitySteps: [
           ...asStringArray(

@@ -271,26 +271,155 @@ function applySafetyGuardrails(lesson: JsonRecord) {
     }
   }
 
-  const lessonWideSafety = safetyGuidance(JSON.stringify(fullLesson))
-  if (!lessonWideSafety) return lesson
+  const relevantSafety: string[] = []
 
   for (const key of ['activity', 'visualize'] as const) {
     const section = asRecord(fullLesson[key])
     if (!section) continue
-    const sectionSafety = safetyGuidance(JSON.stringify(section)) || lessonWideSafety
+    const sectionSafety = safetyGuidance(JSON.stringify(section))
+    if (!sectionSafety) continue
+    relevantSafety.push(sectionSafety)
     section.safetyNote = mergeSafetyNote(asString(section.safetyNote), sectionSafety)
   }
 
   const howToTeach = asRecord(fullLesson.howToTeach)
-  if (howToTeach) {
+  const teachingSafety = [...new Set(relevantSafety)].join(' ')
+  if (howToTeach && teachingSafety) {
     const cues = Array.isArray(howToTeach.teacherCues)
       ? howToTeach.teacherCues.filter((item): item is string => typeof item === 'string')
       : []
     if (!cues.some((item) => /safety|supervision|goggle|teacher.*only/i.test(item))) {
-      howToTeach.teacherCues = [...cues, `Safety: ${lessonWideSafety}`]
+      howToTeach.teacherCues = [...cues, `Safety: ${teachingSafety}`]
     }
   }
 
+  return lesson
+}
+
+function sectionHasRequiredContent(key: string, section: JsonRecord | null) {
+  if (!section) return false
+
+  const strings = (...values: unknown[]) =>
+    values.some((value) => typeof value === 'string' && value.trim().length >= 12)
+  const stringArray = (value: unknown, minimum = 1) =>
+    Array.isArray(value) &&
+    value.filter((item) => typeof item === 'string' && item.trim().length >= 4).length >= minimum
+  const questions = (value: unknown) =>
+    Array.isArray(value) &&
+    value.some((item) => {
+      const record = asRecord(item)
+      return Boolean(record && strings(record.question))
+    })
+
+  if (key === 'boardPlan') return strings(section.text)
+  if (key === 'hook') return strings(section.teacherScript, section.teacherPrompt)
+  if (key === 'define' || key === 'explain') return strings(section.teacherScript)
+  if (key === 'visualize') {
+    return strings(section.teacherInstructions) && stringArray(section.boardDrawingSteps, 2)
+  }
+  if (key === 'activity') {
+    return strings(section.objective, section.title) && stringArray(section.steps, 2)
+  }
+  if (key === 'example') {
+    return strings(section.explanation, section.title) && stringArray(section.steps, 1)
+  }
+  if (key === 'howToTeach') return stringArray(section.teacherCues, 1)
+  if (key === 'practice' || key === 'checkUnderstanding') return questions(section.questions)
+  if (key === 'materials') return stringArray(section.items, 1)
+  return true
+}
+
+function completeLessonIssues(lesson: JsonRecord) {
+  const fullLesson = asRecord(lesson.fullLesson)
+  if (!fullLesson) return ['fullLesson']
+
+  const required = [
+    'boardPlan',
+    'hook',
+    'define',
+    'explain',
+    'visualize',
+    'activity',
+    'example',
+    'howToTeach',
+    'practice',
+    'checkUnderstanding',
+    'materials',
+  ]
+
+  return required.filter((key) =>
+    !sectionHasRequiredContent(key, asRecord(fullLesson[key])),
+  )
+}
+
+function evidenceTokens(text: string) {
+  const stop = new Set([
+    'about','after','again','also','before','class','classroom','could','from',
+    'have','into','lesson','should','students','teacher','their','these','this',
+    'through','using','with','would','your',
+  ])
+
+  return new Set(
+    text
+      .toLowerCase()
+      .replace(/[^a-z0-9+()-]+/g, ' ')
+      .split(/\s+/)
+      .filter((token) => token.length >= 4 && !stop.has(token)),
+  )
+}
+
+function augmentActivityEvidencePages(
+  lesson: JsonRecord,
+  chunks: Chunk[],
+  allowed: Set<number>,
+) {
+  const fullLesson = asRecord(lesson.fullLesson)
+  const activity = asRecord(fullLesson?.activity)
+  if (!activity) return lesson
+
+  const materials = Array.isArray(activity.materials)
+    ? activity.materials.filter((item): item is string => typeof item === 'string')
+    : []
+  const steps = Array.isArray(activity.steps)
+    ? activity.steps.filter((item): item is string => typeof item === 'string')
+    : []
+
+  const activityText = [
+    asString(activity.title) ?? '',
+    asString(activity.objective) ?? '',
+    ...materials,
+    ...steps,
+  ].join(' ')
+  const activityTokens = evidenceTokens(activityText)
+  if (activityTokens.size === 0) return lesson
+
+  const scored = chunks
+    .map((chunk) => {
+      const chunkTokens = evidenceTokens(chunk.content)
+      let score = 0
+      for (const token of activityTokens) {
+        if (chunkTokens.has(token)) score += 1
+      }
+      return { chunk, score }
+    })
+    .sort((a, b) => b.score - a.score)
+
+  const best = scored[0]
+  if (!best || best.score < 3) return lesson
+
+  const pages = new Set(
+    Array.isArray(activity.sourcePages)
+      ? activity.sourcePages.filter((page): page is number =>
+          typeof page === 'number' && allowed.has(page),
+        )
+      : [],
+  )
+
+  for (let page = best.chunk.page_start; page <= best.chunk.page_end; page += 1) {
+    if (allowed.has(page)) pages.add(page)
+  }
+
+  activity.sourcePages = [...pages].sort((a, b) => a - b)
   return lesson
 }
 
@@ -342,19 +471,63 @@ Deno.serve(async (req) => {
     }))].sort((a,b) => a-b)
     const context = chunks.map((chunk, index) => `[SOURCE ${index + 1} | pages ${chunk.page_start}-${chunk.page_end}]\n${chunk.content}`).join('\n\n').slice(0, 60000)
 
-    const generated = await geminiJsonFallback([{ text: generationPrompt(body, asString(document.file_name) ?? 'Uploaded textbook', context, allowedPages) }], ['gemini-3.7-flash','gemini-3.6-flash','gemini-3.5-flash','gemini-3.5-flash-lite'])
+    let generated = await geminiJsonFallback([{ text: generationPrompt(body, asString(document.file_name) ?? 'Uploaded textbook', context, allowedPages) }], ['gemini-3.7-flash','gemini-3.6-flash','gemini-3.5-flash','gemini-3.5-flash-lite'])
     if (asString(generated.value.status) === 'OUT_OF_SCOPE') {
       return json({ ok: false, message: asString(generated.value.message) ?? 'ChalkBox Textbook Mode currently supports Class 8-10 Science textbooks only.' }, 422)
     }
     if (asString(generated.value.status) === 'INSUFFICIENT_SOURCE') {
       return json({ ok: false, message: asString(generated.value.message) ?? 'The retrieved pages do not support this lesson request.' }, 422)
     }
-    const lesson = asRecord(generated.value.lesson)
+    let lesson = asRecord(generated.value.lesson)
     if (!lesson) throw new Error('Generator returned an invalid lesson structure.')
 
-    const sanitizedLesson = applySafetyGuardrails(
-      sanitizeSourcePages(lesson, new Set(allowedPages)) as JsonRecord,
+    const allowedPageSet = new Set(allowedPages)
+    let sanitizedLesson = augmentActivityEvidencePages(
+      applySafetyGuardrails(
+        sanitizeSourcePages(lesson, allowedPageSet) as JsonRecord,
+      ),
+      chunks,
+      allowedPageSet,
     )
+
+    let completenessIssues = completeLessonIssues(sanitizedLesson)
+    if (completenessIssues.length > 0) {
+      const repairPrompt = `${generationPrompt(body, asString(document.file_name) ?? 'Uploaded textbook', context, allowedPages)}
+
+CRITICAL COMPLETENESS REPAIR:
+A previous draft omitted required classroom sections: ${completenessIssues.join(', ')}.
+Generate the COMPLETE lesson again. Every required fullLesson section in the schema must be present and meaningful. Never return a shortened 3-step lesson for a ${body.durationMinutes}-minute request.`
+
+      generated = await geminiJsonFallback(
+        [{ text: repairPrompt }],
+        ['gemini-3.7-flash','gemini-3.6-flash','gemini-3.5-flash','gemini-3.5-flash-lite'],
+      )
+
+      lesson = asRecord(generated.value.lesson)
+      if (!lesson) {
+        return json({
+          ok: false,
+          message: 'ChalkBox could not produce a complete classroom-ready lesson from this draft. Your textbook is preserved; please retry.',
+        }, 422)
+      }
+
+      sanitizedLesson = augmentActivityEvidencePages(
+        applySafetyGuardrails(
+          sanitizeSourcePages(lesson, allowedPageSet) as JsonRecord,
+        ),
+        chunks,
+        allowedPageSet,
+      )
+
+      completenessIssues = completeLessonIssues(sanitizedLesson)
+      if (completenessIssues.length > 0) {
+        return json({
+          ok: false,
+          message: 'ChalkBox could not produce a complete classroom-ready lesson from this draft. Your textbook is preserved; please retry.',
+          issues: completenessIssues.map((key) => `Missing or incomplete section: ${key}`),
+        }, 422)
+      }
+    }
     const auditPrompt = `Audit this Class ${body.classLevel} Science lesson ONLY against the supplied source context. Return JSON {"pass":true,"scienceAccuracy":0-10,"sourceFaithfulness":0-10,"ageAppropriateness":0-10,"classroomFeasibility":0-10,"issues":["..."]}. Fail if the source is primarily a non-Science subject, if the lesson invents source claims/pages, strengthens a source statement beyond its qualifiers or scope, materially contradicts the source, omits applicable source cautions, gives chemical/flame/sharp-object guidance without explicit teacher supervision and suitable precautions, focuses direct sunlight onto paper/card or another combustible surface, generates/collects hydrogen without explicitly keeping it away from flames/sparks/hot surfaces, asks students to touch/feel a reaction vessel to judge temperature instead of using a thermometer or safe teacher-only observation, or is not teacher-ready.\nSOURCE:\n${context}\nLESSON:\n${JSON.stringify(sanitizedLesson)}`
     const auditResult = await geminiJsonFallback([{ text: auditPrompt }], ['gemini-3.5-flash-lite','gemini-3.5-flash','gemini-3.6-flash','gemini-3.7-flash'])
     const audit = auditResult.value
